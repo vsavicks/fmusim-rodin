@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="componentsPalette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="components">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="FMU Component"
+          description="Create new FMU Component">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/FMUComponent.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Variable">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/Variable.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Event-B Component"
+          description="Create new Event-B Component">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/EventBComponent.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Input Port"
+          description="Create new Input Port">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/InputPort.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Output Port"
+          description="Create new Output Port">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/OutputPort.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Connector"
+          description="Create new Connector">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/Connector.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Link"
+          description="Create new Link">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/Link.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

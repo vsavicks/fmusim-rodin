@@ -1,0 +1,7 @@
+# Tracing options for the ac.soton.fmusim.components.diagram plug-in
+
+# Common issues
+ac.soton.fmusim.components.diagram/debug=false
+
+# Visual IDs
+ac.soton.fmusim.components.diagram/debug/visualID=false

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="ac.soton.fmusim.components.presentation.ComponentsModelWizardID"
+            name="%_UI_ComponentsModelWizard_label"
+            class="ac.soton.fmusim.components.presentation.ComponentsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/ComponentsModelFile.gif">
+         <description>%_UI_ComponentsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="ac.soton.fmusim.components.presentation.ComponentsEditorID"
+            name="%_UI_ComponentsEditor_label"
+            icon="icons/full/obj16/ComponentsModelFile.gif"
+            extensions="components"
+            class="ac.soton.fmusim.components.presentation.ComponentsEditor"
+            contributorClass="ac.soton.fmusim.components.presentation.ComponentsActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
