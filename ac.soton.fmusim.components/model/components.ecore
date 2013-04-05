@@ -24,14 +24,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//PortKind"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FmiTypes">
-    <eLiterals name="fmiReal" value="2"/>
-    <eLiterals name="fmiInteger" value="3"/>
-    <eLiterals name="fmiBoolean" value="4"/>
-    <eLiterals name="fmiString" value="5"/>
+    <eLiterals name="Real"/>
+    <eLiterals name="Integer" value="1" literal="Integer"/>
+    <eLiterals name="Boolean" value="2" literal="Boolean"/>
+    <eLiterals name="String" value="3" literal="String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="PortKind">
     <eLiterals name="Input"/>
-    <eLiterals name="Output"/>
+    <eLiterals name="Output" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -63,5 +63,4 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
         transient="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType"/>
 </ecore:EPackage>
