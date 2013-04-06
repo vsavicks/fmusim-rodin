@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package ac.soton.fmusim.components.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -22,7 +29,6 @@ import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.VariableEditPart;
-import ac.soton.fmusim.components.diagram.parsers.ConnectorLabelExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.MessageFormatParser;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 

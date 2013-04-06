@@ -1,6 +1,13 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components;
+
+import org.eclipse.emf.common.util.EList;
 
 
 /**
@@ -12,11 +19,12 @@ package ac.soton.fmusim.components;
  * The following features are supported:
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.Connector#getValue <em>Value</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.Connector#getPorts <em>Ports</em>}</li>
  * </ul>
  * </p>
  *
  * @see ac.soton.fmusim.components.ComponentsPackage#getConnector()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='CompatiblePorts CompleteConnection'"
  * @generated
  */
 public interface Connector extends NamedElement {
@@ -45,5 +53,23 @@ public interface Connector extends NamedElement {
 	 * @generated
 	 */
 	void setValue(Object value);
+
+	/**
+	 * Returns the value of the '<em><b>Ports</b></em>' reference list.
+	 * The list contents are of type {@link ac.soton.fmusim.components.Port}.
+	 * It is bidirectional and its opposite is '{@link ac.soton.fmusim.components.Port#getConnector <em>Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ports</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ports</em>' reference list.
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getConnector_Ports()
+	 * @see ac.soton.fmusim.components.Port#getConnector
+	 * @model opposite="connector"
+	 * @generated
+	 */
+	EList<Port> getPorts();
 
 } // Connector

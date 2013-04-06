@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package ac.soton.fmusim.components.diagram.part;
 
 import java.lang.reflect.InvocationTargetException;
@@ -102,7 +109,7 @@ public class ComponentsCreationWizard extends Wizard implements INewWizard {
 	 */
 	public void addPages() {
 		diagramModelFilePage = new ComponentsCreationWizardPage(
-				"DiagramModelFile", getSelection(), "components_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
+				"DiagramModelFile", getSelection(), "cpd"); //$NON-NLS-1$ //$NON-NLS-2$
 		diagramModelFilePage
 				.setTitle(Messages.ComponentsCreationWizard_DiagramModelFilePageTitle);
 		diagramModelFilePage
@@ -110,15 +117,15 @@ public class ComponentsCreationWizard extends Wizard implements INewWizard {
 		addPage(diagramModelFilePage);
 
 		domainModelFilePage = new ComponentsCreationWizardPage(
-				"DomainModelFile", getSelection(), "components") { //$NON-NLS-1$ //$NON-NLS-2$
+				"DomainModelFile", getSelection(), "cps") { //$NON-NLS-1$ //$NON-NLS-2$
 
 			public void setVisible(boolean visible) {
 				if (visible) {
 					String fileName = diagramModelFilePage.getFileName();
-					fileName = fileName.substring(0, fileName.length()
-							- ".components_diagram".length()); //$NON-NLS-1$
+					fileName = fileName.substring(0,
+							fileName.length() - ".cpd".length()); //$NON-NLS-1$
 					setFileName(ComponentsDiagramEditorUtil.getUniqueFileName(
-							getContainerFullPath(), fileName, "components")); //$NON-NLS-1$
+							getContainerFullPath(), fileName, "cps")); //$NON-NLS-1$
 				}
 				super.setVisible(visible);
 			}

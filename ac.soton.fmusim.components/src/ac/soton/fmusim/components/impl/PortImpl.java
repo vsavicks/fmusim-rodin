@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components.impl;
 
@@ -10,6 +15,7 @@ import ac.soton.fmusim.components.PortKind;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -49,7 +55,7 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final FmiTypes TYPE_EDEFAULT = FmiTypes.FMI_REAL;
+	protected static final FmiTypes TYPE_EDEFAULT = FmiTypes.REAL;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -131,11 +137,33 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setConnector(Connector newConnector) {
+	public NotificationChain basicSetConnector(Connector newConnector, NotificationChain msgs) {
 		Connector oldConnector = connector;
 		connector = newConnector;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.PORT__CONNECTOR, oldConnector, connector));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentsPackage.PORT__CONNECTOR, oldConnector, newConnector);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConnector(Connector newConnector) {
+		if (newConnector != connector) {
+			NotificationChain msgs = null;
+			if (connector != null)
+				msgs = ((InternalEObject)connector).eInverseRemove(this, ComponentsPackage.CONNECTOR__PORTS, Connector.class, msgs);
+			if (newConnector != null)
+				msgs = ((InternalEObject)newConnector).eInverseAdd(this, ComponentsPackage.CONNECTOR__PORTS, Connector.class, msgs);
+			msgs = basicSetConnector(newConnector, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.PORT__CONNECTOR, newConnector, newConnector));
 	}
 
 	/**
@@ -178,6 +206,36 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.PORT__KIND, oldKind, kind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ComponentsPackage.PORT__CONNECTOR:
+				if (connector != null)
+					msgs = ((InternalEObject)connector).eInverseRemove(this, ComponentsPackage.CONNECTOR__PORTS, Connector.class, msgs);
+				return basicSetConnector((Connector)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ComponentsPackage.PORT__CONNECTOR:
+				return basicSetConnector(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

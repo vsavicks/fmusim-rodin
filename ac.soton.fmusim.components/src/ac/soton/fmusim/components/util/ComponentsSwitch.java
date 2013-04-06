@@ -1,13 +1,27 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components.util;
 
-import ac.soton.fmusim.components.*;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
+
+import ac.soton.fmusim.components.Component;
+import ac.soton.fmusim.components.ComponentDiagram;
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.EventBComponent;
+import ac.soton.fmusim.components.EventBPort;
+import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.NamedElement;
+import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.Variable;
 
 /**
  * <!-- begin-user-doc -->

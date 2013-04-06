@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components;
 
@@ -36,7 +41,7 @@ public enum PortKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OUTPUT(0, "Output", "Output");
+	OUTPUT(1, "Output", "Output");
 
 	/**
 	 * The '<em><b>Input</b></em>' literal value.
@@ -66,7 +71,7 @@ public enum PortKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OUTPUT_VALUE = 0;
+	public static final int OUTPUT_VALUE = 1;
 
 	/**
 	 * An array of all the '<em><b>Port Kind</b></em>' enumerators.
@@ -129,6 +134,7 @@ public enum PortKind implements Enumerator {
 	public static PortKind get(int value) {
 		switch (value) {
 			case INPUT_VALUE: return INPUT;
+			case OUTPUT_VALUE: return OUTPUT;
 		}
 		return null;
 	}

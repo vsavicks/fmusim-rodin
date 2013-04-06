@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components;
 
@@ -205,13 +210,22 @@ public interface ComponentsPackage extends EPackage {
 	int CONNECTOR__VALUE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Ports</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTOR__PORTS = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int CONNECTOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.PortImpl <em>Port</em>}' class.
@@ -695,6 +709,17 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getConnector_Value();
 
 	/**
+	 * Returns the meta object for the reference list '{@link ac.soton.fmusim.components.Connector#getPorts <em>Ports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Ports</em>'.
+	 * @see ac.soton.fmusim.components.Connector#getPorts()
+	 * @see #getConnector()
+	 * @generated
+	 */
+	EReference getConnector_Ports();
+
+	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.Port <em>Port</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1029,6 +1054,14 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONNECTOR__VALUE = eINSTANCE.getConnector_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Ports</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTOR__PORTS = eINSTANCE.getConnector_Ports();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.PortImpl <em>Port</em>}' class.

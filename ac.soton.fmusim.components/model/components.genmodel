@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2013 University of Southampton.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html"
     modelDirectory="/ac.soton.fmusim.components/src" modelPluginID="ac.soton.fmusim.components"
     modelName="Components" booleanFlagsField="" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" providerRootExtendsClass="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eventb.emf.core/model/eventbcore.genmodel#//core"
+    complianceLevel="6.0" copyrightFields="false" providerRootExtendsClass="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eventb.emf.core/model/eventbcore.genmodel#//core"
     interfaceNamePattern="" classNamePattern="">
   <foreignModel>components.ecore</foreignModel>
   <genPackages prefix="Components" basePackage="ac.soton.fmusim" disposableProviderFactory="true"
@@ -28,6 +28,7 @@
     </genClasses>
     <genClasses ecoreClass="components.ecore#//Connector">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//Connector/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Connector/ports"/>
     </genClasses>
     <genClasses ecoreClass="components.ecore#//Port">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Port/connector"/>
@@ -41,11 +42,19 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/composed"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/timeVariableName"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/machine"/>
+      <genOperations ecoreOperation="components.ecore#//EventBComponent/hasValidMachineReference">
+        <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/diagnostics"/>
+        <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/context"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="components.ecore#//FMUComponent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUComponent/fmu"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//FMUComponent/variables"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUComponent/path"/>
+      <genOperations ecoreOperation="components.ecore#//FMUComponent/hasValidFmuPath">
+        <genParameters ecoreParameter="components.ecore#//FMUComponent/hasValidFmuPath/diagnostics"/>
+        <genParameters ecoreParameter="components.ecore#//FMUComponent/hasValidFmuPath/context"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="components.ecore#//FMUPort">
       <genFeatures createChild="false" ecoreFeature="ecore:EReference components.ecore#//FMUPort/variable"/>

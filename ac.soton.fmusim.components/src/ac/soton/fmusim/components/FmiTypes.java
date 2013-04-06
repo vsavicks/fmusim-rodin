@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components;
 
@@ -19,104 +24,98 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum FmiTypes implements Enumerator {
 	/**
-	 * The '<em><b>Fmi Real</b></em>' literal object.
+	 * The '<em><b>Real</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FMI_REAL_VALUE
+	 * @see #REAL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FMI_REAL(2, "fmiReal", "fmiReal"),
-
-	/**
-	 * The '<em><b>Fmi Integer</b></em>' literal object.
+	REAL(0, "Real", "Real"), /**
+	 * The '<em><b>Integer</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FMI_INTEGER_VALUE
+	 * @see #INTEGER_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FMI_INTEGER(3, "fmiInteger", "fmiInteger"),
-
-	/**
-	 * The '<em><b>Fmi Boolean</b></em>' literal object.
+	INTEGER(1, "Integer", "Integer"), /**
+	 * The '<em><b>Boolean</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FMI_BOOLEAN_VALUE
+	 * @see #BOOLEAN_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FMI_BOOLEAN(4, "fmiBoolean", "fmiBoolean"),
-
-	/**
-	 * The '<em><b>Fmi String</b></em>' literal object.
+	BOOLEAN(2, "Boolean", "Boolean"), /**
+	 * The '<em><b>String</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FMI_STRING_VALUE
+	 * @see #STRING_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FMI_STRING(5, "fmiString", "fmiString");
+	STRING(3, "String", "String");
 
 	/**
-	 * The '<em><b>Fmi Real</b></em>' literal value.
+	 * The '<em><b>Real</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Fmi Real</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Real</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FMI_REAL
-	 * @model name="fmiReal"
+	 * @see #REAL
+	 * @model name="Real"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FMI_REAL_VALUE = 2;
+	public static final int REAL_VALUE = 0;
 
 	/**
-	 * The '<em><b>Fmi Integer</b></em>' literal value.
+	 * The '<em><b>Integer</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Fmi Integer</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FMI_INTEGER
-	 * @model name="fmiInteger"
+	 * @see #INTEGER
+	 * @model name="Integer"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FMI_INTEGER_VALUE = 3;
+	public static final int INTEGER_VALUE = 1;
 
 	/**
-	 * The '<em><b>Fmi Boolean</b></em>' literal value.
+	 * The '<em><b>Boolean</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Fmi Boolean</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Boolean</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FMI_BOOLEAN
-	 * @model name="fmiBoolean"
+	 * @see #BOOLEAN
+	 * @model name="Boolean"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FMI_BOOLEAN_VALUE = 4;
+	public static final int BOOLEAN_VALUE = 2;
 
 	/**
-	 * The '<em><b>Fmi String</b></em>' literal value.
+	 * The '<em><b>String</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Fmi String</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>String</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FMI_STRING
-	 * @model name="fmiString"
+	 * @see #STRING
+	 * @model name="String"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FMI_STRING_VALUE = 5;
+	public static final int STRING_VALUE = 3;
 
 	/**
 	 * An array of all the '<em><b>Fmi Types</b></em>' enumerators.
@@ -126,10 +125,10 @@ public enum FmiTypes implements Enumerator {
 	 */
 	private static final FmiTypes[] VALUES_ARRAY =
 		new FmiTypes[] {
-			FMI_REAL,
-			FMI_INTEGER,
-			FMI_BOOLEAN,
-			FMI_STRING,
+			REAL,
+			INTEGER,
+			BOOLEAN,
+			STRING,
 		};
 
 	/**
@@ -180,10 +179,10 @@ public enum FmiTypes implements Enumerator {
 	 */
 	public static FmiTypes get(int value) {
 		switch (value) {
-			case FMI_REAL_VALUE: return FMI_REAL;
-			case FMI_INTEGER_VALUE: return FMI_INTEGER;
-			case FMI_BOOLEAN_VALUE: return FMI_BOOLEAN;
-			case FMI_STRING_VALUE: return FMI_STRING;
+			case REAL_VALUE: return REAL;
+			case INTEGER_VALUE: return INTEGER;
+			case BOOLEAN_VALUE: return BOOLEAN;
+			case STRING_VALUE: return STRING;
 		}
 		return null;
 	}

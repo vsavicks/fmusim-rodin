@@ -1,22 +1,34 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components.impl;
 
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.FMUComponent;
-
-import ac.soton.fmusim.components.Variable;
+import java.io.File;
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Map;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.util.ComponentsValidator;
 
 /**
  * <!-- begin-user-doc -->
@@ -155,6 +167,34 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 		path = newPath;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_COMPONENT__PATH, oldPath, path));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * FMU Component path must be a valid .fmu path.
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean hasValidFmuPath(DiagnosticChain diagnostics, Map<Object, Object> context) {
+		// TODO: implement this method
+		// -> specify the condition that violates the invariant
+		// -> verify the details of the diagnostic, including severity and message
+		// Ensure that you remove @generated or mark it @generated NOT
+		
+		String p = getPath();
+		if (p == null || new File(p).exists() == false) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(new BasicDiagnostic
+						(Diagnostic.ERROR,
+						 ComponentsValidator.DIAGNOSTIC_SOURCE,
+						 ComponentsValidator.FMU_COMPONENT__HAS_VALID_FMU_PATH,
+						 EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] { "hasValidFmuPath", EObjectValidator.getObjectLabel(this, context) }),
+						 new Object [] { this }));
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**

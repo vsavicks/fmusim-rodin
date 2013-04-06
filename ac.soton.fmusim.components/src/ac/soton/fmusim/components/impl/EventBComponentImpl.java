@@ -1,17 +1,29 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components.impl;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBComponent;
 
+import ac.soton.fmusim.components.util.ComponentsValidator;
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eventb.emf.core.machine.Machine;
 
 /**
@@ -177,6 +189,37 @@ public class EventBComponentImpl extends ComponentImpl implements EventBComponen
 		machine = newMachine;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__MACHINE, oldMachine, machine));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Event-B Component must have a valid reference to an existing machine.
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean hasValidMachineReference(DiagnosticChain diagnostics, Map<Object, Object> context) {
+		// TODO: implement this method
+		// -> specify the condition that violates the invariant
+		// -> verify the details of the diagnostic, including severity and message
+		// Ensure that you remove @generated or mark it @generated NOT
+		
+		// get method to retrieve a machine with a proxy resolution
+		Machine m = getMachine();
+		
+		// error if still null or proxy unresolved
+		if (m == null || m.eIsProxy()) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(new BasicDiagnostic
+						(Diagnostic.ERROR,
+						 ComponentsValidator.DIAGNOSTIC_SOURCE,
+						 ComponentsValidator.EVENT_BCOMPONENT__HAS_VALID_MACHINE_REFERENCE,
+						 EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] { "hasValidMachineReference", EObjectValidator.getObjectLabel(this, context) }),
+						 new Object [] { this }));
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**

@@ -4,13 +4,13 @@
 
    <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
       <?gmfgen generated="true"?>
-      <fileTypes type="text" extension="components_diagram"/>
+      <fileTypes type="text" extension="cpd"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
       <?gmfgen generated="true"?>
       <parser
-         type="components_diagram"
+         type="cpd"
          class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
       </parser>
    </extension>
@@ -21,7 +21,7 @@
          id="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID"
          name="%editorName"
          icon="icons/obj16/ComponentsDiagramFile.gif"
-         extensions="components_diagram"
+         extensions="cpd"
          default="true"
          class="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditor"
          matchingStrategy="ac.soton.fmusim.components.diagram.part.ComponentsMatchingStrategy"
@@ -55,7 +55,7 @@
       <?gmfgen generated="true"?>
       <objectContribution
             id="ac.soton.fmusim.components.diagram.InitDiagram"
-            nameFilter="*.components"
+            nameFilter="*.cps"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%initDiagramActionLabel"
@@ -441,7 +441,7 @@
             <or>
 	           <and>
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
-        	      <test property="org.eclipse.core.resources.extension" value="components_diagram"/>
+        	      <test property="org.eclipse.core.resources.extension" value="cpd"/>
                </and>
                <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem"/>
             </or>
@@ -458,7 +458,7 @@
                <or>
 	              <and>
     	             <instanceof value="org.eclipse.core.resources.IFile"/>
-        	         <test property="org.eclipse.core.resources.extension" value="components_diagram"/>
+        	         <test property="org.eclipse.core.resources.extension" value="cpd"/>
                   </and>
                   <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem"/>
                </or>
@@ -477,7 +477,7 @@
             <or>
 	           <and>
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
-        	      <test property="org.eclipse.core.resources.extension" value="components"/>
+        	      <test property="org.eclipse.core.resources.extension" value="cps"/>
                </and>
                <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsDomainNavigatorItem"/>
             </or>
@@ -564,6 +564,28 @@
    <extension point="org.eclipse.ui.handlers" id="menu-handlers">
       <?gmfgen generated="true"?>
    </extension>
+<extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsMarkerNavigationProvider">
+         <MarkerType name="ac.soton.fmusim.components.diagram.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+<extension id="diagnostic" name="Components Plugin problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension><extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsValidationDecoratorProvider">
+         <Priority name="Medium"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
+   </extension>
+
 
    <!-- optionally, specify keybindings -->
 </plugin>

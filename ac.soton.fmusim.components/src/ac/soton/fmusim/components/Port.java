@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components;
 
@@ -24,6 +29,7 @@ package ac.soton.fmusim.components;
 public interface Port extends NamedElement {
 	/**
 	 * Returns the value of the '<em><b>Connector</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link ac.soton.fmusim.components.Connector#getPorts <em>Ports</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Connector</em>' reference isn't clear,
@@ -33,7 +39,8 @@ public interface Port extends NamedElement {
 	 * @return the value of the '<em>Connector</em>' reference.
 	 * @see #setConnector(Connector)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getPort_Connector()
-	 * @model
+	 * @see ac.soton.fmusim.components.Connector#getPorts
+	 * @model opposite="ports"
 	 * @generated
 	 */
 	Connector getConnector();

@@ -7,8 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: ac.soton.fmusim.components.diagram.custom,
- ac.soton.fmusim.components.diagram.edit.commands,
+Export-Package: ac.soton.fmusim.components.diagram.edit.commands,
  ac.soton.fmusim.components.diagram.edit.helpers,
  ac.soton.fmusim.components.diagram.edit.parts,
  ac.soton.fmusim.components.diagram.edit.policies,
@@ -49,6 +48,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.edit;visibility:=reexport,
  org.eventb.emf.core;visibility:=reexport,
  org.eclipse.ocl.ecore;visibility:=reexport,
- org.eclipse.gef;visibility:=reexport
+ org.eclipse.gef;visibility:=reexport,
+ org.eclipse.emf.validation;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
