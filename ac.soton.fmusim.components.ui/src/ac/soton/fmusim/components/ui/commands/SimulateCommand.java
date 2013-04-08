@@ -138,16 +138,16 @@ public class SimulateCommand extends AbstractHandler {
 						String name = p.getName();
 						Object value = null;
 						switch (p.getType()) {
-						case FMI_BOOLEAN:
+						case BOOLEAN:
 							value = fmu.getBoolean(name);
 							break;
-						case FMI_INTEGER:
+						case INTEGER:
 							value = fmu.getInt(name);
 							break;
-						case FMI_REAL:
+						case REAL:
 							value = fmu.getDouble(name);
 							break;
-						case FMI_STRING:
+						case STRING:
 							value = fmu.getString(name);
 							break;
 						}
@@ -165,16 +165,16 @@ public class SimulateCommand extends AbstractHandler {
 						String name = p.getName();
 						Object value = p.getConnector().getValue();
 						switch (p.getType()) {
-						case FMI_BOOLEAN:
+						case BOOLEAN:
 							fmu.set(name, (Boolean) value);
 							break;
-						case FMI_INTEGER:
+						case INTEGER:
 							fmu.set(name, (Integer) value);
 							break;
-						case FMI_REAL:
+						case REAL:
 							fmu.set(name, (Double) value);
 							break;
-						case FMI_STRING:
+						case STRING:
 							fmu.set(name, (String) value);
 							break;
 						}
