@@ -7,7 +7,7 @@
     interfaceNamePattern="" classNamePattern="">
   <foreignModel>components.ecore</foreignModel>
   <genPackages prefix="Components" basePackage="ac.soton.fmusim" disposableProviderFactory="true"
-      contentTypeIdentifier="" fileExtensions="cps" ecorePackage="components.ecore#/">
+      contentTypeIdentifier="" fileExtensions="cmp" ecorePackage="components.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="components.ecore#//FmiTypes">
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//FmiTypes/Real"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//FmiTypes/Integer"/>

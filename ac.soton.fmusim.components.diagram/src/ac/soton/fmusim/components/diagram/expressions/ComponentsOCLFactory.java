@@ -44,15 +44,20 @@ public class ComponentsOCLFactory {
 	 * @generated
 	 */
 	protected ComponentsOCLFactory() {
-		this.expressions = new ComponentsAbstractExpression[8];
-		this.expressionBodies = new String[] { "self.kind = PortKind::Input", //$NON-NLS-1$
-				"PortKind::Input", //$NON-NLS-1$
-				"self.kind = PortKind::Output", //$NON-NLS-1$
-				"PortKind::Output", //$NON-NLS-1$
+		this.expressions = new ComponentsAbstractExpression[12];
+		this.expressionBodies = new String[] {
 				"self.kind = PortKind::Input", //$NON-NLS-1$
 				"PortKind::Input", //$NON-NLS-1$
 				"self.kind = PortKind::Output", //$NON-NLS-1$
 				"PortKind::Output", //$NON-NLS-1$
+				"(if self.name = null then \'<variable>\' else self.name endif).concat(if self.value.oclIsUndefined() then \'\' else \' = \'.concat(self.value.oclAsType(String)) endif)", //$NON-NLS-1$
+				"self.kind = PortKind::Input", //$NON-NLS-1$
+				"PortKind::Input", //$NON-NLS-1$
+				"self.kind = PortKind::Output", //$NON-NLS-1$
+				"PortKind::Output", //$NON-NLS-1$
+				"(if self.name = null then \'\' else self.name endif).concat(if self.value.oclIsUndefined() then \'\' else \' = \'.concat(self.value.oclAsType(String)) endif)", //$NON-NLS-1$
+				"\'<enter new name>\'", //$NON-NLS-1$
+				"not (oppositeEnd.oclAsType(Port).kind = PortKind::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(Port).kind = PortKind::Output))", //$NON-NLS-1$
 		};
 	}
 

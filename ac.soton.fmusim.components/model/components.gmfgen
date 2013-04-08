@@ -4,8 +4,8 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel"
-    diagramFileExtension="cpd"
-    domainFileExtension="cps"
+    diagramFileExtension="cmd"
+    domainFileExtension="cmp"
     dynamicTemplates="true"
     templateDirectory="/ac.soton.fmusim.components/templates/gmf"
     copyrightText="Copyright (c) 2013 University of Southampton.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html">
@@ -46,6 +46,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="FMU Input Port"
           editHelperClassName="FMUPortEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -85,13 +86,14 @@
           visualID="5004"
           editPartClassName="FMUPortNameTypeEditPart"
           itemSemanticEditPolicyClassName="FMUPortNameTypeItemSemanticEditPolicy"
-          notationViewFactoryClassName="FMUPortNameTypeViewFactory">
+          notationViewFactoryClassName="FMUPortNameTypeViewFactory"
+          readOnly="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
-            className="PortNameFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortNameFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortNameFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+            className="PortLabelFigure"
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLabelFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
@@ -118,6 +120,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="FMU Output Port"
           metamodelType="//@diagram/@childNodes.0/@elementType"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -157,13 +160,14 @@
           visualID="5005"
           editPartClassName="FMUPortNameType2EditPart"
           itemSemanticEditPolicyClassName="FMUPortNameType2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="FMUPortNameTypeViewFactory">
+          notationViewFactoryClassName="FMUPortNameTypeViewFactory"
+          readOnly="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
-            className="PortNameFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortNameFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortNameFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+            className="PortLabelFigure"
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLabelFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
@@ -185,6 +189,7 @@
         graphicalNodeEditPolicyClassName="VariableGraphicalNodeEditPolicy"
         createCommandClassName="VariableCreateCommand"
         containers="//@diagram/@compartments.0"
+        labelReadOnly="true"
         labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -203,14 +208,8 @@
             href="components.genmodel#//components/FMUComponent/variables"/>
       </modelFacet>
       <labelModelFacet
-          xsi:type="gmfgen:FeatureLabelModelFacet"
-          parser="//@labelParsers/@implementations.0"
-          viewPattern="{0} : {1}">
-        <metaFeatures
-            href="components.genmodel#//components/NamedElement/name"/>
-        <metaFeatures
-            href="components.genmodel#//components/Variable/value"/>
-      </labelModelFacet>
+          xsi:type="gmfgen:ExpressionLabelModelFacet"
+          parser="//@labelParsers/@implementations.1"/>
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildSideAffixedNode"
@@ -227,6 +226,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Event-B Input Port"
           editHelperClassName="EventBPortEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -244,7 +244,7 @@
             height="10"/>
       </viewmap>
       <modelFacet
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.5">
         <metaClass
             href="components.genmodel#//components/EventBPort"/>
         <containmentMetaFeature
@@ -255,7 +255,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.5">
+              value="//@expressionProviders/@providers.0/@expressions.6">
             <feature
                 href="components.genmodel#//components/Port/kind"/>
           </initializers>
@@ -266,13 +266,14 @@
           visualID="5006"
           editPartClassName="EventBPortNameTypeEditPart"
           itemSemanticEditPolicyClassName="EventBPortNameTypeItemSemanticEditPolicy"
-          notationViewFactoryClassName="EventBPortNameTypeViewFactory">
+          notationViewFactoryClassName="EventBPortNameTypeViewFactory"
+          readOnly="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
-            className="PortNameFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortNameFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortNameFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+            className="PortLabelFigure"
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLabelFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
@@ -299,6 +300,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="Event-B Output Port"
           metamodelType="//@diagram/@childNodes.3/@elementType"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -316,7 +318,7 @@
             height="10"/>
       </viewmap>
       <modelFacet
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.6">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.7">
         <metaClass
             href="components.genmodel#//components/EventBPort"/>
         <containmentMetaFeature
@@ -327,7 +329,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.7">
+              value="//@expressionProviders/@providers.0/@expressions.8">
             <feature
                 href="components.genmodel#//components/Port/kind"/>
           </initializers>
@@ -338,17 +340,20 @@
           visualID="5007"
           editPartClassName="EventBPortNameType2EditPart"
           itemSemanticEditPolicyClassName="EventBPortNameType2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="EventBPortNameTypeViewFactory">
+          notationViewFactoryClassName="EventBPortNameTypeViewFactory"
+          readOnly="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
-            className="PortNameFigure"
-            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortNameFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortNameFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+            className="PortLabelFigure"
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLabelFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
-            viewPattern="{0} : {1}">
+            viewPattern="{0} : {1}"
+            editorPattern=""
+            editPattern="">
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
           <metaFeatures
@@ -370,6 +375,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="FMU Component"
           editHelperClassName="FMUComponentEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -421,6 +427,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Event-B Component"
           editHelperClassName="EventBComponentEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -476,10 +483,9 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ConnectorFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ConnectorFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ConnectorFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;this.setBackgroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ConnectorFigure extends org.eclipse.draw2d.Ellipse {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ConnectorFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setOutline(false);&#xA;&#x9;this.setBackgroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
-            fixedForeground="true"
             fixedBackground="true"/>
         <attributes
             xsi:type="gmfgen:ResizeConstraints"/>
@@ -506,16 +512,15 @@
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
+          <attributes
+              xsi:type="gmfgen:LabelOffsetAttributes"
+              x="30"
+              y="20"/>
+        </viewmap>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet"
-            parser="//@labelParsers/@implementations.0"
-            viewPattern="{0} : {1}">
-          <metaFeatures
-              href="components.genmodel#//components/NamedElement/name"/>
-          <metaFeatures
-              href="components.genmodel#//components/Connector/value"/>
-        </modelFacet>
+            xsi:type="gmfgen:ExpressionLabelModelFacet"
+            parser="//@labelParsers/@implementations.2"/>
       </labels>
     </topLevelNodes>
     <links
@@ -528,7 +533,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
-          xsi:type="gmfgen:SpecializationType"/>
+          xsi:type="gmfgen:SpecializationType"
+          displayName="Link"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
@@ -537,6 +543,8 @@
         <metaFeature
             href="components.genmodel#//components/Port/connector"/>
       </modelFacet>
+      <creationConstraints
+          targetEnd="//@expressionProviders/@providers.0/@expressions.11"/>
     </links>
     <compartments
         visualID="7001"
@@ -627,7 +635,8 @@
           kind="RulersAndGrid"/>
     </preferencePages>
   </diagram>
-  <plugin>
+  <plugin
+      provider="University of Southampton">
     <requiredPlugins>org.eclipse.gmf.tooling.runtime</requiredPlugins>
     <requiredPlugins>org.eclipse.draw2d</requiredPlugins>
     <requiredPlugins>org.eclipse.gmf.runtime.draw2d.ui</requiredPlugins>
@@ -762,6 +771,8 @@
       <expressions
           body="PortKind::Output"/>
       <expressions
+          body="(if self.name = null then '&lt;variable>' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
+      <expressions
           xsi:type="gmfgen:GenConstraint"
           body="self.kind = PortKind::Input"/>
       <expressions
@@ -771,13 +782,35 @@
           body="self.kind = PortKind::Output"/>
       <expressions
           body="PortKind::Output"/>
+      <expressions
+          body="(if self.name = null then '' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
+      <expressions
+          body="'&lt;enter new name>'"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="not (oppositeEnd.oclAsType(Port).kind = PortKind::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(Port).kind = PortKind::Output))"/>
     </providers>
   </expressionProviders>
   <labelParsers
       extensibleViaService="true">
     <implementations
         xsi:type="gmfgen:PredefinedParser"
-        uses="//@diagram/@childNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.0/@modelFacet //@diagram/@childNodes.2/@labelModelFacet //@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.3/@labels.0/@modelFacet //@diagram/@childNodes.4/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.2/@labels.0/@modelFacet"/>
+        uses="//@diagram/@childNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.3/@labels.0/@modelFacet //@diagram/@childNodes.4/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet"/>
+    <implementations
+        xsi:type="gmfgen:ExpressionLabelParser"
+        uses="//@diagram/@childNodes.2/@labelModelFacet"
+        viewExpression="//@expressionProviders/@providers.0/@expressions.4">
+      <expressionContext
+          href="components.genmodel#//components/Variable"/>
+    </implementations>
+    <implementations
+        xsi:type="gmfgen:ExpressionLabelParser"
+        uses="//@diagram/@topLevelNodes.2/@labels.0/@modelFacet"
+        viewExpression="//@expressionProviders/@providers.0/@expressions.9"
+        editExpression="//@expressionProviders/@providers.0/@expressions.10">
+      <expressionContext
+          href="components.genmodel#//components/Connector"/>
+    </implementations>
   </labelParsers>
   <contextMenus
       context="//@diagram">

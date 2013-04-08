@@ -4,13 +4,13 @@
 
    <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
       <?gmfgen generated="true"?>
-      <fileTypes type="text" extension="cpd"/>
+      <fileTypes type="text" extension="cmd"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
       <?gmfgen generated="true"?>
       <parser
-         type="cpd"
+         type="cmd"
          class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
       </parser>
    </extension>
@@ -21,7 +21,7 @@
          id="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID"
          name="%editorName"
          icon="icons/obj16/ComponentsDiagramFile.gif"
-         extensions="cpd"
+         extensions="cmd"
          default="true"
          class="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditor"
          matchingStrategy="ac.soton.fmusim.components.diagram.part.ComponentsMatchingStrategy"
@@ -55,7 +55,7 @@
       <?gmfgen generated="true"?>
       <objectContribution
             id="ac.soton.fmusim.components.diagram.InitDiagram"
-            nameFilter="*.cps"
+            nameFilter="*.cmp"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%initDiagramActionLabel"
@@ -441,7 +441,7 @@
             <or>
 	           <and>
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
-        	      <test property="org.eclipse.core.resources.extension" value="cpd"/>
+        	      <test property="org.eclipse.core.resources.extension" value="cmd"/>
                </and>
                <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem"/>
             </or>
@@ -458,7 +458,7 @@
                <or>
 	              <and>
     	             <instanceof value="org.eclipse.core.resources.IFile"/>
-        	         <test property="org.eclipse.core.resources.extension" value="cpd"/>
+        	         <test property="org.eclipse.core.resources.extension" value="cmd"/>
                   </and>
                   <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem"/>
                </or>
@@ -477,7 +477,7 @@
             <or>
 	           <and>
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
-        	      <test property="org.eclipse.core.resources.extension" value="cps"/>
+        	      <test property="org.eclipse.core.resources.extension" value="cmp"/>
                </and>
                <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsDomainNavigatorItem"/>
             </or>

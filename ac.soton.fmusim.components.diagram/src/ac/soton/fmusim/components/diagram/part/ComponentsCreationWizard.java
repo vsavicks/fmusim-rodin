@@ -109,7 +109,7 @@ public class ComponentsCreationWizard extends Wizard implements INewWizard {
 	 */
 	public void addPages() {
 		diagramModelFilePage = new ComponentsCreationWizardPage(
-				"DiagramModelFile", getSelection(), "cpd"); //$NON-NLS-1$ //$NON-NLS-2$
+				"DiagramModelFile", getSelection(), "cmd"); //$NON-NLS-1$ //$NON-NLS-2$
 		diagramModelFilePage
 				.setTitle(Messages.ComponentsCreationWizard_DiagramModelFilePageTitle);
 		diagramModelFilePage
@@ -117,15 +117,15 @@ public class ComponentsCreationWizard extends Wizard implements INewWizard {
 		addPage(diagramModelFilePage);
 
 		domainModelFilePage = new ComponentsCreationWizardPage(
-				"DomainModelFile", getSelection(), "cps") { //$NON-NLS-1$ //$NON-NLS-2$
+				"DomainModelFile", getSelection(), "cmp") { //$NON-NLS-1$ //$NON-NLS-2$
 
 			public void setVisible(boolean visible) {
 				if (visible) {
 					String fileName = diagramModelFilePage.getFileName();
 					fileName = fileName.substring(0,
-							fileName.length() - ".cpd".length()); //$NON-NLS-1$
+							fileName.length() - ".cmd".length()); //$NON-NLS-1$
 					setFileName(ComponentsDiagramEditorUtil.getUniqueFileName(
-							getContainerFullPath(), fileName, "cps")); //$NON-NLS-1$
+							getContainerFullPath(), fileName, "cmp")); //$NON-NLS-1$
 				}
 				super.setVisible(visible);
 			}

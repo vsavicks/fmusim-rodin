@@ -29,7 +29,9 @@ import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.VariableEditPart;
+import ac.soton.fmusim.components.diagram.parsers.ConnectorLabelExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.MessageFormatParser;
+import ac.soton.fmusim.components.diagram.parsers.VariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 
 /**
@@ -77,23 +79,8 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser connectorNameValue_5003Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getConnectorNameValue_5003Parser() {
-		if (connectorNameValue_5003Parser == null) {
-			EAttribute[] features = new EAttribute[] {
-					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getConnector_Value() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditPattern("{0} : {1}"); //$NON-NLS-1$
-			connectorNameValue_5003Parser = parser;
-		}
-		return connectorNameValue_5003Parser;
+	private IParser getConnectorLabel_5003Parser() {
+		return new ConnectorLabelExpressionLabelParser();
 	}
 
 	/**
@@ -143,23 +130,8 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser variable_3005Parser;
-
-	/**
-	 * @generated
-	 */
 	private IParser getVariable_3005Parser() {
-		if (variable_3005Parser == null) {
-			EAttribute[] features = new EAttribute[] {
-					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getVariable_Value() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditPattern("{0} : {1}"); //$NON-NLS-1$
-			variable_3005Parser = parser;
-		}
-		return variable_3005Parser;
+		return new VariableExpressionLabelParser();
 	}
 
 	/**
@@ -216,7 +188,7 @@ public class ComponentsParserProvider extends AbstractProvider implements
 		case EventBComponentNameEditPart.VISUAL_ID:
 			return getEventBComponentName_5002Parser();
 		case ConnectorValueEditPart.VISUAL_ID:
-			return getConnectorNameValue_5003Parser();
+			return getConnectorLabel_5003Parser();
 		case FMUPortNameTypeEditPart.VISUAL_ID:
 			return getFMUPortNameType_5004Parser();
 		case FMUPortNameType2EditPart.VISUAL_ID:

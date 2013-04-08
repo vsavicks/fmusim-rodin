@@ -45,9 +45,10 @@
           </domainInitializer>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
+              readOnly="true"
               viewPattern="{0} : {1}">
             <diagramLabel
-                href="components.gmfgraph#PortName"/>
+                href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
@@ -81,9 +82,10 @@
           </domainInitializer>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
+              readOnly="true"
               viewPattern="{0} : {1}">
             <diagramLabel
-                href="components.gmfgraph#PortName"/>
+                href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
@@ -104,14 +106,12 @@
           <domainMetaElement
               href="components.ecore#//Variable"/>
           <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping"
-              viewPattern="{0} : {1}">
+              xsi:type="gmfmap:ExpressionLabelMapping"
+              readOnly="true">
             <diagramLabel
                 href="components.gmfgraph#VariableLabel"/>
-            <features
-                href="components.ecore#//NamedElement/name"/>
-            <features
-                href="components.ecore#//Variable/value"/>
+            <viewExpression
+                body="(if self.name = null then '&lt;variable>' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -166,9 +166,10 @@
           </domainInitializer>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
+              readOnly="true"
               viewPattern="{0} : {1}">
             <diagramLabel
-                href="components.gmfgraph#PortName"/>
+                href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
@@ -202,9 +203,12 @@
           </domainInitializer>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
-              viewPattern="{0} : {1}">
+              readOnly="true"
+              viewPattern="{0} : {1}"
+              editorPattern=""
+              editPattern="">
             <diagramLabel
-                href="components.gmfgraph#PortName"/>
+                href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
@@ -226,14 +230,13 @@
       <domainMetaElement
           href="components.ecore#//Connector"/>
       <labelMappings
-          xsi:type="gmfmap:FeatureLabelMapping"
-          viewPattern="{0} : {1}">
+          xsi:type="gmfmap:ExpressionLabelMapping">
         <diagramLabel
             href="components.gmfgraph#ConnectorLabel"/>
-        <features
-            href="components.ecore#//NamedElement/name"/>
-        <features
-            href="components.ecore#//Connector/value"/>
+        <viewExpression
+            body="(if self.name = null then '' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
+        <editExpression
+            body="'&lt;enter new name>'"/>
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
@@ -251,6 +254,10 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="components.ecore#//Port/connector"/>
+    <creationConstraints>
+      <targetEnd
+          body="not (oppositeEnd.oclAsType(Port).kind = PortKind::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(Port).kind = PortKind::Output))"/>
+    </creationConstraints>
   </links>
   <diagram>
     <diagramCanvas

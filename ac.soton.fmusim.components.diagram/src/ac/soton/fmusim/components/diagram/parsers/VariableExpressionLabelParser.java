@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,7 +14,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -29,18 +28,16 @@ import org.eclipse.gmf.tooling.runtime.parsers.ExpressionLabelParserBase;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
 import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
 
 /**
  * @generated
  */
-public class ConnectorLabelExpressionLabelParser extends
-		ExpressionLabelParserBase {
+public class VariableExpressionLabelParser extends ExpressionLabelParserBase {
 	/**
 	 * @generated
 	 */
-	public ConnectorLabelExpressionLabelParser() {
+	public VariableExpressionLabelParser() {
 	}
 
 	/**
@@ -48,19 +45,15 @@ public class ConnectorLabelExpressionLabelParser extends
 	 */
 	@Override
 	protected String getExpressionBody() {
-		return ComponentsOCLFactory.getExpression(9,
-				ComponentsPackage.eINSTANCE.getConnector(), null).body();
+		return ComponentsOCLFactory.getExpression(4,
+				ComponentsPackage.eINSTANCE.getVariable(), null).body();
 	}
 
 	/**
 	 * @generated
 	 */
 	public String getEditString(IAdaptable element, int flags) {
-		EObject target = (EObject) element.getAdapter(EObject.class);
-		Object result = ComponentsOCLFactory.getExpression(10,
-				ComponentsPackage.eINSTANCE.getConnector(), null).evaluate(
-				target);
-		return String.valueOf(result);
+		return getPrintString(element, flags);
 	}
 
 	/**
@@ -113,17 +106,14 @@ public class ConnectorLabelExpressionLabelParser extends
 	}
 
 	/**
-	 * Updates the edited value of Connector i.e. name.
-	 * @generated NOT
+	 * @generated
 	 */
 	private IStatus updateValues(EObject target, String newString)
 			throws ExecutionException {
-		if (target instanceof Connector) {
-			((Connector) target).setName(newString);
-			return Status.OK_STATUS;
-		}
+		// TODO implement this method
+		// DO NOT FORGET to remove @generated tag or mark method @generated NOT
 		throw new ExecutionException(
-				"updateValues() received an invalid target type: expected Connector");
+				"Please implement parsing and value modification");
 	}
 
 }

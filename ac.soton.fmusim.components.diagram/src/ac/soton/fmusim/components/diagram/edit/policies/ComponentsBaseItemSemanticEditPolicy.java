@@ -7,8 +7,11 @@
  */
 package ac.soton.fmusim.components.diagram.edit.policies;
 
+import java.util.Collections;
 import java.util.Iterator;
 
+import java.util.Map;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -39,8 +42,10 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.edit.helpers.GeneratedEditHelperBase;
 
+import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
@@ -337,6 +342,9 @@ public class ComponentsBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					return false;
 				}
 			}
+			if (target != null && (target.getPorts().contains(target))) {
+				return false;
+			}
 
 			return canExistPortConnector_4001(source, target);
 		}
@@ -345,7 +353,30 @@ public class ComponentsBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		public boolean canExistPortConnector_4001(Port source, Connector target) {
-			return true;
+			try {
+				if (target == null) {
+					return true;
+				} else {
+					Map<String, EClassifier> env = Collections
+							.<String, EClassifier> singletonMap(
+									"oppositeEnd", ComponentsPackage.eINSTANCE.getPort()); //$NON-NLS-1$
+					Object targetVal = ComponentsOCLFactory.getExpression(11,
+							ComponentsPackage.eINSTANCE.getConnector(), env)
+							.evaluate(
+									target,
+									Collections.singletonMap(
+											"oppositeEnd", source)); //$NON-NLS-1$
+					if (false == targetVal instanceof Boolean
+							|| !((Boolean) targetVal).booleanValue()) {
+						return false;
+					} // else fall-through
+				}
+				return true;
+			} catch (Exception e) {
+				ComponentsDiagramEditorPlugin.getInstance().logError(
+						"Link constraint evaluation error", e); //$NON-NLS-1$
+				return false;
+			}
 		}
 	}
 

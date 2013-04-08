@@ -287,7 +287,7 @@ public class EventBPortNameTypeEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getParser() != null;
+		return false;
 	}
 
 	/**
@@ -659,19 +659,19 @@ public class EventBPortNameTypeEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new PortNameFigure();
+		return new PortLabelFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class PortNameFigure extends WrappingLabel {
+	public class PortLabelFigure extends WrappingLabel {
 
 		/**
 		 * @generated
 		 */
-		public PortNameFigure() {
-			this.setText("<...>");
+		public PortLabelFigure() {
+			this.setText("");
 		}
 
 	}

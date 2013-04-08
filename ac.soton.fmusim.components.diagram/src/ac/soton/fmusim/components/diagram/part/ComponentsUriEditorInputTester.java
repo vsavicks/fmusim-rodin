@@ -24,7 +24,7 @@ public class ComponentsUriEditorInputTester extends PropertyTester {
 			return false;
 		}
 		URIEditorInput editorInput = (URIEditorInput) receiver;
-		return "cpd".equals(editorInput.getURI().fileExtension()); //$NON-NLS-1$
+		return "cmd".equals(editorInput.getURI().fileExtension()); //$NON-NLS-1$
 	}
 
 }

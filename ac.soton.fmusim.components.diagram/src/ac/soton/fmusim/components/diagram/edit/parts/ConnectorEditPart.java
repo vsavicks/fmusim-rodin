@@ -289,7 +289,7 @@ public class ConnectorEditPart extends AbstractBorderedShapeEditPart {
 		 * @generated
 		 */
 		public ConnectorFigure() {
-			this.setForegroundColor(ColorConstants.gray);
+			this.setOutline(false);
 			this.setBackgroundColor(ColorConstants.gray);
 		}
 

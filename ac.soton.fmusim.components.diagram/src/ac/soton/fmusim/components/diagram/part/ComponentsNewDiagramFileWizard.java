@@ -90,7 +90,7 @@ public class ComponentsNewDiagramFileWizard extends Wizard {
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
 		myFileCreationPage.setFileName(ComponentsDiagramEditorUtil
-				.getUniqueFileName(filePath, fileName, "cpd")); //$NON-NLS-1$
+				.getUniqueFileName(filePath, fileName, "cmd")); //$NON-NLS-1$
 
 		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(
 				Messages.ComponentsNewDiagramFileWizard_RootSelectionPageName);

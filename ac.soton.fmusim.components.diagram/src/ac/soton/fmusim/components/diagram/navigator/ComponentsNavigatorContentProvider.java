@@ -235,90 +235,27 @@ public class ComponentsNavigatorContentProvider implements
 	private Object[] getViewChildren(View view, Object parentElement) {
 		switch (ComponentsVisualIDRegistry.getVisualID(view)) {
 
-		case EventBPortEditPart.VISUAL_ID: {
-			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
-					Messages.NavigatorGroupName_EventBPort_3003_outgoinglinks,
-					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
-					ComponentsVisualIDRegistry
-							.getType(PortConnectorEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
-					outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case EventBPort2EditPart.VISUAL_ID: {
-			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
-					Messages.NavigatorGroupName_EventBPort_3004_outgoinglinks,
-					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
-					ComponentsVisualIDRegistry
-							.getType(PortConnectorEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
-					outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case FMUPort2EditPart.VISUAL_ID: {
-			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
-					Messages.NavigatorGroupName_FMUPort_3002_outgoinglinks,
-					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
-					ComponentsVisualIDRegistry
-							.getType(PortConnectorEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
-					outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case FMUPortEditPart.VISUAL_ID: {
-			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
-					Messages.NavigatorGroupName_FMUPort_3001_outgoinglinks,
-					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
-					ComponentsVisualIDRegistry
-							.getType(PortConnectorEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
-					outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case EventBComponentEditPart.VISUAL_ID: {
+		case FMUComponentEditPart.VISUAL_ID: {
 			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
 			Node sv = (Node) view;
 			Collection<View> connectedViews;
 			connectedViews = getChildrenByType(Collections.singleton(sv),
 					ComponentsVisualIDRegistry
-							.getType(EventBPortEditPart.VISUAL_ID));
+							.getType(FMUPortEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
 			connectedViews = getChildrenByType(Collections.singleton(sv),
 					ComponentsVisualIDRegistry
-							.getType(EventBPort2EditPart.VISUAL_ID));
+							.getType(FMUPort2EditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
+			connectedViews = getChildrenByType(
+					Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(FMUComponentVariablesCompartmentEditPart.VISUAL_ID));
+			connectedViews = getChildrenByType(connectedViews,
+					ComponentsVisualIDRegistry
+							.getType(VariableEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
 			return result.toArray();
@@ -368,6 +305,59 @@ public class ComponentsNavigatorContentProvider implements
 			return result.toArray();
 		}
 
+		case EventBPortEditPart.VISUAL_ID: {
+			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
+					Messages.NavigatorGroupName_EventBPort_3003_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(PortConnectorEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
+		case EventBComponentEditPart.VISUAL_ID: {
+			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			Collection<View> connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(EventBPortEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(EventBPort2EditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
+			return result.toArray();
+		}
+
+		case FMUPort2EditPart.VISUAL_ID: {
+			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
+					Messages.NavigatorGroupName_FMUPort_3002_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(PortConnectorEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
 		case ConnectorEditPart.VISUAL_ID: {
 			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
 			Node sv = (Node) view;
@@ -382,6 +372,42 @@ public class ComponentsNavigatorContentProvider implements
 					incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case EventBPort2EditPart.VISUAL_ID: {
+			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
+					Messages.NavigatorGroupName_EventBPort_3004_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(PortConnectorEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
+		case FMUPortEditPart.VISUAL_ID: {
+			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
+					Messages.NavigatorGroupName_FMUPort_3001_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(PortConnectorEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -415,32 +441,6 @@ public class ComponentsNavigatorContentProvider implements
 			if (!links.isEmpty()) {
 				result.add(links);
 			}
-			return result.toArray();
-		}
-
-		case FMUComponentEditPart.VISUAL_ID: {
-			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					ComponentsVisualIDRegistry
-							.getType(FMUPortEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					ComponentsVisualIDRegistry
-							.getType(FMUPort2EditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(
-					Collections.singleton(sv),
-					ComponentsVisualIDRegistry
-							.getType(FMUComponentVariablesCompartmentEditPart.VISUAL_ID));
-			connectedViews = getChildrenByType(connectedViews,
-					ComponentsVisualIDRegistry
-							.getType(VariableEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
 			return result.toArray();
 		}
 		}
