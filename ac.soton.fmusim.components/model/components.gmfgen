@@ -244,7 +244,7 @@
             height="10"/>
       </viewmap>
       <modelFacet
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.5">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
         <metaClass
             href="components.genmodel#//components/EventBPort"/>
         <containmentMetaFeature
@@ -255,7 +255,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.6">
+              value="//@expressionProviders/@providers.0/@expressions.5">
             <feature
                 href="components.genmodel#//components/Port/kind"/>
           </initializers>
@@ -318,7 +318,7 @@
             height="10"/>
       </viewmap>
       <modelFacet
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.7">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.6">
         <metaClass
             href="components.genmodel#//components/EventBPort"/>
         <containmentMetaFeature
@@ -329,7 +329,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.8">
+              value="//@expressionProviders/@providers.0/@expressions.7">
             <feature
                 href="components.genmodel#//components/Port/kind"/>
           </initializers>
@@ -544,7 +544,7 @@
             href="components.genmodel#//components/Port/connector"/>
       </modelFacet>
       <creationConstraints
-          targetEnd="//@expressionProviders/@providers.0/@expressions.11"/>
+          targetEnd="//@expressionProviders/@providers.0/@expressions.10"/>
     </links>
     <compartments
         visualID="7001"
@@ -771,8 +771,6 @@
       <expressions
           body="PortKind::Output"/>
       <expressions
-          body="(if self.name = null then '&lt;variable>' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
-      <expressions
           xsi:type="gmfgen:GenConstraint"
           body="self.kind = PortKind::Input"/>
       <expressions
@@ -790,6 +788,11 @@
           xsi:type="gmfgen:GenConstraint"
           body="not (oppositeEnd.oclAsType(Port).kind = PortKind::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(Port).kind = PortKind::Output))"/>
     </providers>
+    <providers
+        xsi:type="gmfgen:GenJavaExpressionProvider">
+      <expressions
+          body="return &quot;&lt;variable>&quot;;"/>
+    </providers>
   </expressionProviders>
   <labelParsers
       extensibleViaService="true">
@@ -799,15 +802,15 @@
     <implementations
         xsi:type="gmfgen:ExpressionLabelParser"
         uses="//@diagram/@childNodes.2/@labelModelFacet"
-        viewExpression="//@expressionProviders/@providers.0/@expressions.4">
+        viewExpression="//@expressionProviders/@providers.1/@expressions.0">
       <expressionContext
           href="components.genmodel#//components/Variable"/>
     </implementations>
     <implementations
         xsi:type="gmfgen:ExpressionLabelParser"
         uses="//@diagram/@topLevelNodes.2/@labels.0/@modelFacet"
-        viewExpression="//@expressionProviders/@providers.0/@expressions.9"
-        editExpression="//@expressionProviders/@providers.0/@expressions.10">
+        viewExpression="//@expressionProviders/@providers.0/@expressions.8"
+        editExpression="//@expressionProviders/@providers.0/@expressions.9">
       <expressionContext
           href="components.genmodel#//components/Connector"/>
     </implementations>

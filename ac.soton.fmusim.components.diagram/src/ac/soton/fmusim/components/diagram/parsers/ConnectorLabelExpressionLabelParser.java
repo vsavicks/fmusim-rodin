@@ -48,7 +48,7 @@ public class ConnectorLabelExpressionLabelParser extends
 	 */
 	@Override
 	protected String getExpressionBody() {
-		return ComponentsOCLFactory.getExpression(9,
+		return ComponentsOCLFactory.getExpression(8,
 				ComponentsPackage.eINSTANCE.getConnector(), null).body();
 	}
 
@@ -57,7 +57,7 @@ public class ConnectorLabelExpressionLabelParser extends
 	 */
 	public String getEditString(IAdaptable element, int flags) {
 		EObject target = (EObject) element.getAdapter(EObject.class);
-		Object result = ComponentsOCLFactory.getExpression(10,
+		Object result = ComponentsOCLFactory.getExpression(9,
 				ComponentsPackage.eINSTANCE.getConnector(), null).evaluate(
 				target);
 		return String.valueOf(result);

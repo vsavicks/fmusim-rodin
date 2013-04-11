@@ -130,8 +130,16 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
+	private VariableExpressionLabelParser variable_3005Parser;
+
+	/**
+	 * @generated
+	 */
 	private IParser getVariable_3005Parser() {
-		return new VariableExpressionLabelParser();
+		if (variable_3005Parser == null) {
+			variable_3005Parser = new VariableExpressionLabelParser();
+		}
+		return variable_3005Parser;
 	}
 
 	/**

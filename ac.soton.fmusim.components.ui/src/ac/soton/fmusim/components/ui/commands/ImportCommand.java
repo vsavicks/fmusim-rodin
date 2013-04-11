@@ -31,6 +31,11 @@ import org.eventb.emf.core.machine.Machine;
 import org.ptolemy.fmi.FMIModelDescription;
 import org.ptolemy.fmi.FMIScalarVariable;
 import org.ptolemy.fmi.FMIScalarVariable.Causality;
+import org.ptolemy.fmi.type.FMIBooleanType;
+import org.ptolemy.fmi.type.FMIIntegerType;
+import org.ptolemy.fmi.type.FMIRealType;
+import org.ptolemy.fmi.type.FMIStringType;
+import org.ptolemy.fmi.type.FMIType;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
@@ -38,6 +43,7 @@ import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.FmiTypes;
 import ac.soton.fmusim.components.PortKind;
 import ac.soton.fmusim.components.Variable;
 import de.prob.cosimulation.FMU;
@@ -134,15 +140,33 @@ public class ImportCommand extends AbstractHandler {
 				// FIXME: variable requires a reference to FMI scalar variable
 				// (for API calls)
 				// TODO: maybe the variable also requires the type, variability (parameter etc.), start value (from type i.e. type.start)
-				// variable.setValue(value)
+				
+				// type and start value
+				FMIType type = scalarVariable.type;
+				Object value = null;
+				FmiTypes typeEnum = FmiTypes.REAL;
+				if (type instanceof FMIRealType) {
+					value = ((FMIRealType) type).start;
+					typeEnum = FmiTypes.REAL;
+				} else if (type instanceof FMIIntegerType) {
+					value = ((FMIIntegerType) type).start;
+					typeEnum = FmiTypes.INTEGER;
+				} else if (type instanceof FMIBooleanType) {
+					value = ((FMIBooleanType) type).start;
+					typeEnum = FmiTypes.BOOLEAN;
+				} else if (type instanceof FMIStringType) {
+					value = ((FMIStringType) type).start;
+					typeEnum = FmiTypes.STRING;
+				}
+				variable.setValue(value);
 
 				if (scalarVariable.causality == Causality.internal) {
 					fmuComponent.getVariables().add(variable);
-				} else if (scalarVariable.causality != Causality.none) {
+				} else if (scalarVariable.causality == Causality.input || scalarVariable.causality == Causality.output) {
 					FMUPort port = ComponentsFactory.eINSTANCE.createFMUPort();
 					port.setName(scalarVariable.name);
 					port.setVariable(variable);
-					// port.setType(variable.type)
+					port.setType(typeEnum);
 
 					if (scalarVariable.causality == Causality.input) {
 						port.setKind(PortKind.INPUT);

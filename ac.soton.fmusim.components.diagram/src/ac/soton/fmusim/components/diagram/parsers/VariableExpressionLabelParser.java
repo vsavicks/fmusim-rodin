@@ -21,19 +21,18 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-import org.eclipse.gmf.tooling.runtime.parsers.ExpressionLabelParserBase;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
+import ac.soton.fmusim.components.Variable;
 
 /**
  * @generated
  */
-public class VariableExpressionLabelParser extends ExpressionLabelParserBase {
+public class VariableExpressionLabelParser implements IParser {
 	/**
 	 * @generated
 	 */
@@ -43,10 +42,18 @@ public class VariableExpressionLabelParser extends ExpressionLabelParserBase {
 	/**
 	 * @generated
 	 */
-	@Override
-	protected String getExpressionBody() {
-		return ComponentsOCLFactory.getExpression(4,
-				ComponentsPackage.eINSTANCE.getVariable(), null).body();
+	public String getPrintString(IAdaptable element, int flags) {
+		return evaluatePrintExpression((EObject) element
+				.getAdapter(EObject.class));
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isAffectingEvent(Object event, int flags) {
+		// XXX Any event is recognized as important, unless there's a way to extract this information from expression itself.
+		// TODO analyze expressions (e.g. using OCL parser) to find out structural features in use  
+		return true;
 	}
 
 	/**
@@ -114,6 +121,21 @@ public class VariableExpressionLabelParser extends ExpressionLabelParserBase {
 		// DO NOT FORGET to remove @generated tag or mark method @generated NOT
 		throw new ExecutionException(
 				"Please implement parsing and value modification");
+	}
+
+	/**
+	 * Displays the variable in a format <variable name> = <value>
+	 * @generated NOT
+	 */
+	private String evaluatePrintExpression(EObject self) {
+		if (self instanceof Variable) {
+			Variable var = (Variable) self;
+			String name = var.getName() == null ? "<variable>" : var.getName();
+			String value = var.getValue() == null ? "" : (" = " + var.getValue());
+			return name + value;
+		}
+		throw new UnsupportedOperationException(
+				"No user java implementation provided in 'evaluatePrintExpression' operation"); //$NON-NLS-1$
 	}
 
 }

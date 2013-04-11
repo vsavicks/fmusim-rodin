@@ -327,7 +327,7 @@ public class ComponentsVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isEventBPort_3003(EventBPort domainElement) {
-		Object result = ComponentsOCLFactory.getExpression(5,
+		Object result = ComponentsOCLFactory.getExpression(4,
 				ComponentsPackage.eINSTANCE.getEventBPort(), null).evaluate(
 				domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
@@ -337,7 +337,7 @@ public class ComponentsVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isEventBPort_3004(EventBPort domainElement) {
-		Object result = ComponentsOCLFactory.getExpression(7,
+		Object result = ComponentsOCLFactory.getExpression(6,
 				ComponentsPackage.eINSTANCE.getEventBPort(), null).evaluate(
 				domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();

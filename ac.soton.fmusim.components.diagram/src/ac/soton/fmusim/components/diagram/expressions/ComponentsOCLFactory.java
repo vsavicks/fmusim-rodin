@@ -44,13 +44,12 @@ public class ComponentsOCLFactory {
 	 * @generated
 	 */
 	protected ComponentsOCLFactory() {
-		this.expressions = new ComponentsAbstractExpression[12];
+		this.expressions = new ComponentsAbstractExpression[11];
 		this.expressionBodies = new String[] {
 				"self.kind = PortKind::Input", //$NON-NLS-1$
 				"PortKind::Input", //$NON-NLS-1$
 				"self.kind = PortKind::Output", //$NON-NLS-1$
 				"PortKind::Output", //$NON-NLS-1$
-				"(if self.name = null then \'<variable>\' else self.name endif).concat(if self.value.oclIsUndefined() then \'\' else \' = \'.concat(self.value.oclAsType(String)) endif)", //$NON-NLS-1$
 				"self.kind = PortKind::Input", //$NON-NLS-1$
 				"PortKind::Input", //$NON-NLS-1$
 				"self.kind = PortKind::Output", //$NON-NLS-1$

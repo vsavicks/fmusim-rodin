@@ -360,7 +360,7 @@ public class ComponentsBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					Map<String, EClassifier> env = Collections
 							.<String, EClassifier> singletonMap(
 									"oppositeEnd", ComponentsPackage.eINSTANCE.getPort()); //$NON-NLS-1$
-					Object targetVal = ComponentsOCLFactory.getExpression(11,
+					Object targetVal = ComponentsOCLFactory.getExpression(10,
 							ComponentsPackage.eINSTANCE.getConnector(), env)
 							.evaluate(
 									target,

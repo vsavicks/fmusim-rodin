@@ -65,7 +65,7 @@ public class ElementInitializers {
 	 */
 	public void init_EventBPort_3003(EventBPort instance) {
 		try {
-			Object value_0 = ComponentsOCLFactory.getExpression(6,
+			Object value_0 = ComponentsOCLFactory.getExpression(5,
 					ComponentsPackage.eINSTANCE.getEventBPort(), null)
 					.evaluate(instance);
 
@@ -83,7 +83,7 @@ public class ElementInitializers {
 	 */
 	public void init_EventBPort_3004(EventBPort instance) {
 		try {
-			Object value_0 = ComponentsOCLFactory.getExpression(8,
+			Object value_0 = ComponentsOCLFactory.getExpression(7,
 					ComponentsPackage.eINSTANCE.getEventBPort(), null)
 					.evaluate(instance);
 

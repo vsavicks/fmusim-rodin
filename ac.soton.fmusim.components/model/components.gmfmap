@@ -111,7 +111,8 @@
             <diagramLabel
                 href="components.gmfgraph#VariableLabel"/>
             <viewExpression
-                body="(if self.name = null then '&lt;variable>' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
+                body="return &quot;&lt;variable>&quot;;"
+                language="java"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
