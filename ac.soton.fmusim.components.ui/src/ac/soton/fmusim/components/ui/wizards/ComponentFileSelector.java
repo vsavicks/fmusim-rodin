@@ -39,23 +39,27 @@ public class ComponentFileSelector {
 			protected String adjustPattern() {
 				String s = super.adjustPattern();
 				if (s.equals("") && fileExtensions != null && fileExtensions.length > 0) { //$NON-NLS-1$
-					s = "*." + fileExtensions[0]; //$NON-NLS-1$
-//					if (fileExtensions.length > 1) {
-//						for (int i=1; i < fileExtensions.length; i++)
-//							s += "|" + fileExtensions[i];
-//					}
-//					s += ")";
+					s = "*.*";
 				}
 				return s;
 			}
+			
 
 			public void create() {
 				super.create();
 				refresh(true);
 			}
 
-			protected void updateOKState(boolean state) {
-				super.updateOKState(true); // allow to select nothing
+			@Override
+			protected boolean select(IResource resource) {
+				String ext = resource.getFileExtension();
+				if (ext != null && fileExtensions != null && fileExtensions.length > 0) {
+					for (String e : fileExtensions) {
+						if (e.equals(ext))
+							return true;
+					}
+				}
+				return false;//super.select(resource);
 			}
 		};
 		fsd.setTitle(description);

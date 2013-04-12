@@ -19,7 +19,7 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="ac.soton.fmusim.components.ui.commands.ImportCommand"
+            class="ac.soton.fmusim.components.ui.commands.ImportComponentCommand"
             commandId="ac.soton.fmusim.components.ui.commands.Import">
          <enabledWhen>
             <with
@@ -62,13 +62,7 @@
                   style="push">
             </command>
             <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activePartId">
-                  <equals
-                        value="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID">
-                  </equals>
-               </with>
+                  checkEnabled="true">
             </visibleWhen>
          </toolbar>
       </menuContribution>
