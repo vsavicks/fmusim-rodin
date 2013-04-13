@@ -367,7 +367,6 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 			this.setLayoutManager(layoutThis);
 
 			this.setForegroundColor(ColorConstants.gray);
-			this.setBackgroundColor(THIS_BACK);
 			createContents();
 		}
 
@@ -405,10 +404,5 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 		}
 
 	}
-
-	/**
-	 * @generated
-	 */
-	static final Color THIS_BACK = new Color(null, 196, 255, 204);
 
 }

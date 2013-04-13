@@ -131,7 +131,8 @@ public class VariableExpressionLabelParser implements IParser {
 		if (self instanceof Variable) {
 			Variable var = (Variable) self;
 			String name = var.getName() == null ? "<variable>" : var.getName();
-			String value = var.getValue() == null ? "" : (" = " + var.getValue());
+			String value = var.getValue() == null ? "" : (" = " + var
+					.getValue());
 			return name + value;
 		}
 		throw new UnsupportedOperationException(
