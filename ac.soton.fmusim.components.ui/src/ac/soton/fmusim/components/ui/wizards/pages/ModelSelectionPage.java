@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ac.soton.fmusim.components.ui.wizards;
+package ac.soton.fmusim.components.ui.wizards.pages;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -31,15 +31,20 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import ac.soton.fmusim.components.ui.resource.FileSelector;
+import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
+import ac.soton.fmusim.components.ui.wizards.Messages;
+
 /**
- * Modified version of the org.eclipse.gmf.internal.common.ui.ModelSelectionPage
+ * Modified version of the org.eclipse.gmf.internal.common.ui.ModelSelectionPage.
+ * Supports multiple file extensions.
  * 
  * @author vitaly
  *
  */
-public class ComponentModelSelectionPage extends WizardPage {
+public abstract class ModelSelectionPage extends WizardPage {
 
-	protected final ComponentResourceLocationProvider rloc;
+	protected final ResourceLocationProvider rloc;
 
 	protected Text uriFld;
 
@@ -54,7 +59,7 @@ public class ComponentModelSelectionPage extends WizardPage {
 	private Button findInWsBtn;
 
 	private URI uri;
-
+	
 	private Resource resource;
 
 	private ResourceSet resourceSet;
@@ -67,15 +72,15 @@ public class ComponentModelSelectionPage extends WizardPage {
 
 	private String[] modelFileExtensions;
 
-	public ComponentModelSelectionPage(String pageId, ComponentResourceLocationProvider rloc, ResourceSet resourceSet) {
+	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
 		this(pageId, rloc, resourceSet, null);
 	}
 
-	public ComponentModelSelectionPage(String pageId, ComponentResourceLocationProvider rloc, ResourceSet resourceSet, String[] modelFileExtensions) {
+	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet, String[] modelFileExtensions) {
 		super(pageId);
 		this.rloc = rloc;
 		this.resourceSet = resourceSet;
-		setModelFileExtension(modelFileExtensions);
+		setModelFileExtensions(modelFileExtensions);
 	}
 
 	protected final ResourceSet getResourceSet() {
@@ -85,7 +90,7 @@ public class ComponentModelSelectionPage extends WizardPage {
 		return resourceSet;
 	}
 
-	public void setModelFileExtension(String[] fileExtensions) {
+	public void setModelFileExtensions(String[] fileExtensions) {
 		this.modelFileExtensions = fileExtensions;
 	}
 
@@ -193,7 +198,7 @@ public class ComponentModelSelectionPage extends WizardPage {
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				IFile file = ComponentFileSelector.selectFile(getShell(), Messages.ModelSelectionPageSelectModel, null, null, getModelFileExtensions());
+				IFile file = FileSelector.selectFile(getShell(), Messages.ModelSelectionPageSelectModel, null, null, getModelFileExtensions());
 				if (file == null) {
 					return;
 				}

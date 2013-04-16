@@ -25,6 +25,7 @@ public class Messages {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 
+	// model selection page
 	public static String ModelSelectionPageModelURI;
 	public static String ModelSelectionPageBrowseFS;
 	public static String ModelSelectionPageBrowseWS;
@@ -35,7 +36,9 @@ public class Messages {
 	public static String ModelSelectionPageBadURI;
 	public static String ModelSelectionPageModelNA;
 	public static String ModelSelectionPageErrorLoadingModel;
-	public static String SimpleModelWizardDomainModelSelectionPageTitle;
-	public static String SimpleModelWizardDomainModelSelectionPageDesc;
+	
+	// component import wizard
+	public static String ComponentImportWizardDomainModelSelectionPageTitle;
+	public static String ComponentImportWizardModelSelectionPageDesc;
 
 }

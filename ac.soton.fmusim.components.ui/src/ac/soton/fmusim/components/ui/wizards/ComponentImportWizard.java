@@ -7,12 +7,21 @@
  */
 package ac.soton.fmusim.components.ui.wizards;
 
+import java.io.IOException;
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EcoreFactoryImpl;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 //import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
 //import org.eclipse.gmf.internal.bridge.wizards.Messages;
@@ -38,6 +47,12 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 
+import de.prob.cosimulation.FMU;
+
+import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
+import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSelectionPage;
+import ac.soton.fmusim.components.ui.wizards.pages.ModelSelectionPage;
+
 /**
  * @author vitaly
  *
@@ -45,7 +60,7 @@ import org.eclipse.ui.IWorkbench;
 public class ComponentImportWizard extends Wizard implements IImportWizard {
 	
 	// from subclass
-	protected ComponentModelSelectionPage componentModelSelectionPage;
+	protected ModelSelectionPage componentModelSelectionPage;
 //	protected PortDefinitionPage portDefinitionPage;
 
 	// from superclass
@@ -78,8 +93,32 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 	}
 	
 	public void addPages() {
-		ComponentResourceLocationProvider rloc = new ComponentResourceLocationProvider(selection);
+		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
 		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("fmu", new Resource.Factory() {
+
+			@Override
+			public Resource createResource(URI uri) {
+				// TODO Auto-generated method stub
+				return new ResourceImpl(uri){
+
+					FMU fmu;
+					
+					/* (non-Javadoc)
+					 * @see org.eclipse.emf.ecore.resource.impl.ResourceImpl#load(java.util.Map)
+					 */
+					@Override
+					public void load(Map<?, ?> options) throws IOException {
+						String filePath = null;
+						if (uri.isPlatform()) {
+							String ps = uri.toPlatformString(true);
+							IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(ps);
+							filePath = res.getLocation().toString();
+						}
+						if (filePath != null)
+							fmu = new FMU(filePath);
+					}};
+			}});
 		
 		super.addPages();
 		
@@ -91,9 +130,9 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 //			}
 //		}
 
-		componentModelSelectionPage = new ComponentModelSelectionPage("ComponentModelSelectionPage", rloc, resourceSet, new String[]{"bum","fmu"}); //$NON-NLS-1$
-		componentModelSelectionPage.setTitle(Messages.SimpleModelWizardDomainModelSelectionPageTitle);
-		componentModelSelectionPage.setDescription(Messages.SimpleModelWizardDomainModelSelectionPageDesc);
+		componentModelSelectionPage = new ComponentModelSelectionPage("ComponentModelSelectionPage", rloc, resourceSet); //$NON-NLS-1$
+		componentModelSelectionPage.setTitle(Messages.ComponentImportWizardDomainModelSelectionPageTitle);
+		componentModelSelectionPage.setDescription(Messages.ComponentImportWizardModelSelectionPageDesc);
 		addPage(componentModelSelectionPage);
 
 //		portDefinitionPage = new PortDefinitionPage("PortDefinitionPage", new StructureBuilder(new StructureResolver(), false), domainModelSelectionPage) { //$NON-NLS-1$

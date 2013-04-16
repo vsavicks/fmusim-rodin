@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package ac.soton.fmusim.components.ui.wizards;
+package ac.soton.fmusim.components.ui.resource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,17 +21,18 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 /**
  * Modified version of the org.eclipse.gmf.internal.common.ui.ResourceLocationProvider
+ * Accepts multiple file extensions.
  * 
  * @author vitaly
  *
  */
-public class ComponentResourceLocationProvider {
+public class ResourceLocationProvider {
 
 	private final List<IResource> selectedResources;
 
 	private final List<URI> selectedURIs;
 
-	public ComponentResourceLocationProvider(ISelection selection) {
+	public ResourceLocationProvider(ISelection selection) {
 		selectedResources = new ArrayList<IResource>();
 		selectedURIs = new ArrayList<URI>();
 		if (selection instanceof IStructuredSelection) {
@@ -91,7 +92,7 @@ public class ComponentResourceLocationProvider {
 	}
 
 	/**
-	 * Returns selected resources with specified extension.
+	 * Returns selected resources with specified extensions.
 	 * 
 	 * @param explicit If true then examines folders in selection.
 	 */

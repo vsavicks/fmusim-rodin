@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package ac.soton.fmusim.components.ui.wizards;
+package ac.soton.fmusim.components.ui.resource;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -22,7 +22,7 @@ import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
  * @author vitaly
  *
  */
-public class ComponentFileSelector {
+public class FileSelector {
 
 	public static IFile selectFile(Shell shell, String description, IContainer rootElement, IFile selected) {
 		return selectFile(shell, description, rootElement, selected, null);

@@ -15,6 +15,10 @@
             id="ac.soton.fmusim.components.ui.commands.category"
             name="FmuSim Components Category">
       </category>
+      <command
+            id="ac.soton.fmusim.components.ui.commands.Import_simple"
+            name="Import">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -33,6 +37,18 @@
       <handler
             class="ac.soton.fmusim.components.ui.commands.SimulateCommand"
             commandId="ac.soton.fmusim.components.ui.commands.Simulate">
+         <enabledWhen>
+            <with
+                  variable="activePartId">
+               <equals
+                     value="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="ac.soton.fmusim.components.ui.commands.ImportCommand"
+            commandId="ac.soton.fmusim.components.ui.commands.Import_simple">
          <enabledWhen>
             <with
                   variable="activePartId">
