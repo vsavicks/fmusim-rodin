@@ -49,6 +49,7 @@ import org.eclipse.ui.IWorkbench;
 
 import de.prob.cosimulation.FMU;
 
+import ac.soton.fmusim.components.ui.resource.FMUResourceFactory;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
 import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSelectionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.ModelSelectionPage;
@@ -95,30 +96,7 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 	public void addPages() {
 		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
 		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("fmu", new Resource.Factory() {
-
-			@Override
-			public Resource createResource(URI uri) {
-				// TODO Auto-generated method stub
-				return new ResourceImpl(uri){
-
-					FMU fmu;
-					
-					/* (non-Javadoc)
-					 * @see org.eclipse.emf.ecore.resource.impl.ResourceImpl#load(java.util.Map)
-					 */
-					@Override
-					public void load(Map<?, ?> options) throws IOException {
-						String filePath = null;
-						if (uri.isPlatform()) {
-							String ps = uri.toPlatformString(true);
-							IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(ps);
-							filePath = res.getLocation().toString();
-						}
-						if (filePath != null)
-							fmu = new FMU(filePath);
-					}};
-			}});
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("fmu", new FMUResourceFactory());
 		
 		super.addPages();
 		
