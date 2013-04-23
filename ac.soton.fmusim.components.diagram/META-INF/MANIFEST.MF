@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: ac.soton.fmusim.components.diagram; singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-ClassPath: .
 Bundle-Activator: ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin
 Bundle-Vendor: %providerName
@@ -49,6 +49,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eventb.emf.core;visibility:=reexport,
  org.eclipse.ocl.ecore;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport,
- org.eclipse.emf.validation;visibility:=reexport
+ org.eclipse.emf.validation;visibility:=reexport,
+ de.prob.core.kernel;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

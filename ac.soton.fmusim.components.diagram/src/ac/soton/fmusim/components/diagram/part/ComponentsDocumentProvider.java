@@ -9,6 +9,7 @@ package ac.soton.fmusim.components.diagram.part;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +31,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -40,7 +42,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.transaction.NotificationFilter;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -53,6 +58,7 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.operation.IRunnableContext;
@@ -60,6 +66,16 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eventb.emf.core.machine.Machine;
+
+import de.prob.cosimulation.FMU;
+
+import ac.soton.fmusim.components.Component;
+import ac.soton.fmusim.components.ComponentDiagram;
+import ac.soton.fmusim.components.ComponentsFactory;
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.EventBComponent;
+import ac.soton.fmusim.components.FMUComponent;
 
 /**
  * @generated
@@ -204,7 +220,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void setDocumentContent(IDocument document, IEditorInput element)
 			throws CoreException {
@@ -214,6 +230,31 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			IStorage storage = ((FileEditorInput) element).getStorage();
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true,
 					getProgressMonitor());
+			// custom: fmu loading
+			// FIXME: refactor to a cleaner solution
+			ComponentDiagram cd = (ComponentDiagram) diagram.getElement();
+			for (Component comp : cd.getComponents()) {
+				if (comp instanceof FMUComponent) {
+					final FMUComponent fmuComp = (FMUComponent) comp;
+					final String path = fmuComp.getPath();
+					if (path != null) {
+						RecordingCommand cmd = new RecordingCommand(domain) {
+							
+							@Override
+							protected void doExecute() {
+								try {
+									fmuComp.setFmu(new FMU(path));
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						};
+						domain.getCommandStack().execute(cmd);
+					}
+				}
+			}
+			// end custom
 			document.setContent(diagram);
 		} else if (element instanceof URIEditorInput) {
 			URI uri = ((URIEditorInput) element).getURI();
@@ -582,7 +623,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void doSaveDocument(IProgressMonitor monitor, Object element,
 			IDocument document, boolean overwrite) throws CoreException {
@@ -603,6 +644,29 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 				monitor.beginTask(
 						Messages.ComponentsDocumentProvider_SaveDiagramTask,
 						info.getResourceSet().getResources().size() + 1); //"Saving diagram"
+				// custom:
+				//TODO: refactor to a cleaner implementation
+				ComponentDiagram diagram = (ComponentDiagram) ((IDiagramDocument) document).getDiagram().getElement();
+				TransactionalEditingDomain domain = ((IDiagramDocument) document).getEditingDomain();
+				CompoundCommand compoundCmd = new CompoundCommand();
+				
+				for (final Component comp : diagram.getComponents()) {
+					if (comp instanceof EventBComponent && ((EventBComponent) comp).getMachine() != null) {
+						
+						// add command to extend Event-B machine with component config
+						// NOTE: replaces existing extension of the same id
+						compoundCmd.append(new RecordingCommand(domain) {
+							@Override
+							protected void doExecute() {
+								EventBComponent compCopy = (EventBComponent) EcoreUtil.copy(comp);
+								// TODO: add existing extension lookup
+								((EventBComponent) comp).getMachine().getExtensions().add(compCopy);
+							}
+						});
+					}
+				}
+				domain.getCommandStack().execute(compoundCmd);
+				// end custom
 				for (Iterator<Resource> it = info.getLoadedResourcesIterator(); it
 						.hasNext();) {
 					Resource nextResource = it.next();
