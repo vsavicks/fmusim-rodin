@@ -53,5 +53,4 @@
   <eClassifiers xsi:type="ecore:EClass" name="BaseUnit"/>
   <eClassifiers xsi:type="ecore:EClass" name="Experiment"/>
   <eClassifiers xsi:type="ecore:EClass" name="Implementation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EClass0"/>
 </ecore:EPackage>
