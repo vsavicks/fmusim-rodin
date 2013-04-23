@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: ac.soton.fmusim.components.persistence;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: ac.soton.fmusim.components.persistence.ComponentsPersistencePlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ ac.soton.eventb.emf.core.extension.persistence;bundle-version="1.1.1"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: %Bundle-Vendor
