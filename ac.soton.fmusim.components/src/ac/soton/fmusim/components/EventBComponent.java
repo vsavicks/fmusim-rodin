@@ -10,6 +10,7 @@ package ac.soton.fmusim.components;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.machine.Machine;
 
 /**
@@ -30,7 +31,7 @@ import org.eventb.emf.core.machine.Machine;
  * @model
  * @generated
  */
-public interface EventBComponent extends Component {
+public interface EventBComponent extends Component, AbstractExtension {
 	/**
 	 * Returns the value of the '<em><b>Composed</b></em>' attribute.
 	 * <!-- begin-user-doc -->

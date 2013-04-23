@@ -29,6 +29,13 @@ import org.eclipse.emf.ecore.EReference;
  * @generated
  */
 public interface ComponentsPackage extends EPackage {
+
+	/**
+	 * NOT GENERATED!
+	 * The default value of the Event-B Component extension id.
+	 */
+	String EVENTB_COMPONENT_EXTENSION_ID = "ac.soton.fmusim.components.eventb";
+
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -320,13 +327,76 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__OUTPUTS = COMPONENT__OUTPUTS;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__ANNOTATIONS = COMPONENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__EXTENSIONS = COMPONENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__ATTRIBUTES = COMPONENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Reference</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__REFERENCE = COMPONENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Generated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__GENERATED = COMPONENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Local Generated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__LOCAL_GENERATED = COMPONENT_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Extension Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__EXTENSION_ID = COMPONENT_FEATURE_COUNT + 6;
+
+	/**
 	 * The feature id for the '<em><b>Composed</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__COMPOSED = COMPONENT_FEATURE_COUNT + 0;
+	int EVENT_BCOMPONENT__COMPOSED = COMPONENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Time Variable Name</b></em>' attribute.
@@ -335,7 +405,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__TIME_VARIABLE_NAME = COMPONENT_FEATURE_COUNT + 1;
+	int EVENT_BCOMPONENT__TIME_VARIABLE_NAME = COMPONENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Machine</b></em>' reference.
@@ -344,7 +414,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__MACHINE = COMPONENT_FEATURE_COUNT + 2;
+	int EVENT_BCOMPONENT__MACHINE = COMPONENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
@@ -353,7 +423,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 3;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -621,7 +691,6 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	int PORT_KIND = 11;
-
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.

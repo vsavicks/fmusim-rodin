@@ -36,7 +36,7 @@ public interface FMUPort extends Port {
 	 * @return the value of the '<em>Variable</em>' containment reference.
 	 * @see #setVariable(Variable)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getFMUPort_Variable()
-	 * @model containment="true" required="true"
+	 * @model containment="true" resolveProxies="true" required="true"
 	 * @generated
 	 */
 	Variable getVariable();

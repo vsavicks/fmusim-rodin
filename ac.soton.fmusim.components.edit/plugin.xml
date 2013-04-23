@@ -22,5 +22,12 @@
                org.eclipse.emf.edit.provider.IItemLabelProvider
                org.eclipse.emf.edit.provider.IItemPropertySource"/>
    </extension>
+   <extension
+         point="org.eclipse.emf.edit.childCreationExtenders">
+      <extender
+            class="ac.soton.fmusim.components.provider.ComponentsItemProviderAdapterFactory$CoreChildCreationExtender"
+            uri="http://emf.eventb.org/models/core/machine">
+      </extender>
+   </extension>
 
 </plugin>

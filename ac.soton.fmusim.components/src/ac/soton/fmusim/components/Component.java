@@ -38,7 +38,7 @@ public interface Component extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Inputs</em>' containment reference list.
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponent_Inputs()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	EList<Port> getInputs();
@@ -54,7 +54,7 @@ public interface Component extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Outputs</em>' containment reference list.
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponent_Outputs()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	EList<Port> getOutputs();

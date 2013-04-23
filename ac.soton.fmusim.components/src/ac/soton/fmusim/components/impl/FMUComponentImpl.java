@@ -143,7 +143,7 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 */
 	public EList<Variable> getVariables() {
 		if (variables == null) {
-			variables = new EObjectContainmentEList<Variable>(Variable.class, this, ComponentsPackage.FMU_COMPONENT__VARIABLES);
+			variables = new EObjectContainmentEList.Resolving<Variable>(Variable.class, this, ComponentsPackage.FMU_COMPONENT__VARIABLES);
 		}
 		return variables;
 	}

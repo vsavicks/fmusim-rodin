@@ -68,6 +68,29 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	 * @generated
 	 */
 	public Variable getVariable() {
+		if (variable != null && variable.eIsProxy()) {
+			InternalEObject oldVariable = (InternalEObject)variable;
+			variable = (Variable)eResolveProxy(oldVariable);
+			if (variable != oldVariable) {
+				InternalEObject newVariable = (InternalEObject)variable;
+				NotificationChain msgs = oldVariable.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentsPackage.FMU_PORT__VARIABLE, null, null);
+				if (newVariable.eInternalContainer() == null) {
+					msgs = newVariable.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentsPackage.FMU_PORT__VARIABLE, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.FMU_PORT__VARIABLE, oldVariable, variable));
+			}
+		}
+		return variable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Variable basicGetVariable() {
 		return variable;
 	}
 
@@ -128,7 +151,8 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ComponentsPackage.FMU_PORT__VARIABLE:
-				return getVariable();
+				if (resolve) return getVariable();
+				return basicGetVariable();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

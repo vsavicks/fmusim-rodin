@@ -171,8 +171,8 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateConnector(Connector connector, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(connector, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(connector, diagnostics, context);
+		boolean result = validate_NoCircularContainment(connector, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMultiplicityConforms(connector, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(connector, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(connector, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(connector, diagnostics, context);
@@ -292,8 +292,8 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateEventBComponent(EventBComponent eventBComponent, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(eventBComponent, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(eventBComponent, diagnostics, context);
+		boolean result = validate_NoCircularContainment(eventBComponent, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMultiplicityConforms(eventBComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(eventBComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(eventBComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(eventBComponent, diagnostics, context);
@@ -321,8 +321,8 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFMUComponent(FMUComponent fmuComponent, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(fmuComponent, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(fmuComponent, diagnostics, context);
+		boolean result = validate_NoCircularContainment(fmuComponent, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMultiplicityConforms(fmuComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(fmuComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(fmuComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(fmuComponent, diagnostics, context);

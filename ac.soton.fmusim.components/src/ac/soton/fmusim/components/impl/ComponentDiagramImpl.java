@@ -85,7 +85,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 */
 	public EList<Component> getComponents() {
 		if (components == null) {
-			components = new EObjectContainmentEList<Component>(Component.class, this, ComponentsPackage.COMPONENT_DIAGRAM__COMPONENTS);
+			components = new EObjectContainmentEList.Resolving<Component>(Component.class, this, ComponentsPackage.COMPONENT_DIAGRAM__COMPONENTS);
 		}
 		return components;
 	}
@@ -97,7 +97,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 */
 	public EList<Connector> getConnectors() {
 		if (connectors == null) {
-			connectors = new EObjectContainmentEList<Connector>(Connector.class, this, ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS);
+			connectors = new EObjectContainmentEList.Resolving<Connector>(Connector.class, this, ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS);
 		}
 		return connectors;
 	}

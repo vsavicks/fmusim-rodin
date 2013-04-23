@@ -69,7 +69,7 @@ public interface FMUComponent extends Component {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Variables</em>' containment reference list.
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getFMUComponent_Variables()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	EList<Variable> getVariables();

@@ -38,7 +38,7 @@ public interface ComponentDiagram extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Components</em>' containment reference list.
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_Components()
-	 * @model containment="true" required="true"
+	 * @model containment="true" resolveProxies="true" required="true"
 	 * @generated
 	 */
 	EList<Component> getComponents();
@@ -54,7 +54,7 @@ public interface ComponentDiagram extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Connectors</em>' containment reference list.
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_Connectors()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	EList<Connector> getConnectors();

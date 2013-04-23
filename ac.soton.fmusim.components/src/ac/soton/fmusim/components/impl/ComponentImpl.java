@@ -84,7 +84,7 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 	 */
 	public EList<Port> getInputs() {
 		if (inputs == null) {
-			inputs = new EObjectContainmentEList<Port>(Port.class, this, ComponentsPackage.COMPONENT__INPUTS);
+			inputs = new EObjectContainmentEList.Resolving<Port>(Port.class, this, ComponentsPackage.COMPONENT__INPUTS);
 		}
 		return inputs;
 	}
@@ -96,7 +96,7 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 	 */
 	public EList<Port> getOutputs() {
 		if (outputs == null) {
-			outputs = new EObjectContainmentEList<Port>(Port.class, this, ComponentsPackage.COMPONENT__OUTPUTS);
+			outputs = new EObjectContainmentEList.Resolving<Port>(Port.class, this, ComponentsPackage.COMPONENT__OUTPUTS);
 		}
 		return outputs;
 	}

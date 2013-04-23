@@ -11,6 +11,9 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eventb.emf.core.AbstractExtension;
+import org.eventb.emf.core.EventBElement;
+import org.eventb.emf.core.EventBObject;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
@@ -119,6 +122,18 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseVariable(Variable object) {
 				return createVariableAdapter();
+			}
+			@Override
+			public Adapter caseEventBObject(EventBObject object) {
+				return createEventBObjectAdapter();
+			}
+			@Override
+			public Adapter caseEventBElement(EventBElement object) {
+				return createEventBElementAdapter();
+			}
+			@Override
+			public Adapter caseAbstractExtension(AbstractExtension object) {
+				return createAbstractExtensionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -277,6 +292,48 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eventb.emf.core.EventBObject <em>Event BObject</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eventb.emf.core.EventBObject
+	 * @generated
+	 */
+	public Adapter createEventBObjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eventb.emf.core.EventBElement <em>Event BElement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eventb.emf.core.EventBElement
+	 * @generated
+	 */
+	public Adapter createEventBElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eventb.emf.core.AbstractExtension <em>Abstract Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eventb.emf.core.AbstractExtension
+	 * @generated
+	 */
+	public Adapter createAbstractExtensionAdapter() {
 		return null;
 	}
 

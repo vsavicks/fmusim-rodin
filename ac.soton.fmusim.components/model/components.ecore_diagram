@@ -154,7 +154,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_pxjaOH-4EeK7u7SmhPWfmA"/>
     </children>
     <element xmi:type="ecore:EClass" href="components.ecore#//EventBComponent"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pxizIX-4EeK7u7SmhPWfmA" x="162" y="135"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pxizIX-4EeK7u7SmhPWfmA" x="126" y="135"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_0UqMkH-4EeK7u7SmhPWfmA" type="2001" fontName="Lucida Grande">
     <children xmi:type="notation:DecorationNode" xmi:id="_0UqzoH-4EeK7u7SmhPWfmA" type="5001"/>
