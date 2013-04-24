@@ -36,6 +36,11 @@ public class Messages {
 	public static String ModelSelectionPageBadURI;
 	public static String ModelSelectionPageModelNA;
 	public static String ModelSelectionPageErrorLoadingModel;
+
+	// fmu port definition page
+	public static String FMUDefinitionPageElementsToProcess;
+	public static String FMUDefinitionPageDeselectAll;
+	public static String FMUDefinitionPageElement;
 	
 	// component import wizard
 	public static String ComponentImportWizardDomainModelSelectionPageTitle;

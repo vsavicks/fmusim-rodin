@@ -9,12 +9,13 @@ package ac.soton.fmusim.components.ui.wizards.pages;
 
 import java.util.List;
 
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
+import ac.soton.fmusim.components.ui.wizards.pages.experimental.DomainModelSource;
 
 /**
  * Component model selection page that supports two types of resources:
@@ -23,7 +24,7 @@ import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
  * @author vitaly
  *
  */
-public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage {
+public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage implements DomainModelSource {
 
 	private static final String COMP = "componentModel";
 
@@ -38,6 +39,7 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage {
 	}
 
 	@Override
+	//FIXME: fmu does not have epackage
 	protected void resourceChanged() {
 		super.resourceChanged();
 		contents = null;
@@ -49,29 +51,30 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#getContents()
+	 */
+	@Override
+	//FIXME: not for fmu
 	public EPackage getContents() {
 		return contents;
 	}
-
-//	public EClass getDiagramElement() {
-//		return (EClass) ((DiagramElementSelectorExtension) getExtension(DEE)).getModelElement();
-//	}
-
+	
+	/* (non-Javadoc)
+	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#isDisabled(org.eclipse.emf.ecore.EObject)
+	 */
+	@Override
 	public boolean isDisabled(EObject domainElement) {
 		throw new UnsupportedOperationException();
 	}
 
-//	/* (non-Javadoc)
-//	 * @see ac.soton.fmusim.components.ui.wizards.pages.ModelSelectionPage#createResource(org.eclipse.emf.common.util.URI)
-//	 */
-//	@Override
-//	protected AbstractResource createResource(URI uri) {
-//		String fileExtension = uri.fileExtension();
-//		if (fileExtension != null && getModelFileExtensions() != null) {
-//			for (String ext : getModelFileExtensions()) {
-//				if (fileExtension.equals(ext))
-//			}
-//		}
-//		return null;
-//	}
+	/* (non-Javadoc)
+	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#getDiagramElement()
+	 */
+	@Override
+	public EClass getDiagramElement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

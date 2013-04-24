@@ -53,6 +53,9 @@ import ac.soton.fmusim.components.ui.resource.FMUResourceFactory;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
 import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSelectionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.ModelSelectionPage;
+//import ac.soton.fmusim.components.ui.wizards.pages.PortDefinitionPage;
+import ac.soton.fmusim.components.ui.wizards.pages.experimental.FMUPortDefinitionPage;
+import ac.soton.fmusim.components.ui.wizards.pages.experimental.StructureBuilder;
 
 /**
  * @author vitaly
@@ -61,8 +64,8 @@ import ac.soton.fmusim.components.ui.wizards.pages.ModelSelectionPage;
 public class ComponentImportWizard extends Wizard implements IImportWizard {
 	
 	// from subclass
-	protected ModelSelectionPage componentModelSelectionPage;
-//	protected PortDefinitionPage portDefinitionPage;
+	protected ComponentModelSelectionPage componentModelSelectionPage;
+	protected FMUPortDefinitionPage fmuPortDefinitionPage;
 
 	// from superclass
 	//TODO: pull up
@@ -113,7 +116,7 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 		componentModelSelectionPage.setDescription(Messages.ComponentImportWizardModelSelectionPageDesc);
 		addPage(componentModelSelectionPage);
 
-//		portDefinitionPage = new PortDefinitionPage("PortDefinitionPage", new StructureBuilder(new StructureResolver(), false), domainModelSelectionPage) { //$NON-NLS-1$
+//		fmuPortDefinitionPage = new FMUPortDefinitionPage("PortDefinitionPage", new StructureBuilder(new StructureResolver(), false), componentModelSelectionPage);// { //$NON-NLS-1$
 //
 //			protected DomainModelSourceImpl createDomainModelSource(EPackage contents, EClass diagramElement) {
 //				if (isInReconcileMode()) {
@@ -127,9 +130,9 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 //				return super.createDomainModelSource(contents, diagramElement);
 //			}
 //		};
-//		portDefinitionPage.setTitle(Messages.SimpleModelWizardToolDefinitionPageTitle);
-//		portDefinitionPage.setDescription(Messages.SimpleModelWizardToolDefinitionPageDesc);
-//		addPage(portDefinitionPage);
+//		fmuPortDefinitionPage.setTitle(Messages.SimpleModelWizardToolDefinitionPageTitle);
+//		fmuPortDefinitionPage.setDescription(Messages.SimpleModelWizardToolDefinitionPageDesc);
+//		addPage(fmuPortDefinitionPage);
 	}
 
 //	public IFile getModelFile() {
