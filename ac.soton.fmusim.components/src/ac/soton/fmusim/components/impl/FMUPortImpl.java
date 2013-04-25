@@ -7,17 +7,15 @@
  */
 package ac.soton.fmusim.components.impl;
 
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.FMUPort;
-
-import ac.soton.fmusim.components.Variable;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.Variable;
 
 /**
  * <!-- begin-user-doc -->

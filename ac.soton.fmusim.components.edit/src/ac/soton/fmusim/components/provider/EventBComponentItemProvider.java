@@ -23,8 +23,8 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eventb.emf.core.CoreFactory;
 import org.eventb.emf.core.CorePackage;
+import org.eventb.emf.core.provider.AbstractExtensionItemProvider;
 
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -37,7 +37,7 @@ import ac.soton.fmusim.components.EventBComponent;
  * @generated
  */
 public class EventBComponentItemProvider
-	extends ComponentItemProvider
+	extends AbstractExtensionItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -65,10 +65,7 @@ public class EventBComponentItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addReferencePropertyDescriptor(object);
-			addGeneratedPropertyDescriptor(object);
-			addLocalGeneratedPropertyDescriptor(object);
-			addExtensionIdPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 			addComposedPropertyDescriptor(object);
 			addTimeVariableNamePropertyDescriptor(object);
 			addMachinePropertyDescriptor(object);
@@ -77,85 +74,19 @@ public class EventBComponentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Reference feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addReferencePropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBElement_reference_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBElement_reference_feature", "_UI_EventBElement_type"),
-				 CorePackage.Literals.EVENT_BELEMENT__REFERENCE,
-				 false,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Generated feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addGeneratedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBElement_generated_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBElement_generated_feature", "_UI_EventBElement_type"),
-				 CorePackage.Literals.EVENT_BELEMENT__GENERATED,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Local Generated feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLocalGeneratedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBElement_localGenerated_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBElement_localGenerated_feature", "_UI_EventBElement_type"),
-				 CorePackage.Literals.EVENT_BELEMENT__LOCAL_GENERATED,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Extension Id feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addExtensionIdPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_AbstractExtension_extensionId_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractExtension_extensionId_feature", "_UI_AbstractExtension_type"),
-				 CorePackage.Literals.ABSTRACT_EXTENSION__EXTENSION_ID,
+				 getString("_UI_NamedElement_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_name_feature", "_UI_NamedElement_type"),
+				 ComponentsPackage.Literals.NAMED_ELEMENT__NAME,
 				 true,
 				 false,
 				 false,
@@ -242,9 +173,8 @@ public class EventBComponentItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(CorePackage.Literals.EVENT_BOBJECT__ANNOTATIONS);
-			childrenFeatures.add(CorePackage.Literals.EVENT_BELEMENT__EXTENSIONS);
-			childrenFeatures.add(CorePackage.Literals.EVENT_BELEMENT__ATTRIBUTES);
+			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__INPUTS);
+			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__OUTPUTS);
 		}
 		return childrenFeatures;
 	}
@@ -299,17 +229,13 @@ public class EventBComponentItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(EventBComponent.class)) {
-			case ComponentsPackage.EVENT_BCOMPONENT__REFERENCE:
-			case ComponentsPackage.EVENT_BCOMPONENT__GENERATED:
-			case ComponentsPackage.EVENT_BCOMPONENT__LOCAL_GENERATED:
-			case ComponentsPackage.EVENT_BCOMPONENT__EXTENSION_ID:
+			case ComponentsPackage.EVENT_BCOMPONENT__NAME:
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__ANNOTATIONS:
-			case ComponentsPackage.EVENT_BCOMPONENT__EXTENSIONS:
-			case ComponentsPackage.EVENT_BCOMPONENT__ATTRIBUTES:
+			case ComponentsPackage.EVENT_BCOMPONENT__INPUTS:
+			case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -329,23 +255,28 @@ public class EventBComponentItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(CorePackage.Literals.EVENT_BOBJECT__ANNOTATIONS,
-				 CoreFactory.eINSTANCE.createAnnotation()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(CorePackage.Literals.EVENT_BELEMENT__EXTENSIONS,
 				 ComponentsFactory.eINSTANCE.createEventBComponent()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(CorePackage.Literals.EVENT_BELEMENT__EXTENSIONS,
-				 CoreFactory.eINSTANCE.createExtension()));
+				(ComponentsPackage.Literals.COMPONENT__INPUTS,
+				 ComponentsFactory.eINSTANCE.createFMUPort()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(CorePackage.Literals.EVENT_BELEMENT__ATTRIBUTES,
-				 CoreFactory.eINSTANCE.create(CorePackage.Literals.STRING_TO_ATTRIBUTE_MAP_ENTRY)));
+				(ComponentsPackage.Literals.COMPONENT__INPUTS,
+				 ComponentsFactory.eINSTANCE.createEventBPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__OUTPUTS,
+				 ComponentsFactory.eINSTANCE.createFMUPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__OUTPUTS,
+				 ComponentsFactory.eINSTANCE.createEventBPort()));
 	}
 
 	/**

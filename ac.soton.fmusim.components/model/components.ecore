@@ -42,7 +42,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventBComponent" eSuperTypes="#//Component ../../org.eventb.emf.core/model/eventbcore.ecore#//AbstractExtension">
+  <eClassifiers xsi:type="ecore:EClass" name="EventBComponent" eSuperTypes="../../org.eventb.emf.core/model/eventbcore.ecore#//AbstractExtension #//Component">
     <eAnnotations source="org.eventb.emf.core.extendedMetaClasses" references="../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Machine"/>
     <eOperations name="hasValidMachineReference" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>

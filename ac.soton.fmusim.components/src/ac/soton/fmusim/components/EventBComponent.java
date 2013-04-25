@@ -31,7 +31,7 @@ import org.eventb.emf.core.machine.Machine;
  * @model
  * @generated
  */
-public interface EventBComponent extends Component, AbstractExtension {
+public interface EventBComponent extends AbstractExtension, Component {
 	/**
 	 * Returns the value of the '<em><b>Composed</b></em>' attribute.
 	 * <!-- begin-user-doc -->

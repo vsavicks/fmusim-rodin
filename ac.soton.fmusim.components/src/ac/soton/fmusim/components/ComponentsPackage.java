@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eventb.emf.core.CorePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -300,40 +301,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT = 5;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__NAME = COMPONENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__INPUTS = COMPONENT__INPUTS;
-
-	/**
-	 * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__OUTPUTS = COMPONENT__OUTPUTS;
-
-	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__ANNOTATIONS = COMPONENT_FEATURE_COUNT + 0;
+	int EVENT_BCOMPONENT__ANNOTATIONS = CorePackage.ABSTRACT_EXTENSION__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
@@ -342,7 +316,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__EXTENSIONS = COMPONENT_FEATURE_COUNT + 1;
+	int EVENT_BCOMPONENT__EXTENSIONS = CorePackage.ABSTRACT_EXTENSION__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
@@ -351,7 +325,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__ATTRIBUTES = COMPONENT_FEATURE_COUNT + 2;
+	int EVENT_BCOMPONENT__ATTRIBUTES = CorePackage.ABSTRACT_EXTENSION__ATTRIBUTES;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' attribute.
@@ -360,7 +334,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__REFERENCE = COMPONENT_FEATURE_COUNT + 3;
+	int EVENT_BCOMPONENT__REFERENCE = CorePackage.ABSTRACT_EXTENSION__REFERENCE;
 
 	/**
 	 * The feature id for the '<em><b>Generated</b></em>' attribute.
@@ -369,7 +343,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__GENERATED = COMPONENT_FEATURE_COUNT + 4;
+	int EVENT_BCOMPONENT__GENERATED = CorePackage.ABSTRACT_EXTENSION__GENERATED;
 
 	/**
 	 * The feature id for the '<em><b>Local Generated</b></em>' attribute.
@@ -378,7 +352,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__LOCAL_GENERATED = COMPONENT_FEATURE_COUNT + 5;
+	int EVENT_BCOMPONENT__LOCAL_GENERATED = CorePackage.ABSTRACT_EXTENSION__LOCAL_GENERATED;
 
 	/**
 	 * The feature id for the '<em><b>Extension Id</b></em>' attribute.
@@ -387,7 +361,34 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__EXTENSION_ID = COMPONENT_FEATURE_COUNT + 6;
+	int EVENT_BCOMPONENT__EXTENSION_ID = CorePackage.ABSTRACT_EXTENSION__EXTENSION_ID;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__NAME = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__INPUTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__OUTPUTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Composed</b></em>' attribute.
@@ -396,7 +397,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__COMPOSED = COMPONENT_FEATURE_COUNT + 7;
+	int EVENT_BCOMPONENT__COMPOSED = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Time Variable Name</b></em>' attribute.
@@ -405,7 +406,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__TIME_VARIABLE_NAME = COMPONENT_FEATURE_COUNT + 8;
+	int EVENT_BCOMPONENT__TIME_VARIABLE_NAME = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Machine</b></em>' reference.
@@ -414,7 +415,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__MACHINE = COMPONENT_FEATURE_COUNT + 9;
+	int EVENT_BCOMPONENT__MACHINE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
@@ -423,7 +424,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 10;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.

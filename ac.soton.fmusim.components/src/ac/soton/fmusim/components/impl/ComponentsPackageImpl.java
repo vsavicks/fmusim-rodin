@@ -7,6 +7,19 @@
  */
 package ac.soton.fmusim.components.impl;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eventb.emf.core.CorePackage;
+import org.eventb.emf.core.machine.MachinePackage;
+
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsFactory;
@@ -20,24 +33,8 @@ import ac.soton.fmusim.components.FmiTypes;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.PortKind;
-
 import ac.soton.fmusim.components.Variable;
 import ac.soton.fmusim.components.util.ComponentsValidator;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EGenericType;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.emf.ecore.EValidator;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.eventb.emf.core.CorePackage;
-
-import org.eventb.emf.core.machine.MachinePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -600,8 +597,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		componentEClass.getESuperTypes().add(this.getNamedElement());
 		connectorEClass.getESuperTypes().add(this.getNamedElement());
 		portEClass.getESuperTypes().add(this.getNamedElement());
-		eventBComponentEClass.getESuperTypes().add(this.getComponent());
 		eventBComponentEClass.getESuperTypes().add(theCorePackage.getAbstractExtension());
+		eventBComponentEClass.getESuperTypes().add(this.getComponent());
 		fmuComponentEClass.getESuperTypes().add(this.getComponent());
 		fmuPortEClass.getESuperTypes().add(this.getPort());
 		eventBPortEClass.getESuperTypes().add(this.getPort());

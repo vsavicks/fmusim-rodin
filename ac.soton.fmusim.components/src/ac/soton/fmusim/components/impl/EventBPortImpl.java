@@ -7,17 +7,14 @@
  */
 package ac.soton.fmusim.components.impl;
 
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.EventBPort;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eventb.emf.core.machine.Event;
+
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.EventBPort;
 
 /**
  * <!-- begin-user-doc -->

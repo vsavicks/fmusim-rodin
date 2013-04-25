@@ -7,15 +7,13 @@
  */
 package ac.soton.fmusim.components.impl;
 
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.NamedElement;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.NamedElement;
 
 /**
  * <!-- begin-user-doc -->

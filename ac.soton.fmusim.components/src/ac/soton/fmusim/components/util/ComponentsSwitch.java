@@ -138,10 +138,10 @@ public class ComponentsSwitch<T> {
 			case ComponentsPackage.EVENT_BCOMPONENT: {
 				EventBComponent eventBComponent = (EventBComponent)theEObject;
 				T result = caseEventBComponent(eventBComponent);
-				if (result == null) result = caseComponent(eventBComponent);
 				if (result == null) result = caseAbstractExtension(eventBComponent);
-				if (result == null) result = caseNamedElement(eventBComponent);
+				if (result == null) result = caseComponent(eventBComponent);
 				if (result == null) result = caseEventBElement(eventBComponent);
+				if (result == null) result = caseNamedElement(eventBComponent);
 				if (result == null) result = caseEventBObject(eventBComponent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
