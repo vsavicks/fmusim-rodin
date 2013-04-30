@@ -80,6 +80,12 @@
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
+            <command
+                  commandId="ac.soton.fmusim.components.ui.commands.Import_simple"
+                  icon="icons/Import.gif"
+                  label="Import"
+                  style="push">
+            </command>
          </toolbar>
       </menuContribution>
    </extension>

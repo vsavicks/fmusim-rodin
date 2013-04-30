@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ui
+Bundle-Name: Fmusim Components Diagram UI Plugin
 Bundle-SymbolicName: ac.soton.fmusim.components.ui;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Require-Bundle: org.eclipse.core.commands;bundle-version="3.6.0",
  org.eclipse.core.resources,
  org.eclipse.ui;bundle-version="3.7.0",
@@ -15,3 +15,6 @@ Require-Bundle: org.eclipse.core.commands;bundle-version="3.6.0",
  org.eclipse.emf.common.ui;bundle-version="2.7.0"
 Import-Package: org.eclipse.gmf.runtime.diagram.ui.parts
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: University of Southampton
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: ac.soton.fmusim.components.ui.ComponentsUIPlugin
