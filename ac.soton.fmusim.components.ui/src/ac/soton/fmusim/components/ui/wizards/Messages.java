@@ -37,13 +37,19 @@ public class Messages {
 	public static String ModelSelectionPageModelNA;
 	public static String ModelSelectionPageErrorLoadingModel;
 
-	// fmu port definition page
+	// fmu definition page
 	public static String FMUDefinitionPageElementsToProcess;
 	public static String FMUDefinitionPageDeselectAll;
 	public static String FMUDefinitionPageElement;
+	public static String FMUComponentDefinitionPageTitle;
+	public static String FMUComponentDefinitionPageDesc;
 	
+	// event-b definition page
+	public static String EventBComponentDefinitionPageTitle;
+	public static String EventBComponentDefinitionPageDesc;
+
 	// component import wizard
-	public static String ComponentImportWizardDomainModelSelectionPageTitle;
-	public static String ComponentImportWizardModelSelectionPageDesc;
+	public static String ComponentModelSelectionPageTitle;
+	public static String ComponentModelSelectionPageDesc;
 
 }

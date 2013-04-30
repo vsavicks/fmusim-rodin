@@ -72,6 +72,8 @@ public abstract class ModelSelectionPage extends WizardPage {
 
 	private String[] modelFileExtensions;
 
+	private boolean canFlipToNextPage;
+
 	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
 		this(pageId, rloc, resourceSet, null);
 	}
@@ -339,6 +341,9 @@ public abstract class ModelSelectionPage extends WizardPage {
 		return uri;
 	}
 
+	/**
+	 * Unloads current resource.
+	 */
 	protected void unloadResource() {
 		if (this.resource != null) {
 			if (this.resource.isLoaded()) {
@@ -349,6 +354,11 @@ public abstract class ModelSelectionPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * Loads a resource.
+	 * 
+	 * @return resource, or null if loading failed
+	 */
 	protected Resource loadResource() {
 		unloadResource();
 		assert uri != null;
@@ -367,6 +377,13 @@ public abstract class ModelSelectionPage extends WizardPage {
 		return resource;
 	}
 
+	/**
+	 * Set a new resource.
+	 * Unloads the previous resource and loads a new one,
+	 * as well as performs the validation and notifies about the change event.
+	 * 
+	 * @param resource
+	 */
 	protected final void setResource(Resource resource) {
 		unloadResource();
 		this.resource = resource;
@@ -374,12 +391,19 @@ public abstract class ModelSelectionPage extends WizardPage {
 		resourceChanged();
 	}
 
+	/**
+	 * Validates the page.
+	 */
 	public void validatePage() {
 		if (modelRequired) {
+//			if (getNextPage() != null)
+//				setNextEnabled(resource != null);
+//			else
 			setPageComplete(resource != null);
 		}
 	}
 
+	@Override
 	public void setVisible(boolean visible) {
 		if (!initialized && visible) {
 			initialized = true;
@@ -388,20 +412,53 @@ public abstract class ModelSelectionPage extends WizardPage {
 		super.setVisible(visible);
 	}
 
+	/**
+	 * Shall be overridden to handle a resource change event.
+	 */
 	protected void resourceChanged() {
 	}
 
+	/**
+	 * Returns loaded resource.
+	 * 
+	 * @return resource
+	 */
 	public final Resource getResource() {
 		return resource;
 	}
 
+	/**
+	 * Returns indicator if model is required for the page to be completed.
+	 * 
+	 * @return
+	 */
 	public final boolean isModelRequired() {
 		return modelRequired;
 	}
 
+	/**
+	 * Sets model required flag.
+	 * 
+	 * @param modelRequired
+	 */
 	public void setModelRequired(boolean modelRequired) {
 		this.modelRequired = modelRequired;
 		validatePage();
+	}
+
+//	@Override
+//	public boolean canFlipToNextPage() {
+//		return getNextPage() != null && canFlipToNextPage;
+//	}
+	
+	/**
+	 * @param b
+	 */
+	private void setNextEnabled(boolean b) {
+		canFlipToNextPage = b;
+        if (isCurrentPage()) {
+			getContainer().updateButtons();
+		}
 	}
 
 }

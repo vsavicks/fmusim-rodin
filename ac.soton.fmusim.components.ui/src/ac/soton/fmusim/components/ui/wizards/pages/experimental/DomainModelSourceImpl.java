@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EPackage;
  * @author vitaly
  *
  */
-public class DomainModelSourceImpl implements DomainModelSource {
+public class DomainModelSourceImpl implements ComponentModelSource {
 
 	/**
 	 * @param contents
@@ -26,30 +26,39 @@ public class DomainModelSourceImpl implements DomainModelSource {
 	}
 
 	/* (non-Javadoc)
-	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#getContents()
+	 * @see ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSource#getModel()
 	 */
 	@Override
-	public EPackage getContents() {
+	public Object getModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#getDiagramElement()
+	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#getContents()
 	 */
-	@Override
-	public EClass getDiagramElement() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public EPackage getContents() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	/* (non-Javadoc)
+//	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#getDiagramElement()
+//	 */
+//	@Override
+//	public EClass getDiagramElement() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	/* (non-Javadoc)
 	 * @see ac.soton.fmusim.components.ui.wizards.pages.DomainModelSource#isDisabled(org.eclipse.emf.ecore.EObject)
 	 */
-	@Override
-	public boolean isDisabled(EObject domainElement) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public boolean isDisabled(EObject domainElement) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 
 }

@@ -7,12 +7,16 @@
  */
 package ac.soton.fmusim.components.ui.resource;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 
 import de.prob.cosimulation.FMU;
@@ -23,6 +27,7 @@ import de.prob.cosimulation.FMU;
  * @author vitaly
  *
  */
+//TODO: add unloading
 public class FMUResource extends ResourceImpl {
 	
 	private FMU fmu;
@@ -52,11 +57,18 @@ public class FMUResource extends ResourceImpl {
 		} else if (uri.isFile()) {
 			filePath = uri.toFileString();
 		} else {
-			throw new IOException("Loading FMU resource failed: unsupported resource URI");
+			throw new IOException("Loading FMU resource failed: unsupported resource URI" + "\"" + uri + "\"");
 		}
-		if (filePath != null)
-			fmu = new FMU(filePath);
+		
+		// file path validity
+		if (filePath == null || new File(filePath).exists() == false) {
+			throw new IOException("Loading FMU resource failed: invalid resource file path " + "\"" + filePath + "\"");
+		}
+		
+		fmu = new FMU(filePath);
 	}
+	
+	
 	
 	/**
 	 * Returns resource fmu.

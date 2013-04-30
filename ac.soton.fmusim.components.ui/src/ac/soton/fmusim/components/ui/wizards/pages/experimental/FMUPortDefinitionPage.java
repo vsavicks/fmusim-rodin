@@ -44,7 +44,7 @@ public class FMUPortDefinitionPage extends WizardPage {
 
 //	private final StructureBuilder structureBuilder;
 
-	private final DomainModelSource domainModelSource;
+	private final ComponentModelSource domainModelSource;
 
 	private DomainModelSourceImpl currentModelSource;
 
@@ -54,7 +54,7 @@ public class FMUPortDefinitionPage extends WizardPage {
 
 	private Button recognizeButton;
 
-	public FMUPortDefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSource domainModelSource) {
+	public FMUPortDefinitionPage(String pageId, StructureBuilder structureBuilder, ComponentModelSource domainModelSource) {
 		super(pageId);
 //		this.structureBuilder = structureBuilder;
 		this.domainModelSource = domainModelSource;

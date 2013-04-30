@@ -6,19 +6,29 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components.ui.commands;
-
+/**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import ac.soton.fmusim.components.Component;
+import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ui.wizards.ComponentImportWizard;
 
 /**
@@ -35,11 +45,11 @@ public class ImportComponentCommand extends AbstractHandler {
 	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IEditorPart diagramEditor = HandlerUtil.getActiveEditorChecked(event);
+		DiagramEditor diagramEditor = (DiagramEditor) HandlerUtil.getActiveEditorChecked(event);
 		Shell shell = diagramEditor.getEditorSite().getShell();
 
 		final ComponentImportWizard wiz = new ComponentImportWizard();
-		wiz.setWindowTitle("abba");
+		wiz.setWindowTitle("New Component Import Wizard");
 		wiz.init(PlatformUI.getWorkbench(), null);
 		WizardDialog wd = new WizardDialog(shell, wiz);
 		wd.create();
@@ -61,6 +71,19 @@ public class ImportComponentCommand extends AbstractHandler {
 		wd.getShell().setLocation(x, y);
 		wd.getShell().setSize(width, height);
 		wd.open();
+		
+		// adding component to diagram
+		final Component component = wiz.getComponent();
+		final ComponentDiagram diagram = (ComponentDiagram) diagramEditor.getDiagram().getElement();
+		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+		if (component != null) {
+			editingDomain.getCommandStack().execute(
+					new RecordingCommand(editingDomain) {
+						protected void doExecute() {
+							diagram.getComponents().add(component);
+						}
+					});
+		}
 		return null;
 	}
 

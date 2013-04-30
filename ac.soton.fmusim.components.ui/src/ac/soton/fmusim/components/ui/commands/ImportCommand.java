@@ -1,5 +1,9 @@
 /**
- * 
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package ac.soton.fmusim.components.ui.commands;
 
@@ -142,23 +146,7 @@ public class ImportCommand extends AbstractHandler {
 				// TODO: maybe the variable also requires the type, variability (parameter etc.), start value (from type i.e. type.start)
 				
 				// type and start value
-				FMIType type = scalarVariable.type;
-				Object value = null;
-				FmiTypes typeEnum = FmiTypes.REAL;
-				if (type instanceof FMIRealType) {
-					value = ((FMIRealType) type).start;
-					typeEnum = FmiTypes.REAL;
-				} else if (type instanceof FMIIntegerType) {
-					value = ((FMIIntegerType) type).start;
-					typeEnum = FmiTypes.INTEGER;
-				} else if (type instanceof FMIBooleanType) {
-					value = ((FMIBooleanType) type).start;
-					typeEnum = FmiTypes.BOOLEAN;
-				} else if (type instanceof FMIStringType) {
-					value = ((FMIStringType) type).start;
-					typeEnum = FmiTypes.STRING;
-				}
-				variable.setValue(value);
+				FmiTypes typeEnum = ac.soton.fmusim.components.ui.FmiUtil.getFmiType(scalarVariable, variable);
 
 				if (scalarVariable.causality == Causality.internal) {
 					fmuComponent.getVariables().add(variable);
@@ -206,4 +194,5 @@ public class ImportCommand extends AbstractHandler {
 				});
 		return null;
 	}
+
 }
