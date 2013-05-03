@@ -27,9 +27,9 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.Port;
-import ac.soton.fmusim.components.Variable;
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
@@ -37,10 +37,10 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.VariableEditPart;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 
 /**
@@ -182,10 +182,10 @@ public class ComponentsDiagramUpdater {
 		LinkedList<ComponentsNodeDescriptor> result = new LinkedList<ComponentsNodeDescriptor>();
 		for (Iterator<?> it = modelElement.getVariables().iterator(); it
 				.hasNext();) {
-			Variable childElement = (Variable) it.next();
+			FMUInternalVariable childElement = (FMUInternalVariable) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
-			if (visualID == VariableEditPart.VISUAL_ID) {
+			if (visualID == FMUInternalVariableEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -210,8 +210,8 @@ public class ComponentsDiagramUpdater {
 			return getFMUPort_3001ContainedLinks(view);
 		case FMUPort2EditPart.VISUAL_ID:
 			return getFMUPort_3002ContainedLinks(view);
-		case VariableEditPart.VISUAL_ID:
-			return getVariable_3005ContainedLinks(view);
+		case FMUInternalVariableEditPart.VISUAL_ID:
+			return getFMUInternalVariable_3006ContainedLinks(view);
 		case EventBPortEditPart.VISUAL_ID:
 			return getEventBPort_3003ContainedLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
@@ -235,8 +235,8 @@ public class ComponentsDiagramUpdater {
 			return getFMUPort_3001IncomingLinks(view);
 		case FMUPort2EditPart.VISUAL_ID:
 			return getFMUPort_3002IncomingLinks(view);
-		case VariableEditPart.VISUAL_ID:
-			return getVariable_3005IncomingLinks(view);
+		case FMUInternalVariableEditPart.VISUAL_ID:
+			return getFMUInternalVariable_3006IncomingLinks(view);
 		case EventBPortEditPart.VISUAL_ID:
 			return getEventBPort_3003IncomingLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
@@ -260,8 +260,8 @@ public class ComponentsDiagramUpdater {
 			return getFMUPort_3001OutgoingLinks(view);
 		case FMUPort2EditPart.VISUAL_ID:
 			return getFMUPort_3002OutgoingLinks(view);
-		case VariableEditPart.VISUAL_ID:
-			return getVariable_3005OutgoingLinks(view);
+		case FMUInternalVariableEditPart.VISUAL_ID:
+			return getFMUInternalVariable_3006OutgoingLinks(view);
 		case EventBPortEditPart.VISUAL_ID:
 			return getEventBPort_3003OutgoingLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
@@ -327,7 +327,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getVariable_3005ContainedLinks(
+	public static List<ComponentsLinkDescriptor> getFMUInternalVariable_3006ContainedLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -403,7 +403,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getVariable_3005IncomingLinks(
+	public static List<ComponentsLinkDescriptor> getFMUInternalVariable_3006IncomingLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -473,7 +473,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getVariable_3005OutgoingLinks(
+	public static List<ComponentsLinkDescriptor> getFMUInternalVariable_3006OutgoingLinks(
 			View view) {
 		return Collections.emptyList();
 	}

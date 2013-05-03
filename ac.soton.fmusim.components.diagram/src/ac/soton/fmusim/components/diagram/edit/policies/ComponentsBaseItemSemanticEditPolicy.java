@@ -9,8 +9,8 @@ package ac.soton.fmusim.components.diagram.edit.policies;
 
 import java.util.Collections;
 import java.util.Iterator;
-
 import java.util.Map;
+
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.Request;

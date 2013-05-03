@@ -26,12 +26,12 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.VariableEditPart;
 import ac.soton.fmusim.components.diagram.parsers.ConnectorLabelExpressionLabelParser;
+import ac.soton.fmusim.components.diagram.parsers.FMUInternalVariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.MessageFormatParser;
-import ac.soton.fmusim.components.diagram.parsers.VariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 
 /**
@@ -95,7 +95,7 @@ public class ComponentsParserProvider extends AbstractProvider implements
 		if (fMUPortNameType_5004Parser == null) {
 			EAttribute[] features = new EAttribute[] {
 					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getPort_Type() };
+					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
 			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
@@ -117,7 +117,7 @@ public class ComponentsParserProvider extends AbstractProvider implements
 		if (fMUPortNameType_5005Parser == null) {
 			EAttribute[] features = new EAttribute[] {
 					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getPort_Type() };
+					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
 			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
@@ -130,16 +130,16 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private VariableExpressionLabelParser variable_3005Parser;
+	private FMUInternalVariableExpressionLabelParser fMUInternalVariable_3006Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getVariable_3005Parser() {
-		if (variable_3005Parser == null) {
-			variable_3005Parser = new VariableExpressionLabelParser();
+	private IParser getFMUInternalVariable_3006Parser() {
+		if (fMUInternalVariable_3006Parser == null) {
+			fMUInternalVariable_3006Parser = new FMUInternalVariableExpressionLabelParser();
 		}
-		return variable_3005Parser;
+		return fMUInternalVariable_3006Parser;
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class ComponentsParserProvider extends AbstractProvider implements
 		if (eventBPortNameType_5006Parser == null) {
 			EAttribute[] features = new EAttribute[] {
 					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getPort_Type() };
+					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
 			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
@@ -176,7 +176,7 @@ public class ComponentsParserProvider extends AbstractProvider implements
 		if (eventBPortNameType_5007Parser == null) {
 			EAttribute[] features = new EAttribute[] {
 					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getPort_Type() };
+					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
 			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
@@ -201,8 +201,8 @@ public class ComponentsParserProvider extends AbstractProvider implements
 			return getFMUPortNameType_5004Parser();
 		case FMUPortNameType2EditPart.VISUAL_ID:
 			return getFMUPortNameType_5005Parser();
-		case VariableEditPart.VISUAL_ID:
-			return getVariable_3005Parser();
+		case FMUInternalVariableEditPart.VISUAL_ID:
+			return getFMUInternalVariable_3006Parser();
 		case EventBPortNameTypeEditPart.VISUAL_ID:
 			return getEventBPortNameType_5006Parser();
 		case EventBPortNameType2EditPart.VISUAL_ID:

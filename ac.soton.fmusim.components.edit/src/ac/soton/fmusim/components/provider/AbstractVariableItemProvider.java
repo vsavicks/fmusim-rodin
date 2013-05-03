@@ -4,6 +4,8 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * $Id$
  */
 package ac.soton.fmusim.components.provider;
 
@@ -20,18 +22,20 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.EventBPort;
 
 /**
- * This is the item provider adapter for a {@link ac.soton.fmusim.components.EventBPort} object.
+ * This is the item provider adapter for a {@link ac.soton.fmusim.components.AbstractVariable} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class EventBPortItemProvider
-	extends PortItemProvider
+public class AbstractVariableItemProvider
+	extends NamedElementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -44,7 +48,7 @@ public class EventBPortItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EventBPortItemProvider(AdapterFactory adapterFactory) {
+	public AbstractVariableItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,65 +63,54 @@ public class EventBPortItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFmiGetEventPropertyDescriptor(object);
-			addFmiSetEventPropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
+			addCausalityPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Fmi Get Event feature.
+	 * This adds a property descriptor for the Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFmiGetEventPropertyDescriptor(Object object) {
+	protected void addTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBPort_fmiGetEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_fmiGetEvent_feature", "_UI_EventBPort_type"),
-				 ComponentsPackage.Literals.EVENT_BPORT__FMI_GET_EVENT,
+				 getString("_UI_AbstractVariable_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractVariable_type_feature", "_UI_AbstractVariable_type"),
+				 ComponentsPackage.Literals.ABSTRACT_VARIABLE__TYPE,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Fmi Set Event feature.
+	 * This adds a property descriptor for the Causality feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFmiSetEventPropertyDescriptor(Object object) {
+	protected void addCausalityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBPort_fmiSetEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_fmiSetEvent_feature", "_UI_EventBPort_type"),
-				 ComponentsPackage.Literals.EVENT_BPORT__FMI_SET_EVENT,
+				 getString("_UI_AbstractVariable_causality_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractVariable_causality_feature", "_UI_AbstractVariable_type"),
+				 ComponentsPackage.Literals.ABSTRACT_VARIABLE__CAUSALITY,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
-	}
-
-	/**
-	 * This returns EventBPort.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventBPort"));
 	}
 
 	/**
@@ -128,10 +121,10 @@ public class EventBPortItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((EventBPort)object).getName();
+		String label = ((AbstractVariable)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_EventBPort_type") :
-			getString("_UI_EventBPort_type") + " " + label;
+			getString("_UI_AbstractVariable_type") :
+			getString("_UI_AbstractVariable_type") + " " + label;
 	}
 
 	/**
@@ -144,6 +137,13 @@ public class EventBPortItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(AbstractVariable.class)) {
+			case ComponentsPackage.ABSTRACT_VARIABLE__TYPE:
+			case ComponentsPackage.ABSTRACT_VARIABLE__CAUSALITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

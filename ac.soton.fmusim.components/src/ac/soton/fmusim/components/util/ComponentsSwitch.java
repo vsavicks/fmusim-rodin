@@ -15,6 +15,7 @@ import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.EventBElement;
 import org.eventb.emf.core.EventBObject;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -22,10 +23,11 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
-import ac.soton.fmusim.components.Variable;
 
 /**
  * <!-- begin-user-doc -->
@@ -125,6 +127,7 @@ public class ComponentsSwitch<T> {
 			case ComponentsPackage.PORT: {
 				Port port = (Port)theEObject;
 				T result = casePort(port);
+				if (result == null) result = caseAbstractVariable(port);
 				if (result == null) result = caseNamedElement(port);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -158,6 +161,8 @@ public class ComponentsSwitch<T> {
 				FMUPort fmuPort = (FMUPort)theEObject;
 				T result = caseFMUPort(fmuPort);
 				if (result == null) result = casePort(fmuPort);
+				if (result == null) result = caseFMUVariable(fmuPort);
+				if (result == null) result = caseAbstractVariable(fmuPort);
 				if (result == null) result = caseNamedElement(fmuPort);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -166,14 +171,32 @@ public class ComponentsSwitch<T> {
 				EventBPort eventBPort = (EventBPort)theEObject;
 				T result = caseEventBPort(eventBPort);
 				if (result == null) result = casePort(eventBPort);
+				if (result == null) result = caseAbstractVariable(eventBPort);
 				if (result == null) result = caseNamedElement(eventBPort);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ComponentsPackage.VARIABLE: {
-				Variable variable = (Variable)theEObject;
-				T result = caseVariable(variable);
-				if (result == null) result = caseNamedElement(variable);
+			case ComponentsPackage.FMU_INTERNAL_VARIABLE: {
+				FMUInternalVariable fmuInternalVariable = (FMUInternalVariable)theEObject;
+				T result = caseFMUInternalVariable(fmuInternalVariable);
+				if (result == null) result = caseFMUVariable(fmuInternalVariable);
+				if (result == null) result = caseAbstractVariable(fmuInternalVariable);
+				if (result == null) result = caseNamedElement(fmuInternalVariable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ComponentsPackage.FMU_VARIABLE: {
+				FMUVariable fmuVariable = (FMUVariable)theEObject;
+				T result = caseFMUVariable(fmuVariable);
+				if (result == null) result = caseAbstractVariable(fmuVariable);
+				if (result == null) result = caseNamedElement(fmuVariable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ComponentsPackage.ABSTRACT_VARIABLE: {
+				AbstractVariable abstractVariable = (AbstractVariable)theEObject;
+				T result = caseAbstractVariable(abstractVariable);
+				if (result == null) result = caseNamedElement(abstractVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -317,17 +340,47 @@ public class ComponentsSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>FMU Internal Variable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Variable</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>FMU Internal Variable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVariable(Variable object) {
+	public T caseFMUInternalVariable(FMUInternalVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>FMU Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>FMU Variable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFMUVariable(FMUVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Variable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractVariable(AbstractVariable object) {
 		return null;
 	}
 

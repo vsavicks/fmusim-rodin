@@ -17,8 +17,6 @@ package ac.soton.fmusim.components;
  * The following features are supported:
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.Port#getConnector <em>Connector</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.Port#getType <em>Type</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.Port#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,7 +24,7 @@ package ac.soton.fmusim.components;
  * @model abstract="true"
  * @generated
  */
-public interface Port extends NamedElement {
+public interface Port extends AbstractVariable {
 	/**
 	 * Returns the value of the '<em><b>Connector</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link ac.soton.fmusim.components.Connector#getPorts <em>Ports</em>}'.
@@ -54,63 +52,5 @@ public interface Port extends NamedElement {
 	 * @generated
 	 */
 	void setConnector(Connector value);
-
-	/**
-	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * The literals are from the enumeration {@link ac.soton.fmusim.components.FmiTypes}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' attribute.
-	 * @see ac.soton.fmusim.components.FmiTypes
-	 * @see #setType(FmiTypes)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getPort_Type()
-	 * @model
-	 * @generated
-	 */
-	FmiTypes getType();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.Port#getType <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see ac.soton.fmusim.components.FmiTypes
-	 * @see #getType()
-	 * @generated
-	 */
-	void setType(FmiTypes value);
-
-	/**
-	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
-	 * The literals are from the enumeration {@link ac.soton.fmusim.components.PortKind}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Kind</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Kind</em>' attribute.
-	 * @see ac.soton.fmusim.components.PortKind
-	 * @see #setKind(PortKind)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getPort_Kind()
-	 * @model
-	 * @generated
-	 */
-	PortKind getKind();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.Port#getKind <em>Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Kind</em>' attribute.
-	 * @see ac.soton.fmusim.components.PortKind
-	 * @see #getKind()
-	 * @generated
-	 */
-	void setKind(PortKind value);
 
 } // Port

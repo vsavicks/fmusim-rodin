@@ -8,25 +8,25 @@
 package ac.soton.fmusim.components.provider;
 
 
-import ac.soton.fmusim.components.ComponentDiagram;
-import ac.soton.fmusim.components.ComponentsFactory;
-import ac.soton.fmusim.components.ComponentsPackage;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import ac.soton.fmusim.components.ComponentDiagram;
+import ac.soton.fmusim.components.ComponentsFactory;
+import ac.soton.fmusim.components.ComponentsPackage;
 
 /**
  * This is the item provider adapter for a {@link ac.soton.fmusim.components.ComponentDiagram} object.
@@ -63,8 +63,31 @@ public class ComponentDiagramItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addTimePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComponentDiagram_time_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComponentDiagram_time_feature", "_UI_ComponentDiagram_type"),
+				 ComponentsPackage.Literals.COMPONENT_DIAGRAM__TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -135,6 +158,9 @@ public class ComponentDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ComponentDiagram.class)) {
+			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case ComponentsPackage.COMPONENT_DIAGRAM__COMPONENTS:
 			case ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));

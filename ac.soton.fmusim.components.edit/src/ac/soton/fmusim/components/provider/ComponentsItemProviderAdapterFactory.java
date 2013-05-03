@@ -7,18 +7,13 @@
  */
 package ac.soton.fmusim.components.provider;
 
-import ac.soton.fmusim.components.ComponentsFactory;
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.util.ComponentsAdapterFactory;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.List;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
@@ -41,6 +36,10 @@ import org.eventb.emf.core.Annotation;
 import org.eventb.emf.core.CorePackage;
 import org.eventb.emf.core.EventBElement;
 import org.eventb.emf.core.util.CoreSwitch;
+
+import ac.soton.fmusim.components.ComponentsFactory;
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.util.ComponentsAdapterFactory;
 
 /**
  * This is the factory that is used to provide the interfaces needed to support Viewers.
@@ -237,26 +236,26 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.Variable} instances.
+	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.FMUInternalVariable} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected VariableItemProvider variableItemProvider;
+	protected FMUInternalVariableItemProvider fmuInternalVariableItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link ac.soton.fmusim.components.Variable}.
+	 * This creates an adapter for a {@link ac.soton.fmusim.components.FMUInternalVariable}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createVariableAdapter() {
-		if (variableItemProvider == null) {
-			variableItemProvider = new VariableItemProvider(this);
+	public Adapter createFMUInternalVariableAdapter() {
+		if (fmuInternalVariableItemProvider == null) {
+			fmuInternalVariableItemProvider = new FMUInternalVariableItemProvider(this);
 		}
 
-		return variableItemProvider;
+		return fmuInternalVariableItemProvider;
 	}
 
 	/**
@@ -391,7 +390,7 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 		if (fmuComponentItemProvider != null) fmuComponentItemProvider.dispose();
 		if (fmuPortItemProvider != null) fmuPortItemProvider.dispose();
 		if (eventBPortItemProvider != null) eventBPortItemProvider.dispose();
-		if (variableItemProvider != null) variableItemProvider.dispose();
+		if (fmuInternalVariableItemProvider != null) fmuInternalVariableItemProvider.dispose();
 	}
 
 	/**

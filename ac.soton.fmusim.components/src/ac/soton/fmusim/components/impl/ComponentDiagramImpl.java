@@ -9,10 +9,12 @@ package ac.soton.fmusim.components.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,6 +32,7 @@ import ac.soton.fmusim.components.Connector;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getComponents <em>Components</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getConnectors <em>Connectors</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getTime <em>Time</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,6 +58,26 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * @ordered
 	 */
 	protected EList<Connector> connectors;
+
+	/**
+	 * The default value of the '{@link #getTime() <em>Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double TIME_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getTime() <em>Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected double time = TIME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -104,6 +127,27 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public double getTime() {
+		return time;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTime(double newTime) {
+		double oldTime = time;
+		time = newTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.COMPONENT_DIAGRAM__TIME, oldTime, time));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -127,6 +171,8 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 				return getComponents();
 			case ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS:
 				return getConnectors();
+			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
+				return getTime();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -148,6 +194,9 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 				getConnectors().clear();
 				getConnectors().addAll((Collection<? extends Connector>)newValue);
 				return;
+			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
+				setTime((Double)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -166,6 +215,9 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 			case ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS:
 				getConnectors().clear();
 				return;
+			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
+				setTime(TIME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -182,8 +234,26 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 				return components != null && !components.isEmpty();
 			case ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS:
 				return connectors != null && !connectors.isEmpty();
+			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
+				return time != TIME_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (time: ");
+		result.append(time);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ComponentDiagramImpl

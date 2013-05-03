@@ -335,7 +335,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 					.getCreateElementRequestAdapter();
 			IElementType type = (IElementType) adapter
 					.getAdapter(IElementType.class);
-			if (type == ComponentsElementTypes.Variable_3005) {
+			if (type == ComponentsElementTypes.FMUInternalVariable_3006) {
 				return getChildBySemanticHint(ComponentsVisualIDRegistry
 						.getType(FMUComponentVariablesCompartmentEditPart.VISUAL_ID));
 			}
@@ -367,6 +367,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 			this.setLayoutManager(layoutThis);
 
 			this.setForegroundColor(ColorConstants.gray);
+			this.setBackgroundColor(THIS_BACK);
 			createContents();
 		}
 
@@ -404,5 +405,10 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 		}
 
 	}
+
+	/**
+	 * @generated
+	 */
+	static final Color THIS_BACK = new Color(null, 196, 255, 204);
 
 }

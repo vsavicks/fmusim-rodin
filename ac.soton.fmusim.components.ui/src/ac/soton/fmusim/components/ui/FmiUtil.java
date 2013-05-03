@@ -14,8 +14,8 @@ import org.ptolemy.fmi.type.FMIRealType;
 import org.ptolemy.fmi.type.FMIStringType;
 import org.ptolemy.fmi.type.FMIType;
 
-import ac.soton.fmusim.components.FmiTypes;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.FMUVariable;
+import ac.soton.fmusim.components.VariableType;
 
 /**
  * @author vitaly
@@ -28,23 +28,23 @@ public final class FmiUtil {
 	 * @param variable
 	 * @return
 	 */
-	public static FmiTypes getFmiType(FMIScalarVariable scalarVariable,
-			Variable variable) {
+	public static VariableType getFmiType(FMIScalarVariable scalarVariable,
+			FMUVariable variable) {
 		FMIType type = scalarVariable.type;
 		Object value = null;
-		FmiTypes typeEnum = FmiTypes.REAL;
+		VariableType typeEnum = VariableType.REAL;
 		if (type instanceof FMIRealType) {
 			value = ((FMIRealType) type).start;
-			typeEnum = FmiTypes.REAL;
+			typeEnum = VariableType.REAL;
 		} else if (type instanceof FMIIntegerType) {
 			value = ((FMIIntegerType) type).start;
-			typeEnum = FmiTypes.INTEGER;
+			typeEnum = VariableType.INTEGER;
 		} else if (type instanceof FMIBooleanType) {
 			value = ((FMIBooleanType) type).start;
-			typeEnum = FmiTypes.BOOLEAN;
+			typeEnum = VariableType.BOOLEAN;
 		} else if (type instanceof FMIStringType) {
 			value = ((FMIStringType) type).start;
-			typeEnum = FmiTypes.STRING;
+			typeEnum = VariableType.STRING;
 		}
 		
 		if (variable != null)

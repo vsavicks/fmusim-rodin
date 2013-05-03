@@ -10,7 +10,7 @@ package ac.soton.fmusim.components.diagram.providers;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUPort;
-import ac.soton.fmusim.components.PortKind;
+import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.diagram.expressions.ComponentsAbstractExpression;
 import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin;
@@ -34,8 +34,8 @@ public class ElementInitializers {
 					instance);
 
 			value_0 = ComponentsAbstractExpression.performCast(value_0,
-					ComponentsPackage.eINSTANCE.getPortKind());
-			instance.setKind((PortKind) value_0);
+					ComponentsPackage.eINSTANCE.getVariableCausality());
+			instance.setCausality((VariableCausality) value_0);
 		} catch (RuntimeException e) {
 			ComponentsDiagramEditorPlugin.getInstance().logError(
 					"Element initialization failed", e); //$NON-NLS-1$						
@@ -52,8 +52,8 @@ public class ElementInitializers {
 					instance);
 
 			value_0 = ComponentsAbstractExpression.performCast(value_0,
-					ComponentsPackage.eINSTANCE.getPortKind());
-			instance.setKind((PortKind) value_0);
+					ComponentsPackage.eINSTANCE.getVariableCausality());
+			instance.setCausality((VariableCausality) value_0);
 		} catch (RuntimeException e) {
 			ComponentsDiagramEditorPlugin.getInstance().logError(
 					"Element initialization failed", e); //$NON-NLS-1$						
@@ -70,8 +70,8 @@ public class ElementInitializers {
 					.evaluate(instance);
 
 			value_0 = ComponentsAbstractExpression.performCast(value_0,
-					ComponentsPackage.eINSTANCE.getPortKind());
-			instance.setKind((PortKind) value_0);
+					ComponentsPackage.eINSTANCE.getVariableCausality());
+			instance.setCausality((VariableCausality) value_0);
 		} catch (RuntimeException e) {
 			ComponentsDiagramEditorPlugin.getInstance().logError(
 					"Element initialization failed", e); //$NON-NLS-1$						
@@ -88,8 +88,8 @@ public class ElementInitializers {
 					.evaluate(instance);
 
 			value_0 = ComponentsAbstractExpression.performCast(value_0,
-					ComponentsPackage.eINSTANCE.getPortKind());
-			instance.setKind((PortKind) value_0);
+					ComponentsPackage.eINSTANCE.getVariableCausality());
+			instance.setCausality((VariableCausality) value_0);
 		} catch (RuntimeException e) {
 			ComponentsDiagramEditorPlugin.getInstance().logError(
 					"Element initialization failed", e); //$NON-NLS-1$						

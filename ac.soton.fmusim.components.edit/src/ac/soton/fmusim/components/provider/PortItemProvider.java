@@ -8,15 +8,11 @@
 package ac.soton.fmusim.components.provider;
 
 
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.Port;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,8 +20,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.Port;
 
 /**
  * This is the item provider adapter for a {@link ac.soton.fmusim.components.Port} object.
@@ -34,7 +31,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class PortItemProvider
-	extends NamedElementItemProvider
+	extends AbstractVariableItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -63,8 +60,6 @@ public class PortItemProvider
 			super.getPropertyDescriptors(object);
 
 			addConnectorPropertyDescriptor(object);
-			addTypePropertyDescriptor(object);
-			addKindPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,50 +82,6 @@ public class PortItemProvider
 				 false,
 				 true,
 				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Port_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Port_type_feature", "_UI_Port_type"),
-				 ComponentsPackage.Literals.PORT__TYPE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Kind feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addKindPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Port_kind_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Port_kind_feature", "_UI_Port_type"),
-				 ComponentsPackage.Literals.PORT__KIND,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -170,13 +121,6 @@ public class PortItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(Port.class)) {
-			case ComponentsPackage.PORT__TYPE:
-			case ComponentsPackage.PORT__KIND:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

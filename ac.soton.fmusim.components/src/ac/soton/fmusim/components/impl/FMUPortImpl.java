@@ -8,14 +8,12 @@
 package ac.soton.fmusim.components.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.FMUPort;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.FMUVariable;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +22,8 @@ import ac.soton.fmusim.components.Variable;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ac.soton.fmusim.components.impl.FMUPortImpl#getVariable <em>Variable</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.FMUPortImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.FMUPortImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -32,15 +31,41 @@ import ac.soton.fmusim.components.Variable;
  */
 public class FMUPortImpl extends PortImpl implements FMUPort {
 	/**
-	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' containment reference.
+	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVariable()
+	 * @see #getValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected Variable variable;
-
+	protected static final Object VALUE_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object value = VALUE_EDEFAULT;
+	/**
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DESCRIPTION_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String description = DESCRIPTION_EDEFAULT;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -65,22 +90,8 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Variable getVariable() {
-		if (variable != null && variable.eIsProxy()) {
-			InternalEObject oldVariable = (InternalEObject)variable;
-			variable = (Variable)eResolveProxy(oldVariable);
-			if (variable != oldVariable) {
-				InternalEObject newVariable = (InternalEObject)variable;
-				NotificationChain msgs = oldVariable.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentsPackage.FMU_PORT__VARIABLE, null, null);
-				if (newVariable.eInternalContainer() == null) {
-					msgs = newVariable.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentsPackage.FMU_PORT__VARIABLE, null, msgs);
-				}
-				if (msgs != null) msgs.dispatch();
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.FMU_PORT__VARIABLE, oldVariable, variable));
-			}
-		}
-		return variable;
+	public Object getValue() {
+		return value;
 	}
 
 	/**
@@ -88,8 +99,11 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Variable basicGetVariable() {
-		return variable;
+	public void setValue(Object newValue) {
+		Object oldValue = value;
+		value = newValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_PORT__VALUE, oldValue, value));
 	}
 
 	/**
@@ -97,14 +111,8 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetVariable(Variable newVariable, NotificationChain msgs) {
-		Variable oldVariable = variable;
-		variable = newVariable;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_PORT__VARIABLE, oldVariable, newVariable);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public String getDescription() {
+		return description;
 	}
 
 	/**
@@ -112,32 +120,11 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setVariable(Variable newVariable) {
-		if (newVariable != variable) {
-			NotificationChain msgs = null;
-			if (variable != null)
-				msgs = ((InternalEObject)variable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentsPackage.FMU_PORT__VARIABLE, null, msgs);
-			if (newVariable != null)
-				msgs = ((InternalEObject)newVariable).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentsPackage.FMU_PORT__VARIABLE, null, msgs);
-			msgs = basicSetVariable(newVariable, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_PORT__VARIABLE, newVariable, newVariable));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentsPackage.FMU_PORT__VARIABLE:
-				return basicSetVariable(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_PORT__DESCRIPTION, oldDescription, description));
 	}
 
 	/**
@@ -148,9 +135,10 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ComponentsPackage.FMU_PORT__VARIABLE:
-				if (resolve) return getVariable();
-				return basicGetVariable();
+			case ComponentsPackage.FMU_PORT__VALUE:
+				return getValue();
+			case ComponentsPackage.FMU_PORT__DESCRIPTION:
+				return getDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -163,8 +151,11 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ComponentsPackage.FMU_PORT__VARIABLE:
-				setVariable((Variable)newValue);
+			case ComponentsPackage.FMU_PORT__VALUE:
+				setValue(newValue);
+				return;
+			case ComponentsPackage.FMU_PORT__DESCRIPTION:
+				setDescription((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -178,8 +169,11 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ComponentsPackage.FMU_PORT__VARIABLE:
-				setVariable((Variable)null);
+			case ComponentsPackage.FMU_PORT__VALUE:
+				setValue(VALUE_EDEFAULT);
+				return;
+			case ComponentsPackage.FMU_PORT__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -193,10 +187,64 @@ public class FMUPortImpl extends PortImpl implements FMUPort {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ComponentsPackage.FMU_PORT__VARIABLE:
-				return variable != null;
+			case ComponentsPackage.FMU_PORT__VALUE:
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case ComponentsPackage.FMU_PORT__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == FMUVariable.class) {
+			switch (derivedFeatureID) {
+				case ComponentsPackage.FMU_PORT__VALUE: return ComponentsPackage.FMU_VARIABLE__VALUE;
+				case ComponentsPackage.FMU_PORT__DESCRIPTION: return ComponentsPackage.FMU_VARIABLE__DESCRIPTION;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == FMUVariable.class) {
+			switch (baseFeatureID) {
+				case ComponentsPackage.FMU_VARIABLE__VALUE: return ComponentsPackage.FMU_PORT__VALUE;
+				case ComponentsPackage.FMU_VARIABLE__DESCRIPTION: return ComponentsPackage.FMU_PORT__DESCRIPTION;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (value: ");
+		result.append(value);
+		result.append(", description: ");
+		result.append(description);
+		result.append(')');
+		return result.toString();
 	}
 
 } //FMUPortImpl

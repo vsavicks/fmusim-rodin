@@ -62,7 +62,7 @@ public class ComponentsModelingAssistantProvider extends
 			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
 			types.add(ComponentsElementTypes.FMUPort_3001);
 			types.add(ComponentsElementTypes.FMUPort_3002);
-			types.add(ComponentsElementTypes.Variable_3005);
+			types.add(ComponentsElementTypes.FMUInternalVariable_3006);
 			return types;
 		}
 		if (editPart instanceof EventBComponentEditPart) {

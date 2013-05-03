@@ -21,8 +21,8 @@ import org.ptolemy.fmi.FMIScalarVariable;
 import org.ptolemy.fmi.FMIScalarVariable.Causality;
 
 import ac.soton.fmusim.components.ComponentsFactory;
-import ac.soton.fmusim.components.FmiTypes;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.FMUInternalVariable;
+import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.ui.FmiUtil;
 import ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSource;
 import de.prob.cosimulation.FMU;
@@ -116,13 +116,13 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		providers.add(new ColumnProvider("Type", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				FmiTypes type = FmiUtil.getFmiType(((FMIScalarVariable) element), null);
+				VariableType type = FmiUtil.getFmiType(((FMIScalarVariable) element), null);
 				return type.toString();
 			}}));
 		providers.add(new ColumnProvider("Value", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				Variable var = ComponentsFactory.eINSTANCE.createVariable();
+				FMUInternalVariable var = ComponentsFactory.eINSTANCE.createFMUInternalVariable();
 				FmiUtil.getFmiType(((FMIScalarVariable) element), var);
 				return var.getValue().toString();
 			}}));

@@ -15,6 +15,7 @@ import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.EventBElement;
 import org.eventb.emf.core.EventBObject;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -22,10 +23,11 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
-import ac.soton.fmusim.components.Variable;
 
 /**
  * <!-- begin-user-doc -->
@@ -120,8 +122,16 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 				return createEventBPortAdapter();
 			}
 			@Override
-			public Adapter caseVariable(Variable object) {
-				return createVariableAdapter();
+			public Adapter caseFMUInternalVariable(FMUInternalVariable object) {
+				return createFMUInternalVariableAdapter();
+			}
+			@Override
+			public Adapter caseFMUVariable(FMUVariable object) {
+				return createFMUVariableAdapter();
+			}
+			@Override
+			public Adapter caseAbstractVariable(AbstractVariable object) {
+				return createAbstractVariableAdapter();
 			}
 			@Override
 			public Adapter caseEventBObject(EventBObject object) {
@@ -282,16 +292,44 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.Variable <em>Variable</em>}'.
+	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.FMUInternalVariable <em>FMU Internal Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see ac.soton.fmusim.components.Variable
+	 * @see ac.soton.fmusim.components.FMUInternalVariable
 	 * @generated
 	 */
-	public Adapter createVariableAdapter() {
+	public Adapter createFMUInternalVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.FMUVariable <em>FMU Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.fmusim.components.FMUVariable
+	 * @generated
+	 */
+	public Adapter createFMUVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.AbstractVariable <em>Abstract Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.fmusim.components.AbstractVariable
+	 * @generated
+	 */
+	public Adapter createAbstractVariableAdapter() {
 		return null;
 	}
 

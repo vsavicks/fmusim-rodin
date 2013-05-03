@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getComponents <em>Components</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getConnectors <em>Connectors</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getTime <em>Time</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,5 +59,31 @@ public interface ComponentDiagram extends NamedElement {
 	 * @generated
 	 */
 	EList<Connector> getConnectors();
+
+	/**
+	 * Returns the value of the '<em><b>Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Time</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Time</em>' attribute.
+	 * @see #setTime(double)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_Time()
+	 * @model
+	 * @generated
+	 */
+	double getTime();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.ComponentDiagram#getTime <em>Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Time</em>' attribute.
+	 * @see #getTime()
+	 * @generated
+	 */
+	void setTime(double value);
 
 } // ComponentDiagram

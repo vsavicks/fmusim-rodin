@@ -7,6 +7,7 @@
         upperBound="-1" eType="#//Component" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectors" upperBound="-1"
         eType="#//Connector" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
@@ -23,21 +24,20 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ports" upperBound="-1"
         eType="#//Port" eOpposite="#//Port/connector"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" eSuperTypes="#//AbstractVariable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="connector" eType="#//Connector"
         eOpposite="#//Connector/ports"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//FmiTypes"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//PortKind"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="FmiTypes">
+  <eClassifiers xsi:type="ecore:EEnum" name="VariableType">
     <eLiterals name="Real"/>
     <eLiterals name="Integer" value="1" literal="Integer"/>
     <eLiterals name="Boolean" value="2" literal="Boolean"/>
     <eLiterals name="String" value="3" literal="String"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="PortKind">
+  <eClassifiers xsi:type="ecore:EEnum" name="VariableCausality">
     <eLiterals name="Input"/>
     <eLiterals name="Output" value="1"/>
+    <eLiterals name="Internal" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -71,21 +71,23 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fmu" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
-        eType="#//Variable" containment="true"/>
+        eType="#//FMUInternalVariable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FMUPort" eSuperTypes="#//Port">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
-        eType="#//Variable" containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FMUPort" eSuperTypes="#//Port #//FMUVariable"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventBPort" eSuperTypes="#//Port">
     <eStructuralFeatures xsi:type="ecore:EReference" name="fmiGetEvent" lowerBound="1"
         eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fmiSetEvent" lowerBound="1"
         eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
-        transient="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FMUInternalVariable" eSuperTypes="#//FMUVariable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FMUVariable" abstract="true" eSuperTypes="#//AbstractVariable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//VariableType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="causality" eType="#//VariableCausality"/>
   </eClassifiers>
 </ecore:EPackage>

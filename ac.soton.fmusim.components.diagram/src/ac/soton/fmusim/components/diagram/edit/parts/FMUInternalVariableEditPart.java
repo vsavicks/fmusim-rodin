@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,7 +27,6 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
-import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
@@ -49,8 +48,6 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2;
 import org.eclipse.gmf.tooling.runtime.draw2d.labels.SimpleLabelDelegate;
 import org.eclipse.gmf.tooling.runtime.edit.policies.labels.IRefreshableFeedbackEditPolicy;
-import org.eclipse.gmf.tooling.runtime.ocl.tracker.HasOclTracker;
-import org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.SWT;
@@ -60,7 +57,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 
 import ac.soton.fmusim.components.diagram.edit.policies.ComponentsTextNonResizableEditPolicy;
-import ac.soton.fmusim.components.diagram.edit.policies.VariableItemSemanticEditPolicy;
+import ac.soton.fmusim.components.diagram.edit.policies.FMUInternalVariableItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 import ac.soton.fmusim.components.diagram.providers.ComponentsParserProvider;
@@ -68,13 +65,13 @@ import ac.soton.fmusim.components.diagram.providers.ComponentsParserProvider;
 /**
  * @generated
  */
-public class VariableEditPart extends CompartmentEditPart implements
+public class FMUInternalVariableEditPart extends CompartmentEditPart implements
 		ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3005;
+	public static final int VISUAL_ID = 3006;
 
 	/**
 	 * @generated
@@ -104,7 +101,7 @@ public class VariableEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public VariableEditPart(View view) {
+	public FMUInternalVariableEditPart(View view) {
 		super(view);
 	}
 
@@ -125,7 +122,7 @@ public class VariableEditPart extends CompartmentEditPart implements
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new VariableItemSemanticEditPolicy());
+				new FMUInternalVariableItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE,
 				new ComponentsTextNonResizableEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE,
@@ -337,10 +334,10 @@ public class VariableEditPart extends CompartmentEditPart implements
 		if (parser == null) {
 			parser = ComponentsParserProvider
 					.getParser(
-							ComponentsElementTypes.Variable_3005,
+							ComponentsElementTypes.FMUInternalVariable_3006,
 							getParserElement(),
 							ComponentsVisualIDRegistry
-									.getType(ac.soton.fmusim.components.diagram.edit.parts.VariableEditPart.VISUAL_ID));
+									.getType(ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

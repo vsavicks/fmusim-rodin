@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,17 +21,17 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.FMUInternalVariable;
 
 /**
  * @generated
  */
-public class VariableCreateCommand extends EditElementCommand {
+public class FMUInternalVariableCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
 	 */
-	public VariableCreateCommand(CreateElementRequest req) {
+	public FMUInternalVariableCreateCommand(CreateElementRequest req) {
 		super(req.getLabel(), null, req);
 	}
 
@@ -61,7 +61,8 @@ public class VariableCreateCommand extends EditElementCommand {
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor,
 			IAdaptable info) throws ExecutionException {
-		Variable newElement = ComponentsFactory.eINSTANCE.createVariable();
+		FMUInternalVariable newElement = ComponentsFactory.eINSTANCE
+				.createFMUInternalVariable();
 
 		FMUComponent owner = (FMUComponent) getElementToEdit();
 		owner.getVariables().add(newElement);
@@ -75,8 +76,9 @@ public class VariableCreateCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	protected void doConfigure(Variable newElement, IProgressMonitor monitor,
-			IAdaptable info) throws ExecutionException {
+	protected void doConfigure(FMUInternalVariable newElement,
+			IProgressMonitor monitor, IAdaptable info)
+			throws ExecutionException {
 		IElementType elementType = ((CreateElementRequest) getRequest())
 				.getElementType();
 		ConfigureRequest configureRequest = new ConfigureRequest(

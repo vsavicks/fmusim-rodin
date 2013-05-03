@@ -61,12 +61,12 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.VariableEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 
 /**
@@ -166,7 +166,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				case EventBComponentEditPart.VISUAL_ID:
 				case ConnectorEditPart.VISUAL_ID:
 				case FMUPortEditPart.VISUAL_ID:
-				case VariableEditPart.VISUAL_ID:
+				case FMUInternalVariableEditPart.VISUAL_ID:
 				case EventBPortEditPart.VISUAL_ID:
 				case FMUPort2EditPart.VISUAL_ID:
 				case EventBPort2EditPart.VISUAL_ID:
@@ -187,7 +187,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				|| ConnectorEditPart.VISUAL_ID == visualID
 				|| FMUPortEditPart.VISUAL_ID == visualID
 				|| FMUPort2EditPart.VISUAL_ID == visualID
-				|| VariableEditPart.VISUAL_ID == visualID
+				|| FMUInternalVariableEditPart.VISUAL_ID == visualID
 				|| EventBPortEditPart.VISUAL_ID == visualID
 				|| EventBPort2EditPart.VISUAL_ID == visualID;
 	}
@@ -261,9 +261,9 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		case FMUPort2EditPart.VISUAL_ID:
 			return createFMUPort_3002(domainElement, containerView, index,
 					persisted, preferencesHint);
-		case VariableEditPart.VISUAL_ID:
-			return createVariable_3005(domainElement, containerView, index,
-					persisted, preferencesHint);
+		case FMUInternalVariableEditPart.VISUAL_ID:
+			return createFMUInternalVariable_3006(domainElement, containerView,
+					index, persisted, preferencesHint);
 		case EventBPortEditPart.VISUAL_ID:
 			return createEventBPort_3003(domainElement, containerView, index,
 					persisted, preferencesHint);
@@ -302,7 +302,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		node.getStyles()
 				.add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createFillStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(ComponentsVisualIDRegistry
 				.getType(FMUComponentEditPart.VISUAL_ID));
@@ -326,11 +325,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
-		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(
-				prefStore, IPreferenceConstants.PREF_FILL_COLOR);
-		ViewUtil.setStructuralFeatureValue(node,
-				NotationPackage.eINSTANCE.getFillStyle_FillColor(),
-				FigureUtilities.RGBToInteger(fillRGB));
 		Node label5001 = createLabel(node,
 				ComponentsVisualIDRegistry
 						.getType(FMUComponentNameEditPart.VISUAL_ID));
@@ -352,7 +346,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		node.getStyles()
 				.add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createFillStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(ComponentsVisualIDRegistry
 				.getType(EventBComponentEditPart.VISUAL_ID));
@@ -376,11 +369,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
-		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(
-				prefStore, IPreferenceConstants.PREF_FILL_COLOR);
-		ViewUtil.setStructuralFeatureValue(node,
-				NotationPackage.eINSTANCE.getFillStyle_FillColor(),
-				FigureUtilities.RGBToInteger(fillRGB));
 		Node label5002 = createLabel(node,
 				ComponentsVisualIDRegistry
 						.getType(EventBComponentNameEditPart.VISUAL_ID));
@@ -524,12 +512,13 @@ public class ComponentsViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createVariable_3005(EObject domainElement, View containerView,
-			int index, boolean persisted, PreferencesHint preferencesHint) {
+	public Node createFMUInternalVariable_3006(EObject domainElement,
+			View containerView, int index, boolean persisted,
+			PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(ComponentsVisualIDRegistry
-				.getType(VariableEditPart.VISUAL_ID));
+				.getType(FMUInternalVariableEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		return node;

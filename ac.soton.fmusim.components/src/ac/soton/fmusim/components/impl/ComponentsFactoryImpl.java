@@ -21,10 +21,10 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
-import ac.soton.fmusim.components.FmiTypes;
-import ac.soton.fmusim.components.PortKind;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.VariableCausality;
+import ac.soton.fmusim.components.VariableType;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,7 +76,7 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 			case ComponentsPackage.FMU_COMPONENT: return createFMUComponent();
 			case ComponentsPackage.FMU_PORT: return createFMUPort();
 			case ComponentsPackage.EVENT_BPORT: return createEventBPort();
-			case ComponentsPackage.VARIABLE: return createVariable();
+			case ComponentsPackage.FMU_INTERNAL_VARIABLE: return createFMUInternalVariable();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -90,10 +90,10 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case ComponentsPackage.FMI_TYPES:
-				return createFmiTypesFromString(eDataType, initialValue);
-			case ComponentsPackage.PORT_KIND:
-				return createPortKindFromString(eDataType, initialValue);
+			case ComponentsPackage.VARIABLE_TYPE:
+				return createVariableTypeFromString(eDataType, initialValue);
+			case ComponentsPackage.VARIABLE_CAUSALITY:
+				return createVariableCausalityFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -107,10 +107,10 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case ComponentsPackage.FMI_TYPES:
-				return convertFmiTypesToString(eDataType, instanceValue);
-			case ComponentsPackage.PORT_KIND:
-				return convertPortKindToString(eDataType, instanceValue);
+			case ComponentsPackage.VARIABLE_TYPE:
+				return convertVariableTypeToString(eDataType, instanceValue);
+			case ComponentsPackage.VARIABLE_CAUSALITY:
+				return convertVariableCausalityToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -181,9 +181,9 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Variable createVariable() {
-		VariableImpl variable = new VariableImpl();
-		return variable;
+	public FMUInternalVariable createFMUInternalVariable() {
+		FMUInternalVariableImpl fmuInternalVariable = new FMUInternalVariableImpl();
+		return fmuInternalVariable;
 	}
 
 	/**
@@ -191,8 +191,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FmiTypes createFmiTypesFromString(EDataType eDataType, String initialValue) {
-		FmiTypes result = FmiTypes.get(initialValue);
+	public VariableType createVariableTypeFromString(EDataType eDataType, String initialValue) {
+		VariableType result = VariableType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -202,7 +202,7 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertFmiTypesToString(EDataType eDataType, Object instanceValue) {
+	public String convertVariableTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -211,8 +211,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PortKind createPortKindFromString(EDataType eDataType, String initialValue) {
-		PortKind result = PortKind.get(initialValue);
+	public VariableCausality createVariableCausalityFromString(EDataType eDataType, String initialValue) {
+		VariableCausality result = VariableCausality.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -222,7 +222,7 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertPortKindToString(EDataType eDataType, Object instanceValue) {
+	public String convertVariableCausalityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

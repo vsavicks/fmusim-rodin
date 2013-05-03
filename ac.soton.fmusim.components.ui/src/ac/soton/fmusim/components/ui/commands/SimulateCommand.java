@@ -7,8 +7,6 @@ package ac.soton.fmusim.components.ui.commands;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.IHandler;
-import org.eclipse.core.commands.IHandlerListener;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -24,15 +22,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import de.prob.cosimulation.FMU;
-
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
-import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUPort;
-import ac.soton.fmusim.components.FmiTypes;
 import ac.soton.fmusim.components.Port;
+import de.prob.cosimulation.FMU;
 
 /**
  * @author vitaly

@@ -77,7 +77,7 @@
               xsi:type="gmfgen:GenFeatureValueSpec"
               value="//@expressionProviders/@providers.0/@expressions.1">
             <feature
-                href="components.genmodel#//components/Port/kind"/>
+                href="components.genmodel#//components/AbstractVariable/causality"/>
           </initializers>
         </modelElementInitializer>
       </modelFacet>
@@ -101,7 +101,7 @@
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
           <metaFeatures
-              href="components.genmodel#//components/Port/type"/>
+              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
@@ -151,7 +151,7 @@
               xsi:type="gmfgen:GenFeatureValueSpec"
               value="//@expressionProviders/@providers.0/@expressions.3">
             <feature
-                href="components.genmodel#//components/Port/kind"/>
+                href="components.genmodel#//components/AbstractVariable/causality"/>
           </initializers>
         </modelElementInitializer>
       </modelFacet>
@@ -175,19 +175,19 @@
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
           <metaFeatures
-              href="components.genmodel#//components/Port/type"/>
+              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3005"
-        editPartClassName="VariableEditPart"
-        itemSemanticEditPolicyClassName="VariableItemSemanticEditPolicy"
-        notationViewFactoryClassName="VariableViewFactory"
-        canonicalEditPolicyClassName="VariableCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="VariableGraphicalNodeEditPolicy"
-        createCommandClassName="VariableCreateCommand"
+        visualID="3006"
+        editPartClassName="FMUInternalVariableEditPart"
+        itemSemanticEditPolicyClassName="FMUInternalVariableItemSemanticEditPolicy"
+        notationViewFactoryClassName="FMUInternalVariableViewFactory"
+        canonicalEditPolicyClassName="FMUInternalVariableCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="FMUInternalVariableGraphicalNodeEditPolicy"
+        createCommandClassName="FMUInternalVariableCreateCommand"
         containers="//@diagram/@compartments.0"
         labelReadOnly="true"
         labelElementIcon="true">
@@ -195,13 +195,13 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="VariableEditHelper"/>
+          editHelperClassName="FMUInternalVariableEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
       <modelFacet>
         <metaClass
-            href="components.genmodel#//components/Variable"/>
+            href="components.genmodel#//components/FMUInternalVariable"/>
         <containmentMetaFeature
             href="components.genmodel#//components/FMUComponent/variables"/>
         <childMetaFeature
@@ -257,7 +257,7 @@
               xsi:type="gmfgen:GenFeatureValueSpec"
               value="//@expressionProviders/@providers.0/@expressions.5">
             <feature
-                href="components.genmodel#//components/Port/kind"/>
+                href="components.genmodel#//components/AbstractVariable/causality"/>
           </initializers>
         </modelElementInitializer>
       </modelFacet>
@@ -281,7 +281,7 @@
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
           <metaFeatures
-              href="components.genmodel#//components/Port/type"/>
+              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
@@ -331,7 +331,7 @@
               xsi:type="gmfgen:GenFeatureValueSpec"
               value="//@expressionProviders/@providers.0/@expressions.7">
             <feature
-                href="components.genmodel#//components/Port/kind"/>
+                href="components.genmodel#//components/AbstractVariable/causality"/>
           </initializers>
         </modelElementInitializer>
       </modelFacet>
@@ -357,7 +357,7 @@
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
           <metaFeatures
-              href="components.genmodel#//components/Port/type"/>
+              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
@@ -380,10 +380,11 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="FMUComponentFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class FMUComponentFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureFMUComponentNameFigure; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RectangleFigure fFigureVariablesCompartmentFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public FMUComponentFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureFMUComponentNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureFMUComponentNameFigure.setText(&quot;&lt;...>&quot;);&#xA;fFigureFMUComponentNameFigure.setAlignment(org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;this.add(fFigureFMUComponentNameFigure, org.eclipse.draw2d.BorderLayout.TOP);&#xA;&#xA;&#xA;&#xA;fFigureVariablesCompartmentFigure = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;this.add(fFigureVariablesCompartmentFigure, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureFMUComponentNameFigure() {&#xA;&#x9;&#x9;return fFigureFMUComponentNameFigure;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.RectangleFigure getFigureVariablesCompartmentFigure() {&#xA;&#x9;&#x9;return fFigureVariablesCompartmentFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class FMUComponentFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureFMUComponentNameFigure; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RectangleFigure fFigureVariablesCompartmentFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public FMUComponentFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;this.setBackgroundColor(THIS_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureFMUComponentNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureFMUComponentNameFigure.setText(&quot;&lt;...>&quot;);&#xA;fFigureFMUComponentNameFigure.setAlignment(org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;this.add(fFigureFMUComponentNameFigure, org.eclipse.draw2d.BorderLayout.TOP);&#xA;&#xA;&#xA;&#xA;fFigureVariablesCompartmentFigure = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;this.add(fFigureVariablesCompartmentFigure, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureFMUComponentNameFigure() {&#xA;&#x9;&#x9;return fFigureFMUComponentNameFigure;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.RectangleFigure getFigureVariablesCompartmentFigure() {&#xA;&#x9;&#x9;return fFigureVariablesCompartmentFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_BACK = new org.eclipse.swt.graphics.Color(null, 196, 255, 204);&#xA;&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
-            fixedForeground="true"/>
+            fixedForeground="true"
+            fixedBackground="true"/>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -432,10 +433,11 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="EventBComponentFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EventBComponentFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureEventBComponentNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EventBComponentFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutThis.setSpacing(0);&#xA;&#x9;layoutThis.setVertical(true);&#xA;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureEventBComponentNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureEventBComponentNameFigure.setText(&quot;&lt;...>&quot;);&#xA;fFigureEventBComponentNameFigure.setAlignment(org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;this.add(fFigureEventBComponentNameFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureEventBComponentNameFigure() {&#xA;&#x9;&#x9;return fFigureEventBComponentNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EventBComponentFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureEventBComponentNameFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EventBComponentFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutThis.setSpacing(0);&#xA;&#x9;layoutThis.setVertical(true);&#xA;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;this.setBackgroundColor(THIS_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureEventBComponentNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureEventBComponentNameFigure.setText(&quot;&lt;...>&quot;);&#xA;fFigureEventBComponentNameFigure.setAlignment(org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;this.add(fFigureEventBComponentNameFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureEventBComponentNameFigure() {&#xA;&#x9;&#x9;return fFigureEventBComponentNameFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_BACK = new org.eclipse.swt.graphics.Color(null, 255, 224, 196);&#xA;&#xA;">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
-            fixedForeground="true"/>
+            fixedForeground="true"
+            fixedBackground="true"/>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -760,31 +762,31 @@
         xsi:type="gmfgen:GenExpressionInterpreter">
       <expressions
           xsi:type="gmfgen:GenConstraint"
-          body="self.kind = PortKind::Input"/>
+          body="self.causality = VariableCausality::Input"/>
       <expressions
-          body="PortKind::Input"/>
-      <expressions
-          xsi:type="gmfgen:GenConstraint"
-          body="self.kind = PortKind::Output"/>
-      <expressions
-          body="PortKind::Output"/>
+          body="VariableCausality::Input"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
-          body="self.kind = PortKind::Input"/>
+          body="self.causality = VariableCausality::Output"/>
       <expressions
-          body="PortKind::Input"/>
+          body="VariableCausality::Output"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
-          body="self.kind = PortKind::Output"/>
+          body="self.causality = VariableCausality::Input"/>
       <expressions
-          body="PortKind::Output"/>
+          body="VariableCausality::Input"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.causality = VariableCausality::Output"/>
+      <expressions
+          body="VariableCausality::Output"/>
       <expressions
           body="(if self.name = null then '' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
       <expressions
           body="'&lt;enter new name>'"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
-          body="not (oppositeEnd.oclAsType(Port).kind = PortKind::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(Port).kind = PortKind::Output))"/>
+          body="not (oppositeEnd.oclAsType(AbstractVariable).causality = VariableCausality::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(AbstractVariable).causality = VariableCausality::Output))"/>
     </providers>
     <providers
         xsi:type="gmfgen:GenJavaExpressionProvider">
@@ -802,7 +804,7 @@
         uses="//@diagram/@childNodes.2/@labelModelFacet"
         viewExpression="//@expressionProviders/@providers.1/@expressions.0">
       <expressionContext
-          href="components.genmodel#//components/Variable"/>
+          href="components.genmodel#//components/FMUInternalVariable"/>
     </implementations>
     <implementations
         xsi:type="gmfgen:ExpressionLabelParser"

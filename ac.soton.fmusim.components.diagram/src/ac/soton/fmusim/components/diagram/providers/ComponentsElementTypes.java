@@ -30,10 +30,10 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.VariableEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin;
 
 /**
@@ -89,7 +89,7 @@ public class ComponentsElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Variable_3005 = getElementType("ac.soton.fmusim.components.diagram.Variable_3005"); //$NON-NLS-1$
+	public static final IElementType FMUInternalVariable_3006 = getElementType("ac.soton.fmusim.components.diagram.FMUInternalVariable_3006"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -231,8 +231,8 @@ public class ComponentsElementTypes {
 
 			elements.put(FMUPort_3002, ComponentsPackage.eINSTANCE.getFMUPort());
 
-			elements.put(Variable_3005,
-					ComponentsPackage.eINSTANCE.getVariable());
+			elements.put(FMUInternalVariable_3006,
+					ComponentsPackage.eINSTANCE.getFMUInternalVariable());
 
 			elements.put(EventBPort_3003,
 					ComponentsPackage.eINSTANCE.getEventBPort());
@@ -265,7 +265,7 @@ public class ComponentsElementTypes {
 			KNOWN_ELEMENT_TYPES.add(Connector_2003);
 			KNOWN_ELEMENT_TYPES.add(FMUPort_3001);
 			KNOWN_ELEMENT_TYPES.add(FMUPort_3002);
-			KNOWN_ELEMENT_TYPES.add(Variable_3005);
+			KNOWN_ELEMENT_TYPES.add(FMUInternalVariable_3006);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3003);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3004);
 			KNOWN_ELEMENT_TYPES.add(PortConnector_4001);
@@ -290,8 +290,8 @@ public class ComponentsElementTypes {
 			return FMUPort_3001;
 		case FMUPort2EditPart.VISUAL_ID:
 			return FMUPort_3002;
-		case VariableEditPart.VISUAL_ID:
-			return Variable_3005;
+		case FMUInternalVariableEditPart.VISUAL_ID:
+			return FMUInternalVariable_3006;
 		case EventBPortEditPart.VISUAL_ID:
 			return EventBPort_3003;
 		case EventBPort2EditPart.VISUAL_ID:

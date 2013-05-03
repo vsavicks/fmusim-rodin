@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.util.ComponentsValidator;
 
 /**
@@ -74,7 +74,7 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Variable> variables;
+	protected EList<FMUInternalVariable> variables;
 
 	/**
 	 * The default value of the '{@link #getPath() <em>Path</em>}' attribute.
@@ -141,9 +141,9 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Variable> getVariables() {
+	public EList<FMUInternalVariable> getVariables() {
 		if (variables == null) {
-			variables = new EObjectContainmentEList.Resolving<Variable>(Variable.class, this, ComponentsPackage.FMU_COMPONENT__VARIABLES);
+			variables = new EObjectContainmentEList.Resolving<FMUInternalVariable>(FMUInternalVariable.class, this, ComponentsPackage.FMU_COMPONENT__VARIABLES);
 		}
 		return variables;
 	}
@@ -243,7 +243,7 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 				return;
 			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
 				getVariables().clear();
-				getVariables().addAll((Collection<? extends Variable>)newValue);
+				getVariables().addAll((Collection<? extends FMUInternalVariable>)newValue);
 				return;
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				setPath((String)newValue);

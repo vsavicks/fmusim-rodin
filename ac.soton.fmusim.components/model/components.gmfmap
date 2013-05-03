@@ -31,16 +31,16 @@
           <domainMetaElement
               href="components.ecore#//FMUPort"/>
           <domainSpecialization
-              body="self.kind = PortKind::Input"/>
+              body="self.causality = VariableCausality::Input"/>
           <domainInitializer
               xsi:type="gmfmap:FeatureSeqInitializer">
             <initializers
                 xsi:type="gmfmap:FeatureValueSpec">
               <feature
                   xsi:type="ecore:EAttribute"
-                  href="components.ecore#//Port/kind"/>
+                  href="components.ecore#//AbstractVariable/causality"/>
               <value
-                  body="PortKind::Input"/>
+                  body="VariableCausality::Input"/>
             </initializers>
           </domainInitializer>
           <labelMappings
@@ -52,7 +52,7 @@
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
-                href="components.ecore#//Port/type"/>
+                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -68,16 +68,16 @@
           <domainMetaElement
               href="components.ecore#//FMUPort"/>
           <domainSpecialization
-              body="self.kind = PortKind::Output"/>
+              body="self.causality = VariableCausality::Output"/>
           <domainInitializer
               xsi:type="gmfmap:FeatureSeqInitializer">
             <initializers
                 xsi:type="gmfmap:FeatureValueSpec">
               <feature
                   xsi:type="ecore:EAttribute"
-                  href="components.ecore#//Port/kind"/>
+                  href="components.ecore#//AbstractVariable/causality"/>
               <value
-                  body="PortKind::Output"/>
+                  body="VariableCausality::Output"/>
             </initializers>
           </domainInitializer>
           <labelMappings
@@ -89,7 +89,7 @@
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
-                href="components.ecore#//Port/type"/>
+                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -104,7 +104,7 @@
             href="components.ecore#//FMUComponent/variables"/>
         <ownedChild>
           <domainMetaElement
-              href="components.ecore#//Variable"/>
+              href="components.ecore#//FMUInternalVariable"/>
           <labelMappings
               xsi:type="gmfmap:ExpressionLabelMapping"
               readOnly="true">
@@ -153,16 +153,16 @@
           <domainMetaElement
               href="components.ecore#//EventBPort"/>
           <domainSpecialization
-              body="self.kind = PortKind::Input"/>
+              body="self.causality = VariableCausality::Input"/>
           <domainInitializer
               xsi:type="gmfmap:FeatureSeqInitializer">
             <initializers
                 xsi:type="gmfmap:FeatureValueSpec">
               <feature
                   xsi:type="ecore:EAttribute"
-                  href="components.ecore#//Port/kind"/>
+                  href="components.ecore#//AbstractVariable/causality"/>
               <value
-                  body="PortKind::Input"/>
+                  body="VariableCausality::Input"/>
             </initializers>
           </domainInitializer>
           <labelMappings
@@ -174,7 +174,7 @@
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
-                href="components.ecore#//Port/type"/>
+                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -190,16 +190,16 @@
           <domainMetaElement
               href="components.ecore#//EventBPort"/>
           <domainSpecialization
-              body="self.kind = PortKind::Output"/>
+              body="self.causality = VariableCausality::Output"/>
           <domainInitializer
               xsi:type="gmfmap:FeatureSeqInitializer">
             <initializers
                 xsi:type="gmfmap:FeatureValueSpec">
               <feature
                   xsi:type="ecore:EAttribute"
-                  href="components.ecore#//Port/kind"/>
+                  href="components.ecore#//AbstractVariable/causality"/>
               <value
-                  body="PortKind::Output"/>
+                  body="VariableCausality::Output"/>
             </initializers>
           </domainInitializer>
           <labelMappings
@@ -213,7 +213,7 @@
             <features
                 href="components.ecore#//NamedElement/name"/>
             <features
-                href="components.ecore#//Port/type"/>
+                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -257,7 +257,7 @@
         href="components.ecore#//Port/connector"/>
     <creationConstraints>
       <targetEnd
-          body="not (oppositeEnd.oclAsType(Port).kind = PortKind::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(Port).kind = PortKind::Output))"/>
+          body="not (oppositeEnd.oclAsType(AbstractVariable).causality = VariableCausality::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(AbstractVariable).causality = VariableCausality::Output))"/>
     </creationConstraints>
   </links>
   <diagram>

@@ -135,13 +135,22 @@ public interface ComponentsPackage extends EPackage {
 	int COMPONENT_DIAGRAM__CONNECTORS = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_DIAGRAM__TIME = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Component Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_DIAGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int COMPONENT_DIAGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.ComponentImpl <em>Component</em>}' class.
@@ -236,6 +245,52 @@ public interface ComponentsPackage extends EPackage {
 	int CONNECTOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.AbstractVariableImpl <em>Abstract Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.impl.AbstractVariableImpl
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getAbstractVariable()
+	 * @generated
+	 */
+	int ABSTRACT_VARIABLE = 11;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_VARIABLE__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_VARIABLE__TYPE = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_VARIABLE__CAUSALITY = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_VARIABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.PortImpl <em>Port</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -252,16 +307,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Connector</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__CONNECTOR = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int PORT__NAME = ABSTRACT_VARIABLE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -270,16 +316,25 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__TYPE = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int PORT__TYPE = ABSTRACT_VARIABLE__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__KIND = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int PORT__CAUSALITY = ABSTRACT_VARIABLE__CAUSALITY;
+
+	/**
+	 * The feature id for the '<em><b>Connector</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__CONNECTOR = ABSTRACT_VARIABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Port</em>' class.
@@ -288,7 +343,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int PORT_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.EventBComponentImpl <em>Event BComponent</em>}' class.
@@ -519,15 +574,6 @@ public interface ComponentsPackage extends EPackage {
 	int FMU_PORT__NAME = PORT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Connector</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FMU_PORT__CONNECTOR = PORT__CONNECTOR;
-
-	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -537,22 +583,40 @@ public interface ComponentsPackage extends EPackage {
 	int FMU_PORT__TYPE = PORT__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FMU_PORT__KIND = PORT__KIND;
+	int FMU_PORT__CAUSALITY = PORT__CAUSALITY;
 
 	/**
-	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
+	 * The feature id for the '<em><b>Connector</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FMU_PORT__VARIABLE = PORT_FEATURE_COUNT + 0;
+	int FMU_PORT__CONNECTOR = PORT__CONNECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PORT__VALUE = PORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PORT__DESCRIPTION = PORT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>FMU Port</em>' class.
@@ -561,7 +625,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FMU_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+	int FMU_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.EventBPortImpl <em>Event BPort</em>}' class.
@@ -583,15 +647,6 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BPORT__NAME = PORT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Connector</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BPORT__CONNECTOR = PORT__CONNECTOR;
-
-	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -601,13 +656,22 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BPORT__TYPE = PORT__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BPORT__KIND = PORT__KIND;
+	int EVENT_BPORT__CAUSALITY = PORT__CAUSALITY;
+
+	/**
+	 * The feature id for the '<em><b>Connector</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BPORT__CONNECTOR = PORT__CONNECTOR;
 
 	/**
 	 * The feature id for the '<em><b>Fmi Get Event</b></em>' reference.
@@ -637,14 +701,14 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BPORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.VariableImpl <em>Variable</em>}' class.
+	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see ac.soton.fmusim.components.impl.VariableImpl
-	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariable()
+	 * @see ac.soton.fmusim.components.impl.FMUVariableImpl
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUVariable()
 	 * @generated
 	 */
-	int VARIABLE = 9;
+	int FMU_VARIABLE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -653,7 +717,25 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__NAME = NAMED_ELEMENT__NAME;
+	int FMU_VARIABLE__NAME = ABSTRACT_VARIABLE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_VARIABLE__TYPE = ABSTRACT_VARIABLE__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_VARIABLE__CAUSALITY = ABSTRACT_VARIABLE__CAUSALITY;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -662,36 +744,109 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__VALUE = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int FMU_VARIABLE__VALUE = ABSTRACT_VARIABLE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Variable</em>' class.
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int FMU_VARIABLE__DESCRIPTION = ABSTRACT_VARIABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link ac.soton.fmusim.components.FmiTypes <em>Fmi Types</em>}' enum.
+	 * The number of structural features of the '<em>FMU Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see ac.soton.fmusim.components.FmiTypes
-	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFmiTypes()
 	 * @generated
+	 * @ordered
 	 */
-	int FMI_TYPES = 10;
+	int FMU_VARIABLE_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link ac.soton.fmusim.components.PortKind <em>Port Kind</em>}' enum.
+	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUInternalVariableImpl <em>FMU Internal Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see ac.soton.fmusim.components.PortKind
-	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getPortKind()
+	 * @see ac.soton.fmusim.components.impl.FMUInternalVariableImpl
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUInternalVariable()
 	 * @generated
 	 */
-	int PORT_KIND = 11;
+	int FMU_INTERNAL_VARIABLE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_INTERNAL_VARIABLE__NAME = FMU_VARIABLE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_INTERNAL_VARIABLE__TYPE = FMU_VARIABLE__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_INTERNAL_VARIABLE__CAUSALITY = FMU_VARIABLE__CAUSALITY;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_INTERNAL_VARIABLE__VALUE = FMU_VARIABLE__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_INTERNAL_VARIABLE__DESCRIPTION = FMU_VARIABLE__DESCRIPTION;
+
+	/**
+	 * The number of structural features of the '<em>FMU Internal Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_INTERNAL_VARIABLE_FEATURE_COUNT = FMU_VARIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.VariableType
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableType()
+	 * @generated
+	 */
+	int VARIABLE_TYPE = 12;
+
+	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableCausality <em>Variable Causality</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.VariableCausality
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableCausality()
+	 * @generated
+	 */
+	int VARIABLE_CAUSALITY = 13;
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
@@ -724,6 +879,17 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getComponentDiagram_Connectors();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.ComponentDiagram#getTime <em>Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Time</em>'.
+	 * @see ac.soton.fmusim.components.ComponentDiagram#getTime()
+	 * @see #getComponentDiagram()
+	 * @generated
+	 */
+	EAttribute getComponentDiagram_Time();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.Component <em>Component</em>}'.
@@ -809,28 +975,6 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPort_Connector();
-
-	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.Port#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see ac.soton.fmusim.components.Port#getType()
-	 * @see #getPort()
-	 * @generated
-	 */
-	EAttribute getPort_Type();
-
-	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.Port#getKind <em>Kind</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Kind</em>'.
-	 * @see ac.soton.fmusim.components.Port#getKind()
-	 * @see #getPort()
-	 * @generated
-	 */
-	EAttribute getPort_Kind();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.NamedElement <em>Named Element</em>}'.
@@ -950,17 +1094,6 @@ public interface ComponentsPackage extends EPackage {
 	EClass getFMUPort();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link ac.soton.fmusim.components.FMUPort#getVariable <em>Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Variable</em>'.
-	 * @see ac.soton.fmusim.components.FMUPort#getVariable()
-	 * @see #getFMUPort()
-	 * @generated
-	 */
-	EReference getFMUPort_Variable();
-
-	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.EventBPort <em>Event BPort</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -993,45 +1126,98 @@ public interface ComponentsPackage extends EPackage {
 	EReference getEventBPort_FmiSetEvent();
 
 	/**
-	 * Returns the meta object for class '{@link ac.soton.fmusim.components.Variable <em>Variable</em>}'.
+	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUInternalVariable <em>FMU Internal Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Variable</em>'.
-	 * @see ac.soton.fmusim.components.Variable
+	 * @return the meta object for class '<em>FMU Internal Variable</em>'.
+	 * @see ac.soton.fmusim.components.FMUInternalVariable
 	 * @generated
 	 */
-	EClass getVariable();
+	EClass getFMUInternalVariable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.Variable#getValue <em>Value</em>}'.
+	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUVariable <em>FMU Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>FMU Variable</em>'.
+	 * @see ac.soton.fmusim.components.FMUVariable
+	 * @generated
+	 */
+	EClass getFMUVariable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.FMUVariable#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see ac.soton.fmusim.components.Variable#getValue()
-	 * @see #getVariable()
+	 * @see ac.soton.fmusim.components.FMUVariable#getValue()
+	 * @see #getFMUVariable()
 	 * @generated
 	 */
-	EAttribute getVariable_Value();
+	EAttribute getFMUVariable_Value();
 
 	/**
-	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.FmiTypes <em>Fmi Types</em>}'.
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.FMUVariable#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Fmi Types</em>'.
-	 * @see ac.soton.fmusim.components.FmiTypes
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see ac.soton.fmusim.components.FMUVariable#getDescription()
+	 * @see #getFMUVariable()
 	 * @generated
 	 */
-	EEnum getFmiTypes();
+	EAttribute getFMUVariable_Description();
 
 	/**
-	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.PortKind <em>Port Kind</em>}'.
+	 * Returns the meta object for class '{@link ac.soton.fmusim.components.AbstractVariable <em>Abstract Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Port Kind</em>'.
-	 * @see ac.soton.fmusim.components.PortKind
+	 * @return the meta object for class '<em>Abstract Variable</em>'.
+	 * @see ac.soton.fmusim.components.AbstractVariable
 	 * @generated
 	 */
-	EEnum getPortKind();
+	EClass getAbstractVariable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.AbstractVariable#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see ac.soton.fmusim.components.AbstractVariable#getType()
+	 * @see #getAbstractVariable()
+	 * @generated
+	 */
+	EAttribute getAbstractVariable_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.AbstractVariable#getCausality <em>Causality</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Causality</em>'.
+	 * @see ac.soton.fmusim.components.AbstractVariable#getCausality()
+	 * @see #getAbstractVariable()
+	 * @generated
+	 */
+	EAttribute getAbstractVariable_Causality();
+
+	/**
+	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Variable Type</em>'.
+	 * @see ac.soton.fmusim.components.VariableType
+	 * @generated
+	 */
+	EEnum getVariableType();
+
+	/**
+	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.VariableCausality <em>Variable Causality</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Variable Causality</em>'.
+	 * @see ac.soton.fmusim.components.VariableCausality
+	 * @generated
+	 */
+	EEnum getVariableCausality();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1080,6 +1266,14 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPONENT_DIAGRAM__CONNECTORS = eINSTANCE.getComponentDiagram_Connectors();
+
+		/**
+		 * The meta object literal for the '<em><b>Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT_DIAGRAM__TIME = eINSTANCE.getComponentDiagram_Time();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.ComponentImpl <em>Component</em>}' class.
@@ -1150,22 +1344,6 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PORT__CONNECTOR = eINSTANCE.getPort_Connector();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PORT__TYPE = eINSTANCE.getPort_Type();
-
-		/**
-		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PORT__KIND = eINSTANCE.getPort_Kind();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.NamedElementImpl <em>Named Element</em>}' class.
@@ -1264,14 +1442,6 @@ public interface ComponentsPackage extends EPackage {
 		EClass FMU_PORT = eINSTANCE.getFMUPort();
 
 		/**
-		 * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FMU_PORT__VARIABLE = eINSTANCE.getFMUPort_Variable();
-
-		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.EventBPortImpl <em>Event BPort</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1298,14 +1468,24 @@ public interface ComponentsPackage extends EPackage {
 		EReference EVENT_BPORT__FMI_SET_EVENT = eINSTANCE.getEventBPort_FmiSetEvent();
 
 		/**
-		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.VariableImpl <em>Variable</em>}' class.
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUInternalVariableImpl <em>FMU Internal Variable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see ac.soton.fmusim.components.impl.VariableImpl
-		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariable()
+		 * @see ac.soton.fmusim.components.impl.FMUInternalVariableImpl
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUInternalVariable()
 		 * @generated
 		 */
-		EClass VARIABLE = eINSTANCE.getVariable();
+		EClass FMU_INTERNAL_VARIABLE = eINSTANCE.getFMUInternalVariable();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.impl.FMUVariableImpl
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUVariable()
+		 * @generated
+		 */
+		EClass FMU_VARIABLE = eINSTANCE.getFMUVariable();
 
 		/**
 		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
@@ -1313,27 +1493,61 @@ public interface ComponentsPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VARIABLE__VALUE = eINSTANCE.getVariable_Value();
+		EAttribute FMU_VARIABLE__VALUE = eINSTANCE.getFMUVariable_Value();
 
 		/**
-		 * The meta object literal for the '{@link ac.soton.fmusim.components.FmiTypes <em>Fmi Types</em>}' enum.
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see ac.soton.fmusim.components.FmiTypes
-		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFmiTypes()
 		 * @generated
 		 */
-		EEnum FMI_TYPES = eINSTANCE.getFmiTypes();
+		EAttribute FMU_VARIABLE__DESCRIPTION = eINSTANCE.getFMUVariable_Description();
 
 		/**
-		 * The meta object literal for the '{@link ac.soton.fmusim.components.PortKind <em>Port Kind</em>}' enum.
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.AbstractVariableImpl <em>Abstract Variable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see ac.soton.fmusim.components.PortKind
-		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getPortKind()
+		 * @see ac.soton.fmusim.components.impl.AbstractVariableImpl
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getAbstractVariable()
 		 * @generated
 		 */
-		EEnum PORT_KIND = eINSTANCE.getPortKind();
+		EClass ABSTRACT_VARIABLE = eINSTANCE.getAbstractVariable();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_VARIABLE__TYPE = eINSTANCE.getAbstractVariable_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Causality</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_VARIABLE__CAUSALITY = eINSTANCE.getAbstractVariable_Causality();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.VariableType
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableType()
+		 * @generated
+		 */
+		EEnum VARIABLE_TYPE = eINSTANCE.getVariableType();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.VariableCausality <em>Variable Causality</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.VariableCausality
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableCausality()
+		 * @generated
+		 */
+		EEnum VARIABLE_CAUSALITY = eINSTANCE.getVariableCausality();
 
 	}
 

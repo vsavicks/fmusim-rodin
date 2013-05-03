@@ -320,6 +320,7 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 			this.setLayoutManager(layoutThis);
 
 			this.setForegroundColor(ColorConstants.gray);
+			this.setBackgroundColor(THIS_BACK);
 			createContents();
 		}
 
@@ -346,5 +347,10 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 		}
 
 	}
+
+	/**
+	 * @generated
+	 */
+	static final Color THIS_BACK = new Color(null, 255, 224, 196);
 
 }

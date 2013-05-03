@@ -4,6 +4,8 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * $Id$
  */
 package ac.soton.fmusim.components;
 
@@ -15,14 +17,14 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Fmi Types</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Variable Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see ac.soton.fmusim.components.ComponentsPackage#getFmiTypes()
+ * @see ac.soton.fmusim.components.ComponentsPackage#getVariableType()
  * @model
  * @generated
  */
-public enum FmiTypes implements Enumerator {
+public enum VariableType implements Enumerator {
 	/**
 	 * The '<em><b>Real</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -31,7 +33,9 @@ public enum FmiTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REAL(0, "Real", "Real"), /**
+	REAL(0, "Real", "Real"),
+
+	/**
 	 * The '<em><b>Integer</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39,7 +43,9 @@ public enum FmiTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INTEGER(1, "Integer", "Integer"), /**
+	INTEGER(1, "Integer", "Integer"),
+
+	/**
 	 * The '<em><b>Boolean</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -47,7 +53,9 @@ public enum FmiTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BOOLEAN(2, "Boolean", "Boolean"), /**
+	BOOLEAN(2, "Boolean", "Boolean"),
+
+	/**
 	 * The '<em><b>String</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -118,13 +126,13 @@ public enum FmiTypes implements Enumerator {
 	public static final int STRING_VALUE = 3;
 
 	/**
-	 * An array of all the '<em><b>Fmi Types</b></em>' enumerators.
+	 * An array of all the '<em><b>Variable Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final FmiTypes[] VALUES_ARRAY =
-		new FmiTypes[] {
+	private static final VariableType[] VALUES_ARRAY =
+		new VariableType[] {
 			REAL,
 			INTEGER,
 			BOOLEAN,
@@ -132,22 +140,22 @@ public enum FmiTypes implements Enumerator {
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Fmi Types</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Variable Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<FmiTypes> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<VariableType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Fmi Types</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Variable Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static FmiTypes get(String literal) {
+	public static VariableType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			FmiTypes result = VALUES_ARRAY[i];
+			VariableType result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -156,14 +164,14 @@ public enum FmiTypes implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Fmi Types</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Variable Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static FmiTypes getByName(String name) {
+	public static VariableType getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			FmiTypes result = VALUES_ARRAY[i];
+			VariableType result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -172,12 +180,12 @@ public enum FmiTypes implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Fmi Types</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Variable Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static FmiTypes get(int value) {
+	public static VariableType get(int value) {
 		switch (value) {
 			case REAL_VALUE: return REAL;
 			case INTEGER_VALUE: return INTEGER;
@@ -214,7 +222,7 @@ public enum FmiTypes implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private FmiTypes(int value, String name, String literal) {
+	private VariableType(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -258,4 +266,4 @@ public enum FmiTypes implements Enumerator {
 		return literal;
 	}
 	
-} //FmiTypes
+} //VariableType

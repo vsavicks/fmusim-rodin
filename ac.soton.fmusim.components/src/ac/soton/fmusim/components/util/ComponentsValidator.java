@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -23,12 +24,13 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
-import ac.soton.fmusim.components.FmiTypes;
+import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
-import ac.soton.fmusim.components.PortKind;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.VariableCausality;
+import ac.soton.fmusim.components.VariableType;
 
 /**
  * <!-- begin-user-doc -->
@@ -136,12 +138,16 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateFMUPort((FMUPort)value, diagnostics, context);
 			case ComponentsPackage.EVENT_BPORT:
 				return validateEventBPort((EventBPort)value, diagnostics, context);
-			case ComponentsPackage.VARIABLE:
-				return validateVariable((Variable)value, diagnostics, context);
-			case ComponentsPackage.FMI_TYPES:
-				return validateFmiTypes((FmiTypes)value, diagnostics, context);
-			case ComponentsPackage.PORT_KIND:
-				return validatePortKind((PortKind)value, diagnostics, context);
+			case ComponentsPackage.FMU_INTERNAL_VARIABLE:
+				return validateFMUInternalVariable((FMUInternalVariable)value, diagnostics, context);
+			case ComponentsPackage.FMU_VARIABLE:
+				return validateFMUVariable((FMUVariable)value, diagnostics, context);
+			case ComponentsPackage.ABSTRACT_VARIABLE:
+				return validateAbstractVariable((AbstractVariable)value, diagnostics, context);
+			case ComponentsPackage.VARIABLE_TYPE:
+				return validateVariableType((VariableType)value, diagnostics, context);
+			case ComponentsPackage.VARIABLE_CAUSALITY:
+				return validateVariableCausality((VariableCausality)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -204,7 +210,7 @@ public class ComponentsValidator extends EObjectValidator {
 			return true;
 		
 		boolean failed = false;
-		FmiTypes type = ports.get(0).getType();
+		VariableType type = ports.get(0).getType();
 		for (Port p : ports) {
 			if (p.getType() != type) {
 				failed = true;
@@ -245,7 +251,7 @@ public class ComponentsValidator extends EObjectValidator {
 		EList<Port> ports = connector.getPorts();
 		boolean input = false;
 		for (Port p : ports) {
-			if (p.getKind() == PortKind.OUTPUT) {
+			if (p.getCausality() == VariableCausality.OUTPUT) {
 				input = true;
 				break;
 			}
@@ -367,8 +373,8 @@ public class ComponentsValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateVariable(Variable variable, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(variable, diagnostics, context);
+	public boolean validateFMUInternalVariable(FMUInternalVariable fmuInternalVariable, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(fmuInternalVariable, diagnostics, context);
 	}
 
 	/**
@@ -376,7 +382,25 @@ public class ComponentsValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFmiTypes(FmiTypes fmiTypes, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateFMUVariable(FMUVariable fmuVariable, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(fmuVariable, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAbstractVariable(AbstractVariable abstractVariable, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(abstractVariable, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateVariableType(VariableType variableType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -385,7 +409,7 @@ public class ComponentsValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validatePortKind(PortKind portKind, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateVariableCausality(VariableCausality variableCausality, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

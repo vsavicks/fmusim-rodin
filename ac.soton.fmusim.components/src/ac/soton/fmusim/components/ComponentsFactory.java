@@ -81,13 +81,13 @@ public interface ComponentsFactory extends EFactory {
 	EventBPort createEventBPort();
 
 	/**
-	 * Returns a new object of class '<em>Variable</em>'.
+	 * Returns a new object of class '<em>FMU Internal Variable</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Variable</em>'.
+	 * @return a new object of class '<em>FMU Internal Variable</em>'.
 	 * @generated
 	 */
-	Variable createVariable();
+	FMUInternalVariable createFMUInternalVariable();
 
 	/**
 	 * Returns the package supported by this factory.

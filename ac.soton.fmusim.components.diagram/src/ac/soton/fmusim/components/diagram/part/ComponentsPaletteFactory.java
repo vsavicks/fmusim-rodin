@@ -73,8 +73,10 @@ public class ComponentsPaletteFactory {
 	 */
 	private ToolEntry createVariable2CreationTool() {
 		NodeToolEntry entry = new NodeToolEntry(
-				Messages.Variable2CreationTool_title, null,
-				Collections.singletonList(ComponentsElementTypes.Variable_3005));
+				Messages.Variable2CreationTool_title,
+				null,
+				Collections
+						.singletonList(ComponentsElementTypes.FMUInternalVariable_3006));
 		entry.setId("createVariable2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(ComponentsDiagramEditorPlugin
 				.findImageDescriptor("/ac.soton.fmusim.components/icons/Variable.gif")); //$NON-NLS-1$

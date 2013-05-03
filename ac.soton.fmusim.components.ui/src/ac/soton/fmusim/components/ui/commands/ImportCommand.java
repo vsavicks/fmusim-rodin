@@ -46,10 +46,11 @@ import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
-import ac.soton.fmusim.components.FmiTypes;
-import ac.soton.fmusim.components.PortKind;
-import ac.soton.fmusim.components.Variable;
+import ac.soton.fmusim.components.VariableCausality;
+import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.ui.FmiUtil;
 import de.prob.cosimulation.FMU;
 //import org.eclipse.gmf.internal.common.ui.Messages;
 
@@ -138,29 +139,30 @@ public class ImportCommand extends AbstractHandler {
 			fmuComponent.setFmu(fmu);
 			fmuComponent.setName(modelDescription.modelName);
 			for (FMIScalarVariable scalarVariable : modelDescription.modelVariables) {
-				Variable variable = ComponentsFactory.eINSTANCE
-						.createVariable();
-				variable.setName(scalarVariable.name);
 				// FIXME: variable requires a reference to FMI scalar variable
 				// (for API calls)
 				// TODO: maybe the variable also requires the type, variability (parameter etc.), start value (from type i.e. type.start)
 				
 				// type and start value
-				FmiTypes typeEnum = ac.soton.fmusim.components.ui.FmiUtil.getFmiType(scalarVariable, variable);
 
 				if (scalarVariable.causality == Causality.internal) {
+					FMUInternalVariable variable = ComponentsFactory.eINSTANCE
+							.createFMUInternalVariable();
+					variable.setName(scalarVariable.name);
+					variable.setType(FmiUtil.getFmiType(scalarVariable, variable));
 					fmuComponent.getVariables().add(variable);
+					
 				} else if (scalarVariable.causality == Causality.input || scalarVariable.causality == Causality.output) {
 					FMUPort port = ComponentsFactory.eINSTANCE.createFMUPort();
+					VariableType type = FmiUtil.getFmiType(scalarVariable, port);
 					port.setName(scalarVariable.name);
-					port.setVariable(variable);
-					port.setType(typeEnum);
+					port.setType(type);
 
 					if (scalarVariable.causality == Causality.input) {
-						port.setKind(PortKind.INPUT);
+						port.setCausality(VariableCausality.INPUT);
 						fmuComponent.getInputs().add(port);
 					} else if (scalarVariable.causality == Causality.output) {
-						port.setKind(PortKind.OUTPUT);
+						port.setCausality(VariableCausality.OUTPUT);
 						fmuComponent.getOutputs().add(port);
 					}
 				}

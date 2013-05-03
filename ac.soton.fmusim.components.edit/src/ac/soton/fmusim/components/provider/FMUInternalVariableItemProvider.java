@@ -4,6 +4,8 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * $Id$
  */
 package ac.soton.fmusim.components.provider;
 
@@ -13,7 +15,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -21,17 +22,16 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.EventBPort;
+import ac.soton.fmusim.components.FMUInternalVariable;
 
 /**
- * This is the item provider adapter for a {@link ac.soton.fmusim.components.EventBPort} object.
+ * This is the item provider adapter for a {@link ac.soton.fmusim.components.FMUInternalVariable} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class EventBPortItemProvider
-	extends PortItemProvider
+public class FMUInternalVariableItemProvider
+	extends FMUVariableItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -44,7 +44,7 @@ public class EventBPortItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EventBPortItemProvider(AdapterFactory adapterFactory) {
+	public FMUInternalVariableItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,65 +59,19 @@ public class EventBPortItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFmiGetEventPropertyDescriptor(object);
-			addFmiSetEventPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Fmi Get Event feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFmiGetEventPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBPort_fmiGetEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_fmiGetEvent_feature", "_UI_EventBPort_type"),
-				 ComponentsPackage.Literals.EVENT_BPORT__FMI_GET_EVENT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Fmi Set Event feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFmiSetEventPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBPort_fmiSetEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_fmiSetEvent_feature", "_UI_EventBPort_type"),
-				 ComponentsPackage.Literals.EVENT_BPORT__FMI_SET_EVENT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns EventBPort.gif.
+	 * This returns FMUInternalVariable.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventBPort"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FMUInternalVariable"));
 	}
 
 	/**
@@ -128,10 +82,10 @@ public class EventBPortItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((EventBPort)object).getName();
+		String label = ((FMUInternalVariable)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_EventBPort_type") :
-			getString("_UI_EventBPort_type") + " " + label;
+			getString("_UI_FMUInternalVariable_type") :
+			getString("_UI_FMUInternalVariable_type") + " " + label;
 	}
 
 	/**
