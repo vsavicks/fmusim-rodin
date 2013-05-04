@@ -23,8 +23,8 @@ import org.ptolemy.fmi.FMIScalarVariable.Causality;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.VariableType;
-import ac.soton.fmusim.components.ui.FmiUtil;
 import ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSource;
+import ac.soton.fmusim.components.util.FmiUtil;
 import de.prob.cosimulation.FMU;
 
 

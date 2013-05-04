@@ -50,7 +50,7 @@ import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
-import ac.soton.fmusim.components.ui.FmiUtil;
+import ac.soton.fmusim.components.util.FmiUtil;
 import de.prob.cosimulation.FMU;
 //import org.eclipse.gmf.internal.common.ui.Messages;
 

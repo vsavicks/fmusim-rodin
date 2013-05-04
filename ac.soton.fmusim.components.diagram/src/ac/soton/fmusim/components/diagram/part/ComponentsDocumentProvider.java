@@ -62,11 +62,15 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
+import org.ptolemy.fmi.FMIModelDescription;
+import org.ptolemy.fmi.FMIScalarVariable;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUVariable;
+import ac.soton.fmusim.components.util.FmiUtil;
 import de.prob.cosimulation.FMU;
 
 /**
@@ -222,7 +226,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			IStorage storage = ((FileEditorInput) element).getStorage();
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true,
 					getProgressMonitor());
-			// custom: fmu loading
+			// CUSTOM: fmu loading
 			// FIXME: refactor to a cleaner solution
 			ComponentDiagram cd = (ComponentDiagram) diagram.getElement();
 			for (Component comp : cd.getComponents()) {
@@ -235,7 +239,20 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 							@Override
 							protected void doExecute() {
 								try {
-									fmuComp.setFmu(new FMU(path));
+									FMU fmu = new FMU(path);
+									FMIModelDescription md = fmu.getModelDescription();
+									
+									// map variables by name
+									Map<String, FMIScalarVariable> varMap = new HashMap<String, FMIScalarVariable>(md.modelVariables.size());
+									for (FMIScalarVariable var : md.modelVariables)
+										varMap.put(var.name, var);
+									
+									fmuComp.setFmu(fmu);
+									for (FMUVariable var : fmuComp.getVariables()) {
+										FMIScalarVariable scalar = varMap.get(var.getName());
+										assert(scalar != null);
+										FmiUtil.getFmiType(scalar, var);
+									}
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();

@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package ac.soton.fmusim.components.ui;
+package ac.soton.fmusim.components.util;
 
 import org.ptolemy.fmi.FMIScalarVariable;
 import org.ptolemy.fmi.type.FMIBooleanType;
