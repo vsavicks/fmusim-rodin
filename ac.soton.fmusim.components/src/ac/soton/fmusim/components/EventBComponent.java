@@ -10,8 +10,11 @@ package ac.soton.fmusim.components;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eventb.emf.core.AbstractExtension;
+import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
+import org.eventb.emf.core.machine.Variable;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,8 +25,12 @@ import org.eventb.emf.core.machine.Machine;
  * The following features are supported:
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#isComposed <em>Composed</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariableName <em>Time Variable Name</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getMachine <em>Machine</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent <em>Write Outputs Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getVariables <em>Variables</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,32 +66,6 @@ public interface EventBComponent extends AbstractExtension, Component {
 	void setComposed(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Time Variable Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Time Variable Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Time Variable Name</em>' attribute.
-	 * @see #setTimeVariableName(String)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_TimeVariableName()
-	 * @model
-	 * @generated
-	 */
-	String getTimeVariableName();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getTimeVariableName <em>Time Variable Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Time Variable Name</em>' attribute.
-	 * @see #getTimeVariableName()
-	 * @generated
-	 */
-	void setTimeVariableName(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Machine</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -109,6 +90,126 @@ public interface EventBComponent extends AbstractExtension, Component {
 	 * @generated
 	 */
 	void setMachine(Machine value);
+
+	/**
+	 * Returns the value of the '<em><b>Read Inputs Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Read Inputs Event</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Read Inputs Event</em>' reference.
+	 * @see #setReadInputsEvent(Event)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_ReadInputsEvent()
+	 * @model
+	 * @generated
+	 */
+	Event getReadInputsEvent();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Read Inputs Event</em>' reference.
+	 * @see #getReadInputsEvent()
+	 * @generated
+	 */
+	void setReadInputsEvent(Event value);
+
+	/**
+	 * Returns the value of the '<em><b>Write Outputs Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Write Outputs Event</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Write Outputs Event</em>' reference.
+	 * @see #setWriteOutputsEvent(Event)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_WriteOutputsEvent()
+	 * @model
+	 * @generated
+	 */
+	Event getWriteOutputsEvent();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent <em>Write Outputs Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Write Outputs Event</em>' reference.
+	 * @see #getWriteOutputsEvent()
+	 * @generated
+	 */
+	void setWriteOutputsEvent(Event value);
+
+	/**
+	 * Returns the value of the '<em><b>Time Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Time Variable</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Time Variable</em>' reference.
+	 * @see #setTimeVariable(Variable)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_TimeVariable()
+	 * @model
+	 * @generated
+	 */
+	Variable getTimeVariable();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Time Variable</em>' reference.
+	 * @see #getTimeVariable()
+	 * @generated
+	 */
+	void setTimeVariable(Variable value);
+
+	/**
+	 * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
+	 * The list contents are of type {@link ac.soton.fmusim.components.EventBVariable}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Variables</em>' containment reference list.
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_Variables()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	EList<EventBVariable> getVariables();
+
+	/**
+	 * Returns the value of the '<em><b>Update Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Update Event</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Update Event</em>' reference.
+	 * @see #setUpdateEvent(Event)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_UpdateEvent()
+	 * @model required="true"
+	 * @generated
+	 */
+	Event getUpdateEvent();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Update Event</em>' reference.
+	 * @see #getUpdateEvent()
+	 * @generated
+	 */
+	void setUpdateEvent(Event value);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -7,37 +7,42 @@
  */
 package ac.soton.fmusim.components.diagram.edit.parts;
 
+import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+import org.eclipse.gef.requests.CreateRequest;
+import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent;
 import org.eclipse.swt.graphics.Color;
 
-import ac.soton.fmusim.components.diagram.edit.policies.ComponentsTextSelectionEditPolicy;
 import ac.soton.fmusim.components.diagram.edit.policies.EventBComponentCanonicalEditPolicy;
 import ac.soton.fmusim.components.diagram.edit.policies.EventBComponentItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
+import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 
 /**
  * @generated
@@ -89,8 +94,7 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-
-		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				View childView = (View) child.getModel();
@@ -99,12 +103,20 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 				case EventBPort2EditPart.VISUAL_ID:
 					return new BorderItemSelectionEditPolicy();
 				}
-				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
-					if (child instanceof ITextAwareEditPart) {
-						return new ComponentsTextSelectionEditPolicy();
-					}
+				EditPolicy result = child
+						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				if (result == null) {
+					result = new NonResizableEditPolicy();
 				}
-				return super.createChildEditPolicy(child);
+				return result;
+			}
+
+			protected Command getMoveChildrenCommand(Request request) {
+				return null;
+			}
+
+			protected Command getCreateCommand(CreateRequest request) {
+				return null;
 			}
 		};
 		return lep;
@@ -134,6 +146,14 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 							.getFigureEventBComponentNameFigure());
 			return true;
 		}
+		if (childEditPart instanceof EventBComponentEventBVariablesCompartmentEditPart) {
+			IFigure pane = getPrimaryShape()
+					.getFigureEventBVariablesCompartmentFigure();
+			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
+			pane.add(((EventBComponentEventBVariablesCompartmentEditPart) childEditPart)
+					.getFigure());
+			return true;
+		}
 		if (childEditPart instanceof EventBPortEditPart) {
 			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
 					PositionConstants.WEST);
@@ -156,6 +176,13 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof EventBComponentNameEditPart) {
+			return true;
+		}
+		if (childEditPart instanceof EventBComponentEventBVariablesCompartmentEditPart) {
+			IFigure pane = getPrimaryShape()
+					.getFigureEventBVariablesCompartmentFigure();
+			pane.remove(((EventBComponentEventBVariablesCompartmentEditPart) childEditPart)
+					.getFigure());
 			return true;
 		}
 		if (childEditPart instanceof EventBPortEditPart) {
@@ -195,6 +222,10 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+		if (editPart instanceof EventBComponentEventBVariablesCompartmentEditPart) {
+			return getPrimaryShape()
+					.getFigureEventBVariablesCompartmentFigure();
+		}
 		if (editPart instanceof IBorderItemEditPart) {
 			return getBorderedFigure().getBorderItemContainer();
 		}
@@ -298,6 +329,24 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
+	public EditPart getTargetEditPart(Request request) {
+		if (request instanceof CreateViewAndElementRequest) {
+			CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request)
+					.getViewAndElementDescriptor()
+					.getCreateElementRequestAdapter();
+			IElementType type = (IElementType) adapter
+					.getAdapter(IElementType.class);
+			if (type == ComponentsElementTypes.EventBVariable_3008) {
+				return getChildBySemanticHint(ComponentsVisualIDRegistry
+						.getType(EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID));
+			}
+		}
+		return super.getTargetEditPart(request);
+	}
+
+	/**
+	 * @generated
+	 */
 	public class EventBComponentFigure extends RectangleFigure {
 
 		/**
@@ -308,15 +357,14 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 		/**
 		 * @generated
 		 */
+		private RectangleFigure fFigureEventBVariablesCompartmentFigure;
+
+		/**
+		 * @generated
+		 */
 		public EventBComponentFigure() {
 
-			ToolbarLayout layoutThis = new ToolbarLayout();
-			layoutThis.setStretchMinorAxis(true);
-			layoutThis.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
-
-			layoutThis.setSpacing(0);
-			layoutThis.setVertical(true);
-
+			BorderLayout layoutThis = new BorderLayout();
 			this.setLayoutManager(layoutThis);
 
 			this.setForegroundColor(ColorConstants.gray);
@@ -335,7 +383,12 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 			fFigureEventBComponentNameFigure
 					.setAlignment(PositionConstants.CENTER);
 
-			this.add(fFigureEventBComponentNameFigure);
+			this.add(fFigureEventBComponentNameFigure, BorderLayout.TOP);
+
+			fFigureEventBVariablesCompartmentFigure = new RectangleFigure();
+
+			this.add(fFigureEventBVariablesCompartmentFigure,
+					BorderLayout.CENTER);
 
 		}
 
@@ -344,6 +397,13 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 		 */
 		public WrappingLabel getFigureEventBComponentNameFigure() {
 			return fFigureEventBComponentNameFigure;
+		}
+
+		/**
+		 * @generated
+		 */
+		public RectangleFigure getFigureEventBVariablesCompartmentFigure() {
+			return fFigureEventBVariablesCompartmentFigure;
 		}
 
 	}

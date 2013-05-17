@@ -31,8 +31,8 @@ import ac.soton.fmusim.components.ui.resource.FMUResourceFactory;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
 import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSelectionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.EventBComponentDefinitionPage;
+import ac.soton.fmusim.components.ui.wizards.pages.FMUComponentDefinitionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.experimental.FMUPortDefinitionPage;
-import ac.soton.fmusim.components.ui.wizards.pages.fmu.FMUComponentDefinitionPage;
 
 /**
  * @author vitaly

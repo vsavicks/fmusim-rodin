@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -29,7 +29,7 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramUpdater;
 import ac.soton.fmusim.components.diagram.part.ComponentsNodeDescriptor;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -37,8 +37,8 @@ import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 /**
  * @generated
  */
-public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
-		CanonicalEditPolicy {
+public class EventBComponentEventBVariablesCompartmentCanonicalEditPolicy
+		extends CanonicalEditPolicy {
 
 	/**
 	 * @generated
@@ -56,7 +56,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 	 * @generated
 	 */
 	protected EStructuralFeature getFeatureToSynchronize() {
-		return ComponentsPackage.eINSTANCE.getFMUComponent_Variables();
+		return ComponentsPackage.eINSTANCE.getEventBComponent_Variables();
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 		View viewObject = (View) getHost().getModel();
 		LinkedList<EObject> result = new LinkedList<EObject>();
 		List<ComponentsNodeDescriptor> childDescriptors = ComponentsDiagramUpdater
-				.getFMUComponentFMUVariablesCompartment_7001SemanticChildren(viewObject);
+				.getEventBComponentEventBVariablesCompartment_7002SemanticChildren(viewObject);
 		for (ComponentsNodeDescriptor d : childDescriptors) {
 			result.add(d.getModelElement());
 		}
@@ -87,7 +87,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 	 * @generated
 	 */
 	private boolean isMyDiagramElement(View view) {
-		return FMUVariableEditPart.VISUAL_ID == ComponentsVisualIDRegistry
+		return EventBVariableEditPart.VISUAL_ID == ComponentsVisualIDRegistry
 				.getVisualID(view);
 	}
 
@@ -100,7 +100,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 		}
 		LinkedList<IAdaptable> createdViews = new LinkedList<IAdaptable>();
 		List<ComponentsNodeDescriptor> childDescriptors = ComponentsDiagramUpdater
-				.getFMUComponentFMUVariablesCompartment_7001SemanticChildren((View) getHost()
+				.getEventBComponentEventBVariablesCompartment_7002SemanticChildren((View) getHost()
 						.getModel());
 		LinkedList<View> orphaned = new LinkedList<View>();
 		// we care to check only views we recognize as ours

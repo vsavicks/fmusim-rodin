@@ -265,22 +265,22 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String FMUVariable2CreationTool_title;
+	public static String EventBComponent2CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String FMUVariable2CreationTool_desc;
+	public static String EventBComponent2CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String EventBComponent3CreationTool_title;
+	public static String Variable3CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String EventBComponent3CreationTool_desc;
+	public static String Variable3CreationTool_desc;
 
 	/**
 	 * @generated
@@ -326,6 +326,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String FMUComponentVariablesCompartmentEditPart_title;
+
+	/**
+	 * @generated
+	 */
+	public static String EventBComponentEventBVariablesCompartmentEditPart_title;
 
 	/**
 	 * @generated

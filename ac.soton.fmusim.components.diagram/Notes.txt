@@ -2,5 +2,7 @@ List of code customisations
 ===========================
 FMUVariableExpressionLabelParser::evaluatePrintExpression(EObject)
 
+EventBVariableExpressionLabelParser::evaluatePrintExpression(EObject)
+
 ConnectorLabelExpressionLabelParser::updateValues(EObject, String)
 ConnectorLabelExpressionLabelParser::evaluatePrintExpression(EObject)

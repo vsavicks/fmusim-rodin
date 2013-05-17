@@ -53,11 +53,13 @@ import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
@@ -168,6 +170,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				case FMUPortEditPart.VISUAL_ID:
 				case FMUVariableEditPart.VISUAL_ID:
 				case EventBPortEditPart.VISUAL_ID:
+				case EventBVariableEditPart.VISUAL_ID:
 				case FMUPort2EditPart.VISUAL_ID:
 				case EventBPort2EditPart.VISUAL_ID:
 					if (domainElement == null
@@ -189,7 +192,8 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				|| FMUPort2EditPart.VISUAL_ID == visualID
 				|| FMUVariableEditPart.VISUAL_ID == visualID
 				|| EventBPortEditPart.VISUAL_ID == visualID
-				|| EventBPort2EditPart.VISUAL_ID == visualID;
+				|| EventBPort2EditPart.VISUAL_ID == visualID
+				|| EventBVariableEditPart.VISUAL_ID == visualID;
 	}
 
 	/**
@@ -270,6 +274,9 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		case EventBPort2EditPart.VISUAL_ID:
 			return createEventBPort_3004(domainElement, containerView, index,
 					persisted, preferencesHint);
+		case EventBVariableEditPart.VISUAL_ID:
+			return createEventBVariable_3008(domainElement, containerView,
+					index, persisted, preferencesHint);
 		}
 		// can't happen, provided #provides(CreateNodeViewOperation) is correct
 		return null;
@@ -372,6 +379,11 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		Node label5002 = createLabel(node,
 				ComponentsVisualIDRegistry
 						.getType(EventBComponentNameEditPart.VISUAL_ID));
+		createCompartment(
+				node,
+				ComponentsVisualIDRegistry
+						.getType(EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID),
+				false, false, true, true);
 		return node;
 	}
 
@@ -607,6 +619,21 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		Location location5007 = (Location) label5007.getLayoutConstraint();
 		location5007.setX(0);
 		location5007.setY(5);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEventBVariable_3008(EObject domainElement,
+			View containerView, int index, boolean persisted,
+			PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(ComponentsVisualIDRegistry
+				.getType(EventBVariableEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 

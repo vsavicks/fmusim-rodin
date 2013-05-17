@@ -660,45 +660,10 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 				monitor.beginTask(
 						Messages.ComponentsDocumentProvider_SaveDiagramTask,
 						info.getResourceSet().getResources().size() + 1); //"Saving diagram"
-				//CUSTOM: event-b component persistence in the machine as annotation
-				//TODO: refactor to a cleaner implementation
-				ComponentDiagram diagram = (ComponentDiagram) ((IDiagramDocument) document)
-						.getDiagram().getElement();
-				TransactionalEditingDomain domain = ((IDiagramDocument) document)
-						.getEditingDomain();
-				CompoundCommand compoundCmd = new CompoundCommand();
 
-				for (final Component comp : diagram.getComponents()) {
-					if (comp instanceof EventBComponent
-							&& ((EventBComponent) comp).getMachine() != null) {
+				//XXX: persisting components
+				doSaveComponents(document);
 
-						// add command to extend Event-B machine with component config
-						// NOTE: replaces existing extension of the same id
-						compoundCmd.append(new RecordingCommand(domain) {
-							@Override
-							protected void doExecute() {
-								EventBComponent compCopy = (EventBComponent) EcoreUtil
-										.copy(comp);
-								Machine machine = ((EventBComponent) comp)
-										.getMachine();
-
-								// remove any existing extensions of the same id (EventB component)
-								Iterator<AbstractExtension> it = machine
-										.getExtensions().iterator();
-								while (it.hasNext()) {
-									if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
-											.equals(it.next().getExtensionId())) {
-										it.remove();
-									}
-								}
-
-								machine.getExtensions().add(compCopy);
-							}
-						});
-					}
-				}
-				domain.getCommandStack().execute(compoundCmd);
-				// end custom
 				for (Iterator<Resource> it = info.getLoadedResourcesIterator(); it
 						.hasNext();) {
 					Resource nextResource = it.next();
@@ -794,6 +759,42 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			}
 			newResource.unload();
 		}
+	}
+
+	/**
+	 * @param document
+	 */
+	private void doSaveComponents(IDocument document) {
+		ComponentDiagram diagram = (ComponentDiagram) ((IDiagramDocument) document).getDiagram().getElement();
+		TransactionalEditingDomain domain = ((IDiagramDocument) document).getEditingDomain();
+		CompoundCommand compoundCmd = new CompoundCommand();
+
+		for (final Component comp : diagram.getComponents()) {
+			if (comp instanceof EventBComponent
+					&& ((EventBComponent) comp).getMachine() != null) {
+
+				// add command to extend Event-B machine with component config
+				// NOTE: replaces existing extension of the same id
+				compoundCmd.append(new RecordingCommand(domain) {
+					@Override
+					protected void doExecute() {
+						EventBComponent compCopy = (EventBComponent) EcoreUtil.copy(comp);
+						Machine machine = ((EventBComponent) comp).getMachine();
+
+						// remove any existing extensions of the same id (EventB component)
+						Iterator<AbstractExtension> it = machine.getExtensions().iterator();
+						while (it.hasNext()) {
+							if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID.equals(it.next().getExtensionId())) {
+								it.remove();
+							}
+						}
+
+						machine.getExtensions().add(compCopy);
+					}
+				});
+			}
+		}
+		domain.getCommandStack().execute(compoundCmd);
 	}
 
 	/**

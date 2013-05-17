@@ -455,22 +455,58 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__COMPOSED = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Time Variable Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__TIME_VARIABLE_NAME = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Machine</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__MACHINE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 5;
+	int EVENT_BCOMPONENT__MACHINE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Read Inputs Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__READ_INPUTS_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Write Outputs Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Time Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__TIME_VARIABLE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Variables</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__VARIABLES = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Update Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__UPDATE_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
@@ -479,7 +515,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -674,22 +710,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BPORT__CONNECTOR = PORT__CONNECTOR;
 
 	/**
-	 * The feature id for the '<em><b>Fmi Get Event</b></em>' reference.
+	 * The feature id for the '<em><b>Event Parameter</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BPORT__FMI_GET_EVENT = PORT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Fmi Set Event</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BPORT__FMI_SET_EVENT = PORT_FEATURE_COUNT + 1;
+	int EVENT_BPORT__EVENT_PARAMETER = PORT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Event BPort</em>' class.
@@ -698,7 +725,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BPORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 2;
+	int EVENT_BPORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
@@ -765,6 +792,52 @@ public interface ComponentsPackage extends EPackage {
 	int FMU_VARIABLE_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.EventBVariableImpl <em>Event BVariable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.impl.EventBVariableImpl
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getEventBVariable()
+	 * @generated
+	 */
+	int EVENT_BVARIABLE = 11;
+
+	/**
+	 * The feature id for the '<em><b>Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BVARIABLE__VARIABLE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BVARIABLE__VALUE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BVARIABLE__NAME = 2;
+
+	/**
+	 * The number of structural features of the '<em>Event BVariable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BVARIABLE_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -772,7 +845,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableType()
 	 * @generated
 	 */
-	int VARIABLE_TYPE = 11;
+	int VARIABLE_TYPE = 12;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableCausality <em>Variable Causality</em>}' enum.
@@ -782,7 +855,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableCausality()
 	 * @generated
 	 */
-	int VARIABLE_CAUSALITY = 12;
+	int VARIABLE_CAUSALITY = 13;
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
@@ -955,17 +1028,6 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getEventBComponent_Composed();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getTimeVariableName <em>Time Variable Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Time Variable Name</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getTimeVariableName()
-	 * @see #getEventBComponent()
-	 * @generated
-	 */
-	EAttribute getEventBComponent_TimeVariableName();
-
-	/**
 	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getMachine <em>Machine</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -975,6 +1037,61 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEventBComponent_Machine();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Read Inputs Event</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getReadInputsEvent()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EReference getEventBComponent_ReadInputsEvent();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent <em>Write Outputs Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Write Outputs Event</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EReference getEventBComponent_WriteOutputsEvent();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Time Variable</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getTimeVariable()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EReference getEventBComponent_TimeVariable();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link ac.soton.fmusim.components.EventBComponent#getVariables <em>Variables</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Variables</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getVariables()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EReference getEventBComponent_Variables();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Update Event</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getUpdateEvent()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EReference getEventBComponent_UpdateEvent();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUComponent <em>FMU Component</em>}'.
@@ -1040,26 +1157,15 @@ public interface ComponentsPackage extends EPackage {
 	EClass getEventBPort();
 
 	/**
-	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBPort#getFmiGetEvent <em>Fmi Get Event</em>}'.
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBPort#getEventParameter <em>Event Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Fmi Get Event</em>'.
-	 * @see ac.soton.fmusim.components.EventBPort#getFmiGetEvent()
+	 * @return the meta object for the reference '<em>Event Parameter</em>'.
+	 * @see ac.soton.fmusim.components.EventBPort#getEventParameter()
 	 * @see #getEventBPort()
 	 * @generated
 	 */
-	EReference getEventBPort_FmiGetEvent();
-
-	/**
-	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBPort#getFmiSetEvent <em>Fmi Set Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Fmi Set Event</em>'.
-	 * @see ac.soton.fmusim.components.EventBPort#getFmiSetEvent()
-	 * @see #getEventBPort()
-	 * @generated
-	 */
-	EReference getEventBPort_FmiSetEvent();
+	EReference getEventBPort_EventParameter();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUVariable <em>FMU Variable</em>}'.
@@ -1124,6 +1230,49 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAbstractVariable_Causality();
+
+	/**
+	 * Returns the meta object for class '{@link ac.soton.fmusim.components.EventBVariable <em>Event BVariable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event BVariable</em>'.
+	 * @see ac.soton.fmusim.components.EventBVariable
+	 * @generated
+	 */
+	EClass getEventBVariable();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBVariable#getVariable <em>Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Variable</em>'.
+	 * @see ac.soton.fmusim.components.EventBVariable#getVariable()
+	 * @see #getEventBVariable()
+	 * @generated
+	 */
+	EReference getEventBVariable_Variable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBVariable#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see ac.soton.fmusim.components.EventBVariable#getValue()
+	 * @see #getEventBVariable()
+	 * @generated
+	 */
+	EAttribute getEventBVariable_Value();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBVariable#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see ac.soton.fmusim.components.EventBVariable#getName()
+	 * @see #getEventBVariable()
+	 * @generated
+	 */
+	EAttribute getEventBVariable_Name();
 
 	/**
 	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}'.
@@ -1308,20 +1457,52 @@ public interface ComponentsPackage extends EPackage {
 		EAttribute EVENT_BCOMPONENT__COMPOSED = eINSTANCE.getEventBComponent_Composed();
 
 		/**
-		 * The meta object literal for the '<em><b>Time Variable Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVENT_BCOMPONENT__TIME_VARIABLE_NAME = eINSTANCE.getEventBComponent_TimeVariableName();
-
-		/**
 		 * The meta object literal for the '<em><b>Machine</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference EVENT_BCOMPONENT__MACHINE = eINSTANCE.getEventBComponent_Machine();
+
+		/**
+		 * The meta object literal for the '<em><b>Read Inputs Event</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_BCOMPONENT__READ_INPUTS_EVENT = eINSTANCE.getEventBComponent_ReadInputsEvent();
+
+		/**
+		 * The meta object literal for the '<em><b>Write Outputs Event</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT = eINSTANCE.getEventBComponent_WriteOutputsEvent();
+
+		/**
+		 * The meta object literal for the '<em><b>Time Variable</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_BCOMPONENT__TIME_VARIABLE = eINSTANCE.getEventBComponent_TimeVariable();
+
+		/**
+		 * The meta object literal for the '<em><b>Variables</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_BCOMPONENT__VARIABLES = eINSTANCE.getEventBComponent_Variables();
+
+		/**
+		 * The meta object literal for the '<em><b>Update Event</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_BCOMPONENT__UPDATE_EVENT = eINSTANCE.getEventBComponent_UpdateEvent();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -1378,20 +1559,12 @@ public interface ComponentsPackage extends EPackage {
 		EClass EVENT_BPORT = eINSTANCE.getEventBPort();
 
 		/**
-		 * The meta object literal for the '<em><b>Fmi Get Event</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Event Parameter</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EVENT_BPORT__FMI_GET_EVENT = eINSTANCE.getEventBPort_FmiGetEvent();
-
-		/**
-		 * The meta object literal for the '<em><b>Fmi Set Event</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EVENT_BPORT__FMI_SET_EVENT = eINSTANCE.getEventBPort_FmiSetEvent();
+		EReference EVENT_BPORT__EVENT_PARAMETER = eINSTANCE.getEventBPort_EventParameter();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
@@ -1444,6 +1617,40 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ABSTRACT_VARIABLE__CAUSALITY = eINSTANCE.getAbstractVariable_Causality();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.EventBVariableImpl <em>Event BVariable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.impl.EventBVariableImpl
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getEventBVariable()
+		 * @generated
+		 */
+		EClass EVENT_BVARIABLE = eINSTANCE.getEventBVariable();
+
+		/**
+		 * The meta object literal for the '<em><b>Variable</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_BVARIABLE__VARIABLE = eINSTANCE.getEventBVariable_Variable();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_BVARIABLE__VALUE = eINSTANCE.getEventBVariable_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_BVARIABLE__NAME = eINSTANCE.getEventBVariable_Name();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.

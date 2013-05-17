@@ -25,11 +25,13 @@ import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.parsers.ConnectorLabelExpressionLabelParser;
+import ac.soton.fmusim.components.diagram.parsers.EventBVariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.FMUVariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.MessageFormatParser;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -197,6 +199,21 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
+	private EventBVariableExpressionLabelParser eventBVariable_3008Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getEventBVariable_3008Parser() {
+		if (eventBVariable_3008Parser == null) {
+			eventBVariable_3008Parser = new EventBVariableExpressionLabelParser();
+		}
+		return eventBVariable_3008Parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
 		case FMUComponentNameEditPart.VISUAL_ID:
@@ -215,6 +232,8 @@ public class ComponentsParserProvider extends AbstractProvider implements
 			return getEventBPortNameType_5006Parser();
 		case EventBPortNameType2EditPart.VISUAL_ID:
 			return getEventBPortNameType_5007Parser();
+		case EventBVariableEditPart.VISUAL_ID:
+			return getEventBVariable_3008Parser();
 		}
 		return null;
 	}

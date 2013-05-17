@@ -20,20 +20,20 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="FMU Variable"
-          description="Create new FMU Variable">
-        <smallIcon
-            xsi:type="gmftool:BundleImage"
-            path="/icons/FMUVariable.gif"
-            bundle="ac.soton.fmusim.components"/>
-      </tools>
-      <tools
-          xsi:type="gmftool:CreationTool"
           title="Event-B Component"
           description="Create new Event-B Component">
         <smallIcon
             xsi:type="gmftool:BundleImage"
             path="/icons/EventBComponent.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Variable"
+          description="Create new Variable">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/FMUVariable.gif"
             bundle="ac.soton.fmusim.components"/>
       </tools>
       <tools

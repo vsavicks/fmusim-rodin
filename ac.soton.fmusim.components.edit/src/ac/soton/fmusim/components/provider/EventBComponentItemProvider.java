@@ -67,8 +67,11 @@ public class EventBComponentItemProvider
 
 			addNamePropertyDescriptor(object);
 			addComposedPropertyDescriptor(object);
-			addTimeVariableNamePropertyDescriptor(object);
 			addMachinePropertyDescriptor(object);
+			addReadInputsEventPropertyDescriptor(object);
+			addWriteOutputsEventPropertyDescriptor(object);
+			addTimeVariablePropertyDescriptor(object);
+			addUpdateEventPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -118,28 +121,6 @@ public class EventBComponentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Time Variable Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTimeVariableNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBComponent_timeVariableName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_timeVariableName_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__TIME_VARIABLE_NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Machine feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -162,6 +143,94 @@ public class EventBComponentItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Read Inputs Event feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addReadInputsEventPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBComponent_readInputsEvent_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_readInputsEvent_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__READ_INPUTS_EVENT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Write Outputs Event feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWriteOutputsEventPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBComponent_writeOutputsEvent_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_writeOutputsEvent_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Time Variable feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTimeVariablePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBComponent_timeVariable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_timeVariable_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__TIME_VARIABLE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Update Event feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUpdateEventPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBComponent_updateEvent_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_updateEvent_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__UPDATE_EVENT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -175,6 +244,7 @@ public class EventBComponentItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__INPUTS);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__OUTPUTS);
+			childrenFeatures.add(ComponentsPackage.Literals.EVENT_BCOMPONENT__VARIABLES);
 		}
 		return childrenFeatures;
 	}
@@ -231,11 +301,11 @@ public class EventBComponentItemProvider
 		switch (notification.getFeatureID(EventBComponent.class)) {
 			case ComponentsPackage.EVENT_BCOMPONENT__NAME:
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
-			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__INPUTS:
 			case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS:
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -277,6 +347,11 @@ public class EventBComponentItemProvider
 			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT__OUTPUTS,
 				 ComponentsFactory.eINSTANCE.createEventBPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.EVENT_BCOMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createEventBVariable()));
 	}
 
 	/**

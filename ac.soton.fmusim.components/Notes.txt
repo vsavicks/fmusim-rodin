@@ -1,0 +1,9 @@
+List of customised code:
+=======================
+EventBComponentImpl::EventBComponentImpl()
+EventBComponentImpl::hasValidMachineReference(DiagnosticChain, Map<Object, Object>)
+
+EventBVariableImpl::getName()
+
+ComponentsValidator::validateConnector_CompleteConnection(Connector, DiagnosticChain, Map<Object, Object>)
+ComponentsValidator::validateConnector_CompatiblePorts(Connector, DiagnosticChain, Map<Object, Object>)

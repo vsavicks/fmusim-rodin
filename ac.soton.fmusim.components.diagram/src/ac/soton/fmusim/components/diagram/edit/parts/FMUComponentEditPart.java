@@ -148,7 +148,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 		}
 		if (childEditPart instanceof FMUComponentVariablesCompartmentEditPart) {
 			IFigure pane = getPrimaryShape()
-					.getFigureVariablesCompartmentFigure();
+					.getFigureFMUVariablesCompartmentFigure();
 			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
 			pane.add(((FMUComponentVariablesCompartmentEditPart) childEditPart)
 					.getFigure());
@@ -180,7 +180,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 		}
 		if (childEditPart instanceof FMUComponentVariablesCompartmentEditPart) {
 			IFigure pane = getPrimaryShape()
-					.getFigureVariablesCompartmentFigure();
+					.getFigureFMUVariablesCompartmentFigure();
 			pane.remove(((FMUComponentVariablesCompartmentEditPart) childEditPart)
 					.getFigure());
 			return true;
@@ -223,7 +223,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
 		if (editPart instanceof FMUComponentVariablesCompartmentEditPart) {
-			return getPrimaryShape().getFigureVariablesCompartmentFigure();
+			return getPrimaryShape().getFigureFMUVariablesCompartmentFigure();
 		}
 		if (editPart instanceof IBorderItemEditPart) {
 			return getBorderedFigure().getBorderItemContainer();
@@ -356,7 +356,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 		/**
 		 * @generated
 		 */
-		private RectangleFigure fFigureVariablesCompartmentFigure;
+		private RectangleFigure fFigureFMUVariablesCompartmentFigure;
 
 		/**
 		 * @generated
@@ -384,9 +384,9 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 
 			this.add(fFigureFMUComponentNameFigure, BorderLayout.TOP);
 
-			fFigureVariablesCompartmentFigure = new RectangleFigure();
+			fFigureFMUVariablesCompartmentFigure = new RectangleFigure();
 
-			this.add(fFigureVariablesCompartmentFigure, BorderLayout.CENTER);
+			this.add(fFigureFMUVariablesCompartmentFigure, BorderLayout.CENTER);
 
 		}
 
@@ -400,8 +400,8 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 		/**
 		 * @generated
 		 */
-		public RectangleFigure getFigureVariablesCompartmentFigure() {
-			return fFigureVariablesCompartmentFigure;
+		public RectangleFigure getFigureFMUVariablesCompartmentFigure() {
+			return fFigureFMUVariablesCompartmentFigure;
 		}
 
 	}

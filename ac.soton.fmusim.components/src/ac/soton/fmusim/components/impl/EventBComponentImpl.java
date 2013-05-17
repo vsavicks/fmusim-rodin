@@ -24,11 +24,14 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eventb.emf.core.impl.AbstractExtensionImpl;
+import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
+import org.eventb.emf.core.machine.Variable;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBComponent;
+import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.util.ComponentsValidator;
@@ -44,8 +47,12 @@ import ac.soton.fmusim.components.util.ComponentsValidator;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#isComposed <em>Composed</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariableName <em>Time Variable Name</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getMachine <em>Machine</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getReadInputsEvent <em>Read Inputs Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getWriteOutputsEvent <em>Write Outputs Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getVariables <em>Variables</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getUpdateEvent <em>Update Event</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,26 +120,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	protected boolean composed = COMPOSED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTimeVariableName() <em>Time Variable Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeVariableName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String TIME_VARIABLE_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTimeVariableName() <em>Time Variable Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeVariableName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String timeVariableName = TIME_VARIABLE_NAME_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getMachine() <em>Machine</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -141,6 +128,56 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected Machine machine;
+
+	/**
+	 * The cached value of the '{@link #getReadInputsEvent() <em>Read Inputs Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReadInputsEvent()
+	 * @generated
+	 * @ordered
+	 */
+	protected Event readInputsEvent;
+
+	/**
+	 * The cached value of the '{@link #getWriteOutputsEvent() <em>Write Outputs Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWriteOutputsEvent()
+	 * @generated
+	 * @ordered
+	 */
+	protected Event writeOutputsEvent;
+
+	/**
+	 * The cached value of the '{@link #getTimeVariable() <em>Time Variable</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTimeVariable()
+	 * @generated
+	 * @ordered
+	 */
+	protected Variable timeVariable;
+
+	/**
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventBVariable> variables;
+
+	/**
+	 * The cached value of the '{@link #getUpdateEvent() <em>Update Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpdateEvent()
+	 * @generated
+	 * @ordered
+	 */
+	protected Event updateEvent;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -235,27 +272,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTimeVariableName() {
-		return timeVariableName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTimeVariableName(String newTimeVariableName) {
-		String oldTimeVariableName = timeVariableName;
-		timeVariableName = newTimeVariableName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE_NAME, oldTimeVariableName, timeVariableName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Machine getMachine() {
 		if (machine != null && machine.eIsProxy()) {
 			InternalEObject oldMachine = (InternalEObject)machine;
@@ -287,6 +303,170 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		machine = newMachine;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__MACHINE, oldMachine, machine));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Event getReadInputsEvent() {
+		if (readInputsEvent != null && readInputsEvent.eIsProxy()) {
+			InternalEObject oldReadInputsEvent = (InternalEObject)readInputsEvent;
+			readInputsEvent = (Event)eResolveProxy(oldReadInputsEvent);
+			if (readInputsEvent != oldReadInputsEvent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT, oldReadInputsEvent, readInputsEvent));
+			}
+		}
+		return readInputsEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Event basicGetReadInputsEvent() {
+		return readInputsEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setReadInputsEvent(Event newReadInputsEvent) {
+		Event oldReadInputsEvent = readInputsEvent;
+		readInputsEvent = newReadInputsEvent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT, oldReadInputsEvent, readInputsEvent));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Event getWriteOutputsEvent() {
+		if (writeOutputsEvent != null && writeOutputsEvent.eIsProxy()) {
+			InternalEObject oldWriteOutputsEvent = (InternalEObject)writeOutputsEvent;
+			writeOutputsEvent = (Event)eResolveProxy(oldWriteOutputsEvent);
+			if (writeOutputsEvent != oldWriteOutputsEvent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT, oldWriteOutputsEvent, writeOutputsEvent));
+			}
+		}
+		return writeOutputsEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Event basicGetWriteOutputsEvent() {
+		return writeOutputsEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setWriteOutputsEvent(Event newWriteOutputsEvent) {
+		Event oldWriteOutputsEvent = writeOutputsEvent;
+		writeOutputsEvent = newWriteOutputsEvent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT, oldWriteOutputsEvent, writeOutputsEvent));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Variable getTimeVariable() {
+		if (timeVariable != null && timeVariable.eIsProxy()) {
+			InternalEObject oldTimeVariable = (InternalEObject)timeVariable;
+			timeVariable = (Variable)eResolveProxy(oldTimeVariable);
+			if (timeVariable != oldTimeVariable) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE, oldTimeVariable, timeVariable));
+			}
+		}
+		return timeVariable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Variable basicGetTimeVariable() {
+		return timeVariable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTimeVariable(Variable newTimeVariable) {
+		Variable oldTimeVariable = timeVariable;
+		timeVariable = newTimeVariable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE, oldTimeVariable, timeVariable));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EventBVariable> getVariables() {
+		if (variables == null) {
+			variables = new EObjectContainmentEList.Resolving<EventBVariable>(EventBVariable.class, this, ComponentsPackage.EVENT_BCOMPONENT__VARIABLES);
+		}
+		return variables;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Event getUpdateEvent() {
+		if (updateEvent != null && updateEvent.eIsProxy()) {
+			InternalEObject oldUpdateEvent = (InternalEObject)updateEvent;
+			updateEvent = (Event)eResolveProxy(oldUpdateEvent);
+			if (updateEvent != oldUpdateEvent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT, oldUpdateEvent, updateEvent));
+			}
+		}
+		return updateEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Event basicGetUpdateEvent() {
+		return updateEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUpdateEvent(Event newUpdateEvent) {
+		Event oldUpdateEvent = updateEvent;
+		updateEvent = newUpdateEvent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT, oldUpdateEvent, updateEvent));
 	}
 
 	/**
@@ -332,6 +512,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
 			case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS:
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -352,11 +534,23 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return getOutputs();
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				return isComposed();
-			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE_NAME:
-				return getTimeVariableName();
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				if (resolve) return getMachine();
 				return basicGetMachine();
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
+				if (resolve) return getReadInputsEvent();
+				return basicGetReadInputsEvent();
+			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
+				if (resolve) return getWriteOutputsEvent();
+				return basicGetWriteOutputsEvent();
+			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
+				if (resolve) return getTimeVariable();
+				return basicGetTimeVariable();
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				return getVariables();
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
+				if (resolve) return getUpdateEvent();
+				return basicGetUpdateEvent();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -384,11 +578,24 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				setComposed((Boolean)newValue);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE_NAME:
-				setTimeVariableName((String)newValue);
-				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				setMachine((Machine)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
+				setReadInputsEvent((Event)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
+				setWriteOutputsEvent((Event)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
+				setTimeVariable((Variable)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends EventBVariable>)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
+				setUpdateEvent((Event)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -414,11 +621,23 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				setComposed(COMPOSED_EDEFAULT);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE_NAME:
-				setTimeVariableName(TIME_VARIABLE_NAME_EDEFAULT);
-				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				setMachine((Machine)null);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
+				setReadInputsEvent((Event)null);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
+				setWriteOutputsEvent((Event)null);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
+				setTimeVariable((Variable)null);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				getVariables().clear();
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
+				setUpdateEvent((Event)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -440,10 +659,18 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return outputs != null && !outputs.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				return composed != COMPOSED_EDEFAULT;
-			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE_NAME:
-				return TIME_VARIABLE_NAME_EDEFAULT == null ? timeVariableName != null : !TIME_VARIABLE_NAME_EDEFAULT.equals(timeVariableName);
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				return machine != null;
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
+				return readInputsEvent != null;
+			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
+				return writeOutputsEvent != null;
+			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
+				return timeVariable != null;
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				return variables != null && !variables.isEmpty();
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
+				return updateEvent != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -508,8 +735,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		result.append(name);
 		result.append(", composed: ");
 		result.append(composed);
-		result.append(", timeVariableName: ");
-		result.append(timeVariableName);
 		result.append(')');
 		return result.toString();
 	}

@@ -22,6 +22,7 @@ import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
+import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
@@ -187,6 +188,12 @@ public class ComponentsSwitch<T> {
 				AbstractVariable abstractVariable = (AbstractVariable)theEObject;
 				T result = caseAbstractVariable(abstractVariable);
 				if (result == null) result = caseNamedElement(abstractVariable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ComponentsPackage.EVENT_BVARIABLE: {
+				EventBVariable eventBVariable = (EventBVariable)theEObject;
+				T result = caseEventBVariable(eventBVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -356,6 +363,21 @@ public class ComponentsSwitch<T> {
 	 * @generated
 	 */
 	public T caseAbstractVariable(AbstractVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event BVariable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event BVariable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventBVariable(EventBVariable object) {
 		return null;
 	}
 

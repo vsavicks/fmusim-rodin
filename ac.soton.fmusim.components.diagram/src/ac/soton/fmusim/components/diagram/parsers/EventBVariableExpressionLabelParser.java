@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,7 +14,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -28,16 +27,16 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
-import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.EventBVariable;
 
 /**
  * @generated
  */
-public class ConnectorLabelExpressionLabelParser implements IParser {
+public class EventBVariableExpressionLabelParser implements IParser {
 	/**
 	 * @generated
 	 */
-	public ConnectorLabelExpressionLabelParser() {
+	public EventBVariableExpressionLabelParser() {
 	}
 
 	/**
@@ -114,29 +113,28 @@ public class ConnectorLabelExpressionLabelParser implements IParser {
 	}
 
 	/**
-	 * Updates the edited value of Connector i.e. name.
-	 * @generated NOT
+	 * @generated
 	 */
 	private IStatus updateValues(EObject target, String newString)
 			throws ExecutionException {
-		if (target instanceof Connector) {
-			((Connector) target).setName(newString);
-			return Status.OK_STATUS;
-		}
+		// TODO implement this method
+		// DO NOT FORGET to remove @generated tag or mark method @generated NOT
 		throw new ExecutionException(
-				"updateValues() received an invalid target type: expected Connector");
+				"Please implement parsing and value modification");
 	}
 
 	/**
-	 * Displays the label of Connector.
+	 * Returns the view name of the Event-B variable label,
+	 * consisting of the name of the variable and its value.
+	 * 
 	 * @generated NOT
 	 */
 	private String evaluatePrintExpression(EObject self) {
-		if (self instanceof Connector) {
-			Connector con = (Connector) self;
-			String name = con.getName() == null ? "" : con.getName();
-			String value = con.getValue() == null ? "" : (" = " + con
-					.getValue());
+		if (self instanceof EventBVariable) {
+			EventBVariable var = (EventBVariable) self;
+			String name = var.getName() == null || var.getName().isEmpty() ? "<name>" : var.getName();
+			String value = var.getValue() == null ? "" : (" = " + var
+					.getValue().toString());
 			return name + value;
 		}
 		throw new UnsupportedOperationException(

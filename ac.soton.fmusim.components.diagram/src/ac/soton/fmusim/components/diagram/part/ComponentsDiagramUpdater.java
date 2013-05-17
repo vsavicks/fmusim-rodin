@@ -26,6 +26,7 @@ import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
+import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
@@ -33,8 +34,10 @@ import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
@@ -60,7 +63,9 @@ public class ComponentsDiagramUpdater {
 		case EventBComponentEditPart.VISUAL_ID:
 			return getEventBComponent_2002SemanticChildren(view);
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
-			return getFMUComponentVariablesCompartment_7001SemanticChildren(view);
+			return getFMUComponentFMUVariablesCompartment_7001SemanticChildren(view);
+		case EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID:
+			return getEventBComponentEventBVariablesCompartment_7002SemanticChildren(view);
 		}
 		return Collections.emptyList();
 	}
@@ -169,7 +174,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsNodeDescriptor> getFMUComponentVariablesCompartment_7001SemanticChildren(
+	public static List<ComponentsNodeDescriptor> getFMUComponentFMUVariablesCompartment_7001SemanticChildren(
 			View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();
@@ -186,6 +191,34 @@ public class ComponentsDiagramUpdater {
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
 			if (visualID == FMUVariableEditPart.VISUAL_ID) {
+				result.add(new ComponentsNodeDescriptor(childElement, visualID));
+				continue;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<ComponentsNodeDescriptor> getEventBComponentEventBVariablesCompartment_7002SemanticChildren(
+			View view) {
+		if (false == view.eContainer() instanceof View) {
+			return Collections.emptyList();
+		}
+		View containerView = (View) view.eContainer();
+		if (!containerView.isSetElement()) {
+			return Collections.emptyList();
+		}
+		EventBComponent modelElement = (EventBComponent) containerView
+				.getElement();
+		LinkedList<ComponentsNodeDescriptor> result = new LinkedList<ComponentsNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getVariables().iterator(); it
+				.hasNext();) {
+			EventBVariable childElement = (EventBVariable) it.next();
+			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
+					childElement);
+			if (visualID == EventBVariableEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -216,6 +249,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBPort_3003ContainedLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
 			return getEventBPort_3004ContainedLinks(view);
+		case EventBVariableEditPart.VISUAL_ID:
+			return getEventBVariable_3008ContainedLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -241,6 +276,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBPort_3003IncomingLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
 			return getEventBPort_3004IncomingLinks(view);
+		case EventBVariableEditPart.VISUAL_ID:
+			return getEventBVariable_3008IncomingLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -266,6 +303,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBPort_3003OutgoingLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
 			return getEventBPort_3004OutgoingLinks(view);
+		case EventBVariableEditPart.VISUAL_ID:
+			return getEventBVariable_3008OutgoingLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -357,6 +396,14 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List<ComponentsLinkDescriptor> getEventBVariable_3008ContainedLinks(
+			View view) {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List<ComponentsLinkDescriptor> getFMUComponent_2001IncomingLinks(
 			View view) {
 		return Collections.emptyList();
@@ -420,6 +467,14 @@ public class ComponentsDiagramUpdater {
 	 * @generated
 	 */
 	public static List<ComponentsLinkDescriptor> getEventBPort_3004IncomingLinks(
+			View view) {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<ComponentsLinkDescriptor> getEventBVariable_3008IncomingLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -498,6 +553,14 @@ public class ComponentsDiagramUpdater {
 		LinkedList<ComponentsLinkDescriptor> result = new LinkedList<ComponentsLinkDescriptor>();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Port_Connector_4001(modelElement));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<ComponentsLinkDescriptor> getEventBVariable_3008OutgoingLinks(
+			View view) {
+		return Collections.emptyList();
 	}
 
 	/**

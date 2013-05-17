@@ -39,7 +39,7 @@ public interface FMUVariable extends AbstractVariable {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(Object)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getFMUVariable_Value()
-	 * @model
+	 * @model transient="true"
 	 * @generated
 	 */
 	Object getValue();

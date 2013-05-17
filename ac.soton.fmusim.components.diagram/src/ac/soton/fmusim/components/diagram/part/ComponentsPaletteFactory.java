@@ -43,8 +43,8 @@ public class ComponentsPaletteFactory {
 				Messages.Components1Group_title);
 		paletteContainer.setId("createComponents1Group"); //$NON-NLS-1$
 		paletteContainer.add(createFMUComponent1CreationTool());
-		paletteContainer.add(createFMUVariable2CreationTool());
-		paletteContainer.add(createEventBComponent3CreationTool());
+		paletteContainer.add(createEventBComponent2CreationTool());
+		paletteContainer.add(createVariable3CreationTool());
 		paletteContainer.add(createInputPort4CreationTool());
 		paletteContainer.add(createOutputPort5CreationTool());
 		paletteContainer.add(createConnector6CreationTool());
@@ -71,15 +71,15 @@ public class ComponentsPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createFMUVariable2CreationTool() {
+	private ToolEntry createEventBComponent2CreationTool() {
 		NodeToolEntry entry = new NodeToolEntry(
-				Messages.FMUVariable2CreationTool_title,
-				Messages.FMUVariable2CreationTool_desc,
+				Messages.EventBComponent2CreationTool_title,
+				Messages.EventBComponent2CreationTool_desc,
 				Collections
-						.singletonList(ComponentsElementTypes.FMUVariable_3007));
-		entry.setId("createFMUVariable2CreationTool"); //$NON-NLS-1$
+						.singletonList(ComponentsElementTypes.EventBComponent_2002));
+		entry.setId("createEventBComponent2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(ComponentsDiagramEditorPlugin
-				.findImageDescriptor("/ac.soton.fmusim.components/icons/FMUVariable.gif")); //$NON-NLS-1$
+				.findImageDescriptor("/ac.soton.fmusim.components/icons/EventBComponent.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -87,15 +87,16 @@ public class ComponentsPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEventBComponent3CreationTool() {
+	private ToolEntry createVariable3CreationTool() {
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
+		types.add(ComponentsElementTypes.FMUVariable_3007);
+		types.add(ComponentsElementTypes.EventBVariable_3008);
 		NodeToolEntry entry = new NodeToolEntry(
-				Messages.EventBComponent3CreationTool_title,
-				Messages.EventBComponent3CreationTool_desc,
-				Collections
-						.singletonList(ComponentsElementTypes.EventBComponent_2002));
-		entry.setId("createEventBComponent3CreationTool"); //$NON-NLS-1$
+				Messages.Variable3CreationTool_title,
+				Messages.Variable3CreationTool_desc, types);
+		entry.setId("createVariable3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(ComponentsDiagramEditorPlugin
-				.findImageDescriptor("/ac.soton.fmusim.components/icons/EventBComponent.gif")); //$NON-NLS-1$
+				.findImageDescriptor("/ac.soton.fmusim.components/icons/FMUVariable.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

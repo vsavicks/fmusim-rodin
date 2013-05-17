@@ -15,7 +15,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IChildCreationExtender;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -23,19 +25,20 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.FMUVariable;
+import ac.soton.fmusim.components.EventBVariable;
 
 /**
- * This is the item provider adapter for a {@link ac.soton.fmusim.components.FMUVariable} object.
+ * This is the item provider adapter for a {@link ac.soton.fmusim.components.EventBVariable} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FMUVariableItemProvider
-	extends AbstractVariableItemProvider
+public class EventBVariableItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -48,7 +51,7 @@ public class FMUVariableItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FMUVariableItemProvider(AdapterFactory adapterFactory) {
+	public EventBVariableItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,10 +66,33 @@ public class FMUVariableItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addVariablePropertyDescriptor(object);
 			addValuePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Variable feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVariablePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBVariable_variable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBVariable_variable_feature", "_UI_EventBVariable_type"),
+				 ComponentsPackage.Literals.EVENT_BVARIABLE__VARIABLE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -80,9 +106,9 @@ public class FMUVariableItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FMUVariable_value_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FMUVariable_value_feature", "_UI_FMUVariable_type"),
-				 ComponentsPackage.Literals.FMU_VARIABLE__VALUE,
+				 getString("_UI_EventBVariable_value_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBVariable_value_feature", "_UI_EventBVariable_type"),
+				 ComponentsPackage.Literals.EVENT_BVARIABLE__VALUE,
 				 true,
 				 false,
 				 false,
@@ -92,19 +118,19 @@ public class FMUVariableItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Description feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDescriptionPropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FMUVariable_description_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FMUVariable_description_feature", "_UI_FMUVariable_type"),
-				 ComponentsPackage.Literals.FMU_VARIABLE__DESCRIPTION,
+				 getString("_UI_EventBVariable_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBVariable_name_feature", "_UI_EventBVariable_type"),
+				 ComponentsPackage.Literals.EVENT_BVARIABLE__NAME,
 				 true,
 				 false,
 				 false,
@@ -114,14 +140,14 @@ public class FMUVariableItemProvider
 	}
 
 	/**
-	 * This returns FMUVariable.gif.
+	 * This returns EventBVariable.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FMUVariable"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventBVariable"));
 	}
 
 	/**
@@ -132,10 +158,10 @@ public class FMUVariableItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FMUVariable)object).getName();
+		String label = ((EventBVariable)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_FMUVariable_type") :
-			getString("_UI_FMUVariable_type") + " " + label;
+			getString("_UI_EventBVariable_type") :
+			getString("_UI_EventBVariable_type") + " " + label;
 	}
 
 	/**
@@ -149,9 +175,9 @@ public class FMUVariableItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(FMUVariable.class)) {
-			case ComponentsPackage.FMU_VARIABLE__VALUE:
-			case ComponentsPackage.FMU_VARIABLE__DESCRIPTION:
+		switch (notification.getFeatureID(EventBVariable.class)) {
+			case ComponentsPackage.EVENT_BVARIABLE__VALUE:
+			case ComponentsPackage.EVENT_BVARIABLE__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
@@ -168,6 +194,17 @@ public class FMUVariableItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return ((IChildCreationExtender)adapterFactory).getResourceLocator();
 	}
 
 }

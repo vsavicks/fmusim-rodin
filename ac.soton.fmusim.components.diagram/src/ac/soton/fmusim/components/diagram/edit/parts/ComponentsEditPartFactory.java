@@ -77,8 +77,15 @@ public class ComponentsEditPartFactory implements EditPartFactory {
 			case EventBPortNameType2EditPart.VISUAL_ID:
 				return new EventBPortNameType2EditPart(view);
 
+			case EventBVariableEditPart.VISUAL_ID:
+				return new EventBVariableEditPart(view);
+
 			case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
 				return new FMUComponentVariablesCompartmentEditPart(view);
+
+			case EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID:
+				return new EventBComponentEventBVariablesCompartmentEditPart(
+						view);
 
 			case PortConnectorEditPart.VISUAL_ID:
 				return new PortConnectorEditPart(view);

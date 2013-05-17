@@ -19,6 +19,9 @@
     <nodeLabelTraces
         visualID="5002"
         queryText="true"/>
+    <compartmentTraces
+        visualID="7002"
+        queryText="true"/>
   </nodeTraces>
   <nodeTraces
       visualID="2003"
@@ -58,6 +61,9 @@
   <childNodeTraces
       visualID="3007"
       queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/fmusim/components/1.0' and _eClass_.name = 'FMUVariable') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/fmusim/components/1.0' and _eClass_.name = 'FMUComponent') and _containmentMF_.name = 'variables')"/>
+  <childNodeTraces
+      visualID="3008"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/fmusim/components/1.0' and _eClass_.name = 'EventBVariable') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/fmusim/components/1.0' and _eClass_.name = 'EventBComponent') and _containmentMF_.name = 'variables')"/>
   <linkTraces
       visualID="4001"
       queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/fmusim/components/1.0' and _eClass_.name = 'Port') and _feature_.name = 'connector')"/>

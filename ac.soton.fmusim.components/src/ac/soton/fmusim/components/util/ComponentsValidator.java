@@ -23,6 +23,7 @@ import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
+import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
@@ -141,6 +142,8 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateFMUVariable((FMUVariable)value, diagnostics, context);
 			case ComponentsPackage.ABSTRACT_VARIABLE:
 				return validateAbstractVariable((AbstractVariable)value, diagnostics, context);
+			case ComponentsPackage.EVENT_BVARIABLE:
+				return validateEventBVariable((EventBVariable)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_TYPE:
 				return validateVariableType((VariableType)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
@@ -381,6 +384,15 @@ public class ComponentsValidator extends EObjectValidator {
 	 */
 	public boolean validateAbstractVariable(AbstractVariable abstractVariable, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(abstractVariable, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateEventBVariable(EventBVariable eventBVariable, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(eventBVariable, diagnostics, context);
 	}
 
 	/**

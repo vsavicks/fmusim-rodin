@@ -19,6 +19,8 @@ import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -29,18 +31,19 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eventb.emf.core.machine.Event;
+import org.eventb.emf.core.machine.Parameter;
 
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
-import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource;
 
 /**
  * New EventB port creation dialog.
  * Allows to specify the name and type of the new port,
- * as well as get & set events from the provided source.
+ * as well as a parameter for provided read/write event.
  * Also provides the basic name validation based on the source
  * component: disallows empty name or the existing port name.
  * 
@@ -51,34 +54,39 @@ public class EventBPortDialog extends Dialog {
 
 	private Text nameText;
 	private Combo typeCombo;
-	private Combo getCombo;
-	private Combo setCombo;
+	private Combo parameterCombo;
 	private Set<String> conflictingNames;
-	private Map<String, Event> eventMap;
+	private Map<String, Parameter> parameterMap;
 	private DecoratedInputValidator nameValidator;
 	private boolean nameValid;
 	private EventBPort port;
-
+	private DecoratedInputValidator parameterValidator;
+	private boolean parameterValid;
+	private VariableCausality causality;
+	
 	/**
 	 * @param parentShell
+	 * @param component
+	 * @param causality
+	 * @param event
 	 */
-	public EventBPortDialog(Shell parentShell, ComponentModelSource source) {
+	public EventBPortDialog(Shell parentShell, EventBComponent component, VariableCausality causality, Event event) {
 		super(parentShell);
-		assert source.getModel() instanceof EventBComponent;
-		EventBComponent model = (EventBComponent) source.getModel();
 		
 		// build up a set of existing names and event map
-		if (model != null) {
-			conflictingNames = new HashSet<String>(model.getInputs().size() + model.getOutputs().size());
-			for (Port p : model.getInputs())
+		if (component != null) {
+			conflictingNames = new HashSet<String>(component.getInputs().size() + component.getOutputs().size());
+			for (Port p : component.getInputs())
 				conflictingNames.add(p.getName());
-			for (Port p : model.getOutputs())
+			for (Port p : component.getOutputs())
 				conflictingNames.add(p.getName());
 			
-			if (model.getMachine() != null) {
-				eventMap = new HashMap<String, Event>(model.getMachine().getEvents().size());
-				for (Event event : model.getMachine().getEvents())
-					eventMap.put(event.getName(), event);
+			this.causality = causality;
+			
+			if (event != null) {
+				parameterMap = new HashMap<String, Parameter>(event.getParameters().size());
+				for (Parameter parameter : event.getParameters())
+					parameterMap.put(parameter.getName(), parameter);
 			}
 		}
 	}
@@ -103,7 +111,7 @@ public class EventBPortDialog extends Dialog {
 		Group plate = new Group(composite, SWT.NONE);
 		GridLayout layout = new GridLayout(2, false);
 		plate.setLayout(layout);
-		plate.setText("Event-B Port");
+		plate.setText("Event-B port attributes");
 		
 		// name label and field
 		Label nameLabel = new Label(plate, SWT.NONE);
@@ -132,39 +140,30 @@ public class EventBPortDialog extends Dialog {
 			typeCombo.select(0);
 		}
 		
-		if (eventMap != null) {
-			// get event label & combo
+		// read/write event parameter combo
+		if (parameterMap != null) {
 			Label getLabel = new Label(plate, SWT.NONE);
-			getLabel.setText("Get Event:");
-			getCombo = new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY);
-			getCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
+			getLabel.setText("Parameter:");
+			parameterCombo = new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY);
+			parameterCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
+			parameterCombo.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					validateParameter();
+				}
+			});
 			{
-				String[] items = new String[eventMap.size() + 1];
+				String[] items = new String[parameterMap.size() + 1];
 				int i = 0;
-				items[i++] = ""; // empty item for non-refinement
-				for (String name : eventMap.keySet())
+				items[i++] = ""; // empty item
+				for (String name : parameterMap.keySet())
 					items[i++] = name;
 				Arrays.sort(items);
-				getCombo.setItems(items);
-			}
-			
-			// set event label & combo
-			Label setLabel = new Label(plate, SWT.NONE);
-			setLabel.setText("Set Event:");
-			setCombo = new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY);
-			setCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-			{
-				String[] items = new String[eventMap.size() + 1];
-				int i = 0;
-				items[i++] = ""; // empty item for non-refinement
-				for (String name : eventMap.keySet())
-					items[i++] = name;
-				Arrays.sort(items);
-				setCombo.setItems(items);
+				parameterCombo.setItems(items);
 			}
 		}
 		
-		// validator
+		// validators
 		nameValidator = new DecoratedInputValidator(DecoratedInputValidator.createDecorator(nameText, "Please enter name", FieldDecorationRegistry.DEC_ERROR, false)) {
 			
 			@Override
@@ -177,10 +176,21 @@ public class EventBPortDialog extends Dialog {
 			}
 		};
 		
+		parameterValidator = new DecoratedInputValidator(DecoratedInputValidator.createDecorator(parameterCombo, "Please select event parameter", FieldDecorationRegistry.DEC_ERROR, false)) {
+			
+			@Override
+			public String isValidInput(String parameter) {
+				if (parameter == null || parameter.isEmpty())
+					return "Event parameter cannot be empty";
+				return null;
+			}
+		};
+		
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		return composite;
 	}
 	
+
 	@Override
 	protected Control createContents(Composite parent) {
 		Control contents = super.createContents(parent);
@@ -213,12 +223,29 @@ public class EventBPortDialog extends Dialog {
 	}
 
 	/**
-	 * Updates the buttons based on name validation.
+	 * Validates parameter.
+	 */
+	protected void validateParameter() {
+		if (parameterValidator != null) {
+			parameterValid = parameterValidator.isValid(parameterCombo.getText()) == null;
+		} else {
+			parameterValid = true;
+		}
+		update();
+	}
+
+	/**
+	 * Updates the buttons based on validation:
+	 * - name
+	 * - parameter
 	 */
 	private void update() {
+		boolean valid = true;
 		Control button = getButton(IDialogConstants.OK_ID);
 		if (button != null) {
-			button.setEnabled(nameValid);
+			valid &= nameValid;
+			valid &= parameterValid;
+			button.setEnabled(valid);
 		}
 	}
 
@@ -230,13 +257,12 @@ public class EventBPortDialog extends Dialog {
 		port = ComponentsFactory.eINSTANCE.createEventBPort();
 		port.setName(nameText.getText().trim());
 		port.setType(VariableType.getByName(typeCombo.getItem(typeCombo.getSelectionIndex())));
+		port.setCausality(causality);
 		
-		// if events were defined set get/set events from combos
-		if (eventMap != null) {
-			if (getCombo.getSelectionIndex() > 0)
-				port.setFmiGetEvent(eventMap.get(getCombo.getItem(getCombo.getSelectionIndex())));
-			if (setCombo.getSelectionIndex() > 0)
-				port.setFmiSetEvent(eventMap.get(setCombo.getItem(setCombo.getSelectionIndex())));
+		// if parameter was defined set parameter from combo
+		if (parameterMap != null) {
+			if (parameterCombo.getSelectionIndex() > 0)
+				port.setEventParameter(parameterMap.get(parameterCombo.getItem(parameterCombo.getSelectionIndex())));
 		}
 		
 		super.okPressed();

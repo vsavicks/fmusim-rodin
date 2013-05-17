@@ -36,7 +36,7 @@
         </children>
         <children
             xsi:type="gmfgraph:Rectangle"
-            name="VariablesCompartmentFigure">
+            name="FMUVariablesCompartmentFigure">
           <layoutData
               xsi:type="gmfgraph:BorderLayoutData"
               alignment="FILL"
@@ -54,13 +54,7 @@
           xsi:type="gmfgraph:Rectangle"
           name="EventBComponentFigure">
         <layout
-            xsi:type="gmfgraph:FlowLayout"
-            vertical="true"
-            matchMinorSize="true"
-            forceSingleLine="true"
-            minorAlignment="CENTER"
-            majorSpacing="0"
-            minorSpacing="0"/>
+            xsi:type="gmfgraph:BorderLayout"/>
         <foregroundColor
             xsi:type="gmfgraph:ConstantColor"
             value="gray"/>
@@ -73,13 +67,27 @@
             xsi:type="gmfgraph:Label"
             name="EventBComponentNameFigure"
             text="&lt;...>">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              alignment="BEGINNING"
+              vertical="true"/>
           <attributes
               name="alignment"
               value="org.eclipse.draw2d.PositionConstants.CENTER"/>
         </children>
+        <children
+            xsi:type="gmfgraph:Rectangle"
+            name="EventBVariablesCompartmentFigure">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              alignment="FILL"
+              vertical="true"/>
+        </children>
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+      <accessors
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
     </descriptors>
     <descriptors
         name="InputPortFigure">
@@ -191,10 +199,14 @@
       name="Link"
       figure="LinkFigure"/>
   <compartments
-      name="VariablesCompartment"
+      name="FMUVariablesCompartment"
       figure="FMUComponentFigure"
       collapsible="true"
       accessor="//@figures.0/@descriptors.0/@accessors.1"/>
+  <compartments
+      name="EventBVariablesCompartment"
+      figure="EventBComponentFigure"
+      accessor="//@figures.0/@descriptors.1/@accessors.1"/>
   <labels
       name="FMUComponentName"
       figure="FMUComponentFigure"

@@ -8,6 +8,7 @@
 package ac.soton.fmusim.components.provider;
 
 
+import ac.soton.fmusim.components.ComponentsPackage;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +22,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
-import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.VariableCausality;
 
@@ -60,48 +60,25 @@ public class EventBPortItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFmiGetEventPropertyDescriptor(object);
-			addFmiSetEventPropertyDescriptor(object);
+			addEventParameterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Fmi Get Event feature.
+	 * This adds a property descriptor for the Event Parameter feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFmiGetEventPropertyDescriptor(Object object) {
+	protected void addEventParameterPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBPort_fmiGetEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_fmiGetEvent_feature", "_UI_EventBPort_type"),
-				 ComponentsPackage.Literals.EVENT_BPORT__FMI_GET_EVENT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Fmi Set Event feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFmiSetEventPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBPort_fmiSetEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_fmiSetEvent_feature", "_UI_EventBPort_type"),
-				 ComponentsPackage.Literals.EVENT_BPORT__FMI_SET_EVENT,
+				 getString("_UI_EventBPort_eventParameter_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_eventParameter_feature", "_UI_EventBPort_type"),
+				 ComponentsPackage.Literals.EVENT_BPORT__EVENT_PARAMETER,
 				 true,
 				 false,
 				 true,

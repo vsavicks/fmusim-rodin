@@ -29,6 +29,7 @@ import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
@@ -99,6 +100,11 @@ public class ComponentsElementTypes {
 	 * @generated
 	 */
 	public static final IElementType EventBPort_3004 = getElementType("ac.soton.fmusim.components.diagram.EventBPort_3004"); //$NON-NLS-1$
+	/**
+	 * @generated
+	 */
+	public static final IElementType EventBVariable_3008 = getElementType("ac.soton.fmusim.components.diagram.EventBVariable_3008"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
@@ -240,6 +246,9 @@ public class ComponentsElementTypes {
 			elements.put(EventBPort_3004,
 					ComponentsPackage.eINSTANCE.getEventBPort());
 
+			elements.put(EventBVariable_3008,
+					ComponentsPackage.eINSTANCE.getEventBVariable());
+
 			elements.put(PortConnector_4001,
 					ComponentsPackage.eINSTANCE.getPort_Connector());
 		}
@@ -268,6 +277,7 @@ public class ComponentsElementTypes {
 			KNOWN_ELEMENT_TYPES.add(FMUVariable_3007);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3003);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3004);
+			KNOWN_ELEMENT_TYPES.add(EventBVariable_3008);
 			KNOWN_ELEMENT_TYPES.add(PortConnector_4001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
@@ -296,6 +306,8 @@ public class ComponentsElementTypes {
 			return EventBPort_3003;
 		case EventBPort2EditPart.VISUAL_ID:
 			return EventBPort_3004;
+		case EventBVariableEditPart.VISUAL_ID:
+			return EventBVariable_3008;
 		case PortConnectorEditPart.VISUAL_ID:
 			return PortConnector_4001;
 		}

@@ -259,6 +259,29 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.EventBVariable} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventBVariableItemProvider eventBVariableItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link ac.soton.fmusim.components.EventBVariable}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventBVariableAdapter() {
+		if (eventBVariableItemProvider == null) {
+			eventBVariableItemProvider = new EventBVariableItemProvider(this);
+		}
+
+		return eventBVariableItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -391,6 +414,7 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 		if (fmuPortItemProvider != null) fmuPortItemProvider.dispose();
 		if (eventBPortItemProvider != null) eventBPortItemProvider.dispose();
 		if (fmuVariableItemProvider != null) fmuVariableItemProvider.dispose();
+		if (eventBVariableItemProvider != null) eventBVariableItemProvider.dispose();
 	}
 
 	/**

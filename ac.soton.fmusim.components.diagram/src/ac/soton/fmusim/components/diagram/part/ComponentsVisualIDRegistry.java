@@ -22,11 +22,13 @@ import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
@@ -188,6 +190,12 @@ public class ComponentsVisualIDRegistry {
 				return FMUVariableEditPart.VISUAL_ID;
 			}
 			break;
+		case EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID:
+			if (ComponentsPackage.eINSTANCE.getEventBVariable().isSuperTypeOf(
+					domainElement.eClass())) {
+				return EventBVariableEditPart.VISUAL_ID;
+			}
+			break;
 		}
 		return -1;
 	}
@@ -242,6 +250,9 @@ public class ComponentsVisualIDRegistry {
 			if (EventBComponentNameEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			if (EventBPortEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
@@ -276,6 +287,11 @@ public class ComponentsVisualIDRegistry {
 			break;
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
 			if (FMUVariableEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID:
+			if (EventBVariableEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -362,6 +378,7 @@ public class ComponentsVisualIDRegistry {
 	public static boolean isCompartmentVisualID(int visualID) {
 		switch (visualID) {
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
+		case EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID:
 			return true;
 		default:
 			break;
@@ -382,6 +399,7 @@ public class ComponentsVisualIDRegistry {
 		case EventBPortEditPart.VISUAL_ID:
 		case EventBPort2EditPart.VISUAL_ID:
 		case FMUVariableEditPart.VISUAL_ID:
+		case EventBVariableEditPart.VISUAL_ID:
 			return true;
 		default:
 			break;

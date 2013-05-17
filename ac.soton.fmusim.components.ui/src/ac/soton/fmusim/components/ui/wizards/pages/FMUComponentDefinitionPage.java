@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package ac.soton.fmusim.components.ui.wizards.pages.fmu;
+package ac.soton.fmusim.components.ui.wizards.pages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
-import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource;
 
 
 /**
@@ -73,9 +72,9 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
 		// labeled check-box tables
-		internalsViewer = createLabeledTable(plate, "Internal:", createColumnProviders(), null);
-		inputsViewer = createLabeledTable(plate, "Input:", createColumnProviders(), null);
-		outputsViewer = createLabeledTable(plate, "Output:", createColumnProviders(), null);
+		internalsViewer = createLabeledTable(plate, "Internal variables and parameters to be displayed inside a component", createColumnProviders(), null);
+		inputsViewer = createLabeledTable(plate, "Input variables to be displayed as component input ports", createColumnProviders(), null);
+		outputsViewer = createLabeledTable(plate, "Output variables to be displayed as component output ports", createColumnProviders(), null);
 		
 		return plate;
 	}
@@ -208,6 +207,11 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		return true;
 	}
 
+	/**
+	 * Returns a list of selected internal variables.
+	 * 
+	 * @return
+	 */
 	public List<FMUVariable> getCheckedInternals() {
 		List<FMUVariable> variables = new ArrayList<FMUVariable>();
 		for (Object var : internalsViewer.getCheckedElements()) {
@@ -216,6 +220,10 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		return variables;
 	}
 	
+	/**
+	 * Returns a list of selected input ports.
+	 * @return
+	 */
 	public List<FMUPort> getCheckedInputs() {
 		List<FMUPort> inputs = new ArrayList<FMUPort>();
 		for (Object inp : inputsViewer.getCheckedElements()) {
@@ -224,6 +232,11 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		return inputs;
 	}
 	
+	/**
+	 * Returns a list of selected output ports.
+	 * 
+	 * @return
+	 */
 	public List<FMUPort> getCheckedOutputs() {
 		List<FMUPort> outputs = new ArrayList<FMUPort>();
 		for (Object inp : outputsViewer.getCheckedElements()) {
@@ -232,6 +245,11 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		return outputs;
 	}
 	
+	/**
+	 * Returns the model being redefined.
+	 * 
+	 * @return
+	 */
 	public FMUComponent getModel() {
 		return currentModel;
 	}

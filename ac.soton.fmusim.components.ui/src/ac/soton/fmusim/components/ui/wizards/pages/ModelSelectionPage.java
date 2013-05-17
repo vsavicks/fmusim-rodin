@@ -72,7 +72,6 @@ public abstract class ModelSelectionPage extends WizardPage {
 
 	private String[] modelFileExtensions;
 
-	private boolean canFlipToNextPage;
 
 	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
 		this(pageId, rloc, resourceSet, null);
@@ -396,9 +395,6 @@ public abstract class ModelSelectionPage extends WizardPage {
 	 */
 	public void validatePage() {
 		if (modelRequired) {
-//			if (getNextPage() != null)
-//				setNextEnabled(resource != null);
-//			else
 			setPageComplete(resource != null);
 		}
 	}
@@ -444,21 +440,6 @@ public abstract class ModelSelectionPage extends WizardPage {
 	public void setModelRequired(boolean modelRequired) {
 		this.modelRequired = modelRequired;
 		validatePage();
-	}
-
-//	@Override
-//	public boolean canFlipToNextPage() {
-//		return getNextPage() != null && canFlipToNextPage;
-//	}
-	
-	/**
-	 * @param b
-	 */
-	private void setNextEnabled(boolean b) {
-		canFlipToNextPage = b;
-        if (isCurrentPage()) {
-			getContainer().updateButtons();
-		}
 	}
 
 }
