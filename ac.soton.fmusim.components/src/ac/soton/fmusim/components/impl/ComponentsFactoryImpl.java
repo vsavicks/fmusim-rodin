@@ -21,8 +21,8 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
 
@@ -76,7 +76,7 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 			case ComponentsPackage.FMU_COMPONENT: return createFMUComponent();
 			case ComponentsPackage.FMU_PORT: return createFMUPort();
 			case ComponentsPackage.EVENT_BPORT: return createEventBPort();
-			case ComponentsPackage.FMU_INTERNAL_VARIABLE: return createFMUInternalVariable();
+			case ComponentsPackage.FMU_VARIABLE: return createFMUVariable();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -181,9 +181,9 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FMUInternalVariable createFMUInternalVariable() {
-		FMUInternalVariableImpl fmuInternalVariable = new FMUInternalVariableImpl();
-		return fmuInternalVariable;
+	public FMUVariable createFMUVariable() {
+		FMUVariableImpl fmuVariable = new FMUVariableImpl();
+		return fmuVariable;
 	}
 
 	/**

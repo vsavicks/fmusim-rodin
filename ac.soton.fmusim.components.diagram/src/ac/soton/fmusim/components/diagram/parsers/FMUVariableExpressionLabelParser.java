@@ -27,16 +27,16 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
-import ac.soton.fmusim.components.FMUInternalVariable;
+import ac.soton.fmusim.components.FMUVariable;
 
 /**
  * @generated
  */
-public class FMUInternalVariableExpressionLabelParser implements IParser {
+public class FMUVariableExpressionLabelParser implements IParser {
 	/**
 	 * @generated
 	 */
-	public FMUInternalVariableExpressionLabelParser() {
+	public FMUVariableExpressionLabelParser() {
 	}
 
 	/**
@@ -127,15 +127,15 @@ public class FMUInternalVariableExpressionLabelParser implements IParser {
 	 * @generated NOT
 	 */
 	private String evaluatePrintExpression(EObject self) {
-		if (self instanceof FMUInternalVariable) {
-			FMUInternalVariable var = (FMUInternalVariable) self;
-			String name = var.getName() == null ? "<variable>" : var.getName();
+		if (self instanceof FMUVariable) {
+			FMUVariable var = (FMUVariable) self;
+			String name = var.getName() == null ? "<name>" : var.getName();
 			String value = var.getValue() == null ? "" : (" = " + var
 					.getValue());
 			return name + value;
 		}
 		throw new UnsupportedOperationException(
-				"No user java implementation provided in 'evaluatePrintExpression' operation");
+				"No user java implementation provided in 'evaluatePrintExpression' operation"); //$NON-NLS-1$
 	}
 
 }

@@ -5,21 +5,21 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package ac.soton.fmusim.components.ui.wizards.pages.experimental;
+package ac.soton.fmusim.components.diagram.sheet.custom.common.experimental;
 
+import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 
 /**
- * Component model source class.
- * 
  * @author vitaly
  *
  */
-public interface ComponentModelSource {
+public class TimePropertySection extends AbstractPropertySection {
 
 	/**
-	 * Returns component model.
-	 * @return model
+	 * 
 	 */
-	public Object getModel();
+	public TimePropertySection() {
+		// TODO Auto-generated constructor stub
+	}
 
 }

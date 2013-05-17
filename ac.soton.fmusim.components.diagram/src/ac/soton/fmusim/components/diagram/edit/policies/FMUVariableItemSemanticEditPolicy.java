@@ -20,14 +20,14 @@ import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 /**
  * @generated
  */
-public class FMUInternalVariableItemSemanticEditPolicy extends
+public class FMUVariableItemSemanticEditPolicy extends
 		ComponentsBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
-	public FMUInternalVariableItemSemanticEditPolicy() {
-		super(ComponentsElementTypes.FMUInternalVariable_3006);
+	public FMUVariableItemSemanticEditPolicy() {
+		super(ComponentsElementTypes.FMUVariable_3007);
 	}
 
 	/**

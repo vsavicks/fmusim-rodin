@@ -20,6 +20,7 @@
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/Input"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/Output"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/Internal"/>
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/None"/>
     </genEnums>
     <genClasses ecoreClass="components.ecore#//ComponentDiagram">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/components"/>
@@ -34,7 +35,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//Connector/value"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Connector/ports"/>
     </genClasses>
-    <genClasses ecoreClass="components.ecore#//Port">
+    <genClasses image="false" ecoreClass="components.ecore#//Port">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Port/connector"/>
     </genClasses>
     <genClasses image="false" ecoreClass="components.ecore#//NamedElement">
@@ -63,8 +64,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/fmiGetEvent"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/fmiSetEvent"/>
     </genClasses>
-    <genClasses ecoreClass="components.ecore#//FMUInternalVariable"/>
-    <genClasses image="false" ecoreClass="components.ecore#//FMUVariable">
+    <genClasses ecoreClass="components.ecore#//FMUVariable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUVariable/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUVariable/description"/>
     </genClasses>

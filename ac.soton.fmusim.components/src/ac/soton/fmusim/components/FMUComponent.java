@@ -60,7 +60,7 @@ public interface FMUComponent extends Component {
 
 	/**
 	 * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
-	 * The list contents are of type {@link ac.soton.fmusim.components.FMUInternalVariable}.
+	 * The list contents are of type {@link ac.soton.fmusim.components.FMUVariable}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
@@ -72,7 +72,7 @@ public interface FMUComponent extends Component {
 	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
-	EList<FMUInternalVariable> getVariables();
+	EList<FMUVariable> getVariables();
 
 	/**
 	 * Returns the value of the '<em><b>Path</b></em>' attribute.

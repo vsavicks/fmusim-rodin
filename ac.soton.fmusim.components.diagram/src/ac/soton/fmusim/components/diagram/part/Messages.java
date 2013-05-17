@@ -265,7 +265,12 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Variable2CreationTool_title;
+	public static String FMUVariable2CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String FMUVariable2CreationTool_desc;
 
 	/**
 	 * @generated

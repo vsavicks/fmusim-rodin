@@ -26,9 +26,9 @@ import org.eclipse.gmf.runtime.notation.View;
 import ac.soton.fmusim.components.diagram.edit.commands.FMUPort2CreateCommand;
 import ac.soton.fmusim.components.diagram.edit.commands.FMUPortCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
@@ -131,7 +131,7 @@ public class FMUComponentItemSemanticEditPolicy extends
 						.hasNext();) {
 					Node cnode = (Node) cit.next();
 					switch (ComponentsVisualIDRegistry.getVisualID(cnode)) {
-					case FMUInternalVariableEditPart.VISUAL_ID:
+					case FMUVariableEditPart.VISUAL_ID:
 						cmd.add(new DestroyElementCommand(
 								new DestroyElementRequest(getEditingDomain(),
 										cnode.getElement(), false))); // directlyOwned: true

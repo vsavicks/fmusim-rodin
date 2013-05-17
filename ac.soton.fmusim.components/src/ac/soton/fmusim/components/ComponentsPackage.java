@@ -252,7 +252,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getAbstractVariable()
 	 * @generated
 	 */
-	int ABSTRACT_VARIABLE = 11;
+	int ABSTRACT_VARIABLE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -708,7 +708,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUVariable()
 	 * @generated
 	 */
-	int FMU_VARIABLE = 10;
+	int FMU_VARIABLE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -765,70 +765,6 @@ public interface ComponentsPackage extends EPackage {
 	int FMU_VARIABLE_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUInternalVariableImpl <em>FMU Internal Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see ac.soton.fmusim.components.impl.FMUInternalVariableImpl
-	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUInternalVariable()
-	 * @generated
-	 */
-	int FMU_INTERNAL_VARIABLE = 9;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FMU_INTERNAL_VARIABLE__NAME = FMU_VARIABLE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FMU_INTERNAL_VARIABLE__TYPE = FMU_VARIABLE__TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Causality</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FMU_INTERNAL_VARIABLE__CAUSALITY = FMU_VARIABLE__CAUSALITY;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FMU_INTERNAL_VARIABLE__VALUE = FMU_VARIABLE__VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FMU_INTERNAL_VARIABLE__DESCRIPTION = FMU_VARIABLE__DESCRIPTION;
-
-	/**
-	 * The number of structural features of the '<em>FMU Internal Variable</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FMU_INTERNAL_VARIABLE_FEATURE_COUNT = FMU_VARIABLE_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -836,7 +772,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableType()
 	 * @generated
 	 */
-	int VARIABLE_TYPE = 12;
+	int VARIABLE_TYPE = 11;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableCausality <em>Variable Causality</em>}' enum.
@@ -846,7 +782,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableCausality()
 	 * @generated
 	 */
-	int VARIABLE_CAUSALITY = 13;
+	int VARIABLE_CAUSALITY = 12;
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
@@ -1124,16 +1060,6 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEventBPort_FmiSetEvent();
-
-	/**
-	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUInternalVariable <em>FMU Internal Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>FMU Internal Variable</em>'.
-	 * @see ac.soton.fmusim.components.FMUInternalVariable
-	 * @generated
-	 */
-	EClass getFMUInternalVariable();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUVariable <em>FMU Variable</em>}'.
@@ -1466,16 +1392,6 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EVENT_BPORT__FMI_SET_EVENT = eINSTANCE.getEventBPort_FmiSetEvent();
-
-		/**
-		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUInternalVariableImpl <em>FMU Internal Variable</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see ac.soton.fmusim.components.impl.FMUInternalVariableImpl
-		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUInternalVariable()
-		 * @generated
-		 */
-		EClass FMU_INTERNAL_VARIABLE = eINSTANCE.getFMUInternalVariable();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.

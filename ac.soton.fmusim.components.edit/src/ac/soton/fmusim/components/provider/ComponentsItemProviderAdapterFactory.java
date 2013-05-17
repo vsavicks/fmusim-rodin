@@ -236,26 +236,26 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.FMUInternalVariable} instances.
+	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.FMUVariable} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FMUInternalVariableItemProvider fmuInternalVariableItemProvider;
+	protected FMUVariableItemProvider fmuVariableItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link ac.soton.fmusim.components.FMUInternalVariable}.
+	 * This creates an adapter for a {@link ac.soton.fmusim.components.FMUVariable}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createFMUInternalVariableAdapter() {
-		if (fmuInternalVariableItemProvider == null) {
-			fmuInternalVariableItemProvider = new FMUInternalVariableItemProvider(this);
+	public Adapter createFMUVariableAdapter() {
+		if (fmuVariableItemProvider == null) {
+			fmuVariableItemProvider = new FMUVariableItemProvider(this);
 		}
 
-		return fmuInternalVariableItemProvider;
+		return fmuVariableItemProvider;
 	}
 
 	/**
@@ -390,7 +390,7 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 		if (fmuComponentItemProvider != null) fmuComponentItemProvider.dispose();
 		if (fmuPortItemProvider != null) fmuPortItemProvider.dispose();
 		if (eventBPortItemProvider != null) eventBPortItemProvider.dispose();
-		if (fmuInternalVariableItemProvider != null) fmuInternalVariableItemProvider.dispose();
+		if (fmuVariableItemProvider != null) fmuVariableItemProvider.dispose();
 	}
 
 	/**

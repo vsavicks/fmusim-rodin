@@ -25,6 +25,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.VariableCausality;
 
 /**
  * This is the item provider adapter for a {@link ac.soton.fmusim.components.FMUPort} object.
@@ -115,11 +116,19 @@ public class FMUPortItemProvider
 	 * This returns FMUPort.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FMUPort"));
+		VariableCausality causality = ((FMUPort)object).getCausality();
+		switch (causality) {
+		case INPUT:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/InputPort"));
+		case OUTPUT:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/OutputPort"));
+		default:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FMUPort"));
+		}
 	}
 
 	/**

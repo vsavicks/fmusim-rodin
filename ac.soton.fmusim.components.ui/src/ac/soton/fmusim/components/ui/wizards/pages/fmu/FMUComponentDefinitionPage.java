@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2013 University of Southampton.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package ac.soton.fmusim.components.ui.wizards.pages.fmu;
 
 import java.util.ArrayList;
@@ -7,7 +14,6 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -17,23 +23,27 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
-import org.ptolemy.fmi.FMIScalarVariable;
-import org.ptolemy.fmi.FMIScalarVariable.Causality;
 
-import ac.soton.fmusim.components.ComponentsFactory;
-import ac.soton.fmusim.components.FMUInternalVariable;
-import ac.soton.fmusim.components.VariableType;
-import ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSource;
-import ac.soton.fmusim.components.util.FmiUtil;
-import de.prob.cosimulation.FMU;
+import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.FMUVariable;
+import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource;
 
 
+/**
+ * FMU component definition page class.
+ * Displays component's variables and allows to select/deselect them individually for further processing.
+ * 
+ * @author matthias, vitaly
+ *
+ */
 public class FMUComponentDefinitionPage extends WizardPage {
 	
 	private CheckboxTableViewer internalsViewer;
 	private CheckboxTableViewer inputsViewer;
 	private CheckboxTableViewer outputsViewer;
 	private ComponentModelSource source;
+	private FMUComponent currentModel;
 
 	public FMUComponentDefinitionPage(String pageName, ComponentModelSource source) {
 		super(pageName);
@@ -45,7 +55,6 @@ public class FMUComponentDefinitionPage extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-//		setPageComplete(false);
 		setControl(createFMUComponentDefinitionGroup(parent));
 	}
 
@@ -60,76 +69,44 @@ public class FMUComponentDefinitionPage extends WizardPage {
 	private Control createFMUComponentDefinitionGroup(Composite parent) {
 		// layout
 		Composite plate = new Composite(parent, SWT.NULL);
-		{
-			GridLayout layout = new GridLayout();
-			plate.setLayout(layout);
-			
-			GridData data = new GridData();
-			data.horizontalAlignment = GridData.FILL;
-			data.grabExcessHorizontalSpace = true;
-			data.verticalAlignment = GridData.FILL;
-			data.grabExcessVerticalSpace = true;
-			plate.setLayoutData(data);
-		}
+		plate.setLayout(new GridLayout());
+		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
 		// labeled check-box tables
-		internalsViewer = createLabeledTable(plate, "Internal:", createColumnProviders(), new ViewerFilter() {
-
-			@Override
-			public boolean select(Viewer viewer, Object parentElement,
-					Object element) {
-				// TODO Auto-generated method stub
-				return ((FMIScalarVariable) element).causality == Causality.internal;
-			}});
-		
-		inputsViewer = createLabeledTable(plate, "Input:", createColumnProviders(), new ViewerFilter() {
-
-			@Override
-			public boolean select(Viewer viewer, Object parentElement,
-					Object element) {
-				// TODO Auto-generated method stub
-				return ((FMIScalarVariable) element).causality == Causality.input;
-			}});
-		
-		outputsViewer = createLabeledTable(plate, "Output:", createColumnProviders(), new ViewerFilter() {
-
-			@Override
-			public boolean select(Viewer viewer, Object parentElement,
-					Object element) {
-				// TODO Auto-generated method stub
-				return ((FMIScalarVariable) element).causality == Causality.output;
-			}});
+		internalsViewer = createLabeledTable(plate, "Internal:", createColumnProviders(), null);
+		inputsViewer = createLabeledTable(plate, "Input:", createColumnProviders(), null);
+		outputsViewer = createLabeledTable(plate, "Output:", createColumnProviders(), null);
 		
 		return plate;
 	}
 
 	/**
-	 * @return
+	 * Creates a list of column providers.
+	 * 
+	 * @return providers
 	 */
 	private List<ColumnProvider> createColumnProviders() {
 		ArrayList<ColumnProvider> providers = new ArrayList<ColumnProvider>();
 		providers.add(new ColumnProvider("Name", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return ((FMIScalarVariable) element).name;
+				return ((FMUVariable) element).getName();
 			}}));
 		providers.add(new ColumnProvider("Type", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				VariableType type = FmiUtil.getFmiType(((FMIScalarVariable) element), null);
-				return type.toString();
+				return ((FMUVariable) element).getType().toString();
 			}}));
 		providers.add(new ColumnProvider("Value", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				FMUInternalVariable var = ComponentsFactory.eINSTANCE.createFMUInternalVariable();
-				FmiUtil.getFmiType(((FMIScalarVariable) element), var);
-				return var.getValue().toString();
+				Object value = ((FMUVariable) element).getValue();
+				return value == null ? null : value.toString();
 			}}));
-		providers.add(new ColumnProvider("Description", 300, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Description", 200, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return ((FMIScalarVariable) element).description;
+				return ((FMUVariable) element).getDescription();
 			}}));
 		return providers;
 	}
@@ -148,27 +125,16 @@ public class FMUComponentDefinitionPage extends WizardPage {
 			// label
 			Label label = new Label(parent, SWT.NONE);
 			label.setText(labelText);
-			{
-				GridData data = new GridData();
-				label.setLayoutData(data);
-			}
+			label.setLayoutData(new GridData());
 			
 			// table
 			CheckboxTableViewer tableViewer = CheckboxTableViewer.newCheckList(parent, SWT.BORDER);
+			tableViewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			createColumns(tableViewer, columnProviders);
 			tableViewer.getTable().setHeaderVisible(true);
 			tableViewer.setContentProvider(ArrayContentProvider.getInstance());
 			if (filter != null)
 				tableViewer.addFilter(filter);
-			
-			{
-				GridData data = new GridData();
-				data.horizontalAlignment = GridData.FILL;
-				data.grabExcessHorizontalSpace = true;
-				data.verticalAlignment = GridData.FILL;
-				data.grabExcessVerticalSpace = true;
-				tableViewer.getTable().setLayoutData(data);
-			}
 			
 			return tableViewer;
 		}
@@ -207,125 +173,79 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		return viewerColumn;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean visible) {
-		if (visible){
-			FMU fmu = (FMU) source.getModel();
-//			FMUContentProvider fmuCP = new FMUContentProvider();
-//			fmuCP.setLists(model);
-			
-			if (fmu != null) {
-				// domain model is loaded ok
-				setPageComplete(validatePage());
-			} else {
-				// empty domain model
-				setPageComplete(true);
-			}
-			internalsViewer.setInput(fmu.getModelDescription().modelVariables);
-			inputsViewer.setInput(fmu.getModelDescription().modelVariables);
-			outputsViewer.setInput(fmu.getModelDescription().modelVariables);		
-			((Composite) getControl()).layout();
-		}
 		super.setVisible(visible);
+		if (visible){
+			assert source.getModel() instanceof FMUComponent;
+			
+			// don't refresh the viewers if the model didn't change
+			if (currentModel != null && currentModel == source.getModel())
+				return;
+			
+			currentModel = (FMUComponent) source.getModel();
+			internalsViewer.setInput(currentModel.getVariables());
+			inputsViewer.setInput(currentModel.getInputs());
+			outputsViewer.setInput(currentModel.getOutputs());
+			
+			internalsViewer.setAllChecked(true);
+			inputsViewer.setAllChecked(true);
+			outputsViewer.setAllChecked(true);
+			
+			((Composite) getControl()).layout(true, true);
+		}
 	}
 
 	/**
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private boolean validatePage() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
-//	//Retrieve checked boxes
-//	public List<FMUVariable[]> getSelection() {
-//		Object[] checked = internalsViewer.getCheckedElements();
-//		Object[] checked2 = inputsViewer.getCheckedElements();
-//		Object[] checked3 = outputsViewer.getCheckedElements();
-//		int count = checked.length;
-//		int count2 = checked2.length;
-//		int count3 = checked3.length;
-//		FMUVariable[] extracted = new FMUVariable[count];
-//		System.arraycopy(checked, 0, extracted, 0, count);
-//		FMUVariable[] extracted2 = new FMUVariable[count2];
-//		System.arraycopy(checked2, 0, extracted2, 0, count2);
-//		FMUVariable[] extracted3 = new FMUVariable[count3];
-//		System.arraycopy(checked3, 0, extracted3, 0, count3);
-//		List<FMUVariable[]> checkedLists = new ArrayList<FMUVariable[]>();
-//		checkedLists.add(extracted);
-//		checkedLists.add(extracted2);
-//		checkedLists.add(extracted3);
-//		return checkedLists;
-//	}
-
-
-/*
-	protected List list;
-
-	public void createControl(Composite parent) {
-		Composite plate = new Composite(parent, SWT.NONE);
-		{
-			GridLayout layout = new GridLayout();
-			plate.setLayout(layout);
-
-			GridData data = new GridData();
-			data.horizontalAlignment = GridData.FILL;
-			data.grabExcessHorizontalSpace = true;
-			data.verticalAlignment = GridData.FILL;
-			data.grabExcessVerticalSpace = true;
-			plate.setLayoutData(data);
+	public List<FMUVariable> getCheckedInternals() {
+		List<FMUVariable> variables = new ArrayList<FMUVariable>();
+		for (Object var : internalsViewer.getCheckedElements()) {
+			variables.add((FMUVariable) var);
 		}
-		Label label = new Label(plate, SWT.NONE);
-		label.setText(getModelElementName());
-		{
-			GridData data = new GridData();
-			label.setLayoutData(data);
-		}
-		list = new List(plate, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
-		list.setEnabled(false);
-		{
-			GridData data = new GridData();
-			data.horizontalAlignment = GridData.FILL;
-			data.grabExcessHorizontalSpace = true;
-			data.verticalAlignment = GridData.FILL;
-			data.grabExcessVerticalSpace = true;
-			list.setLayoutData(data);
-		}
-
-		// logic
-
-		list.addSelectionListener(new SelectionListener() {
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-
-			public void widgetSelected(SelectionEvent e) {
-				selectedModelElement = modelElements.get(list.getSelectionIndex());
-				fireModelElementChanged();
-			}
-		});
+		return variables;
 	}
-
-	public void setResource(Resource resource) {
-		selectedModelElement = null;
-		modelElements.clear();
-		list.removeAll();
-		if (resource == null) {
-			list.setEnabled(false);
-		} else {
-			list.setEnabled(true);
-			modelElements = getModelElements(resource);
-			for (EObject next : modelElements) {
-				list.add(getModelElementLabel(next));
-			}
-			if (!modelElements.isEmpty()) {
-				selectedModelElement = modelElements.get(0);
-				list.select(0);
-			}
+	
+	public List<FMUPort> getCheckedInputs() {
+		List<FMUPort> inputs = new ArrayList<FMUPort>();
+		for (Object inp : inputsViewer.getCheckedElements()) {
+			inputs.add((FMUPort) inp);
 		}
-		fireModelElementChanged();
+		return inputs;
 	}
-*/
+	
+	public List<FMUPort> getCheckedOutputs() {
+		List<FMUPort> outputs = new ArrayList<FMUPort>();
+		for (Object inp : outputsViewer.getCheckedElements()) {
+			outputs.add((FMUPort) inp);
+		}
+		return outputs;
+	}
+	
+	public FMUComponent getModel() {
+		return currentModel;
+	}
+	
+	/**
+	 * Checks if any element was unchecked in the viewers i.e. model was modified.
+	 * 
+	 * @return true if modified
+	 */
+	public boolean isModified() {
+		return currentModel.getVariables().size() != internalsViewer.getCheckedElements().length
+				|| currentModel.getInputs().size() != inputsViewer.getCheckedElements().length
+				|| currentModel.getOutputs().size() != outputsViewer.getCheckedElements().length;
+	}
 
 }
 

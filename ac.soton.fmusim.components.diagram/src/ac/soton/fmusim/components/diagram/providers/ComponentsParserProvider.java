@@ -26,11 +26,11 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.parsers.ConnectorLabelExpressionLabelParser;
-import ac.soton.fmusim.components.diagram.parsers.FMUInternalVariableExpressionLabelParser;
+import ac.soton.fmusim.components.diagram.parsers.FMUVariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.MessageFormatParser;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 
@@ -79,8 +79,16 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
+	private ConnectorLabelExpressionLabelParser connectorLabel_5003Parser;
+
+	/**
+	 * @generated
+	 */
 	private IParser getConnectorLabel_5003Parser() {
-		return new ConnectorLabelExpressionLabelParser();
+		if (connectorLabel_5003Parser == null) {
+			connectorLabel_5003Parser = new ConnectorLabelExpressionLabelParser();
+		}
+		return connectorLabel_5003Parser;
 	}
 
 	/**
@@ -130,16 +138,16 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private FMUInternalVariableExpressionLabelParser fMUInternalVariable_3006Parser;
+	private FMUVariableExpressionLabelParser fMUVariable_3007Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getFMUInternalVariable_3006Parser() {
-		if (fMUInternalVariable_3006Parser == null) {
-			fMUInternalVariable_3006Parser = new FMUInternalVariableExpressionLabelParser();
+	private IParser getFMUVariable_3007Parser() {
+		if (fMUVariable_3007Parser == null) {
+			fMUVariable_3007Parser = new FMUVariableExpressionLabelParser();
 		}
-		return fMUInternalVariable_3006Parser;
+		return fMUVariable_3007Parser;
 	}
 
 	/**
@@ -201,8 +209,8 @@ public class ComponentsParserProvider extends AbstractProvider implements
 			return getFMUPortNameType_5004Parser();
 		case FMUPortNameType2EditPart.VISUAL_ID:
 			return getFMUPortNameType_5005Parser();
-		case FMUInternalVariableEditPart.VISUAL_ID:
-			return getFMUInternalVariable_3006Parser();
+		case FMUVariableEditPart.VISUAL_ID:
+			return getFMUVariable_3007Parser();
 		case EventBPortNameTypeEditPart.VISUAL_ID:
 			return getEventBPortNameType_5006Parser();
 		case EventBPortNameType2EditPart.VISUAL_ID:

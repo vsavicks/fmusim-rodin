@@ -24,7 +24,6 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
@@ -138,8 +137,6 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateFMUPort((FMUPort)value, diagnostics, context);
 			case ComponentsPackage.EVENT_BPORT:
 				return validateEventBPort((EventBPort)value, diagnostics, context);
-			case ComponentsPackage.FMU_INTERNAL_VARIABLE:
-				return validateFMUInternalVariable((FMUInternalVariable)value, diagnostics, context);
 			case ComponentsPackage.FMU_VARIABLE:
 				return validateFMUVariable((FMUVariable)value, diagnostics, context);
 			case ComponentsPackage.ABSTRACT_VARIABLE:
@@ -366,15 +363,6 @@ public class ComponentsValidator extends EObjectValidator {
 	 */
 	public boolean validateEventBPort(EventBPort eventBPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(eventBPort, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateFMUInternalVariable(FMUInternalVariable fmuInternalVariable, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(fmuInternalVariable, diagnostics, context);
 	}
 
 	/**

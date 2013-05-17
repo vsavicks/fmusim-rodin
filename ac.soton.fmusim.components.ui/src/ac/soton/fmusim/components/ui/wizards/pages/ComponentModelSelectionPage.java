@@ -9,18 +9,18 @@ package ac.soton.fmusim.components.ui.wizards.pages;
 
 import java.util.List;
 
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eventb.emf.core.machine.Machine;
 
+import de.prob.cosimulation.FMU;
+
+import ac.soton.fmusim.components.Component;
+import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.ui.resource.FMUResource;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
-import ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSource;
 
 /**
  * Component model selection page that supports two types of resources:
@@ -32,9 +32,7 @@ import ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSo
 public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage implements ComponentModelSource {
 
 	private static final String COMP = "componentModel";
-	private Object model;
-
-//	private EObject contents;
+	private Component model;
 
 	public ComponentModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
 		super(pageId, rloc, resourceSet, new String[]{"bum","fmu"});
@@ -44,6 +42,9 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 		addExtension(COMP, new ComponentSelectorExtension());
 	}
 
+	/* (non-Javadoc)
+	 * @see ac.soton.fmusim.components.ui.wizards.pages.ExtensibleModelSelectionPage#resourceChanged()
+	 */
 	@Override
 	protected void resourceChanged() {
 		super.resourceChanged();
@@ -52,10 +53,14 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 		if (resource != null) {
 			List<EObject> rc = getResource().getContents();
 			if (rc.size() >= 1 && rc.get(0) instanceof Machine) {
-				model = rc.get(0);
+				model = (Component) Platform.getAdapterManager().getAdapter(rc.get(0), Component.class);
 			}
 			if (resource instanceof FMUResource) {
-				model = ((FMUResource) resource).getFMU();
+				FMU fmu = ((FMUResource) resource).getFMU();
+				String path = ((FMUResource) resource).getFmuPath();
+				FMUComponent component = (FMUComponent) Platform.getAdapterManager().getAdapter(fmu, Component.class);
+				component.setPath(path);
+				model = component;
 			}
 		}
 	}
@@ -64,8 +69,16 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 	 * @see ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSource#getModel()
 	 */
 	@Override
-	public Object getModel() {
+	public Component getModel() {
 		return model;
+	}
+
+	/* (non-Javadoc)
+	 * @see ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource#like(ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource)
+	 */
+	@Override
+	public boolean like(ComponentModelSource source) {
+		return model == source.getModel();
 	}
 
 }

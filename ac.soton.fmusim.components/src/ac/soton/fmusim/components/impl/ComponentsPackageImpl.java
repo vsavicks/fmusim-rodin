@@ -29,7 +29,6 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
@@ -107,13 +106,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * @generated
 	 */
 	private EClass eventBPortEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass fmuInternalVariableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -455,15 +447,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFMUInternalVariable() {
-		return fmuInternalVariableEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getFMUVariable() {
 		return fmuVariableEClass;
 	}
@@ -594,8 +577,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		createEReference(eventBPortEClass, EVENT_BPORT__FMI_GET_EVENT);
 		createEReference(eventBPortEClass, EVENT_BPORT__FMI_SET_EVENT);
 
-		fmuInternalVariableEClass = createEClass(FMU_INTERNAL_VARIABLE);
-
 		fmuVariableEClass = createEClass(FMU_VARIABLE);
 		createEAttribute(fmuVariableEClass, FMU_VARIABLE__VALUE);
 		createEAttribute(fmuVariableEClass, FMU_VARIABLE__DESCRIPTION);
@@ -651,7 +632,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		fmuPortEClass.getESuperTypes().add(this.getPort());
 		fmuPortEClass.getESuperTypes().add(this.getFMUVariable());
 		eventBPortEClass.getESuperTypes().add(this.getPort());
-		fmuInternalVariableEClass.getESuperTypes().add(this.getFMUVariable());
 		fmuVariableEClass.getESuperTypes().add(this.getAbstractVariable());
 		abstractVariableEClass.getESuperTypes().add(this.getNamedElement());
 
@@ -691,7 +671,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 
 		initEClass(fmuComponentEClass, FMUComponent.class, "FMUComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFMUComponent_Fmu(), ecorePackage.getEJavaObject(), "fmu", null, 0, 1, FMUComponent.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFMUComponent_Variables(), this.getFMUInternalVariable(), null, "variables", null, 0, -1, FMUComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFMUComponent_Variables(), this.getFMUVariable(), null, "variables", null, 0, -1, FMUComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFMUComponent_Path(), ecorePackage.getEString(), "path", null, 0, 1, FMUComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(fmuComponentEClass, ecorePackage.getEBoolean(), "hasValidFmuPath", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -709,9 +689,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEReference(getEventBPort_FmiGetEvent(), theMachinePackage.getEvent(), null, "fmiGetEvent", null, 1, 1, EventBPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEventBPort_FmiSetEvent(), theMachinePackage.getEvent(), null, "fmiSetEvent", null, 1, 1, EventBPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(fmuInternalVariableEClass, FMUInternalVariable.class, "FMUInternalVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(fmuVariableEClass, FMUVariable.class, "FMUVariable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(fmuVariableEClass, FMUVariable.class, "FMUVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFMUVariable_Value(), ecorePackage.getEJavaObject(), "value", null, 0, 1, FMUVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFMUVariable_Description(), ecorePackage.getEString(), "description", null, 0, 1, FMUVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -730,6 +708,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.INPUT);
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.OUTPUT);
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.INTERNAL);
+		addEEnumLiteral(variableCausalityEEnum, VariableCausality.NONE);
 
 		// Create resource
 		createResource(eNS_URI);

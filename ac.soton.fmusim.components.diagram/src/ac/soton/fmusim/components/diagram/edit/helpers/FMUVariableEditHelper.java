@@ -10,5 +10,5 @@ package ac.soton.fmusim.components.diagram.edit.helpers;
 /**
  * @generated
  */
-public class FMUInternalVariableEditHelper extends ComponentsBaseEditHelper {
+public class FMUVariableEditHelper extends ComponentsBaseEditHelper {
 }

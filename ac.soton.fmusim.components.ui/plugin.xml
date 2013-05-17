@@ -80,14 +80,25 @@
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
-            <command
-                  commandId="ac.soton.fmusim.components.ui.commands.Import_simple"
-                  icon="icons/Import.gif"
-                  label="Import"
-                  style="push">
-            </command>
          </toolbar>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eventb.emf.core.machine.Machine"
+            class="ac.soton.fmusim.components.ui.resource.ComponentAdapterFactory">
+         <adapter
+               type="ac.soton.fmusim.components.Component">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="de.prob.cosimulation.FMU"
+            class="ac.soton.fmusim.components.ui.resource.ComponentAdapterFactory">
+         <adapter
+               type="ac.soton.fmusim.components.Component">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

@@ -217,7 +217,7 @@
       <viewProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsViewProvider">
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Components"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,3001,3002,3006,3003,3004"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,3001,3002,3007,3003,3004"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001"/>
       </viewProvider>
    </extension>
@@ -230,7 +230,7 @@
             <method name="getType()" value="Components"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
-            <method name="getType()" value="2001,2002,2003,3001,3002,3006,3003,3004"/>
+            <method name="getType()" value="2001,2002,2003,3001,3002,3007,3003,3004"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
             <method name="getType()" value="4001"/>
@@ -255,10 +255,10 @@
          <object class="ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart" id="Connector_2003"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart" id="FMUPort_3001"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart" id="FMUPort_3002"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart" id="FMUInternalVariable_3006"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart" id="FMUVariable_3007"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart" id="EventBPort_3003"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart" id="EventBPort_3004"/>
-         <context elements="ComponentDiagram_1000,FMUComponent_2001,EventBComponent_2002,Connector_2003,FMUPort_3001,FMUPort_3002,FMUInternalVariable_3006,EventBPort_3003,EventBPort_3004"/>
+         <context elements="ComponentDiagram_1000,FMUComponent_2001,EventBComponent_2002,Connector_2003,FMUPort_3001,FMUPort_3002,FMUVariable_3007,EventBPort_3003,EventBPort_3004"/>
       </modelingAssistantProvider>
    </extension>
 
@@ -339,12 +339,12 @@
       </metamodel>
       <metamodel nsURI="http://soton.ac.uk/models/fmusim/components/1.0">
          <metamodelType
-               id="ac.soton.fmusim.components.diagram.FMUInternalVariable_3006"
-               name="%metatype.name.FMUInternalVariable_3006"
+               id="ac.soton.fmusim.components.diagram.FMUVariable_3007"
+               name="%metatype.name.FMUVariable_3007"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="FMUInternalVariable"
-               edithelper="ac.soton.fmusim.components.diagram.edit.helpers.FMUInternalVariableEditHelper">
-            <param name="semanticHint" value="3006"/>
+               eclass="FMUVariable"
+               edithelper="ac.soton.fmusim.components.diagram.edit.helpers.FMUVariableEditHelper">
+            <param name="semanticHint" value="3007"/>
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://soton.ac.uk/models/fmusim/components/1.0">
@@ -393,7 +393,7 @@
          <elementType ref="ac.soton.fmusim.components.diagram.Connector_2003"/>
          <elementType ref="ac.soton.fmusim.components.diagram.FMUPort_3001"/>
          <elementType ref="ac.soton.fmusim.components.diagram.FMUPort_3002"/>
-         <elementType ref="ac.soton.fmusim.components.diagram.FMUInternalVariable_3006"/>
+         <elementType ref="ac.soton.fmusim.components.diagram.FMUVariable_3007"/>
          <elementType ref="ac.soton.fmusim.components.diagram.EventBPort_3003"/>
          <elementType ref="ac.soton.fmusim.components.diagram.EventBPort_3004"/>
          <elementType ref="ac.soton.fmusim.components.diagram.PortConnector_4001"/>

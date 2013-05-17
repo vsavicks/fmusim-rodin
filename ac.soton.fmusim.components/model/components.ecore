@@ -38,6 +38,7 @@
     <eLiterals name="Input"/>
     <eLiterals name="Output" value="1"/>
     <eLiterals name="Internal" value="2"/>
+    <eLiterals name="None" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -71,7 +72,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fmu" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
-        eType="#//FMUInternalVariable" containment="true"/>
+        eType="#//FMUVariable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUPort" eSuperTypes="#//Port #//FMUVariable"/>
@@ -81,8 +82,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="fmiSetEvent" lowerBound="1"
         eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FMUInternalVariable" eSuperTypes="#//FMUVariable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FMUVariable" abstract="true" eSuperTypes="#//AbstractVariable">
+  <eClassifiers xsi:type="ecore:EClass" name="FMUVariable" eSuperTypes="#//AbstractVariable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

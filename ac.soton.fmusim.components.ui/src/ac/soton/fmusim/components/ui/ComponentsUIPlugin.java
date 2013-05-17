@@ -24,9 +24,9 @@ import org.osgi.framework.BundleContext;
 public class ComponentsUIPlugin extends AbstractUIPlugin {
 
 	// images
-	public static final String COMPONENT_IMAGE = "icons/Component_big.gif";
-	public static final String FMU_COMPONENT_IMAGE = "icons/FMUComponent_big.gif";
-	public static final String EVENTB_COMPONENT_IMAGE = "icons/EventBComponent_big.gif";
+	public static final String COMPONENT_IMAGE = "icons/Component_big.png";
+	public static final String FMU_COMPONENT_IMAGE = "icons/FMUComponent_big.png";
+	public static final String EVENTB_COMPONENT_IMAGE = "icons/EventBComponent_big.png";
 
 	private static ComponentsUIPlugin instance;
 

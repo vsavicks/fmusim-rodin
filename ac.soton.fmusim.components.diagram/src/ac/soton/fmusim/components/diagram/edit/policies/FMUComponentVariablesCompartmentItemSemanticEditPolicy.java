@@ -10,7 +10,7 @@ package ac.soton.fmusim.components.diagram.edit.policies;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
-import ac.soton.fmusim.components.diagram.edit.commands.FMUInternalVariableCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.FMUVariableCreateCommand;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 
 /**
@@ -30,9 +30,8 @@ public class FMUComponentVariablesCompartmentItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (ComponentsElementTypes.FMUInternalVariable_3006 == req
-				.getElementType()) {
-			return getGEFWrapper(new FMUInternalVariableCreateCommand(req));
+		if (ComponentsElementTypes.FMUVariable_3007 == req.getElementType()) {
+			return getGEFWrapper(new FMUVariableCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

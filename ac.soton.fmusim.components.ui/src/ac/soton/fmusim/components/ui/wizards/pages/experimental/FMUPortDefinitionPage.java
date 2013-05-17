@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
 import ac.soton.fmusim.components.ui.wizards.Messages;
+import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource;
 
 /**
  * Modified from org.eclipse.gmf.internal.bridge.wizards.pages.simple.DefinitionPage.
@@ -46,7 +47,7 @@ public class FMUPortDefinitionPage extends WizardPage {
 
 	private final ComponentModelSource domainModelSource;
 
-	private DomainModelSourceImpl currentModelSource;
+//	private DomainModelSourceImpl currentModelSource;
 
 	private TreeViewer viewer;
 
@@ -225,9 +226,9 @@ public class FMUPortDefinitionPage extends WizardPage {
 //		((Composite) getControl()).layout(true, true);
 //	}
 
-	protected DomainModelSourceImpl createDomainModelSource(EPackage contents, EClass diagramElement) {
-		return new DomainModelSourceImpl(contents, diagramElement);
-	}
+//	protected DomainModelSourceImpl createDomainModelSource(EPackage contents, EClass diagramElement) {
+//		return new DomainModelSourceImpl(contents, diagramElement);
+//	}
 
 	public ResolvedItem getModel() {
 		return (ResolvedItem) viewer.getInput();

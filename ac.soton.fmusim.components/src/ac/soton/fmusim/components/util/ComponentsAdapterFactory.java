@@ -23,7 +23,6 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
@@ -120,10 +119,6 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseEventBPort(EventBPort object) {
 				return createEventBPortAdapter();
-			}
-			@Override
-			public Adapter caseFMUInternalVariable(FMUInternalVariable object) {
-				return createFMUInternalVariableAdapter();
 			}
 			@Override
 			public Adapter caseFMUVariable(FMUVariable object) {
@@ -288,20 +283,6 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEventBPortAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.FMUInternalVariable <em>FMU Internal Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see ac.soton.fmusim.components.FMUInternalVariable
-	 * @generated
-	 */
-	public Adapter createFMUInternalVariableAdapter() {
 		return null;
 	}
 

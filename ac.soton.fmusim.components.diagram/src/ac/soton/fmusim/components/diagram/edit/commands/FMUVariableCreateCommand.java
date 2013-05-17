@@ -21,17 +21,17 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUInternalVariable;
+import ac.soton.fmusim.components.FMUVariable;
 
 /**
  * @generated
  */
-public class FMUInternalVariableCreateCommand extends EditElementCommand {
+public class FMUVariableCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
 	 */
-	public FMUInternalVariableCreateCommand(CreateElementRequest req) {
+	public FMUVariableCreateCommand(CreateElementRequest req) {
 		super(req.getLabel(), null, req);
 	}
 
@@ -61,8 +61,8 @@ public class FMUInternalVariableCreateCommand extends EditElementCommand {
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor,
 			IAdaptable info) throws ExecutionException {
-		FMUInternalVariable newElement = ComponentsFactory.eINSTANCE
-				.createFMUInternalVariable();
+		FMUVariable newElement = ComponentsFactory.eINSTANCE
+				.createFMUVariable();
 
 		FMUComponent owner = (FMUComponent) getElementToEdit();
 		owner.getVariables().add(newElement);
@@ -76,7 +76,7 @@ public class FMUInternalVariableCreateCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	protected void doConfigure(FMUInternalVariable newElement,
+	protected void doConfigure(FMUVariable newElement,
 			IProgressMonitor monitor, IAdaptable info)
 			throws ExecutionException {
 		IElementType elementType = ((CreateElementRequest) getRequest())

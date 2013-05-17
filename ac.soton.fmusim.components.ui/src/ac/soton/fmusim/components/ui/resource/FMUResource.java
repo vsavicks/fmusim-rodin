@@ -13,10 +13,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 
 import de.prob.cosimulation.FMU;
@@ -31,6 +28,7 @@ import de.prob.cosimulation.FMU;
 public class FMUResource extends ResourceImpl {
 	
 	private FMU fmu;
+	private String fmuPath;
 
 	/**
 	 * Creates an abstract FMU resource from the URI.
@@ -66,6 +64,7 @@ public class FMUResource extends ResourceImpl {
 		}
 		
 		fmu = new FMU(filePath);
+		fmuPath = filePath;
 	}
 	
 	
@@ -77,5 +76,14 @@ public class FMUResource extends ResourceImpl {
 	 */
 	public FMU getFMU() {
 		return fmu;
+	}
+
+	/**
+	 * Returns absolute path to fmu.
+	 * 
+	 * @return the fmuPath
+	 */
+	public String getFmuPath() {
+		return fmuPath;
 	}
 }

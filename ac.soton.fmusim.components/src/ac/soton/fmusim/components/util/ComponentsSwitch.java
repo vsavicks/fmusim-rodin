@@ -23,7 +23,6 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
@@ -173,15 +172,6 @@ public class ComponentsSwitch<T> {
 				if (result == null) result = casePort(eventBPort);
 				if (result == null) result = caseAbstractVariable(eventBPort);
 				if (result == null) result = caseNamedElement(eventBPort);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ComponentsPackage.FMU_INTERNAL_VARIABLE: {
-				FMUInternalVariable fmuInternalVariable = (FMUInternalVariable)theEObject;
-				T result = caseFMUInternalVariable(fmuInternalVariable);
-				if (result == null) result = caseFMUVariable(fmuInternalVariable);
-				if (result == null) result = caseAbstractVariable(fmuInternalVariable);
-				if (result == null) result = caseNamedElement(fmuInternalVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -336,21 +326,6 @@ public class ComponentsSwitch<T> {
 	 * @generated
 	 */
 	public T caseEventBPort(EventBPort object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>FMU Internal Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>FMU Internal Variable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFMUInternalVariable(FMUInternalVariable object) {
 		return null;
 	}
 

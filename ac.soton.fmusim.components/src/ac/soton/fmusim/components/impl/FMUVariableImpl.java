@@ -30,7 +30,7 @@ import ac.soton.fmusim.components.FMUVariable;
  *
  * @generated
  */
-public abstract class FMUVariableImpl extends AbstractVariableImpl implements FMUVariable {
+public class FMUVariableImpl extends AbstractVariableImpl implements FMUVariable {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->

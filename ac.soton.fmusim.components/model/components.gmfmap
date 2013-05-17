@@ -104,7 +104,7 @@
             href="components.ecore#//FMUComponent/variables"/>
         <ownedChild>
           <domainMetaElement
-              href="components.ecore#//FMUInternalVariable"/>
+              href="components.ecore#//FMUVariable"/>
           <labelMappings
               xsi:type="gmfmap:ExpressionLabelMapping"
               readOnly="true">
@@ -235,9 +235,8 @@
         <diagramLabel
             href="components.gmfgraph#ConnectorLabel"/>
         <viewExpression
-            body="(if self.name = null then '' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
-        <editExpression
-            body="'&lt;enter new name>'"/>
+            body="return &quot;&lt;connector>&quot;;"
+            language="java"/>
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"

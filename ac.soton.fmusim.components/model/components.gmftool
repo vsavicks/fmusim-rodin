@@ -20,10 +20,11 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Variable">
+          title="FMU Variable"
+          description="Create new FMU Variable">
         <smallIcon
             xsi:type="gmftool:BundleImage"
-            path="/icons/Variable.gif"
+            path="/icons/FMUVariable.gif"
             bundle="ac.soton.fmusim.components"/>
       </tools>
       <tools

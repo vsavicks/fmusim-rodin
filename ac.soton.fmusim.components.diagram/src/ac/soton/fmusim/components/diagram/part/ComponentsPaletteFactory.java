@@ -43,7 +43,7 @@ public class ComponentsPaletteFactory {
 				Messages.Components1Group_title);
 		paletteContainer.setId("createComponents1Group"); //$NON-NLS-1$
 		paletteContainer.add(createFMUComponent1CreationTool());
-		paletteContainer.add(createVariable2CreationTool());
+		paletteContainer.add(createFMUVariable2CreationTool());
 		paletteContainer.add(createEventBComponent3CreationTool());
 		paletteContainer.add(createInputPort4CreationTool());
 		paletteContainer.add(createOutputPort5CreationTool());
@@ -71,15 +71,15 @@ public class ComponentsPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createVariable2CreationTool() {
+	private ToolEntry createFMUVariable2CreationTool() {
 		NodeToolEntry entry = new NodeToolEntry(
-				Messages.Variable2CreationTool_title,
-				null,
+				Messages.FMUVariable2CreationTool_title,
+				Messages.FMUVariable2CreationTool_desc,
 				Collections
-						.singletonList(ComponentsElementTypes.FMUInternalVariable_3006));
-		entry.setId("createVariable2CreationTool"); //$NON-NLS-1$
+						.singletonList(ComponentsElementTypes.FMUVariable_3007));
+		entry.setId("createFMUVariable2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(ComponentsDiagramEditorPlugin
-				.findImageDescriptor("/ac.soton.fmusim.components/icons/Variable.gif")); //$NON-NLS-1$
+				.findImageDescriptor("/ac.soton.fmusim.components/icons/FMUVariable.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

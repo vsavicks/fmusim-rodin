@@ -61,11 +61,11 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 
@@ -166,7 +166,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				case EventBComponentEditPart.VISUAL_ID:
 				case ConnectorEditPart.VISUAL_ID:
 				case FMUPortEditPart.VISUAL_ID:
-				case FMUInternalVariableEditPart.VISUAL_ID:
+				case FMUVariableEditPart.VISUAL_ID:
 				case EventBPortEditPart.VISUAL_ID:
 				case FMUPort2EditPart.VISUAL_ID:
 				case EventBPort2EditPart.VISUAL_ID:
@@ -187,7 +187,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				|| ConnectorEditPart.VISUAL_ID == visualID
 				|| FMUPortEditPart.VISUAL_ID == visualID
 				|| FMUPort2EditPart.VISUAL_ID == visualID
-				|| FMUInternalVariableEditPart.VISUAL_ID == visualID
+				|| FMUVariableEditPart.VISUAL_ID == visualID
 				|| EventBPortEditPart.VISUAL_ID == visualID
 				|| EventBPort2EditPart.VISUAL_ID == visualID;
 	}
@@ -261,9 +261,9 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		case FMUPort2EditPart.VISUAL_ID:
 			return createFMUPort_3002(domainElement, containerView, index,
 					persisted, preferencesHint);
-		case FMUInternalVariableEditPart.VISUAL_ID:
-			return createFMUInternalVariable_3006(domainElement, containerView,
-					index, persisted, preferencesHint);
+		case FMUVariableEditPart.VISUAL_ID:
+			return createFMUVariable_3007(domainElement, containerView, index,
+					persisted, preferencesHint);
 		case EventBPortEditPart.VISUAL_ID:
 			return createEventBPort_3003(domainElement, containerView, index,
 					persisted, preferencesHint);
@@ -512,13 +512,13 @@ public class ComponentsViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createFMUInternalVariable_3006(EObject domainElement,
+	public Node createFMUVariable_3007(EObject domainElement,
 			View containerView, int index, boolean persisted,
 			PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(ComponentsVisualIDRegistry
-				.getType(FMUInternalVariableEditPart.VISUAL_ID));
+				.getType(FMUVariableEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		return node;

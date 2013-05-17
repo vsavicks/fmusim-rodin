@@ -29,7 +29,7 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramUpdater;
 import ac.soton.fmusim.components.diagram.part.ComponentsNodeDescriptor;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -87,7 +87,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 	 * @generated
 	 */
 	private boolean isMyDiagramElement(View view) {
-		return FMUInternalVariableEditPart.VISUAL_ID == ComponentsVisualIDRegistry
+		return FMUVariableEditPart.VISUAL_ID == ComponentsVisualIDRegistry
 				.getVisualID(view);
 	}
 

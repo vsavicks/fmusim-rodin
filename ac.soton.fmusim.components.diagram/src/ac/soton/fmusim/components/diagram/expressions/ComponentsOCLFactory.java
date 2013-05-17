@@ -44,7 +44,7 @@ public class ComponentsOCLFactory {
 	 * @generated
 	 */
 	protected ComponentsOCLFactory() {
-		this.expressions = new ComponentsAbstractExpression[11];
+		this.expressions = new ComponentsAbstractExpression[9];
 		this.expressionBodies = new String[] {
 				"self.causality = VariableCausality::Input", //$NON-NLS-1$
 				"VariableCausality::Input", //$NON-NLS-1$
@@ -54,8 +54,6 @@ public class ComponentsOCLFactory {
 				"VariableCausality::Input", //$NON-NLS-1$
 				"self.causality = VariableCausality::Output", //$NON-NLS-1$
 				"VariableCausality::Output", //$NON-NLS-1$
-				"(if self.name = null then \'\' else self.name endif).concat(if self.value.oclIsUndefined() then \'\' else \' = \'.concat(self.value.oclAsType(String)) endif)", //$NON-NLS-1$
-				"\'<enter new name>\'", //$NON-NLS-1$
 				"not (oppositeEnd.oclAsType(AbstractVariable).causality = VariableCausality::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(AbstractVariable).causality = VariableCausality::Output))", //$NON-NLS-1$
 		};
 	}

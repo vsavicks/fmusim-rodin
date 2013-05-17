@@ -181,13 +181,13 @@
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3006"
-        editPartClassName="FMUInternalVariableEditPart"
-        itemSemanticEditPolicyClassName="FMUInternalVariableItemSemanticEditPolicy"
-        notationViewFactoryClassName="FMUInternalVariableViewFactory"
-        canonicalEditPolicyClassName="FMUInternalVariableCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="FMUInternalVariableGraphicalNodeEditPolicy"
-        createCommandClassName="FMUInternalVariableCreateCommand"
+        visualID="3007"
+        editPartClassName="FMUVariableEditPart"
+        itemSemanticEditPolicyClassName="FMUVariableItemSemanticEditPolicy"
+        notationViewFactoryClassName="FMUVariableViewFactory"
+        canonicalEditPolicyClassName="FMUVariableCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="FMUVariableGraphicalNodeEditPolicy"
+        createCommandClassName="FMUVariableCreateCommand"
         containers="//@diagram/@compartments.0"
         labelReadOnly="true"
         labelElementIcon="true">
@@ -195,13 +195,13 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="FMUInternalVariableEditHelper"/>
+          editHelperClassName="FMUVariableEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
       <modelFacet>
         <metaClass
-            href="components.genmodel#//components/FMUInternalVariable"/>
+            href="components.genmodel#//components/FMUVariable"/>
         <containmentMetaFeature
             href="components.genmodel#//components/FMUComponent/variables"/>
         <childMetaFeature
@@ -544,7 +544,7 @@
             href="components.genmodel#//components/Port/connector"/>
       </modelFacet>
       <creationConstraints
-          targetEnd="//@expressionProviders/@providers.0/@expressions.10"/>
+          targetEnd="//@expressionProviders/@providers.0/@expressions.8"/>
     </links>
     <compartments
         visualID="7001"
@@ -574,8 +574,9 @@
             genNodes="//@diagram/@topLevelNodes.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
-            title="Variable"
-            smallIconPath="/ac.soton.fmusim.components/icons/Variable.gif"
+            title="FMU Variable"
+            description="Create new FMU Variable"
+            smallIconPath="/ac.soton.fmusim.components/icons/FMUVariable.gif"
             genNodes="//@diagram/@childNodes.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
@@ -746,7 +747,7 @@
     <tabs
         xsi:type="gmfgen:GenCustomPropertyTab"
         iD="domain"
-        label="Core">
+        label="Model">
       <filter
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
@@ -781,10 +782,6 @@
       <expressions
           body="VariableCausality::Output"/>
       <expressions
-          body="(if self.name = null then '' else self.name endif).concat(if self.value.oclIsUndefined() then '' else ' = '.concat(self.value.oclAsType(String)) endif)"/>
-      <expressions
-          body="'&lt;enter new name>'"/>
-      <expressions
           xsi:type="gmfgen:GenConstraint"
           body="not (oppositeEnd.oclAsType(AbstractVariable).causality = VariableCausality::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(AbstractVariable).causality = VariableCausality::Output))"/>
     </providers>
@@ -792,6 +789,8 @@
         xsi:type="gmfgen:GenJavaExpressionProvider">
       <expressions
           body="return &quot;&lt;variable>&quot;;"/>
+      <expressions
+          body="return &quot;&lt;connector>&quot;;"/>
     </providers>
   </expressionProviders>
   <labelParsers
@@ -804,13 +803,12 @@
         uses="//@diagram/@childNodes.2/@labelModelFacet"
         viewExpression="//@expressionProviders/@providers.1/@expressions.0">
       <expressionContext
-          href="components.genmodel#//components/FMUInternalVariable"/>
+          href="components.genmodel#//components/FMUVariable"/>
     </implementations>
     <implementations
         xsi:type="gmfgen:ExpressionLabelParser"
         uses="//@diagram/@topLevelNodes.2/@labels.0/@modelFacet"
-        viewExpression="//@expressionProviders/@providers.0/@expressions.8"
-        editExpression="//@expressionProviders/@providers.0/@expressions.9">
+        viewExpression="//@expressionProviders/@providers.1/@expressions.1">
       <expressionContext
           href="components.genmodel#//components/Connector"/>
     </implementations>

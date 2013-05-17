@@ -62,11 +62,14 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eventb.emf.core.AbstractExtension;
+import org.eventb.emf.core.machine.Machine;
 import org.ptolemy.fmi.FMIModelDescription;
 import org.ptolemy.fmi.FMIScalarVariable;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
+import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUVariable;
@@ -240,18 +243,22 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 							protected void doExecute() {
 								try {
 									FMU fmu = new FMU(path);
-									FMIModelDescription md = fmu.getModelDescription();
-									
+									FMIModelDescription md = fmu
+											.getModelDescription();
+
 									// map variables by name
-									Map<String, FMIScalarVariable> varMap = new HashMap<String, FMIScalarVariable>(md.modelVariables.size());
+									Map<String, FMIScalarVariable> varMap = new HashMap<String, FMIScalarVariable>(
+											md.modelVariables.size());
 									for (FMIScalarVariable var : md.modelVariables)
 										varMap.put(var.name, var);
-									
+
 									fmuComp.setFmu(fmu);
-									for (FMUVariable var : fmuComp.getVariables()) {
-										FMIScalarVariable scalar = varMap.get(var.getName());
-										assert(scalar != null);
-										FmiUtil.getFmiType(scalar, var);
+									for (FMUVariable var : fmuComp
+											.getVariables()) {
+										FMIScalarVariable scalar = varMap
+												.get(var.getName());
+										assert (scalar != null);
+										FmiUtil.getVariableType(scalar, var);
 									}
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -653,7 +660,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 				monitor.beginTask(
 						Messages.ComponentsDocumentProvider_SaveDiagramTask,
 						info.getResourceSet().getResources().size() + 1); //"Saving diagram"
-				// custom:
+				//CUSTOM: event-b component persistence in the machine as annotation
 				//TODO: refactor to a cleaner implementation
 				ComponentDiagram diagram = (ComponentDiagram) ((IDiagramDocument) document)
 						.getDiagram().getElement();
@@ -672,9 +679,20 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 							protected void doExecute() {
 								EventBComponent compCopy = (EventBComponent) EcoreUtil
 										.copy(comp);
-								// TODO: add existing extension lookup
-								((EventBComponent) comp).getMachine()
-										.getExtensions().add(compCopy);
+								Machine machine = ((EventBComponent) comp)
+										.getMachine();
+
+								// remove any existing extensions of the same id (EventB component)
+								Iterator<AbstractExtension> it = machine
+										.getExtensions().iterator();
+								while (it.hasNext()) {
+									if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
+											.equals(it.next().getExtensionId())) {
+										it.remove();
+									}
+								}
+
+								machine.getExtensions().add(compCopy);
 							}
 						});
 					}

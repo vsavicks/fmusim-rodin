@@ -57,7 +57,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 
 import ac.soton.fmusim.components.diagram.edit.policies.ComponentsTextNonResizableEditPolicy;
-import ac.soton.fmusim.components.diagram.edit.policies.FMUInternalVariableItemSemanticEditPolicy;
+import ac.soton.fmusim.components.diagram.edit.policies.FMUVariableItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 import ac.soton.fmusim.components.diagram.providers.ComponentsParserProvider;
@@ -65,13 +65,13 @@ import ac.soton.fmusim.components.diagram.providers.ComponentsParserProvider;
 /**
  * @generated
  */
-public class FMUInternalVariableEditPart extends CompartmentEditPart implements
+public class FMUVariableEditPart extends CompartmentEditPart implements
 		ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3006;
+	public static final int VISUAL_ID = 3007;
 
 	/**
 	 * @generated
@@ -101,7 +101,7 @@ public class FMUInternalVariableEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public FMUInternalVariableEditPart(View view) {
+	public FMUVariableEditPart(View view) {
 		super(view);
 	}
 
@@ -122,7 +122,7 @@ public class FMUInternalVariableEditPart extends CompartmentEditPart implements
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new FMUInternalVariableItemSemanticEditPolicy());
+				new FMUVariableItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE,
 				new ComponentsTextNonResizableEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE,
@@ -334,10 +334,10 @@ public class FMUInternalVariableEditPart extends CompartmentEditPart implements
 		if (parser == null) {
 			parser = ComponentsParserProvider
 					.getParser(
-							ComponentsElementTypes.FMUInternalVariable_3006,
+							ComponentsElementTypes.FMUVariable_3007,
 							getParserElement(),
 							ComponentsVisualIDRegistry
-									.getType(ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart.VISUAL_ID));
+									.getType(ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

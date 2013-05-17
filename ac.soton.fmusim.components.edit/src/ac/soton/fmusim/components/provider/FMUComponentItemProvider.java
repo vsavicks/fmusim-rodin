@@ -205,7 +205,12 @@ public class FMUComponentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(ComponentsPackage.Literals.FMU_COMPONENT__VARIABLES,
-				 ComponentsFactory.eINSTANCE.createFMUInternalVariable()));
+				 ComponentsFactory.eINSTANCE.createFMUPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.FMU_COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createFMUVariable()));
 	}
 
 	/**
@@ -221,7 +226,8 @@ public class FMUComponentItemProvider
 
 		boolean qualify =
 			childFeature == ComponentsPackage.Literals.COMPONENT__INPUTS ||
-			childFeature == ComponentsPackage.Literals.COMPONENT__OUTPUTS;
+			childFeature == ComponentsPackage.Literals.COMPONENT__OUTPUTS ||
+			childFeature == ComponentsPackage.Literals.FMU_COMPONENT__VARIABLES;
 
 		if (qualify) {
 			return getString

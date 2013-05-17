@@ -30,11 +30,11 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUInternalVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
 
 /**
@@ -183,9 +183,9 @@ public class ComponentsVisualIDRegistry {
 			}
 			break;
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
-			if (ComponentsPackage.eINSTANCE.getFMUInternalVariable()
-					.isSuperTypeOf(domainElement.eClass())) {
-				return FMUInternalVariableEditPart.VISUAL_ID;
+			if (ComponentsPackage.eINSTANCE.getFMUVariable().isSuperTypeOf(
+					domainElement.eClass())) {
+				return FMUVariableEditPart.VISUAL_ID;
 			}
 			break;
 		}
@@ -275,7 +275,7 @@ public class ComponentsVisualIDRegistry {
 			}
 			break;
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
-			if (FMUInternalVariableEditPart.VISUAL_ID == nodeVisualID) {
+			if (FMUVariableEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -381,7 +381,7 @@ public class ComponentsVisualIDRegistry {
 		case FMUPort2EditPart.VISUAL_ID:
 		case EventBPortEditPart.VISUAL_ID:
 		case EventBPort2EditPart.VISUAL_ID:
-		case FMUInternalVariableEditPart.VISUAL_ID:
+		case FMUVariableEditPart.VISUAL_ID:
 			return true;
 		default:
 			break;

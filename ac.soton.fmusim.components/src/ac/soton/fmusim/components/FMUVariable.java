@@ -24,7 +24,7 @@ package ac.soton.fmusim.components;
  * </p>
  *
  * @see ac.soton.fmusim.components.ComponentsPackage#getFMUVariable()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface FMUVariable extends AbstractVariable {

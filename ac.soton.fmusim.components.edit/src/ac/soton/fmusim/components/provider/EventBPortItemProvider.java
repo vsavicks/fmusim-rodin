@@ -23,6 +23,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBPort;
+import ac.soton.fmusim.components.VariableCausality;
 
 /**
  * This is the item provider adapter for a {@link ac.soton.fmusim.components.EventBPort} object.
@@ -113,11 +114,19 @@ public class EventBPortItemProvider
 	 * This returns EventBPort.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventBPort"));
+		VariableCausality causality = ((EventBPort)object).getCausality();
+		switch (causality) {
+		case INPUT:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/InputPort"));
+		case OUTPUT:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/OutputPort"));
+		default:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/EventBPort"));
+		}
 	}
 
 	/**

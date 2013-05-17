@@ -26,8 +26,6 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -35,19 +33,14 @@ import org.eventb.emf.core.machine.Machine;
 import org.ptolemy.fmi.FMIModelDescription;
 import org.ptolemy.fmi.FMIScalarVariable;
 import org.ptolemy.fmi.FMIScalarVariable.Causality;
-import org.ptolemy.fmi.type.FMIBooleanType;
-import org.ptolemy.fmi.type.FMIIntegerType;
-import org.ptolemy.fmi.type.FMIRealType;
-import org.ptolemy.fmi.type.FMIStringType;
-import org.ptolemy.fmi.type.FMIType;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUInternalVariable;
 import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.util.FmiUtil;
@@ -146,15 +139,15 @@ public class ImportCommand extends AbstractHandler {
 				// type and start value
 
 				if (scalarVariable.causality == Causality.internal) {
-					FMUInternalVariable variable = ComponentsFactory.eINSTANCE
-							.createFMUInternalVariable();
+					FMUVariable variable = ComponentsFactory.eINSTANCE
+							.createFMUVariable();
 					variable.setName(scalarVariable.name);
-					variable.setType(FmiUtil.getFmiType(scalarVariable, variable));
+					variable.setType(FmiUtil.getVariableType(scalarVariable, variable));
 					fmuComponent.getVariables().add(variable);
 					
 				} else if (scalarVariable.causality == Causality.input || scalarVariable.causality == Causality.output) {
 					FMUPort port = ComponentsFactory.eINSTANCE.createFMUPort();
-					VariableType type = FmiUtil.getFmiType(scalarVariable, port);
+					VariableType type = FmiUtil.getVariableType(scalarVariable, port);
 					port.setName(scalarVariable.name);
 					port.setType(type);
 

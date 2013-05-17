@@ -10,11 +10,15 @@
 package ac.soton.fmusim.components.provider;
 
 
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.FMUVariable;
+
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,9 +28,6 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.FMUVariable;
 
 /**
  * This is the item provider adapter for a {@link ac.soton.fmusim.components.FMUVariable} object.
@@ -111,6 +112,17 @@ public class FMUVariableItemProvider
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
+	}
+
+	/**
+	 * This returns FMUVariable.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FMUVariable"));
 	}
 
 	/**

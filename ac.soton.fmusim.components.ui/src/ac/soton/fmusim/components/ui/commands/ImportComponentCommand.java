@@ -20,7 +20,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Shell;
@@ -37,7 +39,7 @@ import ac.soton.fmusim.components.ui.wizards.ComponentImportWizard;
  */
 public class ImportComponentCommand extends AbstractHandler {
 
-	private static final int WIZARD_WIDTH_INCH = 6;
+	private static final int WIZARD_WIDTH_INCH = 5;
 	private static final int WIZARD_HEIGHT_INCH = 6;
 
 	/* (non-Javadoc)
@@ -70,7 +72,10 @@ public class ImportComponentCommand extends AbstractHandler {
 		}
 		wd.getShell().setLocation(x, y);
 		wd.getShell().setSize(width, height);
-		wd.open();
+//		wd.open();
+		
+		if (wd.open() != Window.OK)
+			return null;
 		
 		// adding component to diagram
 		final Component component = wiz.getComponent();

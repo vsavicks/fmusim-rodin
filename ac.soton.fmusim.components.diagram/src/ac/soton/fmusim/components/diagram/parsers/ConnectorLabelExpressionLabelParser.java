@@ -22,6 +22,7 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
@@ -30,13 +31,13 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
 
 /**
  * @generated
  */
-public class ConnectorLabelExpressionLabelParser extends
-		ExpressionLabelParserBase {
+public class ConnectorLabelExpressionLabelParser implements IParser {
 	/**
 	 * @generated
 	 */
@@ -46,21 +47,25 @@ public class ConnectorLabelExpressionLabelParser extends
 	/**
 	 * @generated
 	 */
-	@Override
-	protected String getExpressionBody() {
-		return ComponentsOCLFactory.getExpression(8,
-				ComponentsPackage.eINSTANCE.getConnector(), null).body();
+	public String getPrintString(IAdaptable element, int flags) {
+		return evaluatePrintExpression((EObject) element
+				.getAdapter(EObject.class));
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isAffectingEvent(Object event, int flags) {
+		// XXX Any event is recognized as important, unless there's a way to extract this information from expression itself.
+		// TODO analyze expressions (e.g. using OCL parser) to find out structural features in use  
+		return true;
 	}
 
 	/**
 	 * @generated
 	 */
 	public String getEditString(IAdaptable element, int flags) {
-		EObject target = (EObject) element.getAdapter(EObject.class);
-		Object result = ComponentsOCLFactory.getExpression(9,
-				ComponentsPackage.eINSTANCE.getConnector(), null).evaluate(
-				target);
-		return String.valueOf(result);
+		return getPrintString(element, flags);
 	}
 
 	/**
@@ -124,6 +129,22 @@ public class ConnectorLabelExpressionLabelParser extends
 		}
 		throw new ExecutionException(
 				"updateValues() received an invalid target type: expected Connector");
+	}
+
+	/**
+	 * Displays the label of Connector.
+	 * @generated NOT
+	 */
+	private String evaluatePrintExpression(EObject self) {
+		if (self instanceof Connector) {
+			Connector con = (Connector) self;
+			String name = con.getName() == null ? "" : con.getName();
+			String value = con.getValue() == null ? "" : (" = " + con
+					.getValue());
+			return name + value;
+		}
+		throw new UnsupportedOperationException(
+				"No user java implementation provided in 'evaluatePrintExpression' operation"); //$NON-NLS-1$
 	}
 
 }
