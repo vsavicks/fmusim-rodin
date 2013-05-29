@@ -229,48 +229,10 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			IStorage storage = ((FileEditorInput) element).getStorage();
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true,
 					getProgressMonitor());
-			// CUSTOM: fmu loading
-			// FIXME: refactor to a cleaner solution
-			ComponentDiagram cd = (ComponentDiagram) diagram.getElement();
-			for (Component comp : cd.getComponents()) {
-				if (comp instanceof FMUComponent) {
-					final FMUComponent fmuComp = (FMUComponent) comp;
-					final String path = fmuComp.getPath();
-					if (path != null) {
-						RecordingCommand cmd = new RecordingCommand(domain) {
+			
+			// XXX: fmu loading from path attribute
+			loadFmuPath(domain, diagram);
 
-							@Override
-							protected void doExecute() {
-								try {
-									FMU fmu = new FMU(path);
-									FMIModelDescription md = fmu
-											.getModelDescription();
-
-									// map variables by name
-									Map<String, FMIScalarVariable> varMap = new HashMap<String, FMIScalarVariable>(
-											md.modelVariables.size());
-									for (FMIScalarVariable var : md.modelVariables)
-										varMap.put(var.name, var);
-
-									fmuComp.setFmu(fmu);
-									for (FMUVariable var : fmuComp
-											.getVariables()) {
-										FMIScalarVariable scalar = varMap
-												.get(var.getName());
-										assert (scalar != null);
-										FmiUtil.getVariableType(scalar, var);
-									}
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						};
-						domain.getCommandStack().execute(cmd);
-					}
-				}
-			}
-			// end custom
 			document.setContent(diagram);
 		} else if (element instanceof URIEditorInput) {
 			URI uri = ((URIEditorInput) element).getURI();
@@ -341,6 +303,58 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 											element,
 											"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ //$NON-NLS-2$ 
 							null));
+		}
+	}
+
+	/**
+	 * Loads FMU for FMU components from their path attribute.
+	 * If loading fails adds an error marker (planned to be implemented).
+	 * 
+	 * @param domain
+	 * @param diagram
+	 */
+	private void loadFmuPath(TransactionalEditingDomain domain, Diagram diagram) {
+		ComponentDiagram cd = (ComponentDiagram) diagram.getElement();
+		for (Component comp : cd.getComponents()) {
+			if (comp instanceof FMUComponent) {
+				final FMUComponent fmuComponent = (FMUComponent) comp;
+				final String path = fmuComponent.getPath();
+				
+				if (path == null) {
+					//TODO: show validation error marker
+					return;
+				}
+				
+				if (path != null) {
+					RecordingCommand cmd = new RecordingCommand(domain) {
+						@Override
+						protected void doExecute() {
+							try {
+								FMU fmu = new FMU(path);
+								fmuComponent.setFmu(fmu);
+								FMIModelDescription md = fmu.getModelDescription();
+
+								// map variables by name
+								Map<String, FMIScalarVariable> varMap = new HashMap<String, FMIScalarVariable>(md.modelVariables.size());
+								for (FMIScalarVariable var : md.modelVariables) {
+									varMap.put(var.name, var);
+								}
+
+								// set initial values
+								for (FMUVariable var : fmuComponent.getVariables()) {
+									FMIScalarVariable scalar = varMap.get(var.getName());
+									assert (scalar != null);
+									FmiUtil.getVariableType(scalar, var);
+								}
+							} catch (IOException e) {
+								// TODO add validation marker
+								e.printStackTrace();
+							}
+						}
+					};
+					domain.getCommandStack().execute(cmd);
+				}
+			}
 		}
 	}
 

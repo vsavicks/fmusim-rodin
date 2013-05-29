@@ -6,3 +6,6 @@ EventBVariableExpressionLabelParser::evaluatePrintExpression(EObject)
 
 ConnectorLabelExpressionLabelParser::updateValues(EObject, String)
 ConnectorLabelExpressionLabelParser::evaluatePrintExpression(EObject)
+
+ComponentsDocumentProvider::setDocumentContent(IDocument, IEditorInput)
+ComponentsDocumentProvider::doSaveDocument(IProgressMonitor, Object, IDocument, boolean)
