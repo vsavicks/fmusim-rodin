@@ -776,6 +776,9 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 	}
 
 	/**
+	 * Persists components.
+	 * Stores EventBComponents as an extension in a machine.
+	 * 
 	 * @param document
 	 */
 	private void doSaveComponents(IDocument document) {
@@ -787,7 +790,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			if (comp instanceof EventBComponent
 					&& ((EventBComponent) comp).getMachine() != null) {
 
-				// add command to extend Event-B machine with component config
+				// adds command to extend Event-B machine with component config
 				// NOTE: replaces existing extension of the same id
 				compoundCmd.append(new RecordingCommand(domain) {
 					@Override

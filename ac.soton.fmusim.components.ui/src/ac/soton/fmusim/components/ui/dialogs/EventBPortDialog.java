@@ -65,10 +65,12 @@ public class EventBPortDialog extends Dialog {
 	private VariableCausality causality;
 	
 	/**
+	 * Creates a new Event-B port dialog.
+	 * 
 	 * @param parentShell
-	 * @param component
-	 * @param causality
-	 * @param event
+	 * @param component target component of the new port
+	 * @param causality port variable causality
+	 * @param event IO event used to read from or write to the port
 	 */
 	public EventBPortDialog(Shell parentShell, EventBComponent component, VariableCausality causality, Event event) {
 		super(parentShell);

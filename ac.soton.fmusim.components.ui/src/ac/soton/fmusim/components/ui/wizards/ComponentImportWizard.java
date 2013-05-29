@@ -7,10 +7,6 @@
  */
 package ac.soton.fmusim.components.ui.wizards;
 
-import java.util.Iterator;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.impl.EcoreFactoryImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -18,21 +14,16 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eventb.emf.core.machine.Machine;
-
-import de.prob.cosimulation.FMU;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.ui.ComponentsUIPlugin;
 import ac.soton.fmusim.components.ui.resource.FMUResourceFactory;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
 import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSelectionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.EventBComponentDefinitionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.FMUComponentDefinitionPage;
-import ac.soton.fmusim.components.ui.wizards.pages.experimental.FMUPortDefinitionPage;
 
 /**
  * @author vitaly
@@ -159,7 +150,7 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 				return eventBComponentDefinitionPage;
 		}
 		
-		// skip event-b page if current page is the fmu page
+		// skip event-b page if current page is the FMU page
 		if (page instanceof FMUComponentDefinitionPage) {
 			IWizardPage nextPage = super.getNextPage(page);
 			if (nextPage instanceof EventBComponentDefinitionPage)

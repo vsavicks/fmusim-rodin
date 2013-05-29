@@ -135,8 +135,7 @@ public class EventBComponentDefinitionPage extends WizardPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				EventBNamed element = readEventBListCombo(timeVariableCombo);
-				if (element != null)
-					currentModel.setTimeVariable((Variable) element);
+				currentModel.setTimeVariable((Variable) element);
 			}
 		});
 		

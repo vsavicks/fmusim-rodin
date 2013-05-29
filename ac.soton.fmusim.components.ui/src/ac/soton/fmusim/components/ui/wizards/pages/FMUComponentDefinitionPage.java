@@ -72,7 +72,7 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
 		// labeled check-box tables
-		internalsViewer = createLabeledTable(plate, "Internal variables and parameters to be displayed inside a component", createColumnProviders(), null);
+		internalsViewer = createLabeledTable(plate, "Internal state variables and parameters to be displayed inside a component", createColumnProviders(), null);
 		inputsViewer = createLabeledTable(plate, "Input variables to be displayed as component input ports", createColumnProviders(), null);
 		outputsViewer = createLabeledTable(plate, "Output variables to be displayed as component output ports", createColumnProviders(), null);
 		

@@ -13,6 +13,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eventb.emf.core.machine.Machine;
 
 import de.prob.cosimulation.FMU;
@@ -53,7 +54,9 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 		if (resource != null) {
 			List<EObject> rc = getResource().getContents();
 			if (rc.size() >= 1 && rc.get(0) instanceof Machine) {
-				model = (Component) Platform.getAdapterManager().getAdapter(rc.get(0), Component.class);
+				Component component = (Component) Platform.getAdapterManager().getAdapter(rc.get(0), Component.class);
+				if (component != null)
+					model = EcoreUtil.copy(component);
 			}
 			if (resource instanceof FMUResource) {
 				FMU fmu = ((FMUResource) resource).getFMU();
