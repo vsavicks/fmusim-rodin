@@ -22,7 +22,6 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Shell;
@@ -72,7 +71,6 @@ public class ImportComponentCommand extends AbstractHandler {
 		}
 		wd.getShell().setLocation(x, y);
 		wd.getShell().setSize(width, height);
-//		wd.open();
 		
 		if (wd.open() != Window.OK)
 			return null;

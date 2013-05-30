@@ -3,6 +3,10 @@
 <plugin>
    <extension
          point="org.eclipse.ui.commands">
+      <category
+            id="ac.soton.fmusim.components.ui.commands.category"
+            name="FmuSim Components Category">
+      </category>
       <command
             id="ac.soton.fmusim.components.ui.commands.Simulate"
             name="Simulate">
@@ -11,13 +15,9 @@
             id="ac.soton.fmusim.components.ui.commands.Import"
             name="Import">
       </command>
-      <category
-            id="ac.soton.fmusim.components.ui.commands.category"
-            name="FmuSim Components Category">
-      </category>
       <command
-            id="ac.soton.fmusim.components.ui.commands.Import_simple"
-            name="Import">
+            id="ac.soton.fmusim.components.ui.commands.Validate"
+            name="Validate">
       </command>
    </extension>
    <extension
@@ -47,8 +47,8 @@
          </enabledWhen>
       </handler>
       <handler
-            class="ac.soton.fmusim.components.ui.commands.ImportCommand"
-            commandId="ac.soton.fmusim.components.ui.commands.Import_simple">
+            class="ac.soton.fmusim.components.ui.commands.ValidateCommand"
+            commandId="ac.soton.fmusim.components.ui.commands.Validate">
          <enabledWhen>
             <with
                   variable="activePartId">
@@ -69,6 +69,12 @@
                   commandId="ac.soton.fmusim.components.ui.commands.Import"
                   icon="icons/Import.gif"
                   label="Import"
+                  style="push">
+            </command>
+            <command
+                  commandId="ac.soton.fmusim.components.ui.commands.Validate"
+                  icon="icons/Validate.gif"
+                  label="Validate"
                   style="push">
             </command>
             <command

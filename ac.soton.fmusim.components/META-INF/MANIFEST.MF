@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: ac.soton.fmusim.components;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -13,5 +13,5 @@ Export-Package: ac.soton.fmusim.components,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eventb.emf.core;bundle-version="[2.2.4,2.5.0)",
- de.prob.core.kernel;bundle-version="1.0.0"
+ de.prob.core.kernel;bundle-version="[1.0.0,1.1.0)"
 Bundle-ActivationPolicy: lazy

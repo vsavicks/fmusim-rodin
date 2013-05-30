@@ -19,6 +19,8 @@ import org.eventb.emf.core.machine.Machine;
 import de.prob.cosimulation.FMU;
 
 import ac.soton.fmusim.components.Component;
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.ui.resource.FMUResource;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
@@ -54,9 +56,15 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 		if (resource != null) {
 			List<EObject> rc = getResource().getContents();
 			if (rc.size() >= 1 && rc.get(0) instanceof Machine) {
-				Component component = (Component) Platform.getAdapterManager().getAdapter(rc.get(0), Component.class);
-				if (component != null)
-					model = EcoreUtil.copy(component);
+				EventBComponent component = (EventBComponent) Platform.getAdapterManager().getAdapter(rc.get(0), Component.class);
+				if (component != null) {
+					// copy a component and set a new AbstractExtension reference attribute
+					// to avoid conflicts with other instances of the same machine component
+					EventBComponent componentCopy = EcoreUtil.copy(component);
+					componentCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID + "." + EcoreUtil.generateUUID());
+					
+					model = componentCopy;
+				}
 			}
 			if (resource instanceof FMUResource) {
 				FMU fmu = ((FMUResource) resource).getFMU();

@@ -1,11 +1,7 @@
 /**
- * Copyright (c) 2013 University of Southampton.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * 
  */
-package ac.soton.fmusim.components.ui.commands;
+package ac.soton.fmusim.components.ui.commands.old;
 
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -19,7 +15,9 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
+import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -28,8 +26,8 @@ import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.Port;
-import ac.soton.fmusim.components.ui.dialogs.SimulationInputDialog;
 import de.prob.cosimulation.FMU;
 
 /**
@@ -38,7 +36,20 @@ import de.prob.cosimulation.FMU;
  */
 public class SimulateCommand extends AbstractHandler {
 	
+	private static final IInputValidator inputValidator = new IInputValidator() {
 
+	@Override
+	public String isValid(String newText) {
+		try {
+			double input = Double.parseDouble(newText);
+			if (input <= 0.0)
+				return "Input must be greater that zero";
+		} catch (NumberFormatException e) {
+			return "Invalid number format";
+		}
+		return null;
+	}
+};
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
@@ -51,16 +62,26 @@ public class SimulateCommand extends AbstractHandler {
 		final TransactionalEditingDomain editingDomain = ((DiagramEditor) diagramEditor)
 				.getEditingDomain();
 		
-		SimulationInputDialog simulationInputDialog = new SimulationInputDialog(shell, 10.0, 0.1);
-		if (simulationInputDialog.open() != InputDialog.OK)
+		InputDialog timeInputDialog = new InputDialog(Display.getCurrent()
+				.getActiveShell(), "Simulation", "Enter simulation time",
+				"10.0", inputValidator);
+		if (timeInputDialog.open() != InputDialog.OK)
+			return null;
+		
+		InputDialog stepInputDialog = new InputDialog(Display.getCurrent()
+				.getActiveShell(), "Simulation", "Enter simulation step size",
+				"0.1", inputValidator);
+		if (stepInputDialog.open() != InputDialog.OK)
 			return null;
 
-		final double time = simulationInputDialog.getTime();
-		final double step = simulationInputDialog.getStep();
+		final double endTime = Double.valueOf(timeInputDialog.getValue());
+		final double step = Double.valueOf(stepInputDialog.getValue());
 		final ComponentDiagram diagram = (ComponentDiagram) ((DiagramEditor) diagramEditor)
 				.getDiagram().getElement();
 		
-		// execute simulation in a job
+		
+
+		
 		Job job = new Job("Simulation") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
@@ -70,7 +91,7 @@ public class SimulateCommand extends AbstractHandler {
 						@Override
 						protected IStatus doExecute(IProgressMonitor monitor,
 								IAdaptable info) throws ExecutionException {
-							simulate(time, step, diagram, monitor);
+							simulate(endTime, step, diagram, monitor);
 							
 							return null;
 						}
@@ -98,7 +119,7 @@ public class SimulateCommand extends AbstractHandler {
 	 * @param monitor 
 	 */
 	private void simulate(final double endTime, double step, final ComponentDiagram diagram, IProgressMonitor monitor) {
-		monitor.beginTask("Simulating", (int) Math.round(endTime));
+		monitor.beginTask("Simulating", (int) Math.round(endTime / step));
 		
 		double currentTime = 0.0;
 		
@@ -184,10 +205,78 @@ public class SimulateCommand extends AbstractHandler {
 			
 			// progress the time
 			currentTime += step;
-			
-			// progress the monitor
-			if (currentTime < Math.floor(currentTime) + step)
-				monitor.worked(1);
+			// print values
+			System.out.println("time = " + currentTime);
+			for (Component comp : diagram.getComponents()) {
+				if (comp instanceof FMUComponent) {
+					FMUComponent fmuComp = (FMUComponent) comp;
+					FMU fmu = (FMU) fmuComp.getFmu();
+
+					System.out.println(comp.getName() + " : internals");
+					for (FMUVariable v : fmuComp.getVariables()) {
+						String name = v.getName();
+						Object value = null;
+						switch (v.getType()) {
+						case BOOLEAN:
+							value = fmu.getBoolean(name);
+							break;
+						case INTEGER:
+							value = fmu.getInt(name);
+							break;
+						case REAL:
+							value = fmu.getDouble(name);
+							break;
+						case STRING:
+							value = fmu.getString(name);
+							break;
+						}
+						System.out.println(comp.getName() + "." + name + " = " + value.toString());
+					}
+					
+					System.out.println(comp.getName() + " : inputs");
+					for (Port p : fmuComp.getInputs()) {
+						String name = p.getName();
+						Object value = null;
+						switch (p.getType()) {
+						case BOOLEAN:
+							value = fmu.getBoolean(name);
+							break;
+						case INTEGER:
+							value = fmu.getInt(name);
+							break;
+						case REAL:
+							value = fmu.getDouble(name);
+							break;
+						case STRING:
+							value = fmu.getString(name);
+							break;
+						}
+						System.out.println(comp.getName() + "." + name + " = " + value.toString());
+					}
+
+					System.out.println(comp.getName() + " : outputs");
+					for (Port p : fmuComp.getOutputs()) {
+						String name = p.getName();
+						Object value = null;
+						switch (p.getType()) {
+						case BOOLEAN:
+							value = fmu.getBoolean(name);
+							break;
+						case INTEGER:
+							value = fmu.getInt(name);
+							break;
+						case REAL:
+							value = fmu.getDouble(name);
+							break;
+						case STRING:
+							value = fmu.getString(name);
+							break;
+						}
+						System.out.println(comp.getName() + "." + name + " = " + value.toString());
+					}
+				}
+			}
+			monitor.worked(1);
 		}
 		
 		monitor.done();

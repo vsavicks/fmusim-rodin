@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package ac.soton.fmusim.components.ui.commands;
+package ac.soton.fmusim.components.ui.commands.old;
 
 import java.io.IOException;
 import java.util.ArrayList;

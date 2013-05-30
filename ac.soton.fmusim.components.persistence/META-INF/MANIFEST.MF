@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: ac.soton.fmusim.components.persistence;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: ac.soton.fmusim.components.persistence.ComponentsPersistencePlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
