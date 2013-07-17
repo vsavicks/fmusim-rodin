@@ -31,8 +31,8 @@ public class SimulationInputDialog extends Dialog {
 	private Text stepText;
 	private DecoratedInputValidator timeValidator;
 	private DecoratedInputValidator stepValidator;
-	private double initialTime;
-	private double initialStep;
+	private double time;
+	private double step;
 	private boolean timeValid;
 	private boolean stepValid;
 	private ControlDecoration stepToTimeErrorDecorator;
@@ -48,8 +48,8 @@ public class SimulationInputDialog extends Dialog {
 		super(parentShell);
 		
 		assert 0 < step && step < time;
-		this.initialTime = time;
-		this.initialStep = step;
+		this.time = time;
+		this.step = step;
 		timeValid = true;
 		stepValid = true;
 	}
@@ -75,7 +75,7 @@ public class SimulationInputDialog extends Dialog {
 		timeLabel.setText("Simulation time:");
 		timeText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		timeText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-		timeText.setText(Double.toString(initialTime));
+		timeText.setText(Double.toString(time));
 		timeText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
@@ -88,7 +88,7 @@ public class SimulationInputDialog extends Dialog {
 		stepLabel.setText("Step size:");
 		stepText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		stepText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-		stepText.setText(Double.toString(initialStep));
+		stepText.setText(Double.toString(step));
 		stepText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
@@ -153,6 +153,15 @@ public class SimulationInputDialog extends Dialog {
 		return contents;
 	}
 	
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if (buttonId == OK) {
+			time = Double.parseDouble(timeText.getText());
+			step = Double.parseDouble(stepText.getText());
+		}
+		super.buttonPressed(buttonId);
+	}
+
 	/**
 	 * Validates time.
 	 */
@@ -207,14 +216,14 @@ public class SimulationInputDialog extends Dialog {
 	 * @return time
 	 */
 	public double getTime() {
-		return Double.parseDouble(timeText.getText());
+		return time;
 	}
 
 	/**
 	 * @return step
 	 */
 	public double getStep() {
-		return Double.parseDouble(stepText.getText());
+		return step;
 	}
 
 }
