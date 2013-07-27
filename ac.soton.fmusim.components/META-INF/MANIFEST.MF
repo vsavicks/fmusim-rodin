@@ -3,15 +3,18 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: ac.soton.fmusim.components;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/jfmi-1.0.2-SNAPSHOT.jar,
+ lib/jna-3.4.0.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: ac.soton.fmusim.components,
  ac.soton.fmusim.components.impl,
- ac.soton.fmusim.components.util
+ ac.soton.fmusim.components.util,
+ org.ptolemy.fmi,
+ org.ptolemy.fmi.type
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eventb.emf.core;bundle-version="[2.2.4,2.5.0)",
- de.prob.core.kernel;bundle-version="[1.0.0,1.1.0)"
+ org.eventb.emf.core;bundle-version="[2.2.4,2.5.0)"
 Bundle-ActivationPolicy: lazy
