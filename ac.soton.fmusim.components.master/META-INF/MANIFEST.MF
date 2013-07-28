@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FMI Master
+Bundle-SymbolicName: ac.soton.fmusim.components.master
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",
+ ac.soton.fmusim.components;bundle-version="1.0.0",
+ de.prob.core.rodin;bundle-version="1.0.0",
+ ac.soton.eventb.emf.core.extension;bundle-version="2.1.0"
+Bundle-ClassPath: lib/groovy-all-2.0.5.jar,
+ .
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: ac.soton.fmusim.components.master

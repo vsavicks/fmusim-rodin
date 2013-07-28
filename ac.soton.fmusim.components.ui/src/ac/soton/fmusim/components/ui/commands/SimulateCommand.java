@@ -24,13 +24,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
-import ac.soton.fmusim.components.Connector;
-import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.master.Master;
 import ac.soton.fmusim.components.ui.dialogs.SimulationInputDialog;
-import de.prob.cosimulation.FMU;
 
 /**
  * @author vitaly
@@ -98,99 +94,105 @@ public class SimulateCommand extends AbstractHandler {
 	 * @param monitor 
 	 */
 	private void simulate(final double endTime, double step, final ComponentDiagram diagram, IProgressMonitor monitor) {
-		monitor.beginTask("Simulating", (int) Math.round(endTime));
+
+		new Master().simulate(diagram, endTime, step);
 		
-		double currentTime = 0.0;
-		
-		// initialisation step
-		for (Component comp : diagram.getComponents()) {
-			if (comp instanceof FMUComponent) {
-				FMUComponent fmuComp = (FMUComponent) comp;
-				FMU fmu = (FMU) fmuComp.getFmu();
-				fmu.initialize(0.0, endTime);
-			}
-		}
-		
-		// simulation loop
-		while (currentTime < endTime) {
-			// read port values
-			for (Component c : diagram.getComponents()) {
-				if (c instanceof FMUComponent) {
-					FMUComponent fmuComp = (FMUComponent) c;
-					FMU fmu = (FMU) fmuComp.getFmu();
-					Connector con = null;
-					for (Port p : fmuComp.getOutputs()) {
-						String name = p.getName();
-						Object value = null;
-						switch (p.getType()) {
-						case BOOLEAN:
-							value = fmu.getBoolean(name);
-							break;
-						case INTEGER:
-							value = fmu.getInt(name);
-							break;
-						case REAL:
-							value = fmu.getDouble(name);
-							break;
-						case STRING:
-							value = fmu.getString(name);
-							break;
-						}
-						con = p.getConnector();
-						if (con != null)
-							con.setValue(value);
-					}
-				}
-			}
-			
-			// write port values
-			for (Component c : diagram.getComponents()) {
-				if (c instanceof FMUComponent) {
-					FMUComponent fmuComp = (FMUComponent) c;
-					FMU fmu = (FMU) fmuComp.getFmu();
-					Connector con = null;
-					for (Port p : fmuComp.getInputs()) {
-						String name = p.getName();
-						con = p.getConnector();
-						if (con == null)
-							continue;
-						Object value = con.getValue();
-						switch (p.getType()) {
-						case BOOLEAN:
-							fmu.set(name, (Boolean) value);
-							break;
-						case INTEGER:
-							fmu.set(name, (Integer) value);
-							break;
-						case REAL:
-							fmu.set(name, (Double) value);
-							break;
-						case STRING:
-							fmu.set(name, (String) value);
-							break;
-						}
-					}
-				}
-			}
-			
-			// do step
-			for (Component comp : diagram.getComponents()) {
-				if (comp instanceof FMUComponent) {
-					FMUComponent fmuComp = (FMUComponent) comp;
-					FMU fmu = (FMU) fmuComp.getFmu();
-					fmu.doStep(currentTime, step);
-				}
-			}
-			
-			// progress the time
-			currentTime += step;
-			
-			// progress the monitor
-			if (currentTime < Math.floor(currentTime) + step)
-				monitor.worked(1);
-		}
-		
-		monitor.done();
+//		FMIMaster master = new FMIMaster();
+//		master.simulate(diagram, endTime, step);
+
+//		monitor.beginTask("Simulating", (int) Math.round(endTime));
+//		
+//		double currentTime = 0.0;
+//		
+//		// initialisation step
+//		for (Component comp : diagram.getComponents()) {
+//			if (comp instanceof FMUComponent) {
+//				FMUComponent fmuComp = (FMUComponent) comp;
+//				FMU fmu = (FMU) fmuComp.getFmu();
+//				fmu.initialize(0.0, endTime);
+//			}
+//		}
+//		
+//		// simulation loop
+//		while (currentTime < endTime) {
+//			// read port values
+//			for (Component c : diagram.getComponents()) {
+//				if (c instanceof FMUComponent) {
+//					FMUComponent fmuComp = (FMUComponent) c;
+//					FMU fmu = (FMU) fmuComp.getFmu();
+//					Connector con = null;
+//					for (Port p : fmuComp.getOutputs()) {
+//						String name = p.getName();
+//						Object value = null;
+//						switch (p.getType()) {
+//						case BOOLEAN:
+//							value = fmu.getBoolean(name);
+//							break;
+//						case INTEGER:
+//							value = fmu.getInt(name);
+//							break;
+//						case REAL:
+//							value = fmu.getDouble(name);
+//							break;
+//						case STRING:
+//							value = fmu.getString(name);
+//							break;
+//						}
+//						con = p.getConnector();
+//						if (con != null)
+//							con.setValue(value);
+//					}
+//				}
+//			}
+//			
+//			// write port values
+//			for (Component c : diagram.getComponents()) {
+//				if (c instanceof FMUComponent) {
+//					FMUComponent fmuComp = (FMUComponent) c;
+//					FMU fmu = (FMU) fmuComp.getFmu();
+//					Connector con = null;
+//					for (Port p : fmuComp.getInputs()) {
+//						String name = p.getName();
+//						con = p.getConnector();
+//						if (con == null)
+//							continue;
+//						Object value = con.getValue();
+//						switch (p.getType()) {
+//						case BOOLEAN:
+//							fmu.set(name, (Boolean) value);
+//							break;
+//						case INTEGER:
+//							fmu.set(name, (Integer) value);
+//							break;
+//						case REAL:
+//							fmu.set(name, (Double) value);
+//							break;
+//						case STRING:
+//							fmu.set(name, (String) value);
+//							break;
+//						}
+//					}
+//				}
+//			}
+//			
+//			// do step
+//			for (Component comp : diagram.getComponents()) {
+//				if (comp instanceof FMUComponent) {
+//					FMUComponent fmuComp = (FMUComponent) comp;
+//					FMU fmu = (FMU) fmuComp.getFmu();
+//					fmu.doStep(currentTime, step);
+//				}
+//			}
+//			
+//			// progress the time
+//			currentTime += step;
+//			
+//			// progress the monitor
+//			if (currentTime < Math.floor(currentTime) + step)
+//				monitor.worked(1);
+//		}
+//		
+//		monitor.done();
 	}
 
 }
