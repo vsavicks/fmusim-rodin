@@ -79,6 +79,7 @@ public class ComponentItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__INPUTS);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__OUTPUTS);
+			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__VARIABLES);
 		}
 		return childrenFeatures;
 	}
@@ -124,6 +125,7 @@ public class ComponentItemProvider
 		switch (notification.getFeatureID(Component.class)) {
 			case ComponentsPackage.COMPONENT__INPUTS:
 			case ComponentsPackage.COMPONENT__OUTPUTS:
+			case ComponentsPackage.COMPONENT__VARIABLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -160,6 +162,26 @@ public class ComponentItemProvider
 			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT__OUTPUTS,
 				 ComponentsFactory.eINSTANCE.createEventBPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createFMUPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createEventBPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createFMUVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createEventBVariable()));
 	}
 
 	/**
@@ -175,7 +197,8 @@ public class ComponentItemProvider
 
 		boolean qualify =
 			childFeature == ComponentsPackage.Literals.COMPONENT__INPUTS ||
-			childFeature == ComponentsPackage.Literals.COMPONENT__OUTPUTS;
+			childFeature == ComponentsPackage.Literals.COMPONENT__OUTPUTS ||
+			childFeature == ComponentsPackage.Literals.COMPONENT__VARIABLES;
 
 		if (qualify) {
 			return getString

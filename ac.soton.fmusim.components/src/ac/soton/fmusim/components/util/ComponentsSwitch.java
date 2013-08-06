@@ -7,6 +7,7 @@
  */
 package ac.soton.fmusim.components.util;
 
+import ac.soton.fmusim.components.*;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -161,7 +162,6 @@ public class ComponentsSwitch<T> {
 				FMUPort fmuPort = (FMUPort)theEObject;
 				T result = caseFMUPort(fmuPort);
 				if (result == null) result = casePort(fmuPort);
-				if (result == null) result = caseFMUVariable(fmuPort);
 				if (result == null) result = caseAbstractVariable(fmuPort);
 				if (result == null) result = caseNamedElement(fmuPort);
 				if (result == null) result = defaultCase(theEObject);
@@ -194,6 +194,8 @@ public class ComponentsSwitch<T> {
 			case ComponentsPackage.EVENT_BVARIABLE: {
 				EventBVariable eventBVariable = (EventBVariable)theEObject;
 				T result = caseEventBVariable(eventBVariable);
+				if (result == null) result = caseAbstractVariable(eventBVariable);
+				if (result == null) result = caseNamedElement(eventBVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

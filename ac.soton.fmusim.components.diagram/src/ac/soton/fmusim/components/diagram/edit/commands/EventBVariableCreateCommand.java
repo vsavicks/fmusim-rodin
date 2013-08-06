@@ -19,8 +19,8 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.notation.View;
 
+import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsFactory;
-import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBVariable;
 
 /**
@@ -64,7 +64,7 @@ public class EventBVariableCreateCommand extends EditElementCommand {
 		EventBVariable newElement = ComponentsFactory.eINSTANCE
 				.createEventBVariable();
 
-		EventBComponent owner = (EventBComponent) getElementToEdit();
+		Component owner = (Component) getElementToEdit();
 		owner.getVariables().add(newElement);
 
 		doConfigure(newElement, monitor, info);

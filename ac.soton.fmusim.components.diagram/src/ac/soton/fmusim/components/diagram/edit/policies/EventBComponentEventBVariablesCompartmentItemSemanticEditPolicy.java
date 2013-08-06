@@ -30,7 +30,7 @@ public class EventBComponentEventBVariablesCompartmentItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (ComponentsElementTypes.EventBVariable_3008 == req.getElementType()) {
+		if (ComponentsElementTypes.EventBVariable_3010 == req.getElementType()) {
 			return getGEFWrapper(new EventBVariableCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

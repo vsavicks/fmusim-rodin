@@ -16,5 +16,6 @@ Export-Package: ac.soton.fmusim.components,
  org.ptolemy.fmi.type
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eventb.emf.core;bundle-version="[2.2.4,2.5.0)"
+ org.eventb.emf.core;bundle-version="[2.2.4,2.5.0)",
+ de.prob.core.kernel;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy

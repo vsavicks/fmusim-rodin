@@ -71,7 +71,7 @@ public class FMUVariableEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3007;
+	public static final int VISUAL_ID = 3009;
 
 	/**
 	 * @generated
@@ -334,7 +334,7 @@ public class FMUVariableEditPart extends CompartmentEditPart implements
 		if (parser == null) {
 			parser = ComponentsParserProvider
 					.getParser(
-							ComponentsElementTypes.FMUVariable_3007,
+							ComponentsElementTypes.FMUVariable_3009,
 							getParserElement(),
 							ComponentsVisualIDRegistry
 									.getType(ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart.VISUAL_ID));

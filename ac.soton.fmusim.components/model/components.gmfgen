@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgen:GenEditorGenerator
-    xmi:version="2.0"
+<gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel"
-    diagramFileExtension="cmd"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel" diagramFileExtension="cmd"
     domainFileExtension="cmp"
     dynamicTemplates="true"
     templateDirectory="/ac.soton.fmusim.components/templates/gmf"
@@ -97,11 +95,9 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
-            viewPattern="{0} : {1}">
+            viewPattern="">
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
-          <metaFeatures
-              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
@@ -170,21 +166,17 @@
             classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLabelFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
-            parser="//@labelParsers/@implementations.0"
-            viewPattern="{0} : {1}">
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
-          <metaFeatures
-              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3007"
+        visualID="3009"
         editPartClassName="FMUVariableEditPart"
         itemSemanticEditPolicyClassName="FMUVariableItemSemanticEditPolicy"
-        notationViewFactoryClassName="FMUVariableViewFactory"
         canonicalEditPolicyClassName="FMUVariableCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="FMUVariableGraphicalNodeEditPolicy"
         createCommandClassName="FMUVariableCreateCommand"
@@ -203,9 +195,9 @@
         <metaClass
             href="components.genmodel#//components/FMUVariable"/>
         <containmentMetaFeature
-            href="components.genmodel#//components/FMUComponent/variables"/>
+            href="components.genmodel#//components/Component/variables"/>
         <childMetaFeature
-            href="components.genmodel#//components/FMUComponent/variables"/>
+            href="components.genmodel#//components/Component/variables"/>
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:ExpressionLabelModelFacet"
@@ -277,11 +269,9 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
-            viewPattern="{0} : {1}">
+            viewPattern="">
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
-          <metaFeatures
-              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
@@ -351,19 +341,17 @@
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
-            viewPattern="{0} : {1}"
+            viewPattern=""
             editorPattern=""
             editPattern="">
           <metaFeatures
               href="components.genmodel#//components/NamedElement/name"/>
-          <metaFeatures
-              href="components.genmodel#//components/AbstractVariable/type"/>
         </modelFacet>
       </labels>
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3008"
+        visualID="3010"
         editPartClassName="EventBVariableEditPart"
         itemSemanticEditPolicyClassName="EventBVariableItemSemanticEditPolicy"
         canonicalEditPolicyClassName="EventBVariableCanonicalEditPolicy"
@@ -384,9 +372,9 @@
         <metaClass
             href="components.genmodel#//components/EventBVariable"/>
         <containmentMetaFeature
-            href="components.genmodel#//components/EventBComponent/variables"/>
+            href="components.genmodel#//components/Component/variables"/>
         <childMetaFeature
-            href="components.genmodel#//components/EventBComponent/variables"/>
+            href="components.genmodel#//components/Component/variables"/>
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:ExpressionLabelModelFacet"
@@ -598,6 +586,7 @@
         visualID="7002"
         editPartClassName="EventBComponentEventBVariablesCompartmentEditPart"
         itemSemanticEditPolicyClassName="EventBComponentEventBVariablesCompartmentItemSemanticEditPolicy"
+        notationViewFactoryClassName="EventBComponentEventBVariablesCompartmentViewFactory"
         canonicalEditPolicyClassName="EventBComponentEventBVariablesCompartmentCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.5"
         title="EventBVariablesCompartment"

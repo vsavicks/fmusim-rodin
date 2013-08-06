@@ -182,8 +182,8 @@ public class EventBPortDialog extends Dialog {
 			
 			@Override
 			public String isValidInput(String parameter) {
-				if (parameter == null || parameter.isEmpty())
-					return "Event parameter cannot be empty";
+//				if (parameter == null || parameter.isEmpty())
+//					return "Event parameter cannot be empty";
 				return null;
 			}
 		};

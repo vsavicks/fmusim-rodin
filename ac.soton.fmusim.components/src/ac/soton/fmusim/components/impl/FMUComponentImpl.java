@@ -8,27 +8,21 @@
 package ac.soton.fmusim.components.impl;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectValidator;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.util.ComponentsValidator;
+import de.prob.cosimulation.FMU;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +32,6 @@ import ac.soton.fmusim.components.util.ComponentsValidator;
  * The following features are implemented:
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getFmu <em>Fmu</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getPath <em>Path</em>}</li>
  * </ul>
  * </p>
@@ -54,7 +47,7 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object FMU_EDEFAULT = null;
+	protected static final FMU FMU_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getFmu() <em>Fmu</em>}' attribute.
@@ -64,17 +57,7 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * @generated
 	 * @ordered
 	 */
-	protected Object fmu = FMU_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVariables()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<FMUVariable> variables;
+	protected FMU fmu = FMU_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPath() <em>Path</em>}' attribute.
@@ -120,7 +103,7 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getFmu() {
+	public FMU getFmu() {
 		return fmu;
 	}
 
@@ -129,23 +112,11 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFmu(Object newFmu) {
-		Object oldFmu = fmu;
+	public void setFmu(FMU newFmu) {
+		FMU oldFmu = fmu;
 		fmu = newFmu;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_COMPONENT__FMU, oldFmu, fmu));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<FMUVariable> getVariables() {
-		if (variables == null) {
-			variables = new EObjectContainmentEList.Resolving<FMUVariable>(FMUVariable.class, this, ComponentsPackage.FMU_COMPONENT__VARIABLES);
-		}
-		return variables;
 	}
 
 	/**
@@ -203,26 +174,10 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
-				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				return getFmu();
-			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
-				return getVariables();
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				return getPath();
 		}
@@ -234,16 +189,11 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ComponentsPackage.FMU_COMPONENT__FMU:
-				setFmu(newValue);
-				return;
-			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
-				getVariables().clear();
-				getVariables().addAll((Collection<? extends FMUVariable>)newValue);
+				setFmu((FMU)newValue);
 				return;
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				setPath((String)newValue);
@@ -263,9 +213,6 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				setFmu(FMU_EDEFAULT);
 				return;
-			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
-				getVariables().clear();
-				return;
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				setPath(PATH_EDEFAULT);
 				return;
@@ -283,8 +230,6 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 		switch (featureID) {
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				return FMU_EDEFAULT == null ? fmu != null : !FMU_EDEFAULT.equals(fmu);
-			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
-				return variables != null && !variables.isEmpty();
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
 		}

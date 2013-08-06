@@ -7,17 +7,12 @@
  */
 package ac.soton.fmusim.components.diagram.edit.parts;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
-import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
@@ -64,37 +59,6 @@ public class ComponentDiagramEditPart extends DiagramEditPart {
 				new CreationEditPolicyWithCustomReparent(
 						ComponentsVisualIDRegistry.TYPED_INSTANCE));
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
-	}
-
-	/**
-	 * @generated
-	 */
-	/*package-local*/static class NodeLabelDragPolicy extends
-			NonResizableEditPolicy {
-
-		/**
-		 * @generated
-		 */
-		@SuppressWarnings("rawtypes")
-		protected List createSelectionHandles() {
-			MoveHandle h = new MoveHandle((GraphicalEditPart) getHost());
-			h.setBorder(null);
-			return Collections.singletonList(h);
-		}
-
-		/**
-		 * @generated
-		 */
-		public Command getCommand(Request request) {
-			return null;
-		}
-
-		/**
-		 * @generated
-		 */
-		public boolean understandsRequest(Request request) {
-			return false;
-		}
 	}
 
 	/* (non-Javadoc)

@@ -13,14 +13,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages;
+import org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypes;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -56,7 +54,9 @@ public class ComponentsElementTypes {
 	/**
 	 * @generated
 	 */
-	private static ImageRegistry imageRegistry;
+	private static DiagramElementTypeImages elementTypeImages = new DiagramElementTypeImages(
+			ComponentsDiagramEditorPlugin.getInstance()
+					.getItemProvidersAdapterFactory());
 
 	/**
 	 * @generated
@@ -90,7 +90,7 @@ public class ComponentsElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType FMUVariable_3007 = getElementType("ac.soton.fmusim.components.diagram.FMUVariable_3007"); //$NON-NLS-1$
+	public static final IElementType FMUVariable_3009 = getElementType("ac.soton.fmusim.components.diagram.FMUVariable_3009"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -103,7 +103,7 @@ public class ComponentsElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType EventBVariable_3008 = getElementType("ac.soton.fmusim.components.diagram.EventBVariable_3008"); //$NON-NLS-1$
+	public static final IElementType EventBVariable_3010 = getElementType("ac.soton.fmusim.components.diagram.EventBVariable_3010"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -113,102 +113,29 @@ public class ComponentsElementTypes {
 	/**
 	 * @generated
 	 */
-	private static ImageRegistry getImageRegistry() {
-		if (imageRegistry == null) {
-			imageRegistry = new ImageRegistry();
-		}
-		return imageRegistry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static String getImageRegistryKey(ENamedElement element) {
-		return element.getName();
-	}
-
-	/**
-	 * @generated
-	 */
-	private static ImageDescriptor getProvidedImageDescriptor(
-			ENamedElement element) {
-		if (element instanceof EStructuralFeature) {
-			EStructuralFeature feature = ((EStructuralFeature) element);
-			EClass eContainingClass = feature.getEContainingClass();
-			EClassifier eType = feature.getEType();
-			if (eContainingClass != null && !eContainingClass.isAbstract()) {
-				element = eContainingClass;
-			} else if (eType instanceof EClass
-					&& !((EClass) eType).isAbstract()) {
-				element = eType;
-			}
-		}
-		if (element instanceof EClass) {
-			EClass eClass = (EClass) element;
-			if (!eClass.isAbstract()) {
-				return ComponentsDiagramEditorPlugin.getInstance()
-						.getItemImageDescriptor(
-								eClass.getEPackage().getEFactoryInstance()
-										.create(eClass));
-			}
-		}
-		// TODO : support structural features
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
 	public static ImageDescriptor getImageDescriptor(ENamedElement element) {
-		String key = getImageRegistryKey(element);
-		ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
-		if (imageDescriptor == null) {
-			imageDescriptor = getProvidedImageDescriptor(element);
-			if (imageDescriptor == null) {
-				imageDescriptor = ImageDescriptor.getMissingImageDescriptor();
-			}
-			getImageRegistry().put(key, imageDescriptor);
-		}
-		return imageDescriptor;
+		return elementTypeImages.getImageDescriptor(element);
 	}
 
 	/**
 	 * @generated
 	 */
 	public static Image getImage(ENamedElement element) {
-		String key = getImageRegistryKey(element);
-		Image image = getImageRegistry().get(key);
-		if (image == null) {
-			ImageDescriptor imageDescriptor = getProvidedImageDescriptor(element);
-			if (imageDescriptor == null) {
-				imageDescriptor = ImageDescriptor.getMissingImageDescriptor();
-			}
-			getImageRegistry().put(key, imageDescriptor);
-			image = getImageRegistry().get(key);
-		}
-		return image;
+		return elementTypeImages.getImage(element);
 	}
 
 	/**
 	 * @generated
 	 */
 	public static ImageDescriptor getImageDescriptor(IAdaptable hint) {
-		ENamedElement element = getElement(hint);
-		if (element == null) {
-			return null;
-		}
-		return getImageDescriptor(element);
+		return getImageDescriptor(getElement(hint));
 	}
 
 	/**
 	 * @generated
 	 */
 	public static Image getImage(IAdaptable hint) {
-		ENamedElement element = getElement(hint);
-		if (element == null) {
-			return null;
-		}
-		return getImage(element);
+		return getImage(getElement(hint));
 	}
 
 	/**
@@ -237,7 +164,7 @@ public class ComponentsElementTypes {
 
 			elements.put(FMUPort_3002, ComponentsPackage.eINSTANCE.getFMUPort());
 
-			elements.put(FMUVariable_3007,
+			elements.put(FMUVariable_3009,
 					ComponentsPackage.eINSTANCE.getFMUVariable());
 
 			elements.put(EventBPort_3003,
@@ -246,7 +173,7 @@ public class ComponentsElementTypes {
 			elements.put(EventBPort_3004,
 					ComponentsPackage.eINSTANCE.getEventBPort());
 
-			elements.put(EventBVariable_3008,
+			elements.put(EventBVariable_3010,
 					ComponentsPackage.eINSTANCE.getEventBVariable());
 
 			elements.put(PortConnector_4001,
@@ -274,10 +201,10 @@ public class ComponentsElementTypes {
 			KNOWN_ELEMENT_TYPES.add(Connector_2003);
 			KNOWN_ELEMENT_TYPES.add(FMUPort_3001);
 			KNOWN_ELEMENT_TYPES.add(FMUPort_3002);
-			KNOWN_ELEMENT_TYPES.add(FMUVariable_3007);
+			KNOWN_ELEMENT_TYPES.add(FMUVariable_3009);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3003);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3004);
-			KNOWN_ELEMENT_TYPES.add(EventBVariable_3008);
+			KNOWN_ELEMENT_TYPES.add(EventBVariable_3010);
 			KNOWN_ELEMENT_TYPES.add(PortConnector_4001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
@@ -301,17 +228,52 @@ public class ComponentsElementTypes {
 		case FMUPort2EditPart.VISUAL_ID:
 			return FMUPort_3002;
 		case FMUVariableEditPart.VISUAL_ID:
-			return FMUVariable_3007;
+			return FMUVariable_3009;
 		case EventBPortEditPart.VISUAL_ID:
 			return EventBPort_3003;
 		case EventBPort2EditPart.VISUAL_ID:
 			return EventBPort_3004;
 		case EventBVariableEditPart.VISUAL_ID:
-			return EventBVariable_3008;
+			return EventBVariable_3010;
 		case PortConnectorEditPart.VISUAL_ID:
 			return PortConnector_4001;
 		}
 		return null;
 	}
+
+	/**
+	 * @generated
+	 */
+	public static final DiagramElementTypes TYPED_INSTANCE = new DiagramElementTypes(
+			elementTypeImages) {
+
+		/**
+		 * @generated
+		 */
+		@Override
+		public boolean isKnownElementType(IElementType elementType) {
+			return ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes
+					.isKnownElementType(elementType);
+		}
+
+		/**
+		 * @generated
+		 */
+		@Override
+		public IElementType getElementTypeForVisualId(int visualID) {
+			return ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes
+					.getElementType(visualID);
+		}
+
+		/**
+		 * @generated
+		 */
+		@Override
+		public ENamedElement getDefiningNamedElement(
+				IAdaptable elementTypeAdapter) {
+			return ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes
+					.getElement(elementTypeAdapter);
+		}
+	};
 
 }

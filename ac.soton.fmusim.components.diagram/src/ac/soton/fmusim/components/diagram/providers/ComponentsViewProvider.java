@@ -266,7 +266,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			return createFMUPort_3002(domainElement, containerView, index,
 					persisted, preferencesHint);
 		case FMUVariableEditPart.VISUAL_ID:
-			return createFMUVariable_3007(domainElement, containerView, index,
+			return createFMUVariable_3009(domainElement, containerView, index,
 					persisted, preferencesHint);
 		case EventBPortEditPart.VISUAL_ID:
 			return createEventBPort_3003(domainElement, containerView, index,
@@ -275,7 +275,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			return createEventBPort_3004(domainElement, containerView, index,
 					persisted, preferencesHint);
 		case EventBVariableEditPart.VISUAL_ID:
-			return createEventBVariable_3008(domainElement, containerView,
+			return createEventBVariable_3010(domainElement, containerView,
 					index, persisted, preferencesHint);
 		}
 		// can't happen, provided #provides(CreateNodeViewOperation) is correct
@@ -524,7 +524,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createFMUVariable_3007(EObject domainElement,
+	public Node createFMUVariable_3009(EObject domainElement,
 			View containerView, int index, boolean persisted,
 			PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
@@ -625,7 +625,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createEventBVariable_3008(EObject domainElement,
+	public Node createEventBVariable_3010(EObject domainElement,
 			View containerView, int index, boolean persisted,
 			PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();

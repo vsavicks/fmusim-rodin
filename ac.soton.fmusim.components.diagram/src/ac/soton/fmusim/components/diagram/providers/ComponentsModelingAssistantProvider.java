@@ -62,14 +62,14 @@ public class ComponentsModelingAssistantProvider extends
 			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
 			types.add(ComponentsElementTypes.FMUPort_3001);
 			types.add(ComponentsElementTypes.FMUPort_3002);
-			types.add(ComponentsElementTypes.FMUVariable_3007);
+			types.add(ComponentsElementTypes.FMUVariable_3009);
 			return types;
 		}
 		if (editPart instanceof EventBComponentEditPart) {
 			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
 			types.add(ComponentsElementTypes.EventBPort_3003);
 			types.add(ComponentsElementTypes.EventBPort_3004);
-			types.add(ComponentsElementTypes.EventBVariable_3008);
+			types.add(ComponentsElementTypes.EventBVariable_3010);
 			return types;
 		}
 		return Collections.EMPTY_LIST;

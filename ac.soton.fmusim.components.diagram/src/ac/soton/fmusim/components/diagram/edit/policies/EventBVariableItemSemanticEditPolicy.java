@@ -27,7 +27,7 @@ public class EventBVariableItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	public EventBVariableItemSemanticEditPolicy() {
-		super(ComponentsElementTypes.EventBVariable_3008);
+		super(ComponentsElementTypes.EventBVariable_3010);
 	}
 
 	/**

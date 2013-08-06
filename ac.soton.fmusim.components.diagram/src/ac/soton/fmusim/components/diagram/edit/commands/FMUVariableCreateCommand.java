@@ -19,8 +19,8 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.notation.View;
 
+import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsFactory;
-import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUVariable;
 
 /**
@@ -64,7 +64,7 @@ public class FMUVariableCreateCommand extends EditElementCommand {
 		FMUVariable newElement = ComponentsFactory.eINSTANCE
 				.createFMUVariable();
 
-		FMUComponent owner = (FMUComponent) getElementToEdit();
+		Component owner = (Component) getElementToEdit();
 		owner.getVariables().add(newElement);
 
 		doConfigure(newElement, monitor, info);

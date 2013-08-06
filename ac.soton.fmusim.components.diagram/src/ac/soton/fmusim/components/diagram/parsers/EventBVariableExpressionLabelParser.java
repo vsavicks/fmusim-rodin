@@ -132,7 +132,8 @@ public class EventBVariableExpressionLabelParser implements IParser {
 	private String evaluatePrintExpression(EObject self) {
 		if (self instanceof EventBVariable) {
 			EventBVariable var = (EventBVariable) self;
-			String name = var.getName() == null || var.getName().isEmpty() ? "<name>" : var.getName();
+			String name = var.getName() == null || var.getName().isEmpty() ? "<name>"
+					: var.getName();
 			String value = var.getValue() == null ? "" : (" = " + var
 					.getValue().toString());
 			return name + value;

@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.Component#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.Component#getOutputs <em>Outputs</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.Component#getVariables <em>Variables</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,5 +59,69 @@ public interface Component extends NamedElement {
 	 * @generated
 	 */
 	EList<Port> getOutputs();
+
+	/**
+	 * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
+	 * The list contents are of type {@link ac.soton.fmusim.components.AbstractVariable}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Variables</em>' containment reference list.
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponent_Variables()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	EList<AbstractVariable> getVariables();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void initialise(double tStart, double tStop);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void readInputs();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void writeOutputs();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void doStep(double time, double step);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void terminate();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void instantiate();
 
 } // Component

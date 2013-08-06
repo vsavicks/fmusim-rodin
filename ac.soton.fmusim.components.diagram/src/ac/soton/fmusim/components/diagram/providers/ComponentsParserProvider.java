@@ -96,119 +96,103 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser fMUPortNameType_5004Parser;
+	private IParser fMUPortName_5004Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getFMUPortNameType_5004Parser() {
-		if (fMUPortNameType_5004Parser == null) {
-			EAttribute[] features = new EAttribute[] {
-					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
+	private IParser getFMUPortName_5004Parser() {
+		if (fMUPortName_5004Parser == null) {
+			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
+					.getNamedElement_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features);
-			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditPattern("{0} : {1}"); //$NON-NLS-1$
-			fMUPortNameType_5004Parser = parser;
+			fMUPortName_5004Parser = parser;
 		}
-		return fMUPortNameType_5004Parser;
+		return fMUPortName_5004Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser fMUPortNameType_5005Parser;
+	private IParser fMUPortName_5005Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getFMUPortNameType_5005Parser() {
-		if (fMUPortNameType_5005Parser == null) {
-			EAttribute[] features = new EAttribute[] {
-					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
+	private IParser getFMUPortName_5005Parser() {
+		if (fMUPortName_5005Parser == null) {
+			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
+					.getNamedElement_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features);
-			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditPattern("{0} : {1}"); //$NON-NLS-1$
-			fMUPortNameType_5005Parser = parser;
+			fMUPortName_5005Parser = parser;
 		}
-		return fMUPortNameType_5005Parser;
+		return fMUPortName_5005Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private FMUVariableExpressionLabelParser fMUVariable_3007Parser;
+	private FMUVariableExpressionLabelParser fMUVariable_3009Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getFMUVariable_3007Parser() {
-		if (fMUVariable_3007Parser == null) {
-			fMUVariable_3007Parser = new FMUVariableExpressionLabelParser();
+	private IParser getFMUVariable_3009Parser() {
+		if (fMUVariable_3009Parser == null) {
+			fMUVariable_3009Parser = new FMUVariableExpressionLabelParser();
 		}
-		return fMUVariable_3007Parser;
+		return fMUVariable_3009Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser eventBPortNameType_5006Parser;
+	private IParser eventBPortName_5006Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEventBPortNameType_5006Parser() {
-		if (eventBPortNameType_5006Parser == null) {
-			EAttribute[] features = new EAttribute[] {
-					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
+	private IParser getEventBPortName_5006Parser() {
+		if (eventBPortName_5006Parser == null) {
+			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
+					.getNamedElement_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features);
-			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditPattern("{0} : {1}"); //$NON-NLS-1$
-			eventBPortNameType_5006Parser = parser;
+			eventBPortName_5006Parser = parser;
 		}
-		return eventBPortNameType_5006Parser;
+		return eventBPortName_5006Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser eventBPortNameType_5007Parser;
+	private IParser eventBPortName_5007Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEventBPortNameType_5007Parser() {
-		if (eventBPortNameType_5007Parser == null) {
-			EAttribute[] features = new EAttribute[] {
-					ComponentsPackage.eINSTANCE.getNamedElement_Name(),
-					ComponentsPackage.eINSTANCE.getAbstractVariable_Type() };
+	private IParser getEventBPortName_5007Parser() {
+		if (eventBPortName_5007Parser == null) {
+			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
+					.getNamedElement_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features);
-			parser.setViewPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditorPattern("{0} : {1}"); //$NON-NLS-1$
-			parser.setEditPattern("{0} : {1}"); //$NON-NLS-1$
-			eventBPortNameType_5007Parser = parser;
+			eventBPortName_5007Parser = parser;
 		}
-		return eventBPortNameType_5007Parser;
+		return eventBPortName_5007Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private EventBVariableExpressionLabelParser eventBVariable_3008Parser;
+	private EventBVariableExpressionLabelParser eventBVariable_3010Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getEventBVariable_3008Parser() {
-		if (eventBVariable_3008Parser == null) {
-			eventBVariable_3008Parser = new EventBVariableExpressionLabelParser();
+	private IParser getEventBVariable_3010Parser() {
+		if (eventBVariable_3010Parser == null) {
+			eventBVariable_3010Parser = new EventBVariableExpressionLabelParser();
 		}
-		return eventBVariable_3008Parser;
+		return eventBVariable_3010Parser;
 	}
 
 	/**
@@ -223,17 +207,17 @@ public class ComponentsParserProvider extends AbstractProvider implements
 		case ConnectorValueEditPart.VISUAL_ID:
 			return getConnectorLabel_5003Parser();
 		case FMUPortNameTypeEditPart.VISUAL_ID:
-			return getFMUPortNameType_5004Parser();
+			return getFMUPortName_5004Parser();
 		case FMUPortNameType2EditPart.VISUAL_ID:
-			return getFMUPortNameType_5005Parser();
+			return getFMUPortName_5005Parser();
 		case FMUVariableEditPart.VISUAL_ID:
-			return getFMUVariable_3007Parser();
+			return getFMUVariable_3009Parser();
 		case EventBPortNameTypeEditPart.VISUAL_ID:
-			return getEventBPortNameType_5006Parser();
+			return getEventBPortName_5006Parser();
 		case EventBPortNameType2EditPart.VISUAL_ID:
-			return getEventBPortNameType_5007Parser();
+			return getEventBPortName_5007Parser();
 		case EventBVariableEditPart.VISUAL_ID:
-			return getEventBVariable_3008Parser();
+			return getEventBVariable_3010Parser();
 		}
 		return null;
 	}

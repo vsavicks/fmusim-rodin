@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2013 University of Southampton.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html"
     modelDirectory="/ac.soton.fmusim.components/src" modelPluginID="ac.soton.fmusim.components"
     templateDirectory="/org.eventb.emf.core/templates" dynamicTemplates="true" modelName="Components"
@@ -22,6 +23,8 @@
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/Internal"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/None"/>
     </genEnums>
+    <genDataTypes ecoreDataType="components.ecore#//FmuClass"/>
+    <genDataTypes ecoreDataType="components.ecore#//TraceClass"/>
     <genClasses ecoreClass="components.ecore#//ComponentDiagram">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/components"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/connectors"/>
@@ -30,6 +33,19 @@
     <genClasses image="false" ecoreClass="components.ecore#//Component">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//Component/inputs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//Component/outputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//Component/variables"/>
+      <genOperations ecoreOperation="components.ecore#//Component/initialise">
+        <genParameters ecoreParameter="components.ecore#//Component/initialise/tStart"/>
+        <genParameters ecoreParameter="components.ecore#//Component/initialise/tStop"/>
+      </genOperations>
+      <genOperations ecoreOperation="components.ecore#//Component/readInputs"/>
+      <genOperations ecoreOperation="components.ecore#//Component/writeOutputs"/>
+      <genOperations ecoreOperation="components.ecore#//Component/doStep">
+        <genParameters ecoreParameter="components.ecore#//Component/doStep/time"/>
+        <genParameters ecoreParameter="components.ecore#//Component/doStep/step"/>
+      </genOperations>
+      <genOperations ecoreOperation="components.ecore#//Component/terminate"/>
+      <genOperations ecoreOperation="components.ecore#//Component/instantiate"/>
     </genClasses>
     <genClasses ecoreClass="components.ecore#//Connector">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//Connector/value"/>
@@ -47,8 +63,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/readInputsEvent"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/writeOutputsEvent"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/timeVariable"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/variables"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/updateEvent"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/trace"/>
       <genOperations ecoreOperation="components.ecore#//EventBComponent/hasValidMachineReference">
         <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/diagnostics"/>
         <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/context"/>
@@ -56,7 +72,6 @@
     </genClasses>
     <genClasses ecoreClass="components.ecore#//FMUComponent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUComponent/fmu"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//FMUComponent/variables"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUComponent/path"/>
       <genOperations ecoreOperation="components.ecore#//FMUComponent/hasValidFmuPath">
         <genParameters ecoreParameter="components.ecore#//FMUComponent/hasValidFmuPath/diagnostics"/>
@@ -67,18 +82,15 @@
     <genClasses ecoreClass="components.ecore#//EventBPort">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/eventParameter"/>
     </genClasses>
-    <genClasses ecoreClass="components.ecore#//FMUVariable">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUVariable/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUVariable/description"/>
-    </genClasses>
+    <genClasses ecoreClass="components.ecore#//FMUVariable"/>
     <genClasses image="false" ecoreClass="components.ecore#//AbstractVariable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//AbstractVariable/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//AbstractVariable/causality"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//AbstractVariable/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//AbstractVariable/description"/>
     </genClasses>
     <genClasses ecoreClass="components.ecore#//EventBVariable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBVariable/variable"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBVariable/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBVariable/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

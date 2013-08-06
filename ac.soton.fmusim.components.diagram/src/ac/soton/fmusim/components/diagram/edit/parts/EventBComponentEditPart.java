@@ -336,7 +336,7 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 					.getCreateElementRequestAdapter();
 			IElementType type = (IElementType) adapter
 					.getAdapter(IElementType.class);
-			if (type == ComponentsElementTypes.EventBVariable_3008) {
+			if (type == ComponentsElementTypes.EventBVariable_3010) {
 				return getChildBySemanticHint(ComponentsVisualIDRegistry
 						.getType(EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID));
 			}

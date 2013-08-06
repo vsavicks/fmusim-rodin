@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Port;
@@ -29,6 +30,7 @@ import ac.soton.fmusim.components.Port;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentImpl#getOutputs <em>Outputs</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.ComponentImpl#getVariables <em>Variables</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,6 +56,16 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 	 * @ordered
 	 */
 	protected EList<Port> outputs;
+
+	/**
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractVariable> variables;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,6 +115,84 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<AbstractVariable> getVariables() {
+		if (variables == null) {
+			variables = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.COMPONENT__VARIABLES);
+		}
+		return variables;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initialise(double tStart, double tStop) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void readInputs() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void writeOutputs() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void doStep(double time, double step) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void terminate() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void instantiate() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -110,6 +200,8 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 				return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
 			case ComponentsPackage.COMPONENT__OUTPUTS:
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
+			case ComponentsPackage.COMPONENT__VARIABLES:
+				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -126,6 +218,8 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 				return getInputs();
 			case ComponentsPackage.COMPONENT__OUTPUTS:
 				return getOutputs();
+			case ComponentsPackage.COMPONENT__VARIABLES:
+				return getVariables();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -147,6 +241,10 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 				getOutputs().clear();
 				getOutputs().addAll((Collection<? extends Port>)newValue);
 				return;
+			case ComponentsPackage.COMPONENT__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -165,6 +263,9 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 			case ComponentsPackage.COMPONENT__OUTPUTS:
 				getOutputs().clear();
 				return;
+			case ComponentsPackage.COMPONENT__VARIABLES:
+				getVariables().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -181,6 +282,8 @@ public abstract class ComponentImpl extends NamedElementImpl implements Componen
 				return inputs != null && !inputs.isEmpty();
 			case ComponentsPackage.COMPONENT__OUTPUTS:
 				return outputs != null && !outputs.isEmpty();
+			case ComponentsPackage.COMPONENT__VARIABLES:
+				return variables != null && !variables.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

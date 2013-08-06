@@ -72,6 +72,7 @@ public class EventBComponentItemProvider
 			addWriteOutputsEventPropertyDescriptor(object);
 			addTimeVariablePropertyDescriptor(object);
 			addUpdateEventPropertyDescriptor(object);
+			addTracePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -231,6 +232,28 @@ public class EventBComponentItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Trace feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTracePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBComponent_trace_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_trace_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__TRACE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -244,7 +267,7 @@ public class EventBComponentItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__INPUTS);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__OUTPUTS);
-			childrenFeatures.add(ComponentsPackage.Literals.EVENT_BCOMPONENT__VARIABLES);
+			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__VARIABLES);
 		}
 		return childrenFeatures;
 	}
@@ -350,7 +373,22 @@ public class EventBComponentItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ComponentsPackage.Literals.EVENT_BCOMPONENT__VARIABLES,
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createFMUPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createEventBPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createFMUVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
 				 ComponentsFactory.eINSTANCE.createEventBVariable()));
 	}
 
@@ -367,7 +405,8 @@ public class EventBComponentItemProvider
 
 		boolean qualify =
 			childFeature == ComponentsPackage.Literals.COMPONENT__INPUTS ||
-			childFeature == ComponentsPackage.Literals.COMPONENT__OUTPUTS;
+			childFeature == ComponentsPackage.Literals.COMPONENT__OUTPUTS ||
+			childFeature == ComponentsPackage.Literals.COMPONENT__VARIABLES;
 
 		if (qualify) {
 			return getString

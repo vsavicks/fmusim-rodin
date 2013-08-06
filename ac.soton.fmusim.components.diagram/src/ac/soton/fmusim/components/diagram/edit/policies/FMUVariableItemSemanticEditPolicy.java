@@ -27,7 +27,7 @@ public class FMUVariableItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	public FMUVariableItemSemanticEditPolicy() {
-		super(ComponentsElementTypes.FMUVariable_3007);
+		super(ComponentsElementTypes.FMUVariable_3009);
 	}
 
 	/**

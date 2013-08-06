@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfmap:Mapping
-    xmi:version="2.0"
+<gmfmap:Mapping xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
@@ -46,13 +45,11 @@
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
               readOnly="true"
-              viewPattern="{0} : {1}">
+              viewPattern="">
             <diagramLabel
                 href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
-            <features
-                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -82,14 +79,11 @@
           </domainInitializer>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
-              readOnly="true"
-              viewPattern="{0} : {1}">
+              readOnly="true">
             <diagramLabel
                 href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
-            <features
-                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -101,7 +95,7 @@
       <children
           compartment="//@nodes.0/@ownedChild/@compartments.0">
         <containmentFeature
-            href="components.ecore#//FMUComponent/variables"/>
+            href="components.ecore#//Component/variables"/>
         <ownedChild>
           <domainMetaElement
               href="components.ecore#//FMUVariable"/>
@@ -168,13 +162,11 @@
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
               readOnly="true"
-              viewPattern="{0} : {1}">
+              viewPattern="">
             <diagramLabel
                 href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
-            <features
-                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -205,15 +197,13 @@
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
               readOnly="true"
-              viewPattern="{0} : {1}"
+              viewPattern=""
               editorPattern=""
               editPattern="">
             <diagramLabel
                 href="components.gmfgraph#PortLabel"/>
             <features
                 href="components.ecore#//NamedElement/name"/>
-            <features
-                href="components.ecore#//AbstractVariable/type"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -225,7 +215,7 @@
       <children
           compartment="//@nodes.1/@ownedChild/@compartments.0">
         <containmentFeature
-            href="components.ecore#//EventBComponent/variables"/>
+            href="components.ecore#//Component/variables"/>
         <ownedChild>
           <domainMetaElement
               href="components.ecore#//EventBVariable"/>

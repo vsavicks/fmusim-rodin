@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
@@ -89,23 +90,23 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		providers.add(new ColumnProvider("Name", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return ((FMUVariable) element).getName();
+				return ((AbstractVariable) element).getName();
 			}}));
 		providers.add(new ColumnProvider("Type", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return ((FMUVariable) element).getType().toString();
+				return ((AbstractVariable) element).getType().toString();
 			}}));
 		providers.add(new ColumnProvider("Value", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				Object value = ((FMUVariable) element).getValue();
+				Object value = ((AbstractVariable) element).getValue();
 				return value == null ? null : value.toString();
 			}}));
 		providers.add(new ColumnProvider("Description", 200, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return ((FMUVariable) element).getDescription();
+				return ((AbstractVariable) element).getDescription();
 			}}));
 		return providers;
 	}

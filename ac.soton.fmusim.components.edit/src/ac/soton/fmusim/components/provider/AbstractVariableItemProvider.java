@@ -65,6 +65,8 @@ public class AbstractVariableItemProvider
 
 			addTypePropertyDescriptor(object);
 			addCausalityPropertyDescriptor(object);
+			addValuePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -114,6 +116,50 @@ public class AbstractVariableItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Value feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValuePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AbstractVariable_value_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractVariable_value_feature", "_UI_AbstractVariable_type"),
+				 ComponentsPackage.Literals.ABSTRACT_VARIABLE__VALUE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AbstractVariable_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractVariable_description_feature", "_UI_AbstractVariable_type"),
+				 ComponentsPackage.Literals.ABSTRACT_VARIABLE__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -141,6 +187,8 @@ public class AbstractVariableItemProvider
 		switch (notification.getFeatureID(AbstractVariable.class)) {
 			case ComponentsPackage.ABSTRACT_VARIABLE__TYPE:
 			case ComponentsPackage.ABSTRACT_VARIABLE__CAUSALITY:
+			case ComponentsPackage.ABSTRACT_VARIABLE__VALUE:
+			case ComponentsPackage.ABSTRACT_VARIABLE__DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

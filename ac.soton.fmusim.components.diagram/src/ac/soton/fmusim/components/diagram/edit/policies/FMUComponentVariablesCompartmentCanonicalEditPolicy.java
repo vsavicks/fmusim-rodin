@@ -56,7 +56,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 	 * @generated
 	 */
 	protected EStructuralFeature getFeatureToSynchronize() {
-		return ComponentsPackage.eINSTANCE.getFMUComponent_Variables();
+		return ComponentsPackage.eINSTANCE.getComponent_Variables();
 	}
 
 	/**

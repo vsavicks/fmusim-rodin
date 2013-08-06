@@ -56,7 +56,7 @@ public class EventBComponentEventBVariablesCompartmentCanonicalEditPolicy
 	 * @generated
 	 */
 	protected EStructuralFeature getFeatureToSynchronize() {
-		return ComponentsPackage.eINSTANCE.getEventBComponent_Variables();
+		return ComponentsPackage.eINSTANCE.getComponent_Variables();
 	}
 
 	/**

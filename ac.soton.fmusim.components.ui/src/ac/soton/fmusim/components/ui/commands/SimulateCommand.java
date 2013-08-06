@@ -8,9 +8,12 @@
 package ac.soton.fmusim.components.ui.commands;
 
 
+import java.io.File;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -95,7 +98,7 @@ public class SimulateCommand extends AbstractHandler {
 	 */
 	private void simulate(final double endTime, double step, final ComponentDiagram diagram, IProgressMonitor monitor) {
 
-		new Master().simulate(diagram, endTime, step);
+		new Master(diagram, 0, endTime, step, 0, new File("/Users/vitaly/results.csv")).simulateAll();
 		
 //		FMIMaster master = new FMIMaster();
 //		master.simulate(diagram, endTime, step);

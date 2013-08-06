@@ -30,7 +30,7 @@ public class FMUComponentVariablesCompartmentItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (ComponentsElementTypes.FMUVariable_3007 == req.getElementType()) {
+		if (ComponentsElementTypes.FMUVariable_3009 == req.getElementType()) {
 			return getGEFWrapper(new FMUVariableCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

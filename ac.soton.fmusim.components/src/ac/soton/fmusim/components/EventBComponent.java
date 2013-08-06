@@ -10,11 +10,12 @@ package ac.soton.fmusim.components;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.EList;
 import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.Variable;
+
+import de.prob.statespace.Trace;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,8 +30,8 @@ import org.eventb.emf.core.machine.Variable;
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent <em>Write Outputs Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getVariables <em>Variables</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}</li>
  * </ul>
  * </p>
  *
@@ -170,22 +171,6 @@ public interface EventBComponent extends AbstractExtension, Component {
 	void setTimeVariable(Variable value);
 
 	/**
-	 * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
-	 * The list contents are of type {@link ac.soton.fmusim.components.EventBVariable}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Variables</em>' containment reference list.
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_Variables()
-	 * @model containment="true" resolveProxies="true"
-	 * @generated
-	 */
-	EList<EventBVariable> getVariables();
-
-	/**
 	 * Returns the value of the '<em><b>Update Event</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -210,6 +195,32 @@ public interface EventBComponent extends AbstractExtension, Component {
 	 * @generated
 	 */
 	void setUpdateEvent(Event value);
+
+	/**
+	 * Returns the value of the '<em><b>Trace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Trace</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Trace</em>' attribute.
+	 * @see #setTrace(Trace)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_Trace()
+	 * @model dataType="ac.soton.fmusim.components.TraceClass" transient="true"
+	 * @generated
+	 */
+	Trace getTrace();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Trace</em>' attribute.
+	 * @see #getTrace()
+	 * @generated
+	 */
+	void setTrace(Trace value);
 
 	/**
 	 * <!-- begin-user-doc -->

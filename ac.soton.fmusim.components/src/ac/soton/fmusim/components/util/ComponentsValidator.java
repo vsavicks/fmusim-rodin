@@ -7,6 +7,7 @@
  */
 package ac.soton.fmusim.components.util;
 
+import ac.soton.fmusim.components.*;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.Diagnostic;
@@ -31,6 +32,8 @@ import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import de.prob.cosimulation.FMU;
+import de.prob.statespace.Trace;
 
 /**
  * <!-- begin-user-doc -->
@@ -148,6 +151,10 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateVariableType((VariableType)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
 				return validateVariableCausality((VariableCausality)value, diagnostics, context);
+			case ComponentsPackage.FMU_CLASS:
+				return validateFmuClass((FMU)value, diagnostics, context);
+			case ComponentsPackage.TRACE_CLASS:
+				return validateTraceClass((Trace)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -410,6 +417,24 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateVariableCausality(VariableCausality variableCausality, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateFmuClass(FMU fmuClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTraceClass(Trace traceClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

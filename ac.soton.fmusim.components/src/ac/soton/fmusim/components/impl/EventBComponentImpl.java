@@ -28,13 +28,14 @@ import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.Variable;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBComponent;
-import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.util.ComponentsValidator;
+import de.prob.statespace.Trace;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,13 +47,14 @@ import ac.soton.fmusim.components.util.ComponentsValidator;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getName <em>Name</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getOutputs <em>Outputs</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#isComposed <em>Composed</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getMachine <em>Machine</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getReadInputsEvent <em>Read Inputs Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getWriteOutputsEvent <em>Write Outputs Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getUpdateEvent <em>Update Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTrace <em>Trace</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,6 +100,16 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected EList<Port> outputs;
+
+	/**
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractVariable> variables;
 
 	/**
 	 * The default value of the '{@link #isComposed() <em>Composed</em>}' attribute.
@@ -160,16 +172,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	protected Variable timeVariable;
 
 	/**
-	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVariables()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<EventBVariable> variables;
-
-	/**
 	 * The cached value of the '{@link #getUpdateEvent() <em>Update Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -178,6 +180,26 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected Event updateEvent;
+
+	/**
+	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTrace()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Trace TRACE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTrace()
+	 * @generated
+	 * @ordered
+	 */
+	protected Trace trace = TRACE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -424,9 +446,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EventBVariable> getVariables() {
+	public EList<AbstractVariable> getVariables() {
 		if (variables == null) {
-			variables = new EObjectContainmentEList.Resolving<EventBVariable>(EventBVariable.class, this, ComponentsPackage.EVENT_BCOMPONENT__VARIABLES);
+			variables = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.EVENT_BCOMPONENT__VARIABLES);
 		}
 		return variables;
 	}
@@ -471,6 +493,27 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Trace getTrace() {
+		return trace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTrace(Trace newTrace) {
+		Trace oldTrace = trace;
+		trace = newTrace;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__TRACE, oldTrace, trace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * Event-B Component must have a valid reference to an existing machine.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
@@ -505,6 +548,72 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public void initialise(double tStart, double tStop) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void readInputs() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void writeOutputs() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void doStep(double time, double step) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void terminate() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void instantiate() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -532,6 +641,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return getInputs();
 			case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS:
 				return getOutputs();
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				return getVariables();
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				return isComposed();
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
@@ -546,11 +657,11 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				if (resolve) return getTimeVariable();
 				return basicGetTimeVariable();
-			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
-				return getVariables();
 			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
 				if (resolve) return getUpdateEvent();
 				return basicGetUpdateEvent();
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
+				return getTrace();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -575,6 +686,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				getOutputs().clear();
 				getOutputs().addAll((Collection<? extends Port>)newValue);
 				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
+				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				setComposed((Boolean)newValue);
 				return;
@@ -590,12 +705,11 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)newValue);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
-				getVariables().clear();
-				getVariables().addAll((Collection<? extends EventBVariable>)newValue);
-				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
 				setUpdateEvent((Event)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
+				setTrace((Trace)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -618,6 +732,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS:
 				getOutputs().clear();
 				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				getVariables().clear();
+				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				setComposed(COMPOSED_EDEFAULT);
 				return;
@@ -633,11 +750,11 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)null);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
-				getVariables().clear();
-				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
 				setUpdateEvent((Event)null);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
+				setTrace(TRACE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -657,6 +774,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return inputs != null && !inputs.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS:
 				return outputs != null && !outputs.isEmpty();
+			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
+				return variables != null && !variables.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				return composed != COMPOSED_EDEFAULT;
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
@@ -667,10 +786,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return writeOutputsEvent != null;
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				return timeVariable != null;
-			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
-				return variables != null && !variables.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
 				return updateEvent != null;
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
+				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -692,6 +811,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			switch (derivedFeatureID) {
 				case ComponentsPackage.EVENT_BCOMPONENT__INPUTS: return ComponentsPackage.COMPONENT__INPUTS;
 				case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS: return ComponentsPackage.COMPONENT__OUTPUTS;
+				case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES: return ComponentsPackage.COMPONENT__VARIABLES;
 				default: return -1;
 			}
 		}
@@ -715,6 +835,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			switch (baseFeatureID) {
 				case ComponentsPackage.COMPONENT__INPUTS: return ComponentsPackage.EVENT_BCOMPONENT__INPUTS;
 				case ComponentsPackage.COMPONENT__OUTPUTS: return ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS;
+				case ComponentsPackage.COMPONENT__VARIABLES: return ComponentsPackage.EVENT_BCOMPONENT__VARIABLES;
 				default: return -1;
 			}
 		}
@@ -735,6 +856,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		result.append(name);
 		result.append(", composed: ");
 		result.append(composed);
+		result.append(", trace: ");
+		result.append(trace);
 		result.append(')');
 		return result.toString();
 	}

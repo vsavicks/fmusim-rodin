@@ -7,36 +7,50 @@
  */
 package ac.soton.fmusim.components.master;
 
-import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eventb.core.IEventBRoot;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
+import org.rodinp.core.IRodinFile;
+import org.rodinp.core.RodinCore;
 
-import de.prob.cosimulation.FMU;
-import de.prob.statespace.OpInfo;
-import de.prob.statespace.Trace;
-import de.prob.webconsole.GroovyExecution;
-import de.prob.webconsole.ServletContextListener;
-
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.VariableType;
+
+import com.google.inject.Injector;
+
+import de.be4.classicalb.core.parser.exceptions.BException;
+import de.prob.animator.command.LoadEventBCommand;
+import de.prob.animator.command.StartAnimationCommand;
+import de.prob.cosimulation.FMU;
+import de.prob.model.eventb.EventBModel;
+import de.prob.rodin.translate.EventBTranslator;
+import de.prob.scripting.EventBFactory;
+import de.prob.statespace.OpInfo;
+import de.prob.statespace.StateSpace;
+import de.prob.statespace.Trace;
+import de.prob.ui.eventb.internal.TranslatorFactory;
+import de.prob.webconsole.ServletContextListener;
 
 /**
  * Master algorithm for FMU-EventB co-simulation
@@ -47,94 +61,82 @@ import ac.soton.fmusim.components.Port;
  */
 public class Master {
 
-	private static final int DOUBLE_PRECISION = 3;
-	private static GroovyExecution groovy;
-	private static Map<EventBComponent, Trace> traces;
+	private static final String SEPARATOR = ",";
 
 	/**
-	 * Constructor.
-	 * Creates a Groovy executor.
+	 * Master exception thrown if simulation goes wrong.
+	 * 
+	 * @author vitaly
+	 *
 	 */
-	public Master() {
-		initGroovy();
-		initMappings();
-	}
-	
-	/**
-	 * Initialises Groovy for script execution.
-	 */
-	private void initGroovy() {
-		if (groovy == null) {
-			groovy = ServletContextListener.INJECTOR.getInstance(GroovyExecution.class); 
-			groovy.runScript(readScript("eventb_load.groovy"));
+	@SuppressWarnings("serial")
+	public class MasterException extends Exception {
+		public MasterException(String string) {
+			super(string);
 		}
 	}
 
+	private ComponentDiagram diagram;
+	private double tCurrent;
+	private double tStart;
+	private double tStop;
+	private double step;
+	private int precision;
+	private File resultFile;
+	private BufferedWriter resultOut;
+	private Map<Component, Trace> traces;
+
 	/**
-	 * Initialises mappings.
+	 * Constructs master simulation instance
+	 * that can be used to drive the simulation.
+	 * 
+	 * @param diagram component diagram that defines component composition graph
+	 * @param tStart simulation start time
+	 * @param tStop simulation stop time
+	 * @param step simulation step size
+	 * @param precision precision of the conversion from Event-B integer to FMU real type and back
+	 * @param resultFile simulation results output file
 	 */
-	private void initMappings() {
-		if (traces == null)
-			traces = new HashMap<EventBComponent, Trace>();
+	public Master(ComponentDiagram diagram, double tStart, double tStop, double step, int precision, File resultFile) {
+		this.diagram = diagram;
+		this.tStart = tStart;
+		this.tStop = tStop;
+		this.step = step;
+		this.precision = precision;
+		this.resultFile = resultFile;
+		traces = new HashMap<Component, Trace>();
 	}
 
 	/**
-	 * Reads a Groovy script into a string.
-	 * 
-	 * @param scriptName
-	 * @return
+	 * Runs the simulation to completion.
 	 */
-	private String readScript(String scriptName) {
+	public void simulateAll() {
+		// instantiate components
 		try {
-			String path = getScriptPath(scriptName);
-			URL url = new URL(path);
-			InputStream inputStream = url.openConnection().getInputStream();
-			BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-			Scanner scanner = new Scanner(in);
-			String script = scanner.useDelimiter("\\Z").next();
-			scanner.close();
-			return script;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+			for (Component c : diagram.getComponents())
+				apiInstantiate(c);
+		} catch (MasterException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//TODO: terminate instantiated fmus
+			return;
 		}
-		return null;
-	}
-
-	/**
-	 * Returns full path to a script.
-	 * 
-	 * @param scriptName
-	 * @return
-	 */
-	private String getScriptPath(String scriptName) {
-		//TODO: find actual script
-		return "platform:/plugin/ac.soton.fmusim.components.master/src/main/groovy/ac/soton/fmusim/components/master/" + scriptName;
-	}
-
-	/**
-	 * Simulates a component diagram.
-	 * 
-	 * @param diagram component diagram model
-	 * @param endTime simulation stop time
-	 * @param step step size
-	 */
-	public void simulate(ComponentDiagram diagram, double endTime, double step) {
-		assert groovy != null;
-		assert traces != null;
-		traces.clear();
 		
-		double currentTime = 0.0;
+		// create output file
+		resultOut = apiCreateOutput((File) resultFile);
+		if (resultOut != null) {
+			apiOutputColumns(diagram, resultOut);
+			apiOutput(diagram, tStart, resultOut);
+		}
 		
 		// initialisation step
 		for (Component c : diagram.getComponents())
-			apiInitialise(c, currentTime, endTime);
+			apiInitialise(c, tStart, tStop);
+		
+		// set simulation time
+		tCurrent = tStart;
 
 		// simulation loop
-		while (currentTime < endTime) {
+		while (tCurrent < tStop) {
 			
 			// read port values
 			for (Component c : diagram.getComponents())
@@ -146,15 +148,154 @@ public class Master {
 			
 			// do step
 			for (Component c : diagram.getComponents())
-				apiDoStep(c, currentTime, step);
+				apiDoStep(c, tCurrent, step);
 			
 			// progress the time
-			currentTime += step;
+			tCurrent += step;
+			
+			// write output
+			apiOutput(diagram, tCurrent, resultOut);
 		}
-		
+
 		// termination step
 		for (Component c : diagram.getComponents())
 			apiTerminate(c);
+		
+		// close file
+		try {
+			resultOut.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void apiOutputColumns(ComponentDiagram diagram, BufferedWriter writer) {
+		try {
+			writer.write("time");
+			for (Component c : diagram.getComponents()) {
+				String name = c.getName();
+//				for (Port p : c.getInputs())
+//					writer.write(SEPARATOR + name + "." + p.getName());
+				for (AbstractVariable v : c.getVariables())
+					writer.write(SEPARATOR + name + "." + v.getName());
+//				for (Port p : c.getOutputs())
+//					writer.write(SEPARATOR + name + "." + p.getName());
+			}
+			writer.write('\n');
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void apiOutput(ComponentDiagram diagram, double time, BufferedWriter writer) {
+		try {
+			writer.write(Double.toString(time));
+			for (Component c : diagram.getComponents()) {
+//				for (Port p : c.getInputs())
+//					writer.write(SEPARATOR + p.getValue());
+				for (AbstractVariable v : c.getVariables()) {
+					//XXX: replace with elegant converion to int
+					Object value = v.getValue();
+					if ("TRUE".equals(value.toString()))
+						value = 1;
+					else if ("FALSE".equals(value.toString()))
+						value = 0;
+					
+					writer.write(SEPARATOR + value);
+				}
+//				for (Port p : c.getOutputs())
+//					writer.write(SEPARATOR + p.getValue());
+			}
+			writer.write('\n');
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private BufferedWriter apiCreateOutput(File file) {
+		try {
+			if (!file.exists())
+				file.createNewFile();
+			return new BufferedWriter(new FileWriter((File) file));
+		} catch (IOException e) {
+			e.printStackTrace();
+			//TODO: log output file error
+			return null;
+		}
+	}
+
+	private void apiInstantiate(Component component) throws MasterException {
+		if (component instanceof FMUComponent)
+			apiInstantiateFMU((FMUComponent) component);
+		else if (component instanceof EventBComponent)
+			apiInstantiateEventB((EventBComponent) component);
+	}
+
+	/**
+	 * Instantiates an FMU component.
+	 * Essentially, loads an FMU file attached to this component.
+	 * 
+	 * @param component
+	 * @throws MasterException if loading an FMU file failed
+	 */
+	private void apiInstantiateFMU(FMUComponent component) throws MasterException {
+		try {
+			FMU fmu = component.getFmu();
+//			if (fmu == null)
+				fmu = new FMU(component.getPath());
+			component.setFmu(fmu);
+		} catch (IOException e) {
+			throw new MasterException("Failed to load FMU: "+ component.getPath() + '\n' + e.getMessage());
+		}
+	}
+
+	/**
+	 * Instantiates a machine component,
+	 * i.e. loads a machine file as a ProB animation trace.
+	 * 
+	 * @param component
+	 * @throws MasterException 
+	 */
+	private void apiInstantiateEventB(EventBComponent component) throws MasterException {
+		final IEventBRoot machineRoot = getMachineRoot(component.getMachine());
+		if (machineRoot == null)
+			throw new MasterException("Cannot load machine component '" + component.getName()
+					+ "'. Machine root cannot be determined.");
+		
+		EventBTranslator eventBTranslator = new EventBTranslator(machineRoot);
+
+		Injector injector = ServletContextListener.INJECTOR;
+
+		final EventBFactory instance = injector
+				.getInstance(EventBFactory.class);
+
+		EventBModel model = instance.load(eventBTranslator.getMainComponent(),
+				eventBTranslator.getMachines(), eventBTranslator.getContexts(),
+				eventBTranslator.getModelFile());
+
+		StringWriter writer = new StringWriter();
+		PrintWriter pto = new PrintWriter(writer);
+		try {
+			TranslatorFactory.translate(machineRoot, pto);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+
+		StateSpace s = model.getStatespace();
+		
+		Pattern p2 = Pattern.compile("^package\\((.*?)\\)\\.");
+		Matcher m2 = p2.matcher(writer.toString());
+		m2.find();
+		String cmd = m2.group(1);
+
+		s.execute(new LoadEventBCommand(cmd));
+		s.execute(new StartAnimationCommand());
+
+		Trace t = new Trace(s);
+		traces.put(component, t);
 	}
 
 	/**
@@ -181,43 +322,48 @@ public class Master {
 	private void apiInitialiseFMU(FMUComponent component, double tStart, double tStop) {
 		FMU fmu = (FMU) component.getFmu();
 		fmu.initialize(tStart, tStop);
+		
+		// update variables
+		for (AbstractVariable v : component.getVariables())
+			v.setValue(getValueFMU(fmu, v));
 	}
 
 	/**
 	 * Initialises Event-B component.
-	 * Loads an Event-B machine using Groovy API
-	 * and execute first two events: 1) setup constants, 2) initalisation
+	 * Executes first two events: setup constants and initialisation.
 	 * 
 	 * @param component
 	 */
 	private void apiInitialiseEventB(EventBComponent component) {
-		String machinePath = getMachinePath(component.getMachine());
-		if (machinePath == null)
-			throw new RuntimeException("Cannot load machine component '" + component.getName()
-					+ "'. Machine path cannot be determined.");
-
-		groovy.getBindings().setVariable("machinePath", machinePath);
-		groovy.runScript(
-				"trace = api.eventb_load(\"$machinePath\") as Trace;"+
-				"trace = ctrl.anyEvent();"+
-				"trace = ctrl.anyEvent();");
-		Trace trace = (Trace) groovy.getBindings().getVariable("trace");
+		Trace trace = traces.get(component);
+		assert trace != null;
+		trace = trace.anyEvent(null).anyEvent(null);
+		
+		// update variables
+		for (AbstractVariable v : component.getVariables())
+			v.setValue(trace.getCurrentState().value(v.getName()));
+		
+		// update trace
 		traces.put(component, trace);
 	}
-
+	
 	/**
-	 * Returns the absolute path of the Event-B machine.
+	 * Returns Event-B Root element of a machine.
 	 * @param machine
 	 * @return
 	 */
-	private String getMachinePath(Machine machine) {
+	private IEventBRoot getMachineRoot(Machine machine) {
 		Resource resource = machine.eResource();
 		if (resource != null) {
 			URI uri = resource.getURI();
 			if (uri.isPlatformResource()) {
-				return uri.toFileString();
+				IFile file = WorkspaceSynchronizer.getFile(resource);
+				IRodinFile rodinFile = RodinCore.valueOf(file);
+				if (rodinFile != null) {
+					return (IEventBRoot) rodinFile.getRoot();
+				}
 			}
-			//TODO: get path for a non-platform resource (outside of the workspace)
+			//TODO: root for a non-workspace resource?
 		}
 		return null;
 	}
@@ -246,11 +392,14 @@ public class Master {
 	private void apiDoStepFMU(FMUComponent component, double time, double step) {
 		FMU fmu = (FMU) component.getFmu();
 		fmu.doStep(time, step);
+		for (AbstractVariable v : component.getVariables())
+			v.setValue(getValueFMU(fmu, v));
 	}
 	
 	/**
 	 * Runs a simulation step of Event-B component.
-	 * Executes non-deterministically a number of events until an update event is enabled.
+	 * Executes non-deterministically a number of events until an update event is enabled,
+	 * then execute update and returns.
 	 * 
 	 * @param component
 	 * @param time - not used at the moment
@@ -258,15 +407,18 @@ public class Master {
 	 */
 	private void apiDoStepEventB(EventBComponent component, double time, double step) {
 		Trace trace = traces.get(component);
+		assert trace != null;
 		Event updateEvent = component.getUpdateEvent();
+		assert updateEvent != null;
+		
 		String updateEventName = updateEvent.getName();
 		boolean update = false;
 		while (!update) {
-			Set<OpInfo> transitions = trace.getNextTransitions();
 			
-			// find update event
-			for (OpInfo op : transitions) {
-				if (updateEventName.equals(op.name)) {
+			// find and execute update event
+			for (OpInfo op : trace.getNextTransitions()) {
+				if (op.name.equals(updateEventName)) {
+					trace = trace.add(op.id);
 					update = true;
 					break;
 				}
@@ -277,7 +429,11 @@ public class Master {
 				trace = trace.anyEvent(null);
 		}
 		
-		// update recorded trace
+		// update variables
+		for (AbstractVariable v : component.getVariables())
+			v.setValue(trace.getCurrentState().value(v.getName()));
+		
+		// update trace
 		traces.put(component, trace);
 	}
 
@@ -301,27 +457,39 @@ public class Master {
 	private void apiReadPortsFMU(FMUComponent component) {
 		FMU fmu = (FMU) component.getFmu();
 		for (Port port : component.getOutputs()) {
+			Object value = getValueFMU(fmu, port);
 			Connector connector = port.getConnector();
-			if (connector == null)
-				continue;
-			String name = port.getName();
-			Object value = null;
-			switch (port.getType()) {
-			case BOOLEAN:
-				value = fmu.getBoolean(name);
-				break;
-			case INTEGER:
-				value = fmu.getInt(name);
-				break;
-			case REAL:
-				value = fmu.getDouble(name);
-				break;
-			case STRING:
-				value = fmu.getString(name);
-				break;
-			}
-			connector.setValue(value);
+			if (connector != null)
+				connector.setValue(value);
+			port.setValue(value);
 		}
+	}
+
+	/**
+	 * Returns FMU variable's value.
+	 * 
+	 * @param fmu
+	 * @param variable
+	 * @return
+	 */
+	private Object getValueFMU(FMU fmu, AbstractVariable variable) {
+		String name = variable.getName();
+		Object value = null;
+		switch (variable.getType()) {
+		case BOOLEAN:
+			value  = fmu.getBoolean(name);
+			break;
+		case INTEGER:
+			value = fmu.getInt(name);
+			break;
+		case REAL:
+			value = fmu.getDouble(name);
+			break;
+		case STRING:
+			value = fmu.getString(name);
+			break;
+		}
+		return value;
 	}
 
 	/**
@@ -331,28 +499,78 @@ public class Master {
 	 */
 	private void apiReadPortsEventB(EventBComponent component) {
 		Trace trace = traces.get(component);
+		assert trace != null;
+		
+		// if write outputs event specified and enabled, execute it
+		if (component.getWriteOutputsEvent() != null) {
+			try {
+				OpInfo op = findEnabled(trace, component.getWriteOutputsEvent().getName());
+				if (op != null)
+					trace = trace.add(op.name, "TRUE=TRUE");
+			} catch (BException e) {
+				//FIXME: no graceful fail recovery
+				e.printStackTrace();
+				return;
+				//XXX: what to do if event is specified, but not enabled?
+			}
+		}
+		
+		// read values from Event-B to connectors
 		for (Port port : component.getOutputs()) {
 			Connector connector = port.getConnector();
 			if (connector == null)
 				continue;
-			String name = port.getName();
-			Object value = trace.getCurrentState().value(name);
-			switch (port.getType()) {
-			case BOOLEAN:
-				value = getBooleanFromEventB(trace, name);
-				break;
-			case INTEGER:
-				value = getIntegerFromEventB(trace, name);
-				break;
-			case REAL:
-				value = getDoubleFromEventB(trace, name, DOUBLE_PRECISION);
-				break;
-			case STRING:
-				value = getStringFromEventB(trace, name);
-				break;
-			}
+			Object value = getValueEventB(trace, port, precision);
 			connector.setValue(value);
+//			port.setValue(value);
 		}
+
+		// update trace
+		traces.put(component, trace);
+	}
+
+	/**
+	 * Returns variable value from Event-B.
+	 * 
+	 * @param trace
+	 * @param variable
+	 * @param precision Event-B variable (int) to double conversion precision
+	 * @return
+	 */
+	private Object getValueEventB(Trace trace, AbstractVariable variable, int precision) {
+		String name = variable.getName();
+		Object value = null;
+		switch (variable.getType()) {
+		case BOOLEAN:
+			value = getBooleanFromEventB(trace, name);
+			break;
+		case INTEGER:
+			value = getIntegerFromEventB(trace, name);
+			break;
+		case REAL:
+			value = getDoubleFromEventB(trace, name, precision);
+			break;
+		case STRING:
+			value = getStringFromEventB(trace, name);
+			break;
+		}
+		return value;
+	}
+
+	/**
+	 * Returns enabled event by name.
+	 * 
+	 * @param trace
+	 * @param eventName
+	 * @return
+	 */
+	private OpInfo findEnabled(Trace trace, String eventName) {
+		for (OpInfo op : trace.getNextTransitions()) {
+			if (op.name.equals(eventName)) {
+				return op;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -378,22 +596,35 @@ public class Master {
 			Connector connector = port.getConnector();
 			if (connector == null)
 				continue;
-			String name = port.getName();
 			Object value = connector.getValue();
-			switch (port.getType()) {
-			case BOOLEAN:
-				fmu.set(name, (Boolean) value);
-				break;
-			case INTEGER:
-				fmu.set(name, (Integer) value);
-				break;
-			case REAL:
-				fmu.set(name, (Double) value);
-				break;
-			case STRING:
-				fmu.set(name, (String) value);
-				break;
-			}
+			setValueFMU(fmu, port, value);
+			port.setValue(value);
+		}
+	}
+
+	/**
+	 * Sets value to FMU variable.
+	 * 
+	 * @param fmu
+	 * @param port
+	 * @param value
+	 * @return
+	 */
+	private void setValueFMU(FMU fmu, AbstractVariable variable, Object value) {
+		String name = variable.getName();
+		switch (variable.getType()) {
+		case BOOLEAN:
+			fmu.set(name, (Boolean) value);
+			break;
+		case INTEGER:
+			fmu.set(name, (Integer) value);
+			break;
+		case REAL:
+			fmu.set(name, (Double) value);
+			break;
+		case STRING:
+			fmu.set(name, (String) value);
+			break;
 		}
 	}
 	
@@ -403,12 +634,29 @@ public class Master {
 	 * @param component
 	 */
 	private void apiWritePortsEventB(EventBComponent component) {
+		// if no read inputs event specified, skip
+		if (component.getReadInputsEvent() == null)
+			return;
+
 		Trace trace = traces.get(component);
-		List<String> params = new ArrayList<String>();
+		assert trace != null;
+		
+		// if read inputs event not enabled, also skip
+		//XXX: is it an invalid state if not enabled?
+		String eventName = component.getReadInputsEvent().getName();
+		OpInfo op = findEnabled(trace, eventName);
+		if (op == null)
+			return;
+		
+		// build parameter predicate for event execution
+		// including only parameter values for the ports
+		// that are connected to a feeding connector
+		StringBuilder params = new StringBuilder("TRUE=TRUE");
 		for (Port port : component.getInputs()) {
 			Connector connector = port.getConnector();
 			if (connector == null)
 				continue;
+
 			String name = port.getName();
 			Object value = connector.getValue();
 			String bValue = null;
@@ -420,16 +668,35 @@ public class Master {
 				bValue = getIntegerToEventB((Integer) value);
 				break;
 			case REAL:
-				bValue = getDoubleToEventB((Double) value, DOUBLE_PRECISION);
+				bValue = getDoubleToEventB((Double) value, precision);
 				break;
 			case STRING:
 				bValue = getStringToEventB((String) value);
 				break;
 			}
-			params.add(name + "=" + bValue);
+//			port.setValue(value);
+			
+			// add param to params string
+			params.append("&" + name + "=" + bValue);
 		}
-		trace = trace.add(component.getReadInputsEvent().getName(), params);
 		
+		// execute 'read inputs' event with calculated parameters
+		try {
+//			if (trace.getNextTransitions().iterator().hasNext()) {
+//				op = trace.getNextTransitions().iterator().next();
+//			}
+		 OpInfo opp = trace.findOneOp(op.name, params.toString());
+			trace = trace.add(opp.id);
+//			for (Port port : component.getInputs()) {
+//				port.setValue(trace.getCurrentState().value(port.getName()));
+//			}
+		} catch (BException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// update trace
+		traces.put(component, trace);
 	}
 	
 	
@@ -452,7 +719,10 @@ public class Master {
 	 */
 	private void apiTerminateFMU(FMUComponent component) {
 		FMU fmu = (FMU) component.getFmu();
-		fmu.terminate();
+		if (fmu != null) {
+			fmu.terminate();
+			component.setFmu(null);
+		}
 	}
 
 	/**
@@ -474,7 +744,7 @@ public class Master {
 	}
 
 	private String getDoubleToEventB(Double value, int precision) {
-		double toB = value.doubleValue() * Math.pow(10, DOUBLE_PRECISION);
+		double toB = value.doubleValue() * Math.pow(10, precision);
 		return Integer.toString((int) toB);
 	}
 

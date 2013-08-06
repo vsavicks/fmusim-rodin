@@ -71,7 +71,7 @@ public class EventBVariableEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3008;
+	public static final int VISUAL_ID = 3010;
 
 	/**
 	 * @generated
@@ -334,7 +334,7 @@ public class EventBVariableEditPart extends CompartmentEditPart implements
 		if (parser == null) {
 			parser = ComponentsParserProvider
 					.getParser(
-							ComponentsElementTypes.EventBVariable_3008,
+							ComponentsElementTypes.EventBVariable_3010,
 							getParserElement(),
 							ComponentsVisualIDRegistry
 									.getType(ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart.VISUAL_ID));

@@ -10,17 +10,22 @@ package ac.soton.fmusim.components.ui.resource;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.machine.Machine;
+import org.eventb.emf.core.machine.Variable;
 import org.ptolemy.fmi.FMIModelDescription;
 import org.ptolemy.fmi.FMIScalarVariable;
 import org.ptolemy.fmi.FMIScalarVariable.Causality;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBComponent;
+import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.VariableCausality;
+import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.util.FmiUtil;
 import de.prob.cosimulation.FMU;
 
@@ -62,12 +67,13 @@ public class ComponentAdapterFactory implements IAdapterFactory {
 		component.setFmu(fmu);
 		
 		for (FMIScalarVariable scalarVariable : modelDescription.modelVariables) {
-			FMUVariable variable = null;
+			AbstractVariable variable = null;
 			
 			// internal variables
 			if (scalarVariable.causality == Causality.internal) {
 				variable = ComponentsFactory.eINSTANCE.createFMUVariable();
 				component.getVariables().add((FMUVariable) variable);
+				//FIXME: set causality to internal
 				
 				// ports
 			} else if (scalarVariable.causality == Causality.input || scalarVariable.causality == Causality.output) {
@@ -107,6 +113,16 @@ public class ComponentAdapterFactory implements IAdapterFactory {
 		EventBComponent component = ComponentsFactory.eINSTANCE.createEventBComponent();
 		component.setName(machine.getName());
 		component.setMachine(machine);
+		
+		for (Variable v : machine.getVariables()) {
+			EventBVariable variable = ComponentsFactory.eINSTANCE.createEventBVariable();
+			variable.setVariable(v);
+			variable.setDescription(v.getComment());
+			variable.setCausality(VariableCausality.INTERNAL);
+			variable.setType(VariableType.STRING);
+			component.getVariables().add(variable);
+		}
+			
 		return component;
 	}
 

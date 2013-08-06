@@ -26,6 +26,7 @@ import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import de.prob.cosimulation.FMU;
 
 /**
  * <!-- begin-user-doc -->
@@ -96,6 +97,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return createVariableTypeFromString(eDataType, initialValue);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
 				return createVariableCausalityFromString(eDataType, initialValue);
+			case ComponentsPackage.FMU_CLASS:
+				return createFmuClassFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -113,6 +116,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return convertVariableTypeToString(eDataType, instanceValue);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
 				return convertVariableCausalityToString(eDataType, instanceValue);
+			case ComponentsPackage.FMU_CLASS:
+				return convertFmuClassToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -236,6 +241,24 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 */
 	public String convertVariableCausalityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FMU createFmuClassFromString(EDataType eDataType, String initialValue) {
+		return (FMU)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFmuClassToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

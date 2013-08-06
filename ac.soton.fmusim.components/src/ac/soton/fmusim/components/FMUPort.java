@@ -18,6 +18,6 @@ package ac.soton.fmusim.components;
  * @model
  * @generated
  */
-public interface FMUPort extends Port, FMUVariable {
+public interface FMUPort extends Port {
 
 } // FMUPort

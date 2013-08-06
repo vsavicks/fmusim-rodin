@@ -14,6 +14,7 @@ import org.ptolemy.fmi.type.FMIRealType;
 import org.ptolemy.fmi.type.FMIStringType;
 import org.ptolemy.fmi.type.FMIType;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
@@ -34,7 +35,7 @@ public final class FmiUtil {
 	 * @return
 	 */
 	public static VariableType getVariableType(FMIScalarVariable scalarVariable,
-			FMUVariable variable) {
+			AbstractVariable variable) {
 		FMIType type = scalarVariable.type;
 		Object value = null;
 		VariableType typeEnum = VariableType.REAL;

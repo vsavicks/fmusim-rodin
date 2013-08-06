@@ -18,5 +18,3 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: University of Southampton
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: ac.soton.fmusim.components.ui.ComponentsUIPlugin
-Bundle-ClassPath: lib/groovy-all-2.0.5.jar,
- .

@@ -89,8 +89,8 @@ public class ComponentsPaletteFactory {
 	 */
 	private ToolEntry createVariable3CreationTool() {
 		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
-		types.add(ComponentsElementTypes.FMUVariable_3007);
-		types.add(ComponentsElementTypes.EventBVariable_3008);
+		types.add(ComponentsElementTypes.FMUVariable_3009);
+		types.add(ComponentsElementTypes.EventBVariable_3010);
 		NodeToolEntry entry = new NodeToolEntry(
 				Messages.Variable3CreationTool_title,
 				Messages.Variable3CreationTool_desc, types);

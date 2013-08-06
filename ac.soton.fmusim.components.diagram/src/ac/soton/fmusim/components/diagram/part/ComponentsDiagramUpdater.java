@@ -20,16 +20,15 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.update.DiagramUpdater;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
-import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
-import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
@@ -187,7 +186,7 @@ public class ComponentsDiagramUpdater {
 		LinkedList<ComponentsNodeDescriptor> result = new LinkedList<ComponentsNodeDescriptor>();
 		for (Iterator<?> it = modelElement.getVariables().iterator(); it
 				.hasNext();) {
-			FMUVariable childElement = (FMUVariable) it.next();
+			AbstractVariable childElement = (AbstractVariable) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
 			if (visualID == FMUVariableEditPart.VISUAL_ID) {
@@ -215,7 +214,7 @@ public class ComponentsDiagramUpdater {
 		LinkedList<ComponentsNodeDescriptor> result = new LinkedList<ComponentsNodeDescriptor>();
 		for (Iterator<?> it = modelElement.getVariables().iterator(); it
 				.hasNext();) {
-			EventBVariable childElement = (EventBVariable) it.next();
+			AbstractVariable childElement = (AbstractVariable) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
 			if (visualID == EventBVariableEditPart.VISUAL_ID) {
@@ -244,13 +243,13 @@ public class ComponentsDiagramUpdater {
 		case FMUPort2EditPart.VISUAL_ID:
 			return getFMUPort_3002ContainedLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
-			return getFMUVariable_3007ContainedLinks(view);
+			return getFMUVariable_3009ContainedLinks(view);
 		case EventBPortEditPart.VISUAL_ID:
 			return getEventBPort_3003ContainedLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
 			return getEventBPort_3004ContainedLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
-			return getEventBVariable_3008ContainedLinks(view);
+			return getEventBVariable_3010ContainedLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -271,13 +270,13 @@ public class ComponentsDiagramUpdater {
 		case FMUPort2EditPart.VISUAL_ID:
 			return getFMUPort_3002IncomingLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
-			return getFMUVariable_3007IncomingLinks(view);
+			return getFMUVariable_3009IncomingLinks(view);
 		case EventBPortEditPart.VISUAL_ID:
 			return getEventBPort_3003IncomingLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
 			return getEventBPort_3004IncomingLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
-			return getEventBVariable_3008IncomingLinks(view);
+			return getEventBVariable_3010IncomingLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -298,13 +297,13 @@ public class ComponentsDiagramUpdater {
 		case FMUPort2EditPart.VISUAL_ID:
 			return getFMUPort_3002OutgoingLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
-			return getFMUVariable_3007OutgoingLinks(view);
+			return getFMUVariable_3009OutgoingLinks(view);
 		case EventBPortEditPart.VISUAL_ID:
 			return getEventBPort_3003OutgoingLinks(view);
 		case EventBPort2EditPart.VISUAL_ID:
 			return getEventBPort_3004OutgoingLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
-			return getEventBVariable_3008OutgoingLinks(view);
+			return getEventBVariable_3010OutgoingLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -366,7 +365,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getFMUVariable_3007ContainedLinks(
+	public static List<ComponentsLinkDescriptor> getFMUVariable_3009ContainedLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -396,7 +395,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getEventBVariable_3008ContainedLinks(
+	public static List<ComponentsLinkDescriptor> getEventBVariable_3010ContainedLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -450,7 +449,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getFMUVariable_3007IncomingLinks(
+	public static List<ComponentsLinkDescriptor> getFMUVariable_3009IncomingLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -474,7 +473,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getEventBVariable_3008IncomingLinks(
+	public static List<ComponentsLinkDescriptor> getEventBVariable_3010IncomingLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -528,7 +527,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getFMUVariable_3007OutgoingLinks(
+	public static List<ComponentsLinkDescriptor> getFMUVariable_3009OutgoingLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -558,7 +557,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsLinkDescriptor> getEventBVariable_3008OutgoingLinks(
+	public static List<ComponentsLinkDescriptor> getEventBVariable_3010OutgoingLinks(
 			View view) {
 		return Collections.emptyList();
 	}

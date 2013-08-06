@@ -67,6 +67,7 @@ import org.eventb.emf.core.machine.Machine;
 import org.ptolemy.fmi.FMIModelDescription;
 import org.ptolemy.fmi.FMIScalarVariable;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -229,7 +230,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			IStorage storage = ((FileEditorInput) element).getStorage();
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true,
 					getProgressMonitor());
-			
+
 			// XXX: fmu loading from path attribute
 			loadFmuPath(domain, diagram);
 
@@ -319,12 +320,12 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			if (comp instanceof FMUComponent) {
 				final FMUComponent fmuComponent = (FMUComponent) comp;
 				final String path = fmuComponent.getPath();
-				
+
 				if (path == null) {
 					//TODO: show validation error marker
 					return;
 				}
-				
+
 				if (path != null) {
 					RecordingCommand cmd = new RecordingCommand(domain) {
 						@Override
@@ -332,17 +333,21 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 							try {
 								FMU fmu = new FMU(path);
 								fmuComponent.setFmu(fmu);
-								FMIModelDescription md = fmu.getModelDescription();
+								FMIModelDescription md = fmu
+										.getModelDescription();
 
 								// map variables by name
-								Map<String, FMIScalarVariable> varMap = new HashMap<String, FMIScalarVariable>(md.modelVariables.size());
+								Map<String, FMIScalarVariable> varMap = new HashMap<String, FMIScalarVariable>(
+										md.modelVariables.size());
 								for (FMIScalarVariable var : md.modelVariables) {
 									varMap.put(var.name, var);
 								}
 
 								// set initial values
-								for (FMUVariable var : fmuComponent.getVariables()) {
-									FMIScalarVariable scalar = varMap.get(var.getName());
+								for (AbstractVariable var : fmuComponent
+										.getVariables()) {
+									FMIScalarVariable scalar = varMap.get(var
+											.getName());
 									assert (scalar != null);
 									FmiUtil.getVariableType(scalar, var);
 								}
@@ -782,8 +787,10 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 	 * @param document
 	 */
 	private void doSaveComponents(IDocument document) {
-		ComponentDiagram diagram = (ComponentDiagram) ((IDiagramDocument) document).getDiagram().getElement();
-		TransactionalEditingDomain domain = ((IDiagramDocument) document).getEditingDomain();
+		ComponentDiagram diagram = (ComponentDiagram) ((IDiagramDocument) document)
+				.getDiagram().getElement();
+		TransactionalEditingDomain domain = ((IDiagramDocument) document)
+				.getEditingDomain();
 		CompoundCommand compoundCmd = new CompoundCommand();
 
 		for (final Component comp : diagram.getComponents()) {
@@ -795,13 +802,16 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 				compoundCmd.append(new RecordingCommand(domain) {
 					@Override
 					protected void doExecute() {
-						EventBComponent compCopy = (EventBComponent) EcoreUtil.copy(comp);
+						EventBComponent compCopy = (EventBComponent) EcoreUtil
+								.copy(comp);
 						Machine machine = ((EventBComponent) comp).getMachine();
 
 						// remove any existing extensions of the same id (EventB component)
-						Iterator<AbstractExtension> it = machine.getExtensions().iterator();
+						Iterator<AbstractExtension> it = machine
+								.getExtensions().iterator();
 						while (it.hasNext()) {
-							if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID.equals(it.next().getExtensionId())) {
+							if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
+									.equals(it.next().getExtensionId())) {
 								it.remove();
 							}
 						}

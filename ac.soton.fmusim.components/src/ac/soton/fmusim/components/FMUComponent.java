@@ -10,7 +10,8 @@ package ac.soton.fmusim.components;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.EList;
+
+import de.prob.cosimulation.FMU;
 
 
 /**
@@ -22,7 +23,6 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.FMUComponent#getFmu <em>Fmu</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.FMUComponent#getVariables <em>Variables</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.FMUComponent#getPath <em>Path</em>}</li>
  * </ul>
  * </p>
@@ -41,12 +41,12 @@ public interface FMUComponent extends Component {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Fmu</em>' attribute.
-	 * @see #setFmu(Object)
+	 * @see #setFmu(FMU)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getFMUComponent_Fmu()
-	 * @model transient="true"
+	 * @model dataType="ac.soton.fmusim.components.FmuClass" transient="true"
 	 * @generated
 	 */
-	Object getFmu();
+	FMU getFmu();
 
 	/**
 	 * Sets the value of the '{@link ac.soton.fmusim.components.FMUComponent#getFmu <em>Fmu</em>}' attribute.
@@ -56,23 +56,7 @@ public interface FMUComponent extends Component {
 	 * @see #getFmu()
 	 * @generated
 	 */
-	void setFmu(Object value);
-
-	/**
-	 * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
-	 * The list contents are of type {@link ac.soton.fmusim.components.FMUVariable}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Variables</em>' containment reference list.
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getFMUComponent_Variables()
-	 * @model containment="true" resolveProxies="true"
-	 * @generated
-	 */
-	EList<FMUVariable> getVariables();
+	void setFmu(FMU value);
 
 	/**
 	 * Returns the value of the '<em><b>Path</b></em>' attribute.

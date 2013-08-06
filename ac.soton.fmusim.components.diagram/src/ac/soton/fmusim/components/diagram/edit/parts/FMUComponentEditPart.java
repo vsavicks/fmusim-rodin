@@ -335,7 +335,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 					.getCreateElementRequestAdapter();
 			IElementType type = (IElementType) adapter
 					.getAdapter(IElementType.class);
-			if (type == ComponentsElementTypes.FMUVariable_3007) {
+			if (type == ComponentsElementTypes.FMUVariable_3009) {
 				return getChildBySemanticHint(ComponentsVisualIDRegistry
 						.getType(FMUComponentVariablesCompartmentEditPart.VISUAL_ID));
 			}

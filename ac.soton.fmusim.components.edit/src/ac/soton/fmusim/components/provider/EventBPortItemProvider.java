@@ -8,7 +8,6 @@
 package ac.soton.fmusim.components.provider;
 
 
-import ac.soton.fmusim.components.ComponentsPackage;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
+import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.VariableCausality;
 
