@@ -220,7 +220,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 	}
 
 	/**
-	 * @generated NOT
+	 * @generated
 	 */
 	protected void setDocumentContent(IDocument document, IEditorInput element)
 			throws CoreException {
@@ -232,7 +232,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 					getProgressMonitor());
 
 			// XXX: fmu loading from path attribute
-			loadFmuPath(domain, diagram);
+//			loadFmuPath(domain, diagram);
 
 			document.setContent(diagram);
 		} else if (element instanceof URIEditorInput) {

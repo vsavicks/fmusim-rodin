@@ -295,7 +295,7 @@ public class Master {
 		s.execute(new StartAnimationCommand());
 
 		Trace t = new Trace(s);
-		traces.put(component, t);
+		component.setTrace(t);
 	}
 
 	/**
@@ -335,7 +335,7 @@ public class Master {
 	 * @param component
 	 */
 	private void apiInitialiseEventB(EventBComponent component) {
-		Trace trace = traces.get(component);
+		Trace trace = component.getTrace();
 		assert trace != null;
 		trace = trace.anyEvent(null).anyEvent(null);
 		
@@ -344,7 +344,7 @@ public class Master {
 			v.setValue(trace.getCurrentState().value(v.getName()));
 		
 		// update trace
-		traces.put(component, trace);
+		component.setTrace(trace);
 	}
 	
 	/**
@@ -406,7 +406,7 @@ public class Master {
 	 * @param step - not used at the moment
 	 */
 	private void apiDoStepEventB(EventBComponent component, double time, double step) {
-		Trace trace = traces.get(component);
+		Trace trace = component.getTrace();
 		assert trace != null;
 		Event updateEvent = component.getUpdateEvent();
 		assert updateEvent != null;
@@ -434,7 +434,7 @@ public class Master {
 			v.setValue(trace.getCurrentState().value(v.getName()));
 		
 		// update trace
-		traces.put(component, trace);
+		component.setTrace(trace);
 	}
 
 	/**
@@ -498,7 +498,7 @@ public class Master {
 	 * @param component
 	 */
 	private void apiReadPortsEventB(EventBComponent component) {
-		Trace trace = traces.get(component);
+		Trace trace = component.getTrace();
 		assert trace != null;
 		
 		// if write outputs event specified and enabled, execute it
@@ -526,7 +526,7 @@ public class Master {
 		}
 
 		// update trace
-		traces.put(component, trace);
+		component.setTrace(trace);
 	}
 
 	/**
@@ -638,7 +638,7 @@ public class Master {
 		if (component.getReadInputsEvent() == null)
 			return;
 
-		Trace trace = traces.get(component);
+		Trace trace = component.getTrace();
 		assert trace != null;
 		
 		// if read inputs event not enabled, also skip
@@ -696,7 +696,7 @@ public class Master {
 		}
 
 		// update trace
-		traces.put(component, trace);
+		component.setTrace(trace);
 	}
 	
 	
