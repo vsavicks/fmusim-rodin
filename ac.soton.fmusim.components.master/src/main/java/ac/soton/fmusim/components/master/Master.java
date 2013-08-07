@@ -84,7 +84,7 @@ public class Master {
 	private int precision;
 	private File resultFile;
 	private BufferedWriter resultOut;
-	private Map<Component, Trace> traces;
+	private boolean simulating;
 
 	/**
 	 * Constructs master simulation instance
@@ -104,7 +104,81 @@ public class Master {
 		this.step = step;
 		this.precision = precision;
 		this.resultFile = resultFile;
-		traces = new HashMap<Component, Trace>();
+	}
+	
+	public boolean isSimulating() {
+		return simulating;
+	}
+	
+	public void simulateStep() {
+		if (!simulating) {
+			// instantiate components
+			try {
+				for (Component c : diagram.getComponents())
+					apiInstantiate(c);
+			} catch (MasterException e) {
+				e.printStackTrace();
+				// TODO: terminate instantiated fmus
+				return;
+			}
+	
+			// create output file
+			resultOut = apiCreateOutput((File) resultFile);
+			if (resultOut != null) {
+				apiOutputColumns(diagram, resultOut);
+				apiOutput(diagram, tStart, resultOut);
+			}
+	
+			// initialisation step
+			for (Component c : diagram.getComponents())
+				apiInitialise(c, tStart, tStop);
+	
+			// set simulation time
+			tCurrent = tStart;
+			
+			// marks simulation has started
+			simulating = true;
+		}
+		
+		// simulation step
+		if (simulating) {
+			if (tCurrent < tStop) {
+				
+				// read port values
+				for (Component c : diagram.getComponents())
+					apiReadPorts(c);
+				
+				// write port values
+				for (Component c : diagram.getComponents())
+					apiWritePorts(c);
+				
+				// do step
+				for (Component c : diagram.getComponents())
+					apiDoStep(c, tCurrent, step);
+				
+				// progress the time
+				tCurrent += step;
+				
+				// write output
+				apiOutput(diagram, tCurrent, resultOut);
+			}
+			
+			// termination step, if finished
+			if (tCurrent >= tStop) {
+				simulating = false;
+				
+				for (Component c : diagram.getComponents())
+					apiTerminate(c);
+				
+				// close file
+				try {
+					resultOut.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	/**

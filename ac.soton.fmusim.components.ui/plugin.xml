@@ -19,6 +19,10 @@
             id="ac.soton.fmusim.components.ui.commands.Validate"
             name="Validate">
       </command>
+      <command
+            id="ac.soton.fmusim.components.ui.commands.SimulateStep"
+            name="Simulate Step">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -58,6 +62,18 @@
             </with>
          </enabledWhen>
       </handler>
+      <handler
+            class="ac.soton.fmusim.components.ui.commands.SimulateStepCommand"
+            commandId="ac.soton.fmusim.components.ui.commands.SimulateStep">
+         <enabledWhen>
+            <with
+                  variable="activePartId">
+               <equals
+                     value="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -86,6 +102,12 @@
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
+            <command
+                  commandId="ac.soton.fmusim.components.ui.commands.SimulateStep"
+                  icon="icons/SimulateStep.gif"
+                  label="Simulate Step"
+                  style="push">
+            </command>
          </toolbar>
       </menuContribution>
    </extension>
