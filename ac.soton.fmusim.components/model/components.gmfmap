@@ -53,7 +53,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="components.gmftool#//@palette/@tools.0/@tools.3"/>
+              href="components.gmftool#//@palette/@tools.0/@tools.4"/>
           <diagramNode
               href="components.gmfgraph#InputPort"/>
         </ownedChild>
@@ -87,7 +87,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="components.gmftool#//@palette/@tools.0/@tools.4"/>
+              href="components.gmftool#//@palette/@tools.0/@tools.5"/>
           <diagramNode
               href="components.gmfgraph#OutputPort"/>
         </ownedChild>
@@ -110,7 +110,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="components.gmftool#//@palette/@tools.0/@tools.2"/>
+              href="components.gmftool#//@palette/@tools.0/@tools.3"/>
           <diagramNode
               href="components.gmfgraph#VariableLabel"/>
         </ownedChild>
@@ -170,7 +170,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="components.gmftool#//@palette/@tools.0/@tools.3"/>
+              href="components.gmftool#//@palette/@tools.0/@tools.4"/>
           <diagramNode
               href="components.gmfgraph#InputPort"/>
         </ownedChild>
@@ -207,7 +207,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="components.gmftool#//@palette/@tools.0/@tools.4"/>
+              href="components.gmftool#//@palette/@tools.0/@tools.5"/>
           <diagramNode
               href="components.gmfgraph#OutputPort"/>
         </ownedChild>
@@ -230,7 +230,7 @@
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
-              href="components.gmftool#//@palette/@tools.0/@tools.2"/>
+              href="components.gmftool#//@palette/@tools.0/@tools.3"/>
           <diagramNode
               href="components.gmfgraph#VariableLabel"/>
         </ownedChild>
@@ -258,15 +258,63 @@
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
-          href="components.gmftool#//@palette/@tools.0/@tools.5"/>
+          href="components.gmftool#//@palette/@tools.0/@tools.6"/>
       <diagramNode
           href="components.gmfgraph#Connector"/>
+    </ownedChild>
+  </nodes>
+  <nodes>
+    <containmentFeature
+        href="components.ecore#//ComponentDiagram/components"/>
+    <ownedChild>
+      <domainMetaElement
+          href="components.ecore#//DisplayComponent"/>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="components.gmftool#//@palette/@tools.0/@tools.2"/>
+      <diagramNode
+          href="components.gmfgraph#DisplayComponent"/>
+      <children>
+        <containmentFeature
+            href="components.ecore#//Component/inputs"/>
+        <ownedChild>
+          <domainMetaElement
+              href="components.ecore#//DisplayPort"/>
+          <domainSpecialization
+              body="self.causality = VariableCausality::Input"/>
+          <domainInitializer
+              xsi:type="gmfmap:FeatureSeqInitializer">
+            <initializers
+                xsi:type="gmfmap:FeatureValueSpec">
+              <feature
+                  xsi:type="ecore:EAttribute"
+                  href="components.ecore#//AbstractVariable/causality"/>
+              <value
+                  body="VariableCausality::Input"/>
+            </initializers>
+          </domainInitializer>
+          <labelMappings
+              xsi:type="gmfmap:FeatureLabelMapping"
+              readOnly="true"
+              viewPattern="">
+            <diagramLabel
+                href="components.gmfgraph#PortLabel"/>
+            <features
+                href="components.ecore#//NamedElement/name"/>
+          </labelMappings>
+          <tool
+              xsi:type="gmftool:CreationTool"
+              href="components.gmftool#//@palette/@tools.0/@tools.4"/>
+          <diagramNode
+              href="components.gmfgraph#InputPort"/>
+        </ownedChild>
+      </children>
     </ownedChild>
   </nodes>
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="components.gmftool#//@palette/@tools.0/@tools.6"/>
+        href="components.gmftool#//@palette/@tools.0/@tools.7"/>
     <diagramLink
         href="components.gmfgraph#Link"/>
     <linkMetaFeature

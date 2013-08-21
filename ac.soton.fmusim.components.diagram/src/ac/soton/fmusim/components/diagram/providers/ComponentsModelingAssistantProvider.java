@@ -30,6 +30,8 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
@@ -52,10 +54,11 @@ public class ComponentsModelingAssistantProvider extends
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host
 				.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof ComponentDiagramEditPart) {
-			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(4);
 			types.add(ComponentsElementTypes.FMUComponent_2001);
 			types.add(ComponentsElementTypes.EventBComponent_2002);
 			types.add(ComponentsElementTypes.Connector_2003);
+			types.add(ComponentsElementTypes.DisplayComponent_2006);
 			return types;
 		}
 		if (editPart instanceof FMUComponentEditPart) {
@@ -70,6 +73,11 @@ public class ComponentsModelingAssistantProvider extends
 			types.add(ComponentsElementTypes.EventBPort_3003);
 			types.add(ComponentsElementTypes.EventBPort_3004);
 			types.add(ComponentsElementTypes.EventBVariable_3010);
+			return types;
+		}
+		if (editPart instanceof DisplayComponentEditPart) {
+			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
+			types.add(ComponentsElementTypes.DisplayPort_3013);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -93,6 +101,10 @@ public class ComponentsModelingAssistantProvider extends
 		}
 		if (sourceEditPart instanceof EventBPort2EditPart) {
 			return ((EventBPort2EditPart) sourceEditPart)
+					.getMARelTypesOnSource();
+		}
+		if (sourceEditPart instanceof DisplayPortEditPart) {
+			return ((DisplayPortEditPart) sourceEditPart)
 					.getMARelTypesOnSource();
 		}
 		return Collections.EMPTY_LIST;
@@ -135,6 +147,10 @@ public class ComponentsModelingAssistantProvider extends
 			return ((EventBPort2EditPart) sourceEditPart)
 					.getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
+		if (sourceEditPart instanceof DisplayPortEditPart) {
+			return ((DisplayPortEditPart) sourceEditPart)
+					.getMARelTypesOnSourceAndTarget(targetEditPart);
+		}
 		return Collections.EMPTY_LIST;
 	}
 
@@ -173,6 +189,10 @@ public class ComponentsModelingAssistantProvider extends
 		}
 		if (sourceEditPart instanceof EventBPort2EditPart) {
 			return ((EventBPort2EditPart) sourceEditPart)
+					.getMATypesForTarget(relationshipType);
+		}
+		if (sourceEditPart instanceof DisplayPortEditPart) {
+			return ((DisplayPortEditPart) sourceEditPart)
 					.getMATypesForTarget(relationshipType);
 		}
 		return Collections.EMPTY_LIST;

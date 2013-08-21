@@ -7,6 +7,9 @@
  */
 package ac.soton.fmusim.components.impl;
 
+import info.monitorenter.gui.chart.Chart2D;
+import info.monitorenter.gui.chart.ITrace2D;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -28,6 +31,8 @@ import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.DisplayComponent;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
@@ -38,6 +43,7 @@ import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
 import de.prob.cosimulation.FMU;
 import de.prob.statespace.Trace;
@@ -138,6 +144,20 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass displayComponentEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass displayPortEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum variableTypeEEnum = null;
 
 	/**
@@ -160,6 +180,27 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * @generated
 	 */
 	private EDataType traceClassEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType trace2DClassEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType chart2DClassEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType simExceptionClassEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -410,7 +451,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEventBComponent_WriteOutputsEvent() {
+	public EReference getEventBComponent_TimeVariable() {
 		return (EReference)eventBComponentEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -419,7 +460,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEventBComponent_TimeVariable() {
+	public EReference getEventBComponent_UpdateEvent() {
 		return (EReference)eventBComponentEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -428,8 +469,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEventBComponent_UpdateEvent() {
-		return (EReference)eventBComponentEClass.getEStructuralFeatures().get(5);
+	public EAttribute getEventBComponent_Trace() {
+		return (EAttribute)eventBComponentEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -437,8 +478,17 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEventBComponent_Trace() {
+	public EAttribute getEventBComponent_StepPeriod() {
 		return (EAttribute)eventBComponentEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEventBComponent_IntToRealPrecision() {
+		return (EAttribute)eventBComponentEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -491,8 +541,17 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEventBPort_EventParameter() {
+	public EReference getEventBPort_Parameter() {
 		return (EReference)eventBPortEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEventBPort_Variable() {
+		return (EReference)eventBPortEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -572,6 +631,42 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDisplayComponent() {
+		return displayComponentEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDisplayComponent_Chart() {
+		return (EAttribute)displayComponentEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDisplayPort() {
+		return displayPortEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDisplayPort_Trace() {
+		return (EAttribute)displayPortEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getVariableType() {
 		return variableTypeEEnum;
 	}
@@ -601,6 +696,33 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 */
 	public EDataType getTraceClass() {
 		return traceClassEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getTrace2DClass() {
+		return trace2DClassEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getChart2DClass() {
+		return chart2DClassEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getSimExceptionClass() {
+		return simExceptionClassEDataType;
 	}
 
 	/**
@@ -655,10 +777,11 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		createEAttribute(eventBComponentEClass, EVENT_BCOMPONENT__COMPOSED);
 		createEReference(eventBComponentEClass, EVENT_BCOMPONENT__MACHINE);
 		createEReference(eventBComponentEClass, EVENT_BCOMPONENT__READ_INPUTS_EVENT);
-		createEReference(eventBComponentEClass, EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT);
 		createEReference(eventBComponentEClass, EVENT_BCOMPONENT__TIME_VARIABLE);
 		createEReference(eventBComponentEClass, EVENT_BCOMPONENT__UPDATE_EVENT);
 		createEAttribute(eventBComponentEClass, EVENT_BCOMPONENT__TRACE);
+		createEAttribute(eventBComponentEClass, EVENT_BCOMPONENT__STEP_PERIOD);
+		createEAttribute(eventBComponentEClass, EVENT_BCOMPONENT__INT_TO_REAL_PRECISION);
 
 		fmuComponentEClass = createEClass(FMU_COMPONENT);
 		createEAttribute(fmuComponentEClass, FMU_COMPONENT__FMU);
@@ -667,7 +790,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		fmuPortEClass = createEClass(FMU_PORT);
 
 		eventBPortEClass = createEClass(EVENT_BPORT);
-		createEReference(eventBPortEClass, EVENT_BPORT__EVENT_PARAMETER);
+		createEReference(eventBPortEClass, EVENT_BPORT__PARAMETER);
+		createEReference(eventBPortEClass, EVENT_BPORT__VARIABLE);
 
 		fmuVariableEClass = createEClass(FMU_VARIABLE);
 
@@ -680,6 +804,12 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		eventBVariableEClass = createEClass(EVENT_BVARIABLE);
 		createEReference(eventBVariableEClass, EVENT_BVARIABLE__VARIABLE);
 
+		displayComponentEClass = createEClass(DISPLAY_COMPONENT);
+		createEAttribute(displayComponentEClass, DISPLAY_COMPONENT__CHART);
+
+		displayPortEClass = createEClass(DISPLAY_PORT);
+		createEAttribute(displayPortEClass, DISPLAY_PORT__TRACE);
+
 		// Create enums
 		variableTypeEEnum = createEEnum(VARIABLE_TYPE);
 		variableCausalityEEnum = createEEnum(VARIABLE_CAUSALITY);
@@ -687,6 +817,9 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		// Create data types
 		fmuClassEDataType = createEDataType(FMU_CLASS);
 		traceClassEDataType = createEDataType(TRACE_CLASS);
+		trace2DClassEDataType = createEDataType(TRACE2_DCLASS);
+		chart2DClassEDataType = createEDataType(CHART2_DCLASS);
+		simExceptionClassEDataType = createEDataType(SIM_EXCEPTION_CLASS);
 	}
 
 	/**
@@ -734,6 +867,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		fmuVariableEClass.getESuperTypes().add(this.getAbstractVariable());
 		abstractVariableEClass.getESuperTypes().add(this.getNamedElement());
 		eventBVariableEClass.getESuperTypes().add(this.getAbstractVariable());
+		displayComponentEClass.getESuperTypes().add(this.getComponent());
+		displayPortEClass.getESuperTypes().add(this.getPort());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(componentDiagramEClass, ComponentDiagram.class, "ComponentDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -741,7 +876,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEReference(getComponentDiagram_Connectors(), this.getConnector(), null, "connectors", null, 0, -1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponentDiagram_Time(), ecorePackage.getEDouble(), "time", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(componentEClass, Component.class, "Component", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(componentEClass, Component.class, "Component", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponent_Inputs(), this.getPort(), null, "inputs", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Outputs(), this.getPort(), null, "outputs", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Variables(), this.getAbstractVariable(), null, "variables", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -750,7 +885,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		addEParameter(op, ecorePackage.getEDouble(), "tStart", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDouble(), "tStop", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(componentEClass, null, "readInputs", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(componentEClass, null, "readInputs", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEException(op, this.getSimExceptionClass());
 
 		addEOperation(componentEClass, null, "writeOutputs", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -760,7 +896,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 
 		addEOperation(componentEClass, null, "terminate", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(componentEClass, null, "instantiate", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(componentEClass, null, "instantiate", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEException(op, this.getSimExceptionClass());
 
 		initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConnector_Value(), ecorePackage.getEJavaObject(), "value", null, 0, 1, Connector.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -776,10 +913,11 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEAttribute(getEventBComponent_Composed(), ecorePackage.getEBoolean(), "composed", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEventBComponent_Machine(), theMachinePackage.getMachine(), null, "machine", null, 1, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEventBComponent_ReadInputsEvent(), theMachinePackage.getEvent(), null, "readInputsEvent", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEventBComponent_WriteOutputsEvent(), theMachinePackage.getEvent(), null, "writeOutputsEvent", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEventBComponent_TimeVariable(), theMachinePackage.getVariable(), null, "timeVariable", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEventBComponent_UpdateEvent(), theMachinePackage.getEvent(), null, "updateEvent", null, 1, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEventBComponent_Trace(), this.getTraceClass(), "trace", null, 0, 1, EventBComponent.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEventBComponent_StepPeriod(), ecorePackage.getEDouble(), "stepPeriod", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEventBComponent_IntToRealPrecision(), ecorePackage.getEInt(), "intToRealPrecision", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(eventBComponentEClass, ecorePackage.getEBoolean(), "hasValidMachineReference", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -806,7 +944,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEClass(fmuPortEClass, FMUPort.class, "FMUPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(eventBPortEClass, EventBPort.class, "EventBPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEventBPort_EventParameter(), theMachinePackage.getParameter(), null, "eventParameter", null, 1, 1, EventBPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEventBPort_Parameter(), theMachinePackage.getParameter(), null, "parameter", null, 0, 1, EventBPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEventBPort_Variable(), theMachinePackage.getVariable(), null, "variable", null, 1, 1, EventBPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fmuVariableEClass, FMUVariable.class, "FMUVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -818,6 +957,12 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 
 		initEClass(eventBVariableEClass, EventBVariable.class, "EventBVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEventBVariable_Variable(), theMachinePackage.getVariable(), null, "variable", null, 1, 1, EventBVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(displayComponentEClass, DisplayComponent.class, "DisplayComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDisplayComponent_Chart(), this.getChart2DClass(), "chart", null, 0, 1, DisplayComponent.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(displayPortEClass, DisplayPort.class, "DisplayPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDisplayPort_Trace(), this.getTrace2DClass(), "trace", null, 0, 1, DisplayPort.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(variableTypeEEnum, VariableType.class, "VariableType");
@@ -835,6 +980,9 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		// Initialize data types
 		initEDataType(fmuClassEDataType, FMU.class, "FmuClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(traceClassEDataType, Trace.class, "TraceClass", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(trace2DClassEDataType, ITrace2D.class, "Trace2DClass", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(chart2DClassEDataType, Chart2D.class, "Chart2DClass", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(simExceptionClassEDataType, SimulationException.class, "SimExceptionClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -28,6 +28,14 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
+          title="Display Component">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/DisplayComponent.gif"
+            bundle="ac.soton.fmusim.components"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
           title="Variable"
           description="Create new Variable">
         <smallIcon

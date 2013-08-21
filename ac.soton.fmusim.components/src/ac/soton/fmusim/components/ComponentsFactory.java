@@ -99,6 +99,24 @@ public interface ComponentsFactory extends EFactory {
 	EventBVariable createEventBVariable();
 
 	/**
+	 * Returns a new object of class '<em>Display Component</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Display Component</em>'.
+	 * @generated
+	 */
+	DisplayComponent createDisplayComponent();
+
+	/**
+	 * Returns a new object of class '<em>Display Port</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Display Port</em>'.
+	 * @generated
+	 */
+	DisplayPort createDisplayPort();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

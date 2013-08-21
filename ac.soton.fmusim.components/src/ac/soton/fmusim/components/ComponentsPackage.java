@@ -154,10 +154,10 @@ public interface ComponentsPackage extends EPackage {
 	int COMPONENT_DIAGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.ComponentImpl <em>Component</em>}' class.
+	 * The meta object id for the '{@link ac.soton.fmusim.components.Component <em>Component</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see ac.soton.fmusim.components.impl.ComponentImpl
+	 * @see ac.soton.fmusim.components.Component
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getComponent()
 	 * @generated
 	 */
@@ -528,22 +528,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__READ_INPUTS_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Write Outputs Event</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 7;
-
-	/**
 	 * The feature id for the '<em><b>Time Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__TIME_VARIABLE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
+	int EVENT_BCOMPONENT__TIME_VARIABLE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Update Event</b></em>' reference.
@@ -552,7 +543,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__UPDATE_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 9;
+	int EVENT_BCOMPONENT__UPDATE_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
@@ -561,7 +552,25 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__TRACE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
+	int EVENT_BCOMPONENT__TRACE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Step Period</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__STEP_PERIOD = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Int To Real Precision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__INT_TO_REAL_PRECISION = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
@@ -570,7 +579,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -783,13 +792,22 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BPORT__CONNECTOR = PORT__CONNECTOR;
 
 	/**
-	 * The feature id for the '<em><b>Event Parameter</b></em>' reference.
+	 * The feature id for the '<em><b>Parameter</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BPORT__EVENT_PARAMETER = PORT_FEATURE_COUNT + 0;
+	int EVENT_BPORT__PARAMETER = PORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BPORT__VARIABLE = PORT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Event BPort</em>' class.
@@ -798,7 +816,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BPORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+	int EVENT_BPORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
@@ -938,6 +956,152 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BVARIABLE_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.DisplayComponentImpl <em>Display Component</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.impl.DisplayComponentImpl
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getDisplayComponent()
+	 * @generated
+	 */
+	int DISPLAY_COMPONENT = 12;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_COMPONENT__NAME = COMPONENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_COMPONENT__INPUTS = COMPONENT__INPUTS;
+
+	/**
+	 * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_COMPONENT__OUTPUTS = COMPONENT__OUTPUTS;
+
+	/**
+	 * The feature id for the '<em><b>Variables</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_COMPONENT__VARIABLES = COMPONENT__VARIABLES;
+
+	/**
+	 * The feature id for the '<em><b>Chart</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_COMPONENT__CHART = COMPONENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Display Component</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_COMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.DisplayPortImpl <em>Display Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.impl.DisplayPortImpl
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getDisplayPort()
+	 * @generated
+	 */
+	int DISPLAY_PORT = 13;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__NAME = PORT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__TYPE = PORT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__CAUSALITY = PORT__CAUSALITY;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__VALUE = PORT__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__DESCRIPTION = PORT__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Connector</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__CONNECTOR = PORT__CONNECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Trace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__TRACE = PORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Display Port</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -945,7 +1109,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableType()
 	 * @generated
 	 */
-	int VARIABLE_TYPE = 12;
+	int VARIABLE_TYPE = 14;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableCausality <em>Variable Causality</em>}' enum.
@@ -955,7 +1119,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableCausality()
 	 * @generated
 	 */
-	int VARIABLE_CAUSALITY = 13;
+	int VARIABLE_CAUSALITY = 15;
 
 	/**
 	 * The meta object id for the '<em>Fmu Class</em>' data type.
@@ -965,7 +1129,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFmuClass()
 	 * @generated
 	 */
-	int FMU_CLASS = 14;
+	int FMU_CLASS = 16;
 
 	/**
 	 * The meta object id for the '<em>Trace Class</em>' data type.
@@ -975,7 +1139,37 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getTraceClass()
 	 * @generated
 	 */
-	int TRACE_CLASS = 15;
+	int TRACE_CLASS = 17;
+
+	/**
+	 * The meta object id for the '<em>Trace2 DClass</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see info.monitorenter.gui.chart.ITrace2D
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getTrace2DClass()
+	 * @generated
+	 */
+	int TRACE2_DCLASS = 18;
+
+	/**
+	 * The meta object id for the '<em>Chart2 DClass</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see info.monitorenter.gui.chart.Chart2D
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getChart2DClass()
+	 * @generated
+	 */
+	int CHART2_DCLASS = 19;
+
+	/**
+	 * The meta object id for the '<em>Sim Exception Class</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.exceptions.SimulationException
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getSimExceptionClass()
+	 * @generated
+	 */
+	int SIM_EXCEPTION_CLASS = 20;
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
@@ -1181,17 +1375,6 @@ public interface ComponentsPackage extends EPackage {
 	EReference getEventBComponent_ReadInputsEvent();
 
 	/**
-	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent <em>Write Outputs Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Write Outputs Event</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent()
-	 * @see #getEventBComponent()
-	 * @generated
-	 */
-	EReference getEventBComponent_WriteOutputsEvent();
-
-	/**
 	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1223,6 +1406,28 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getEventBComponent_Trace();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Step Period</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getStepPeriod()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EAttribute getEventBComponent_StepPeriod();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision <em>Int To Real Precision</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Int To Real Precision</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EAttribute getEventBComponent_IntToRealPrecision();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUComponent <em>FMU Component</em>}'.
@@ -1277,15 +1482,26 @@ public interface ComponentsPackage extends EPackage {
 	EClass getEventBPort();
 
 	/**
-	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBPort#getEventParameter <em>Event Parameter</em>}'.
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBPort#getParameter <em>Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Event Parameter</em>'.
-	 * @see ac.soton.fmusim.components.EventBPort#getEventParameter()
+	 * @return the meta object for the reference '<em>Parameter</em>'.
+	 * @see ac.soton.fmusim.components.EventBPort#getParameter()
 	 * @see #getEventBPort()
 	 * @generated
 	 */
-	EReference getEventBPort_EventParameter();
+	EReference getEventBPort_Parameter();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBPort#getVariable <em>Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Variable</em>'.
+	 * @see ac.soton.fmusim.components.EventBPort#getVariable()
+	 * @see #getEventBPort()
+	 * @generated
+	 */
+	EReference getEventBPort_Variable();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUVariable <em>FMU Variable</em>}'.
@@ -1373,6 +1589,48 @@ public interface ComponentsPackage extends EPackage {
 	EReference getEventBVariable_Variable();
 
 	/**
+	 * Returns the meta object for class '{@link ac.soton.fmusim.components.DisplayComponent <em>Display Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Display Component</em>'.
+	 * @see ac.soton.fmusim.components.DisplayComponent
+	 * @generated
+	 */
+	EClass getDisplayComponent();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.DisplayComponent#getChart <em>Chart</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Chart</em>'.
+	 * @see ac.soton.fmusim.components.DisplayComponent#getChart()
+	 * @see #getDisplayComponent()
+	 * @generated
+	 */
+	EAttribute getDisplayComponent_Chart();
+
+	/**
+	 * Returns the meta object for class '{@link ac.soton.fmusim.components.DisplayPort <em>Display Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Display Port</em>'.
+	 * @see ac.soton.fmusim.components.DisplayPort
+	 * @generated
+	 */
+	EClass getDisplayPort();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.DisplayPort#getTrace <em>Trace</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Trace</em>'.
+	 * @see ac.soton.fmusim.components.DisplayPort#getTrace()
+	 * @see #getDisplayPort()
+	 * @generated
+	 */
+	EAttribute getDisplayPort_Trace();
+
+	/**
 	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1413,6 +1671,39 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getTraceClass();
+
+	/**
+	 * Returns the meta object for data type '{@link info.monitorenter.gui.chart.ITrace2D <em>Trace2 DClass</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Trace2 DClass</em>'.
+	 * @see info.monitorenter.gui.chart.ITrace2D
+	 * @model instanceClass="info.monitorenter.gui.chart.ITrace2D" serializeable="false"
+	 * @generated
+	 */
+	EDataType getTrace2DClass();
+
+	/**
+	 * Returns the meta object for data type '{@link info.monitorenter.gui.chart.Chart2D <em>Chart2 DClass</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Chart2 DClass</em>'.
+	 * @see info.monitorenter.gui.chart.Chart2D
+	 * @model instanceClass="info.monitorenter.gui.chart.Chart2D" serializeable="false"
+	 * @generated
+	 */
+	EDataType getChart2DClass();
+
+	/**
+	 * Returns the meta object for data type '{@link ac.soton.fmusim.components.exceptions.SimulationException <em>Sim Exception Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Sim Exception Class</em>'.
+	 * @see ac.soton.fmusim.components.exceptions.SimulationException
+	 * @model instanceClass="ac.soton.fmusim.components.exceptions.SimulationException"
+	 * @generated
+	 */
+	EDataType getSimExceptionClass();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1471,10 +1762,10 @@ public interface ComponentsPackage extends EPackage {
 		EAttribute COMPONENT_DIAGRAM__TIME = eINSTANCE.getComponentDiagram_Time();
 
 		/**
-		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.ComponentImpl <em>Component</em>}' class.
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.Component <em>Component</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see ac.soton.fmusim.components.impl.ComponentImpl
+		 * @see ac.soton.fmusim.components.Component
 		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getComponent()
 		 * @generated
 		 */
@@ -1601,14 +1892,6 @@ public interface ComponentsPackage extends EPackage {
 		EReference EVENT_BCOMPONENT__READ_INPUTS_EVENT = eINSTANCE.getEventBComponent_ReadInputsEvent();
 
 		/**
-		 * The meta object literal for the '<em><b>Write Outputs Event</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT = eINSTANCE.getEventBComponent_WriteOutputsEvent();
-
-		/**
 		 * The meta object literal for the '<em><b>Time Variable</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1631,6 +1914,22 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT_BCOMPONENT__TRACE = eINSTANCE.getEventBComponent_Trace();
+
+		/**
+		 * The meta object literal for the '<em><b>Step Period</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_BCOMPONENT__STEP_PERIOD = eINSTANCE.getEventBComponent_StepPeriod();
+
+		/**
+		 * The meta object literal for the '<em><b>Int To Real Precision</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_BCOMPONENT__INT_TO_REAL_PRECISION = eINSTANCE.getEventBComponent_IntToRealPrecision();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -1679,12 +1978,20 @@ public interface ComponentsPackage extends EPackage {
 		EClass EVENT_BPORT = eINSTANCE.getEventBPort();
 
 		/**
-		 * The meta object literal for the '<em><b>Event Parameter</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Parameter</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EVENT_BPORT__EVENT_PARAMETER = eINSTANCE.getEventBPort_EventParameter();
+		EReference EVENT_BPORT__PARAMETER = eINSTANCE.getEventBPort_Parameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Variable</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_BPORT__VARIABLE = eINSTANCE.getEventBPort_Variable();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
@@ -1757,6 +2064,42 @@ public interface ComponentsPackage extends EPackage {
 		EReference EVENT_BVARIABLE__VARIABLE = eINSTANCE.getEventBVariable_Variable();
 
 		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.DisplayComponentImpl <em>Display Component</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.impl.DisplayComponentImpl
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getDisplayComponent()
+		 * @generated
+		 */
+		EClass DISPLAY_COMPONENT = eINSTANCE.getDisplayComponent();
+
+		/**
+		 * The meta object literal for the '<em><b>Chart</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DISPLAY_COMPONENT__CHART = eINSTANCE.getDisplayComponent_Chart();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.DisplayPortImpl <em>Display Port</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.impl.DisplayPortImpl
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getDisplayPort()
+		 * @generated
+		 */
+		EClass DISPLAY_PORT = eINSTANCE.getDisplayPort();
+
+		/**
+		 * The meta object literal for the '<em><b>Trace</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DISPLAY_PORT__TRACE = eINSTANCE.getDisplayPort_Trace();
+
+		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1795,6 +2138,36 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType TRACE_CLASS = eINSTANCE.getTraceClass();
+
+		/**
+		 * The meta object literal for the '<em>Trace2 DClass</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see info.monitorenter.gui.chart.ITrace2D
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getTrace2DClass()
+		 * @generated
+		 */
+		EDataType TRACE2_DCLASS = eINSTANCE.getTrace2DClass();
+
+		/**
+		 * The meta object literal for the '<em>Chart2 DClass</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see info.monitorenter.gui.chart.Chart2D
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getChart2DClass()
+		 * @generated
+		 */
+		EDataType CHART2_DCLASS = eINSTANCE.getChart2DClass();
+
+		/**
+		 * The meta object literal for the '<em>Sim Exception Class</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.exceptions.SimulationException
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getSimExceptionClass()
+		 * @generated
+		 */
+		EDataType SIM_EXCEPTION_CLASS = eINSTANCE.getSimExceptionClass();
 
 	}
 

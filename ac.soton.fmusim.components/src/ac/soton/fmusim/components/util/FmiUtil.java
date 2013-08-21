@@ -15,7 +15,6 @@ import org.ptolemy.fmi.type.FMIStringType;
 import org.ptolemy.fmi.type.FMIType;
 
 import ac.soton.fmusim.components.AbstractVariable;
-import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
 

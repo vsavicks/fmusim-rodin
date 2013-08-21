@@ -382,6 +382,75 @@
           xsi:type="gmfgen:ExpressionLabelModelFacet"
           parser="//@labelParsers/@implementations.2"/>
     </childNodes>
+    <childNodes
+        xsi:type="gmfgen:GenChildSideAffixedNode"
+        visualID="3013"
+        editPartClassName="DisplayPortEditPart"
+        itemSemanticEditPolicyClassName="DisplayPortItemSemanticEditPolicy"
+        canonicalEditPolicyClassName="DisplayPortCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="DisplayPortGraphicalNodeEditPolicy"
+        createCommandClassName="DisplayPortCreateCommand"
+        containers="//@diagram/@topLevelNodes.3"
+        preferredSideName="WEST">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="DisplayPortEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="InputPortFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class InputPortFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public InputPortFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;this.setBackgroundColor(THIS_BACK&#xA;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_BACK = new org.eclipse.swt.graphics.Color(null, 230, 230, 230);&#xA;&#xA;">
+        <attributes
+            xsi:type="gmfgen:StyleAttributes"
+            fixedForeground="true"
+            fixedBackground="true"/>
+        <attributes
+            xsi:type="gmfgen:ResizeConstraints"/>
+        <attributes
+            xsi:type="gmfgen:DefaultSizeAttributes"
+            width="10"
+            height="10"/>
+      </viewmap>
+      <modelFacet
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.8">
+        <metaClass
+            href="components.genmodel#//components/DisplayPort"/>
+        <containmentMetaFeature
+            href="components.genmodel#//components/Component/inputs"/>
+        <childMetaFeature
+            href="components.genmodel#//components/Component/inputs"/>
+        <modelElementInitializer
+            xsi:type="gmfgen:GenFeatureSeqInitializer">
+          <initializers
+              xsi:type="gmfgen:GenFeatureValueSpec"
+              value="//@expressionProviders/@providers.0/@expressions.9">
+            <feature
+                href="components.genmodel#//components/AbstractVariable/causality"/>
+          </initializers>
+        </modelElementInitializer>
+      </modelFacet>
+      <labels
+          xsi:type="gmfgen:GenExternalNodeLabel"
+          visualID="5010"
+          editPartClassName="DisplayPortNameEditPart"
+          itemSemanticEditPolicyClassName="DisplayPortNameItemSemanticEditPolicy"
+          readOnly="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:InnerClassViewmap"
+            className="PortLabelFigure"
+            classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class PortLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public PortLabelFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setText(&quot;&quot;);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
+            viewPattern="">
+          <metaFeatures
+              href="components.genmodel#//components/NamedElement/name"/>
+        </modelFacet>
+      </labels>
+    </childNodes>
     <topLevelNodes
         visualID="2001"
         editPartClassName="FMUComponentEditPart"
@@ -544,6 +613,37 @@
             parser="//@labelParsers/@implementations.3"/>
       </labels>
     </topLevelNodes>
+    <topLevelNodes
+        visualID="2006"
+        editPartClassName="DisplayComponentEditPart"
+        itemSemanticEditPolicyClassName="DisplayComponentItemSemanticEditPolicy"
+        canonicalEditPolicyClassName="DisplayComponentCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.6"
+        graphicalNodeEditPolicyClassName="DisplayComponentGraphicalNodeEditPolicy"
+        createCommandClassName="DisplayComponentCreateCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="DisplayComponentEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="DisplayComponentFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DisplayComponentFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DisplayComponentFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#x9;this.setBackgroundColor(THIS_BACK&#xA;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel displayComponentLabelFigure0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;displayComponentLabelFigure0.setText(&quot;Display&quot;);&#xA;displayComponentLabelFigure0.setAlignment(org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;this.add(displayComponentLabelFigure0, org.eclipse.draw2d.BorderLayout.TOP);&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure rect0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;this.add(rect0, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#xA;org.eclipse.draw2d.ScalablePolygonShape polyline1 = new org.eclipse.draw2d.ScalablePolygonShape();&#xA;&#xA;polyline1.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(0)&#xA;, getMapMode().DPtoLP(0)&#xA;));&#xA;polyline1.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;));&#xA;&#x9;polyline1.setForegroundColor(org.eclipse.draw2d.ColorConstants.gray);&#xA;&#xA;rect0.add(polyline1);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;static final org.eclipse.swt.graphics.Color THIS_BACK = new org.eclipse.swt.graphics.Color(null, 196, 224, 255);&#xA;&#xA;">
+        <attributes
+            xsi:type="gmfgen:StyleAttributes"
+            fixedForeground="true"
+            fixedBackground="true"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass
+            href="components.genmodel#//components/DisplayComponent"/>
+        <containmentMetaFeature
+            href="components.genmodel#//components/ComponentDiagram/components"/>
+        <childMetaFeature
+            href="components.genmodel#//components/ComponentDiagram/components"/>
+      </modelFacet>
+    </topLevelNodes>
     <links
         visualID="4001"
         editPartClassName="PortConnectorEditPart"
@@ -565,7 +665,7 @@
             href="components.genmodel#//components/Port/connector"/>
       </modelFacet>
       <creationConstraints
-          targetEnd="//@expressionProviders/@providers.0/@expressions.8"/>
+          targetEnd="//@expressionProviders/@providers.0/@expressions.10"/>
     </links>
     <compartments
         visualID="7001"
@@ -619,6 +719,11 @@
             genNodes="//@diagram/@topLevelNodes.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
+            title="Display Component"
+            smallIconPath="/ac.soton.fmusim.components/icons/DisplayComponent.gif"
+            genNodes="//@diagram/@topLevelNodes.3"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
             title="Variable"
             description="Create new Variable"
             smallIconPath="/ac.soton.fmusim.components/icons/FMUVariable.gif"
@@ -628,7 +733,7 @@
             title="Input Port"
             description="Create new Input Port"
             smallIconPath="/ac.soton.fmusim.components/icons/InputPort.gif"
-            genNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.3"/>
+            genNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.3 //@diagram/@childNodes.6"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Output Port"
@@ -713,6 +818,12 @@
         parent="//@diagram"
         child="//@diagram/@topLevelNodes.2"/>
     <childReferences
+        parent="//@diagram/@topLevelNodes.3"
+        child="//@diagram/@childNodes.6"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.3"/>
+    <childReferences
         parent="//@diagram"
         child="//@diagram/@links.0"
         groupName="links"
@@ -777,6 +888,18 @@
         referenceType="out_target"
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.0"
+        child="//@diagram/@childNodes.6"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@childNodes.6"
+        child="//@diagram/@links.0"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
   </navigator>
   <diagramUpdater/>
   <propertySheet>
@@ -825,6 +948,11 @@
           body="VariableCausality::Output"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
+          body="self.causality = VariableCausality::Input"/>
+      <expressions
+          body="VariableCausality::Input"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
           body="not (oppositeEnd.oclAsType(AbstractVariable).causality = VariableCausality::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(AbstractVariable).causality = VariableCausality::Output))"/>
     </providers>
     <providers
@@ -841,7 +969,7 @@
       extensibleViaService="true">
     <implementations
         xsi:type="gmfgen:PredefinedParser"
-        uses="//@diagram/@childNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.3/@labels.0/@modelFacet //@diagram/@childNodes.4/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet"/>
+        uses="//@diagram/@childNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@childNodes.3/@labels.0/@modelFacet //@diagram/@childNodes.4/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@childNodes.6/@labels.0/@modelFacet"/>
     <implementations
         xsi:type="gmfgen:ExpressionLabelParser"
         uses="//@diagram/@childNodes.2/@labelModelFacet"

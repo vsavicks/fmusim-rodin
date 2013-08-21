@@ -282,6 +282,52 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.DisplayComponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DisplayComponentItemProvider displayComponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link ac.soton.fmusim.components.DisplayComponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDisplayComponentAdapter() {
+		if (displayComponentItemProvider == null) {
+			displayComponentItemProvider = new DisplayComponentItemProvider(this);
+		}
+
+		return displayComponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.DisplayPort} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DisplayPortItemProvider displayPortItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link ac.soton.fmusim.components.DisplayPort}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDisplayPortAdapter() {
+		if (displayPortItemProvider == null) {
+			displayPortItemProvider = new DisplayPortItemProvider(this);
+		}
+
+		return displayPortItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -415,6 +461,8 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 		if (eventBPortItemProvider != null) eventBPortItemProvider.dispose();
 		if (fmuVariableItemProvider != null) fmuVariableItemProvider.dispose();
 		if (eventBVariableItemProvider != null) eventBVariableItemProvider.dispose();
+		if (displayComponentItemProvider != null) displayComponentItemProvider.dispose();
+		if (displayPortItemProvider != null) displayPortItemProvider.dispose();
 	}
 
 	/**

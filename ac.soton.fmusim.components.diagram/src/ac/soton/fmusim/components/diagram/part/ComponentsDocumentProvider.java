@@ -73,7 +73,6 @@ import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.FMUComponent;
-import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.util.FmiUtil;
 import de.prob.cosimulation.FMU;
 
@@ -230,10 +229,6 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 			IStorage storage = ((FileEditorInput) element).getStorage();
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true,
 					getProgressMonitor());
-
-			// XXX: fmu loading from path attribute
-//			loadFmuPath(domain, diagram);
-
 			document.setContent(diagram);
 		} else if (element instanceof URIEditorInput) {
 			URI uri = ((URIEditorInput) element).getURI();

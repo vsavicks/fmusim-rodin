@@ -28,10 +28,11 @@ import de.prob.statespace.Trace;
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#isComposed <em>Composed</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getMachine <em>Machine</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent <em>Write Outputs Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision <em>Int To Real Precision</em>}</li>
  * </ul>
  * </p>
  *
@@ -119,32 +120,6 @@ public interface EventBComponent extends AbstractExtension, Component {
 	void setReadInputsEvent(Event value);
 
 	/**
-	 * Returns the value of the '<em><b>Write Outputs Event</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Write Outputs Event</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Write Outputs Event</em>' reference.
-	 * @see #setWriteOutputsEvent(Event)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_WriteOutputsEvent()
-	 * @model
-	 * @generated
-	 */
-	Event getWriteOutputsEvent();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getWriteOutputsEvent <em>Write Outputs Event</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Write Outputs Event</em>' reference.
-	 * @see #getWriteOutputsEvent()
-	 * @generated
-	 */
-	void setWriteOutputsEvent(Event value);
-
-	/**
 	 * Returns the value of the '<em><b>Time Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -221,6 +196,58 @@ public interface EventBComponent extends AbstractExtension, Component {
 	 * @generated
 	 */
 	void setTrace(Trace value);
+
+	/**
+	 * Returns the value of the '<em><b>Step Period</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Step Period</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Step Period</em>' attribute.
+	 * @see #setStepPeriod(double)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_StepPeriod()
+	 * @model
+	 * @generated
+	 */
+	double getStepPeriod();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Step Period</em>' attribute.
+	 * @see #getStepPeriod()
+	 * @generated
+	 */
+	void setStepPeriod(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Int To Real Precision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Int To Real Precision</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Int To Real Precision</em>' attribute.
+	 * @see #setIntToRealPrecision(int)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_IntToRealPrecision()
+	 * @model
+	 * @generated
+	 */
+	int getIntToRealPrecision();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision <em>Int To Real Precision</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Int To Real Precision</em>' attribute.
+	 * @see #getIntToRealPrecision()
+	 * @generated
+	 */
+	void setIntToRealPrecision(int value);
 
 	/**
 	 * <!-- begin-user-doc -->

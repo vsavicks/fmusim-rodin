@@ -276,6 +276,7 @@ public class ConnectorEditPart extends AbstractBorderedShapeEditPart {
 			types.add(ComponentsElementTypes.FMUPort_3002);
 			types.add(ComponentsElementTypes.EventBPort_3003);
 			types.add(ComponentsElementTypes.EventBPort_3004);
+			types.add(ComponentsElementTypes.DisplayPort_3013);
 		}
 		return types;
 	}

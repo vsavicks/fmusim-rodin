@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eventb.emf.core.machine.Parameter;
+import org.eventb.emf.core.machine.Variable;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBPort;
@@ -23,7 +24,8 @@ import ac.soton.fmusim.components.EventBPort;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBPortImpl#getEventParameter <em>Event Parameter</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBPortImpl#getParameter <em>Parameter</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBPortImpl#getVariable <em>Variable</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,14 +33,23 @@ import ac.soton.fmusim.components.EventBPort;
  */
 public class EventBPortImpl extends PortImpl implements EventBPort {
 	/**
-	 * The cached value of the '{@link #getEventParameter() <em>Event Parameter</em>}' reference.
+	 * The cached value of the '{@link #getParameter() <em>Parameter</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEventParameter()
+	 * @see #getParameter()
 	 * @generated
 	 * @ordered
 	 */
-	protected Parameter eventParameter;
+	protected Parameter parameter;
+	/**
+	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVariable()
+	 * @generated
+	 * @ordered
+	 */
+	protected Variable variable;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -63,16 +74,16 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Parameter getEventParameter() {
-		if (eventParameter != null && eventParameter.eIsProxy()) {
-			InternalEObject oldEventParameter = (InternalEObject)eventParameter;
-			eventParameter = (Parameter)eResolveProxy(oldEventParameter);
-			if (eventParameter != oldEventParameter) {
+	public Parameter getParameter() {
+		if (parameter != null && parameter.eIsProxy()) {
+			InternalEObject oldParameter = (InternalEObject)parameter;
+			parameter = (Parameter)eResolveProxy(oldParameter);
+			if (parameter != oldParameter) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BPORT__EVENT_PARAMETER, oldEventParameter, eventParameter));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BPORT__PARAMETER, oldParameter, parameter));
 			}
 		}
-		return eventParameter;
+		return parameter;
 	}
 
 	/**
@@ -80,8 +91,8 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Parameter basicGetEventParameter() {
-		return eventParameter;
+	public Parameter basicGetParameter() {
+		return parameter;
 	}
 
 	/**
@@ -89,11 +100,49 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEventParameter(Parameter newEventParameter) {
-		Parameter oldEventParameter = eventParameter;
-		eventParameter = newEventParameter;
+	public void setParameter(Parameter newParameter) {
+		Parameter oldParameter = parameter;
+		parameter = newParameter;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BPORT__EVENT_PARAMETER, oldEventParameter, eventParameter));
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BPORT__PARAMETER, oldParameter, parameter));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Variable getVariable() {
+		if (variable != null && variable.eIsProxy()) {
+			InternalEObject oldVariable = (InternalEObject)variable;
+			variable = (Variable)eResolveProxy(oldVariable);
+			if (variable != oldVariable) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BPORT__VARIABLE, oldVariable, variable));
+			}
+		}
+		return variable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Variable basicGetVariable() {
+		return variable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVariable(Variable newVariable) {
+		Variable oldVariable = variable;
+		variable = newVariable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BPORT__VARIABLE, oldVariable, variable));
 	}
 
 	/**
@@ -104,9 +153,12 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ComponentsPackage.EVENT_BPORT__EVENT_PARAMETER:
-				if (resolve) return getEventParameter();
-				return basicGetEventParameter();
+			case ComponentsPackage.EVENT_BPORT__PARAMETER:
+				if (resolve) return getParameter();
+				return basicGetParameter();
+			case ComponentsPackage.EVENT_BPORT__VARIABLE:
+				if (resolve) return getVariable();
+				return basicGetVariable();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -119,8 +171,11 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ComponentsPackage.EVENT_BPORT__EVENT_PARAMETER:
-				setEventParameter((Parameter)newValue);
+			case ComponentsPackage.EVENT_BPORT__PARAMETER:
+				setParameter((Parameter)newValue);
+				return;
+			case ComponentsPackage.EVENT_BPORT__VARIABLE:
+				setVariable((Variable)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -134,8 +189,11 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ComponentsPackage.EVENT_BPORT__EVENT_PARAMETER:
-				setEventParameter((Parameter)null);
+			case ComponentsPackage.EVENT_BPORT__PARAMETER:
+				setParameter((Parameter)null);
+				return;
+			case ComponentsPackage.EVENT_BPORT__VARIABLE:
+				setVariable((Variable)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -149,8 +207,10 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ComponentsPackage.EVENT_BPORT__EVENT_PARAMETER:
-				return eventParameter != null;
+			case ComponentsPackage.EVENT_BPORT__PARAMETER:
+				return parameter != null;
+			case ComponentsPackage.EVENT_BPORT__VARIABLE:
+				return variable != null;
 		}
 		return super.eIsSet(featureID);
 	}

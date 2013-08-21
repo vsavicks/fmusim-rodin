@@ -21,6 +21,8 @@ import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.DisplayComponent;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
@@ -133,6 +135,14 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseEventBVariable(EventBVariable object) {
 				return createEventBVariableAdapter();
+			}
+			@Override
+			public Adapter caseDisplayComponent(DisplayComponent object) {
+				return createDisplayComponentAdapter();
+			}
+			@Override
+			public Adapter caseDisplayPort(DisplayPort object) {
+				return createDisplayPortAdapter();
 			}
 			@Override
 			public Adapter caseEventBObject(EventBObject object) {
@@ -331,6 +341,34 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEventBVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.DisplayComponent <em>Display Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.fmusim.components.DisplayComponent
+	 * @generated
+	 */
+	public Adapter createDisplayComponentAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.DisplayPort <em>Display Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.fmusim.components.DisplayPort
+	 * @generated
+	 */
+	public Adapter createDisplayPortAdapter() {
 		return null;
 	}
 

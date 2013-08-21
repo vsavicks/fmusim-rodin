@@ -60,25 +60,48 @@ public class EventBPortItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addEventParameterPropertyDescriptor(object);
+			addParameterPropertyDescriptor(object);
+			addVariablePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Event Parameter feature.
+	 * This adds a property descriptor for the Parameter feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addEventParameterPropertyDescriptor(Object object) {
+	protected void addParameterPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBPort_eventParameter_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_eventParameter_feature", "_UI_EventBPort_type"),
-				 ComponentsPackage.Literals.EVENT_BPORT__EVENT_PARAMETER,
+				 getString("_UI_EventBPort_parameter_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_parameter_feature", "_UI_EventBPort_type"),
+				 ComponentsPackage.Literals.EVENT_BPORT__PARAMETER,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Variable feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVariablePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBPort_variable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_variable_feature", "_UI_EventBPort_type"),
+				 ComponentsPackage.Literals.EVENT_BPORT__VARIABLE,
 				 true,
 				 false,
 				 true,

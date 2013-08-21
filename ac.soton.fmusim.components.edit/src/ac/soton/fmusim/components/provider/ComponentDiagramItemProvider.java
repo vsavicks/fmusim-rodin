@@ -192,6 +192,11 @@ public class ComponentDiagramItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT_DIAGRAM__COMPONENTS,
+				 ComponentsFactory.eINSTANCE.createDisplayComponent()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT_DIAGRAM__CONNECTORS,
 				 ComponentsFactory.eINSTANCE.createConnector()));
 	}

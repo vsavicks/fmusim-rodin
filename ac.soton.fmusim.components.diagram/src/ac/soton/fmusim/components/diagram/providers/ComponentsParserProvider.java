@@ -22,6 +22,7 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
@@ -198,6 +199,24 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
+	private IParser displayPortName_5010Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getDisplayPortName_5010Parser() {
+		if (displayPortName_5010Parser == null) {
+			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
+					.getNamedElement_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			displayPortName_5010Parser = parser;
+		}
+		return displayPortName_5010Parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
 		case FMUComponentNameEditPart.VISUAL_ID:
@@ -218,6 +237,8 @@ public class ComponentsParserProvider extends AbstractProvider implements
 			return getEventBPortName_5007Parser();
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010Parser();
+		case DisplayPortNameEditPart.VISUAL_ID:
+			return getDisplayPortName_5010Parser();
 		}
 		return null;
 	}

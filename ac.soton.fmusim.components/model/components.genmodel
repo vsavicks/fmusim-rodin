@@ -25,6 +25,9 @@
     </genEnums>
     <genDataTypes ecoreDataType="components.ecore#//FmuClass"/>
     <genDataTypes ecoreDataType="components.ecore#//TraceClass"/>
+    <genDataTypes ecoreDataType="components.ecore#//Trace2DClass"/>
+    <genDataTypes ecoreDataType="components.ecore#//Chart2DClass"/>
+    <genDataTypes ecoreDataType="components.ecore#//SimExceptionClass"/>
     <genClasses ecoreClass="components.ecore#//ComponentDiagram">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/components"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/connectors"/>
@@ -61,10 +64,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/composed"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/machine"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/readInputsEvent"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/writeOutputsEvent"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/timeVariable"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/updateEvent"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/trace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/stepPeriod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/intToRealPrecision"/>
       <genOperations ecoreOperation="components.ecore#//EventBComponent/hasValidMachineReference">
         <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/diagnostics"/>
         <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/context"/>
@@ -80,7 +84,8 @@
     </genClasses>
     <genClasses ecoreClass="components.ecore#//FMUPort"/>
     <genClasses ecoreClass="components.ecore#//EventBPort">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/eventParameter"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/parameter"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/variable"/>
     </genClasses>
     <genClasses ecoreClass="components.ecore#//FMUVariable"/>
     <genClasses image="false" ecoreClass="components.ecore#//AbstractVariable">
@@ -91,6 +96,12 @@
     </genClasses>
     <genClasses ecoreClass="components.ecore#//EventBVariable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBVariable/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="components.ecore#//DisplayComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//DisplayComponent/chart"/>
+    </genClasses>
+    <genClasses ecoreClass="components.ecore#//DisplayPort">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//DisplayPort/trace"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

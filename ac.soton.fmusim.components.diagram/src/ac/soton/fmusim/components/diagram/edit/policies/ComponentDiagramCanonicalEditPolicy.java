@@ -41,6 +41,8 @@ import org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
@@ -117,9 +119,14 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	private boolean isMyDiagramElement(View view) {
 		int visualID = ComponentsVisualIDRegistry.getVisualID(view);
-		return visualID == FMUComponentEditPart.VISUAL_ID
-				|| visualID == EventBComponentEditPart.VISUAL_ID
-				|| visualID == ConnectorEditPart.VISUAL_ID;
+		switch (visualID) {
+		case FMUComponentEditPart.VISUAL_ID:
+		case EventBComponentEditPart.VISUAL_ID:
+		case ConnectorEditPart.VISUAL_ID:
+		case DisplayComponentEditPart.VISUAL_ID:
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -302,6 +309,14 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
+		case DisplayComponentEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(ComponentsDiagramUpdater
+						.getDisplayComponent_2006ContainedLinks(view));
+			}
+			domain2NotationMap.putView(view.getElement(), view);
+			break;
+		}
 		case FMUPortEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(ComponentsDiagramUpdater
@@ -330,6 +345,14 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(ComponentsDiagramUpdater
 						.getEventBPort_3004ContainedLinks(view));
+			}
+			domain2NotationMap.putView(view.getElement(), view);
+			break;
+		}
+		case DisplayPortEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(ComponentsDiagramUpdater
+						.getDisplayPort_3013ContainedLinks(view));
 			}
 			domain2NotationMap.putView(view.getElement(), view);
 			break;

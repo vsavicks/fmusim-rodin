@@ -24,6 +24,8 @@ import org.eclipse.swt.graphics.Image;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
@@ -82,6 +84,11 @@ public class ComponentsElementTypes {
 	/**
 	 * @generated
 	 */
+	public static final IElementType DisplayComponent_2006 = getElementType("ac.soton.fmusim.components.diagram.DisplayComponent_2006"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType FMUPort_3001 = getElementType("ac.soton.fmusim.components.diagram.FMUPort_3001"); //$NON-NLS-1$
 	/**
 	 * @generated
@@ -104,6 +111,11 @@ public class ComponentsElementTypes {
 	 * @generated
 	 */
 	public static final IElementType EventBVariable_3010 = getElementType("ac.soton.fmusim.components.diagram.EventBVariable_3010"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType DisplayPort_3013 = getElementType("ac.soton.fmusim.components.diagram.DisplayPort_3013"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -160,6 +172,9 @@ public class ComponentsElementTypes {
 			elements.put(Connector_2003,
 					ComponentsPackage.eINSTANCE.getConnector());
 
+			elements.put(DisplayComponent_2006,
+					ComponentsPackage.eINSTANCE.getDisplayComponent());
+
 			elements.put(FMUPort_3001, ComponentsPackage.eINSTANCE.getFMUPort());
 
 			elements.put(FMUPort_3002, ComponentsPackage.eINSTANCE.getFMUPort());
@@ -175,6 +190,9 @@ public class ComponentsElementTypes {
 
 			elements.put(EventBVariable_3010,
 					ComponentsPackage.eINSTANCE.getEventBVariable());
+
+			elements.put(DisplayPort_3013,
+					ComponentsPackage.eINSTANCE.getDisplayPort());
 
 			elements.put(PortConnector_4001,
 					ComponentsPackage.eINSTANCE.getPort_Connector());
@@ -199,12 +217,14 @@ public class ComponentsElementTypes {
 			KNOWN_ELEMENT_TYPES.add(FMUComponent_2001);
 			KNOWN_ELEMENT_TYPES.add(EventBComponent_2002);
 			KNOWN_ELEMENT_TYPES.add(Connector_2003);
+			KNOWN_ELEMENT_TYPES.add(DisplayComponent_2006);
 			KNOWN_ELEMENT_TYPES.add(FMUPort_3001);
 			KNOWN_ELEMENT_TYPES.add(FMUPort_3002);
 			KNOWN_ELEMENT_TYPES.add(FMUVariable_3009);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3003);
 			KNOWN_ELEMENT_TYPES.add(EventBPort_3004);
 			KNOWN_ELEMENT_TYPES.add(EventBVariable_3010);
+			KNOWN_ELEMENT_TYPES.add(DisplayPort_3013);
 			KNOWN_ELEMENT_TYPES.add(PortConnector_4001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
@@ -223,6 +243,8 @@ public class ComponentsElementTypes {
 			return EventBComponent_2002;
 		case ConnectorEditPart.VISUAL_ID:
 			return Connector_2003;
+		case DisplayComponentEditPart.VISUAL_ID:
+			return DisplayComponent_2006;
 		case FMUPortEditPart.VISUAL_ID:
 			return FMUPort_3001;
 		case FMUPort2EditPart.VISUAL_ID:
@@ -235,6 +257,8 @@ public class ComponentsElementTypes {
 			return EventBPort_3004;
 		case EventBVariableEditPart.VISUAL_ID:
 			return EventBVariable_3010;
+		case DisplayPortEditPart.VISUAL_ID:
+			return DisplayPort_3013;
 		case PortConnectorEditPart.VISUAL_ID:
 			return PortConnector_4001;
 		}

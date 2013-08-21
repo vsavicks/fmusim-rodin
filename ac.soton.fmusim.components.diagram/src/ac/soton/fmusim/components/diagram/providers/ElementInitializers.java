@@ -8,6 +8,7 @@
 package ac.soton.fmusim.components.diagram.providers;
 
 import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.VariableCausality;
@@ -85,6 +86,24 @@ public class ElementInitializers {
 		try {
 			Object value_0 = ComponentsOCLFactory.getExpression(7,
 					ComponentsPackage.eINSTANCE.getEventBPort(), null)
+					.evaluate(instance);
+
+			value_0 = ComponentsAbstractExpression.performCast(value_0,
+					ComponentsPackage.eINSTANCE.getVariableCausality());
+			instance.setCausality((VariableCausality) value_0);
+		} catch (RuntimeException e) {
+			ComponentsDiagramEditorPlugin.getInstance().logError(
+					"Element initialization failed", e); //$NON-NLS-1$						
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void init_DisplayPort_3013(DisplayPort instance) {
+		try {
+			Object value_0 = ComponentsOCLFactory.getExpression(9,
+					ComponentsPackage.eINSTANCE.getDisplayPort(), null)
 					.evaluate(instance);
 
 			value_0 = ComponentsAbstractExpression.performCast(value_0,

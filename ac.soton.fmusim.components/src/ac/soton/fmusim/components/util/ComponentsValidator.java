@@ -8,6 +8,10 @@
 package ac.soton.fmusim.components.util;
 
 import ac.soton.fmusim.components.*;
+import ac.soton.fmusim.components.exceptions.SimulationException;
+import info.monitorenter.gui.chart.Chart2D;
+import info.monitorenter.gui.chart.ITrace2D;
+
 import java.util.Map;
 
 import org.eclipse.emf.common.util.Diagnostic;
@@ -22,6 +26,8 @@ import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.DisplayComponent;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
@@ -147,6 +153,10 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateAbstractVariable((AbstractVariable)value, diagnostics, context);
 			case ComponentsPackage.EVENT_BVARIABLE:
 				return validateEventBVariable((EventBVariable)value, diagnostics, context);
+			case ComponentsPackage.DISPLAY_COMPONENT:
+				return validateDisplayComponent((DisplayComponent)value, diagnostics, context);
+			case ComponentsPackage.DISPLAY_PORT:
+				return validateDisplayPort((DisplayPort)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_TYPE:
 				return validateVariableType((VariableType)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
@@ -155,6 +165,12 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateFmuClass((FMU)value, diagnostics, context);
 			case ComponentsPackage.TRACE_CLASS:
 				return validateTraceClass((Trace)value, diagnostics, context);
+			case ComponentsPackage.TRACE2_DCLASS:
+				return validateTrace2DClass((ITrace2D)value, diagnostics, context);
+			case ComponentsPackage.CHART2_DCLASS:
+				return validateChart2DClass((Chart2D)value, diagnostics, context);
+			case ComponentsPackage.SIM_EXCEPTION_CLASS:
+				return validateSimExceptionClass((SimulationException)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -407,6 +423,24 @@ public class ComponentsValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateDisplayComponent(DisplayComponent displayComponent, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(displayComponent, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDisplayPort(DisplayPort displayPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(displayPort, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateVariableType(VariableType variableType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
@@ -435,6 +469,33 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateTraceClass(Trace traceClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTrace2DClass(ITrace2D trace2DClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateChart2DClass(Chart2D chart2DClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSimExceptionClass(SimulationException simExceptionClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

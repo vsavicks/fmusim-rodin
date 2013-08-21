@@ -10,19 +10,20 @@
         eType="#//Connector" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true" interface="true"
+      eSuperTypes="#//NamedElement">
     <eOperations name="initialise">
       <eParameters name="tStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eParameters name="tStop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eOperations>
-    <eOperations name="readInputs"/>
+    <eOperations name="readInputs" eExceptions="#//SimExceptionClass"/>
     <eOperations name="writeOutputs"/>
     <eOperations name="doStep">
       <eParameters name="time" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDouble"/>
       <eParameters name="step" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDouble"/>
     </eOperations>
     <eOperations name="terminate"/>
-    <eOperations name="instantiate"/>
+    <eOperations name="instantiate" eExceptions="#//SimExceptionClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
         eType="#//Port" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" upperBound="-1"
@@ -73,12 +74,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="machine" lowerBound="1"
         eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Machine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="readInputsEvent" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="writeOutputsEvent" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="timeVariable" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Variable"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="updateEvent" lowerBound="1"
         eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="#//TraceClass"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="intToRealPrecision" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUComponent" eSuperTypes="#//Component">
     <eOperations name="hasValidFmuPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -96,8 +98,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUPort" eSuperTypes="#//Port"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventBPort" eSuperTypes="#//Port">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="eventParameter" lowerBound="1"
-        eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Parameter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Parameter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
+        eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Variable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUVariable" eSuperTypes="#//AbstractVariable"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement">
@@ -113,4 +116,17 @@
   <eClassifiers xsi:type="ecore:EDataType" name="FmuClass" instanceClassName="de.prob.cosimulation.FMU"/>
   <eClassifiers xsi:type="ecore:EDataType" name="TraceClass" instanceClassName="de.prob.statespace.Trace"
       serializable="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DisplayComponent" eSuperTypes="#//Component">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="chart" eType="#//Chart2DClass"
+        transient="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Trace2DClass" instanceClassName="info.monitorenter.gui.chart.ITrace2D"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Chart2DClass" instanceClassName="info.monitorenter.gui.chart.Chart2D"
+      serializable="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DisplayPort" eSuperTypes="#//Port">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="#//Trace2DClass"
+        transient="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="SimExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.SimulationException"/>
 </ecore:EPackage>

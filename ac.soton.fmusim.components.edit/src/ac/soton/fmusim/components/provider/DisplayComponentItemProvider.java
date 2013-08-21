@@ -4,6 +4,8 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * $Id$
  */
 package ac.soton.fmusim.components.provider;
 
@@ -14,25 +16,27 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.DisplayComponent;
 
 /**
- * This is the item provider adapter for a {@link ac.soton.fmusim.components.Component} object.
+ * This is the item provider adapter for a {@link ac.soton.fmusim.components.DisplayComponent} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentItemProvider
+public class DisplayComponentItemProvider
 	extends NamedElementItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -46,7 +50,7 @@ public class ComponentItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComponentItemProvider(AdapterFactory adapterFactory) {
+	public DisplayComponentItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,8 +65,31 @@ public class ComponentItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addChartPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Chart feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addChartPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DisplayComponent_chart_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DisplayComponent_chart_feature", "_UI_DisplayComponent_type"),
+				 ComponentsPackage.Literals.DISPLAY_COMPONENT__CHART,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -98,6 +125,17 @@ public class ComponentItemProvider
 	}
 
 	/**
+	 * This returns DisplayComponent.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DisplayComponent"));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -105,10 +143,10 @@ public class ComponentItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Component)object).getName();
+		String label = ((DisplayComponent)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Component_type") :
-			getString("_UI_Component_type") + " " + label;
+			getString("_UI_DisplayComponent_type") :
+			getString("_UI_DisplayComponent_type") + " " + label;
 	}
 
 	/**
@@ -122,10 +160,13 @@ public class ComponentItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Component.class)) {
-			case ComponentsPackage.COMPONENT__INPUTS:
-			case ComponentsPackage.COMPONENT__OUTPUTS:
-			case ComponentsPackage.COMPONENT__VARIABLES:
+		switch (notification.getFeatureID(DisplayComponent.class)) {
+			case ComponentsPackage.DISPLAY_COMPONENT__CHART:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case ComponentsPackage.DISPLAY_COMPONENT__INPUTS:
+			case ComponentsPackage.DISPLAY_COMPONENT__OUTPUTS:
+			case ComponentsPackage.DISPLAY_COMPONENT__VARIABLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -155,6 +196,11 @@ public class ComponentItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__INPUTS,
+				 ComponentsFactory.eINSTANCE.createDisplayPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT__OUTPUTS,
 				 ComponentsFactory.eINSTANCE.createFMUPort()));
 
@@ -162,6 +208,11 @@ public class ComponentItemProvider
 			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT__OUTPUTS,
 				 ComponentsFactory.eINSTANCE.createEventBPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__OUTPUTS,
+				 ComponentsFactory.eINSTANCE.createDisplayPort()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -182,6 +233,11 @@ public class ComponentItemProvider
 			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
 				 ComponentsFactory.eINSTANCE.createEventBVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createDisplayPort()));
 	}
 
 	/**

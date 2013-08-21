@@ -8,19 +8,30 @@
 package ac.soton.fmusim.components.impl;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.emf.ecore.util.InternalEList;
 
+import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
 import de.prob.cosimulation.FMU;
 
@@ -31,6 +42,9 @@ import de.prob.cosimulation.FMU;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getInputs <em>Inputs</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getOutputs <em>Outputs</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getFmu <em>Fmu</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getPath <em>Path</em>}</li>
  * </ul>
@@ -38,7 +52,37 @@ import de.prob.cosimulation.FMU;
  *
  * @generated
  */
-public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
+public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
+	/**
+	 * The cached value of the '{@link #getInputs() <em>Inputs</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInputs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Port> inputs;
+
+	/**
+	 * The cached value of the '{@link #getOutputs() <em>Outputs</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOutputs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Port> outputs;
+
+	/**
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractVariable> variables;
+
 	/**
 	 * The default value of the '{@link #getFmu() <em>Fmu</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -96,6 +140,42 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	@Override
 	protected EClass eStaticClass() {
 		return ComponentsPackage.Literals.FMU_COMPONENT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Port> getInputs() {
+		if (inputs == null) {
+			inputs = new EObjectContainmentEList.Resolving<Port>(Port.class, this, ComponentsPackage.FMU_COMPONENT__INPUTS);
+		}
+		return inputs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Port> getOutputs() {
+		if (outputs == null) {
+			outputs = new EObjectContainmentEList.Resolving<Port>(Port.class, this, ComponentsPackage.FMU_COMPONENT__OUTPUTS);
+		}
+		return outputs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AbstractVariable> getVariables() {
+		if (variables == null) {
+			variables = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.FMU_COMPONENT__VARIABLES);
+		}
+		return variables;
 	}
 
 	/**
@@ -171,11 +251,200 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void initialise(double tStart, double tStop) {
+		FMU fmu = getFmu();
+		assert fmu != null;
+		
+		// initialise FMU
+		fmu.initialize(tStart, tStop);
+		
+		// update variables
+		for (AbstractVariable v : getVariables())
+			v.setValue(getValueFMU(fmu, v));
+		//TODO: update port values
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void readInputs() {
+		FMU fmu = getFmu();
+		assert fmu != null;
+		
+		for (Port port : getInputs()) {
+			Connector connector = port.getConnector();
+			
+			// skip port if not connected
+			if (connector == null) {
+				continue;
+			}
+			
+			// set value to port's FMU variable
+			Object value = connector.getValue();
+			setValueFMU(fmu, port, value);
+			
+			// update port value
+			port.setValue(value);
+		}
+	}
+
+	/**
+	 * Sets value to FMU variable.
+	 * 
+	 * @param fmu
+	 * @param port
+	 * @param value
+	 * @return
+	 */
+	private void setValueFMU(FMU fmu, AbstractVariable variable, Object value) {
+		String name = variable.getName();
+		switch (variable.getType()) {
+		case BOOLEAN:
+			fmu.set(name, (Boolean) value);
+			break;
+		case INTEGER:
+			fmu.set(name, (Integer) value);
+			break;
+		case REAL:
+			fmu.set(name, (Double) value);
+			break;
+		case STRING:
+			fmu.set(name, (String) value);
+			break;
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void writeOutputs() {
+		FMU fmu = getFmu();
+		assert fmu != null;
+		
+		for (Port port : getOutputs()) {
+			Object value = getValueFMU(fmu, port);
+			
+			// send value to connector if connected
+			Connector connector = port.getConnector();
+			if (connector != null) {
+				connector.setValue(value);
+			}
+			
+			// update port value
+			port.setValue(value);
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void doStep(double time, double step) {
+		FMU fmu = getFmu();
+		assert fmu != null;
+		
+		// simulation step
+		fmu.doStep(time, step);
+		
+		// update variables
+		for (AbstractVariable v : getVariables())
+			v.setValue(getValueFMU(fmu, v));
+		//TODO: update port values
+	}
+
+	/**
+	 * Returns FMU variable's value.
+	 * 
+	 * @param fmu
+	 * @param variable
+	 * @return
+	 */
+	private Object getValueFMU(FMU fmu, AbstractVariable variable) {
+		String name = variable.getName();
+		Object value = null;
+		switch (variable.getType()) {
+		case BOOLEAN:
+			value  = fmu.getBoolean(name);
+			break;
+		case INTEGER:
+			value = fmu.getInt(name);
+			break;
+		case REAL:
+			value = fmu.getDouble(name);
+			break;
+		case STRING:
+			value = fmu.getString(name);
+			break;
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void terminate() {
+		FMU fmu = getFmu();
+		assert fmu != null;
+		
+		fmu.terminate();
+		setFmu(null);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void instantiate() throws SimulationException {
+		try {
+			FMU fmu = new FMU(getPath());
+			setFmu(fmu);
+		} catch (IOException e) {
+			throw new SimulationException("Failed to load FMU: "+ getPath() + '\n' + e.getMessage());
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ComponentsPackage.FMU_COMPONENT__INPUTS:
+				return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
+			case ComponentsPackage.FMU_COMPONENT__OUTPUTS:
+				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
+			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
+				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ComponentsPackage.FMU_COMPONENT__INPUTS:
+				return getInputs();
+			case ComponentsPackage.FMU_COMPONENT__OUTPUTS:
+				return getOutputs();
+			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
+				return getVariables();
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				return getFmu();
 			case ComponentsPackage.FMU_COMPONENT__PATH:
@@ -189,9 +458,22 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ComponentsPackage.FMU_COMPONENT__INPUTS:
+				getInputs().clear();
+				getInputs().addAll((Collection<? extends Port>)newValue);
+				return;
+			case ComponentsPackage.FMU_COMPONENT__OUTPUTS:
+				getOutputs().clear();
+				getOutputs().addAll((Collection<? extends Port>)newValue);
+				return;
+			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
+				return;
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				setFmu((FMU)newValue);
 				return;
@@ -210,6 +492,15 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ComponentsPackage.FMU_COMPONENT__INPUTS:
+				getInputs().clear();
+				return;
+			case ComponentsPackage.FMU_COMPONENT__OUTPUTS:
+				getOutputs().clear();
+				return;
+			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
+				getVariables().clear();
+				return;
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				setFmu(FMU_EDEFAULT);
 				return;
@@ -228,6 +519,12 @@ public class FMUComponentImpl extends ComponentImpl implements FMUComponent {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ComponentsPackage.FMU_COMPONENT__INPUTS:
+				return inputs != null && !inputs.isEmpty();
+			case ComponentsPackage.FMU_COMPONENT__OUTPUTS:
+				return outputs != null && !outputs.isEmpty();
+			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
+				return variables != null && !variables.isEmpty();
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				return FMU_EDEFAULT == null ? fmu != null : !FMU_EDEFAULT.equals(fmu);
 			case ComponentsPackage.FMU_COMPONENT__PATH:

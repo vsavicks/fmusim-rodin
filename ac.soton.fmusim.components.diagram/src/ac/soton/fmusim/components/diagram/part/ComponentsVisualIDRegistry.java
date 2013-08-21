@@ -16,11 +16,15 @@ import org.eclipse.gmf.tooling.runtime.structure.DiagramStructure;
 
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
@@ -159,6 +163,10 @@ public class ComponentsVisualIDRegistry {
 					domainElement.eClass())) {
 				return ConnectorEditPart.VISUAL_ID;
 			}
+			if (ComponentsPackage.eINSTANCE.getDisplayComponent()
+					.isSuperTypeOf(domainElement.eClass())) {
+				return DisplayComponentEditPart.VISUAL_ID;
+			}
 			break;
 		case FMUComponentEditPart.VISUAL_ID:
 			if (ComponentsPackage.eINSTANCE.getFMUPort().isSuperTypeOf(
@@ -182,6 +190,13 @@ public class ComponentsVisualIDRegistry {
 					domainElement.eClass())
 					&& isEventBPort_3004((EventBPort) domainElement)) {
 				return EventBPort2EditPart.VISUAL_ID;
+			}
+			break;
+		case DisplayComponentEditPart.VISUAL_ID:
+			if (ComponentsPackage.eINSTANCE.getDisplayPort().isSuperTypeOf(
+					domainElement.eClass())
+					&& isDisplayPort_3013((DisplayPort) domainElement)) {
+				return DisplayPortEditPart.VISUAL_ID;
 			}
 			break;
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
@@ -231,6 +246,9 @@ public class ComponentsVisualIDRegistry {
 			if (ConnectorEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (DisplayComponentEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case FMUComponentEditPart.VISUAL_ID:
 			if (FMUComponentNameEditPart.VISUAL_ID == nodeVisualID) {
@@ -265,6 +283,11 @@ public class ComponentsVisualIDRegistry {
 				return true;
 			}
 			break;
+		case DisplayComponentEditPart.VISUAL_ID:
+			if (DisplayPortEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
 		case FMUPortEditPart.VISUAL_ID:
 			if (FMUPortNameTypeEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
@@ -282,6 +305,11 @@ public class ComponentsVisualIDRegistry {
 			break;
 		case EventBPort2EditPart.VISUAL_ID:
 			if (EventBPortNameType2EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case DisplayPortEditPart.VISUAL_ID:
+			if (DisplayPortNameEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -362,6 +390,16 @@ public class ComponentsVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	private static boolean isDisplayPort_3013(DisplayPort domainElement) {
+		Object result = ComponentsOCLFactory.getExpression(8,
+				ComponentsPackage.eINSTANCE.getDisplayPort(), null).evaluate(
+				domainElement);
+		return result instanceof Boolean && ((Boolean) result).booleanValue();
+	}
+
+	/**
+	 * @generated
+	 */
 	public static boolean checkNodeVisualID(View containerView,
 			EObject domainElement, int candidate) {
 		if (candidate == -1) {
@@ -400,6 +438,7 @@ public class ComponentsVisualIDRegistry {
 		case EventBPort2EditPart.VISUAL_ID:
 		case FMUVariableEditPart.VISUAL_ID:
 		case EventBVariableEditPart.VISUAL_ID:
+		case DisplayPortEditPart.VISUAL_ID:
 			return true;
 		default:
 			break;

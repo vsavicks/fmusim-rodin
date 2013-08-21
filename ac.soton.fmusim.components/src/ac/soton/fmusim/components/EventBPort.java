@@ -8,6 +8,7 @@
 package ac.soton.fmusim.components;
 
 import org.eventb.emf.core.machine.Parameter;
+import org.eventb.emf.core.machine.Variable;
 
 
 /**
@@ -18,7 +19,8 @@ import org.eventb.emf.core.machine.Parameter;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link ac.soton.fmusim.components.EventBPort#getEventParameter <em>Event Parameter</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBPort#getParameter <em>Parameter</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBPort#getVariable <em>Variable</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,29 +31,55 @@ import org.eventb.emf.core.machine.Parameter;
 public interface EventBPort extends Port {
 
 	/**
-	 * Returns the value of the '<em><b>Event Parameter</b></em>' reference.
+	 * Returns the value of the '<em><b>Parameter</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Event Parameter</em>' reference isn't clear,
+	 * If the meaning of the '<em>Parameter</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Event Parameter</em>' reference.
-	 * @see #setEventParameter(Parameter)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBPort_EventParameter()
+	 * @return the value of the '<em>Parameter</em>' reference.
+	 * @see #setParameter(Parameter)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBPort_Parameter()
+	 * @model
+	 * @generated
+	 */
+	Parameter getParameter();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBPort#getParameter <em>Parameter</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parameter</em>' reference.
+	 * @see #getParameter()
+	 * @generated
+	 */
+	void setParameter(Parameter value);
+
+	/**
+	 * Returns the value of the '<em><b>Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Variable</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Variable</em>' reference.
+	 * @see #setVariable(Variable)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBPort_Variable()
 	 * @model required="true"
 	 * @generated
 	 */
-	Parameter getEventParameter();
+	Variable getVariable();
 
 	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBPort#getEventParameter <em>Event Parameter</em>}' reference.
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBPort#getVariable <em>Variable</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Event Parameter</em>' reference.
-	 * @see #getEventParameter()
+	 * @param value the new value of the '<em>Variable</em>' reference.
+	 * @see #getVariable()
 	 * @generated
 	 */
-	void setEventParameter(Parameter value);
+	void setVariable(Variable value);
 
 } // EventBPort

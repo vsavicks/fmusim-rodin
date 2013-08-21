@@ -7,6 +7,8 @@
  */
 package ac.soton.fmusim.components.impl;
 
+import ac.soton.fmusim.components.*;
+import ac.soton.fmusim.components.exceptions.SimulationException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -18,6 +20,8 @@ import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.DisplayComponent;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
@@ -80,6 +84,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 			case ComponentsPackage.EVENT_BPORT: return createEventBPort();
 			case ComponentsPackage.FMU_VARIABLE: return createFMUVariable();
 			case ComponentsPackage.EVENT_BVARIABLE: return createEventBVariable();
+			case ComponentsPackage.DISPLAY_COMPONENT: return createDisplayComponent();
+			case ComponentsPackage.DISPLAY_PORT: return createDisplayPort();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -99,6 +105,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return createVariableCausalityFromString(eDataType, initialValue);
 			case ComponentsPackage.FMU_CLASS:
 				return createFmuClassFromString(eDataType, initialValue);
+			case ComponentsPackage.SIM_EXCEPTION_CLASS:
+				return createSimExceptionClassFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -118,6 +126,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return convertVariableCausalityToString(eDataType, instanceValue);
 			case ComponentsPackage.FMU_CLASS:
 				return convertFmuClassToString(eDataType, instanceValue);
+			case ComponentsPackage.SIM_EXCEPTION_CLASS:
+				return convertSimExceptionClassToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -208,6 +218,26 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DisplayComponent createDisplayComponent() {
+		DisplayComponentImpl displayComponent = new DisplayComponentImpl();
+		return displayComponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DisplayPort createDisplayPort() {
+		DisplayPortImpl displayPort = new DisplayPortImpl();
+		return displayPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public VariableType createVariableTypeFromString(EDataType eDataType, String initialValue) {
 		VariableType result = VariableType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -258,6 +288,24 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * @generated
 	 */
 	public String convertFmuClassToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SimulationException createSimExceptionClassFromString(EDataType eDataType, String initialValue) {
+		return (SimulationException)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSimExceptionClassToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

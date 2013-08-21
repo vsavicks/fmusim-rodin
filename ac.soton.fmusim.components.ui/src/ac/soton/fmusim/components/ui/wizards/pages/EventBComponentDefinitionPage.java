@@ -22,11 +22,8 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -36,6 +33,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Text;
 import org.eventb.emf.core.EventBNamed;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Parameter;
@@ -60,6 +58,7 @@ public class EventBComponentDefinitionPage extends WizardPage {
 	private Combo updateEventCombo;
 	private Combo timeVariableCombo;
 	private EventBComponent currentModel;
+	private Text stepPeriodText;
 
 	/**
 	 * @param pageName
@@ -127,7 +126,11 @@ public class EventBComponentDefinitionPage extends WizardPage {
 	private void createTimeGroup(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setLayout(new GridLayout());
-		group.setText("Optionally select Event-B variable that will be used to store the simulation time");
+		group.setText("Enter the step period and select Event-B variable for simulation time");
+		
+
+		// step period text
+		stepPeriodText = createLabelledText(group, "Step Period:");
 		
 		// time variable combo
 		timeVariableCombo = createListCombo(group, "Time Variable:");
@@ -141,7 +144,7 @@ public class EventBComponentDefinitionPage extends WizardPage {
 		
 		group.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 	}
-	
+
 	/**
 	 * Creates a group of combos for defining control events.
 	 * 
@@ -150,7 +153,7 @@ public class EventBComponentDefinitionPage extends WizardPage {
 	private void createEventGroup(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setLayout(new GridLayout());
-		group.setText("Select Event-B machine events for reading inputs, writing outputs and control cycle update");
+		group.setText("Select Event-B machine events for reading inputs and cycle update");
 		
 		// event combos: read inputs event, write outputs event, update event
 		readEventCombo = createListCombo(group, "Read:");
@@ -159,15 +162,6 @@ public class EventBComponentDefinitionPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				EventBNamed element = readEventBListCombo(readEventCombo);
 				currentModel.setReadInputsEvent((Event) element);
-			}
-		});
-		
-		writeEventCombo = createListCombo(group, "Write:");
-		writeEventCombo.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				EventBNamed element = readEventBListCombo(writeEventCombo);
-				currentModel.setWriteOutputsEvent((Event) element);
 			}
 		});
 		
@@ -181,6 +175,29 @@ public class EventBComponentDefinitionPage extends WizardPage {
 		});
 		
 		group.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+	}
+	
+	/**
+	 * Creates labelled text control.
+	 * Label width is fixed to 100.
+	 * 
+	 * @param parent
+	 * @param name
+	 * @return
+	 */
+	private Text createLabelledText(Composite parent, String name) {
+		Composite plate = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout(2, false);
+		plate.setLayout(layout);
+		
+		Label label = new Label(plate, SWT.NONE);
+		label.setText(name);
+		label.setLayoutData(new GridData(100, SWT.DEFAULT));
+		Text text = new Text(plate, SWT.SINGLE | SWT.BORDER);
+		text.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		
+		plate.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		return text;
 	}
 
 	/**
@@ -227,7 +244,8 @@ public class EventBComponentDefinitionPage extends WizardPage {
 		providers.add(new ColumnProvider("Parameter", 100, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				Parameter parameter = ((EventBPort) element).getEventParameter();
+				Parameter parameter = ((EventBPort) element).getParameter();
+				// parameter is not required for the output ports
 				return  parameter == null ? null : parameter.getName();
 			}}));
 		return providers;
@@ -281,18 +299,15 @@ public class EventBComponentDefinitionPage extends WizardPage {
 					// check if corresponding event for a new port is set
 					EventBNamed event = null;
 					String errorMessage = null;
-					switch (causality) {
-						case INPUT:
-							event = readEventBListCombo(readEventCombo);
-							errorMessage = "Please select an event for reading inputs first";
-							break;
-						case OUTPUT:
-							event = readEventBListCombo(writeEventCombo);
-							errorMessage = "Please select an event for writing outputs first";
-							break;
-						default:
-							break;
+					if (causality == VariableCausality.INPUT) {
+						event = readEventBListCombo(readEventCombo);
+						errorMessage = "Please select an event for reading inputs first";
+						
+						//XXX: just a hack to stop from adding an input port without specifying the read inputs event first
+						if (event == null)
+							return;
 					}
+					//TODO: add proper error handling if event is not specified
 //					if (event == null) {
 //						setErrorMessage(errorMessage);
 //						return;
@@ -398,9 +413,11 @@ public class EventBComponentDefinitionPage extends WizardPage {
 			
 			currentModel = (EventBComponent) source.getModel();
 			
+			// set text input
+			stepPeriodText.setText(Double.toString(currentModel.getStepPeriod()));
+			
 			// set combo input
 			setEventBListComboInput(readEventCombo, currentModel.getMachine().getEvents(), currentModel.getReadInputsEvent());
-			setEventBListComboInput(writeEventCombo, currentModel.getMachine().getEvents(), currentModel.getWriteOutputsEvent());
 			setEventBListComboInput(updateEventCombo, currentModel.getMachine().getEvents(), currentModel.getUpdateEvent());
 			setEventBListComboInput(timeVariableCombo, currentModel.getMachine().getVariables(), currentModel.getTimeVariable());
 			

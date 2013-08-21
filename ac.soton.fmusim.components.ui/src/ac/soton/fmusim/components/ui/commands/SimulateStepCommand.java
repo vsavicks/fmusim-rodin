@@ -60,7 +60,7 @@ public class SimulateStepCommand extends AbstractHandler {
 			final ComponentDiagram diagram = (ComponentDiagram) ((DiagramEditor) diagramEditor)
 					.getDiagram().getElement();
 			
-			master = new Master(diagram, 0, time, step, 0, new File("/Users/vitaly/results.csv"));
+			master = new Master(diagram, 0, time, step, new File("/Users/vitaly/results.csv"));
 		}
 		
 		// execute simulation in a job

@@ -5,17 +5,26 @@ Bundle-SymbolicName: ac.soton.fmusim.components;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
  lib/jfmi-1.0.2-SNAPSHOT.jar,
- lib/jna-3.4.0.jar
+ lib/jna-3.4.0.jar,
+ lib/jchart2d-3.2.2.jar,
+ lib/jide-oss-2.9.7.jar,
+ lib/xmlgraphics-commons-1.3.1.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: ac.soton.fmusim.components,
+ ac.soton.fmusim.components.exceptions,
  ac.soton.fmusim.components.impl,
  ac.soton.fmusim.components.util,
+ info.monitorenter.gui.chart,
+ info.monitorenter.gui.chart.traces,
  org.ptolemy.fmi,
  org.ptolemy.fmi.type
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eventb.emf.core;bundle-version="[2.2.4,2.5.0)",
- de.prob.core.kernel;bundle-version="1.0.0"
+ org.eventb.core;bundle-version="2.5.1",
+ de.prob.core.kernel;bundle-version="1.0.0",
+ de.prob.core.rodin;bundle-version="1.0.0",
+ org.eclipse.emf.workspace;bundle-version="1.5.1"
 Bundle-ActivationPolicy: lazy

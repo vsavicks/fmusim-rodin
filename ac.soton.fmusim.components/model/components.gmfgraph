@@ -151,6 +151,53 @@
           xsi:type="gmfgraph:Label"
           name="VariableLabelFigure"/>
     </descriptors>
+    <descriptors
+        name="DisplayComponentFigure">
+      <actualFigure
+          xsi:type="gmfgraph:Rectangle"
+          name="DisplayComponentFigure">
+        <layout
+            xsi:type="gmfgraph:BorderLayout"/>
+        <foregroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="gray"/>
+        <backgroundColor
+            xsi:type="gmfgraph:RGBColor"
+            red="196"
+            green="224"
+            blue="255"/>
+        <children
+            xsi:type="gmfgraph:Label"
+            name="DisplayComponentLabelFigure"
+            text="Display">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              alignment="BEGINNING"
+              vertical="true"/>
+          <attributes
+              name="alignment"
+              value="org.eclipse.draw2d.PositionConstants.CENTER"/>
+        </children>
+        <children
+            xsi:type="gmfgraph:Rectangle">
+          <layoutData
+              xsi:type="gmfgraph:BorderLayoutData"
+              alignment="FILL"
+              vertical="true"/>
+          <children
+              xsi:type="gmfgraph:ScalablePolygon"
+              fill="false">
+            <foregroundColor
+                xsi:type="gmfgraph:ConstantColor"
+                value="gray"/>
+            <template/>
+            <template
+                x="5"
+                y="5"/>
+          </children>
+        </children>
+      </actualFigure>
+    </descriptors>
   </figures>
   <nodes
       name="FMUComponent"
@@ -158,6 +205,9 @@
   <nodes
       name="EventBComponent"
       figure="EventBComponentFigure"/>
+  <nodes
+      name="DisplayComponent"
+      figure="DisplayComponentFigure"/>
   <nodes
       name="InputPort"
       figure="InputPortFigure"

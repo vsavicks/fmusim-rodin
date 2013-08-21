@@ -21,6 +21,8 @@ import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.DisplayComponent;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
@@ -196,6 +198,23 @@ public class ComponentsSwitch<T> {
 				T result = caseEventBVariable(eventBVariable);
 				if (result == null) result = caseAbstractVariable(eventBVariable);
 				if (result == null) result = caseNamedElement(eventBVariable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ComponentsPackage.DISPLAY_COMPONENT: {
+				DisplayComponent displayComponent = (DisplayComponent)theEObject;
+				T result = caseDisplayComponent(displayComponent);
+				if (result == null) result = caseComponent(displayComponent);
+				if (result == null) result = caseNamedElement(displayComponent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ComponentsPackage.DISPLAY_PORT: {
+				DisplayPort displayPort = (DisplayPort)theEObject;
+				T result = caseDisplayPort(displayPort);
+				if (result == null) result = casePort(displayPort);
+				if (result == null) result = caseAbstractVariable(displayPort);
+				if (result == null) result = caseNamedElement(displayPort);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -380,6 +399,36 @@ public class ComponentsSwitch<T> {
 	 * @generated
 	 */
 	public T caseEventBVariable(EventBVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Display Component</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Display Component</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDisplayComponent(DisplayComponent object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Display Port</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Display Port</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDisplayPort(DisplayPort object) {
 		return null;
 	}
 

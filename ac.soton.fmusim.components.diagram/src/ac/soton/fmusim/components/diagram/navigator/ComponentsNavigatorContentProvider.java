@@ -32,6 +32,8 @@ import org.eclipse.ui.navigator.ICommonContentProvider;
 
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
@@ -259,6 +261,11 @@ public class ComponentsNavigatorContentProvider implements
 							.getType(ConnectorEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(DisplayComponentEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
 					ComponentsVisualIDRegistry
 							.getType(PortConnectorEditPart.VISUAL_ID));
@@ -339,6 +346,18 @@ public class ComponentsNavigatorContentProvider implements
 			return result.toArray();
 		}
 
+		case DisplayComponentEditPart.VISUAL_ID: {
+			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			Collection<View> connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(DisplayPortEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
+			return result.toArray();
+		}
+
 		case FMUPortEditPart.VISUAL_ID: {
 			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
 			Node sv = (Node) view;
@@ -411,6 +430,24 @@ public class ComponentsNavigatorContentProvider implements
 			return result.toArray();
 		}
 
+		case DisplayPortEditPart.VISUAL_ID: {
+			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			ComponentsNavigatorGroup outgoinglinks = new ComponentsNavigatorGroup(
+					Messages.NavigatorGroupName_DisplayPort_3013_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(PortConnectorEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
 		case PortConnectorEditPart.VISUAL_ID: {
 			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
 			Edge sv = (Edge) view;
@@ -444,6 +481,11 @@ public class ComponentsNavigatorContentProvider implements
 			connectedViews = getLinksSourceByType(Collections.singleton(sv),
 					ComponentsVisualIDRegistry
 							.getType(EventBPort2EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source,
+					true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv),
+					ComponentsVisualIDRegistry
+							.getType(DisplayPortEditPart.VISUAL_ID));
 			source.addChildren(createNavigatorItems(connectedViews, source,
 					true));
 			if (!target.isEmpty()) {

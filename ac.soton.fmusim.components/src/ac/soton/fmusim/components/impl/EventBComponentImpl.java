@@ -7,35 +7,62 @@
  */
 package ac.soton.fmusim.components.impl;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eventb.core.IEventBRoot;
 import org.eventb.emf.core.impl.AbstractExtensionImpl;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.Variable;
+import org.rodinp.core.IRodinFile;
+import org.rodinp.core.RodinCore;
 
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.EventBComponent;
+import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
+
+import com.google.inject.Injector;
+
+import de.be4.classicalb.core.parser.exceptions.BException;
+import de.prob.animator.command.LoadEventBCommand;
+import de.prob.animator.command.StartAnimationCommand;
+import de.prob.model.eventb.EventBModel;
+import de.prob.rodin.translate.EventBTranslator;
+import de.prob.scripting.EventBFactory;
+import de.prob.statespace.OpInfo;
+import de.prob.statespace.StateSpace;
 import de.prob.statespace.Trace;
+import de.prob.ui.eventb.internal.TranslatorFactory;
+import de.prob.webconsole.ServletContextListener;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,10 +78,11 @@ import de.prob.statespace.Trace;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#isComposed <em>Composed</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getMachine <em>Machine</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getReadInputsEvent <em>Read Inputs Event</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getWriteOutputsEvent <em>Write Outputs Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getUpdateEvent <em>Update Event</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getStepPeriod <em>Step Period</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getIntToRealPrecision <em>Int To Real Precision</em>}</li>
  * </ul>
  * </p>
  *
@@ -152,16 +180,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	protected Event readInputsEvent;
 
 	/**
-	 * The cached value of the '{@link #getWriteOutputsEvent() <em>Write Outputs Event</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getWriteOutputsEvent()
-	 * @generated
-	 * @ordered
-	 */
-	protected Event writeOutputsEvent;
-
-	/**
 	 * The cached value of the '{@link #getTimeVariable() <em>Time Variable</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -200,6 +218,46 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected Trace trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getIntToRealPrecision() <em>Int To Real Precision</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIntToRealPrecision()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int INT_TO_REAL_PRECISION_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getIntToRealPrecision() <em>Int To Real Precision</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIntToRealPrecision()
+	 * @generated
+	 * @ordered
+	 */
+	protected int intToRealPrecision = INT_TO_REAL_PRECISION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -370,44 +428,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Event getWriteOutputsEvent() {
-		if (writeOutputsEvent != null && writeOutputsEvent.eIsProxy()) {
-			InternalEObject oldWriteOutputsEvent = (InternalEObject)writeOutputsEvent;
-			writeOutputsEvent = (Event)eResolveProxy(oldWriteOutputsEvent);
-			if (writeOutputsEvent != oldWriteOutputsEvent) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT, oldWriteOutputsEvent, writeOutputsEvent));
-			}
-		}
-		return writeOutputsEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Event basicGetWriteOutputsEvent() {
-		return writeOutputsEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setWriteOutputsEvent(Event newWriteOutputsEvent) {
-		Event oldWriteOutputsEvent = writeOutputsEvent;
-		writeOutputsEvent = newWriteOutputsEvent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT, oldWriteOutputsEvent, writeOutputsEvent));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Variable getTimeVariable() {
 		if (timeVariable != null && timeVariable.eIsProxy()) {
 			InternalEObject oldTimeVariable = (InternalEObject)timeVariable;
@@ -514,6 +534,48 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getStepPeriod() {
+		return stepPeriod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStepPeriod(double newStepPeriod) {
+		double oldStepPeriod = stepPeriod;
+		stepPeriod = newStepPeriod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD, oldStepPeriod, stepPeriod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getIntToRealPrecision() {
+		return intToRealPrecision;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIntToRealPrecision(int newIntToRealPrecision) {
+		int oldIntToRealPrecision = intToRealPrecision;
+		intToRealPrecision = newIntToRealPrecision;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION, oldIntToRealPrecision, intToRealPrecision));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * Event-B Component must have a valid reference to an existing machine.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
@@ -546,67 +608,361 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void initialise(double tStart, double tStop) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Trace trace = getTrace();
+		assert trace != null;
+		
+		// execute first two events: 'setup_constants' and 'initialise'
+		//NOTE: setup_constants can be absent if there are no constants
+		trace = trace.anyEvent(null);
+		String currentOpName = trace.getCurrent().getOp().name;
+		if (currentOpName.startsWith("$initialise_machine") == false)
+			trace = trace.anyEvent(null);
+		
+		// update variables and ports
+		for (AbstractVariable v : getVariables())
+			v.setValue(trace.getCurrentState().value(v.getName()));
+		for (Port p : getInputs())
+			p.setValue(trace.getCurrentState().value(p.getName()));
+		for (Port p : getOutputs())
+			p.setValue(trace.getCurrentState().value(p.getName()));
+		
+		// update trace
+		setTrace(trace);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @throws SimulationException 
+	 * @generated NOT
 	 */
-	public void readInputs() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void readInputs() throws SimulationException {
+		Trace trace = getTrace();
+		assert trace != null;
+		Event readEvent = getReadInputsEvent();
+		assert readEvent != null;
+		
+		String eventName = readEvent.getName();
+		OpInfo op = findEnabled(trace, eventName);
+		assert op != null;
+		//TODO: treat read event not enabled as invalid state (maybe throw an exception)
+		
+		// build parameter predicate for event execution
+		// including only parameter values for the ports
+		// that are connected to a feeding connector
+		StringBuilder predicate = new StringBuilder("TRUE=TRUE");
+		for (Port p : getInputs()) {
+			assert p instanceof EventBPort;
+			EventBPort port = (EventBPort) p;
+			assert port.getParameter() != null;
+			String parameterName = port.getParameter().getName();
+			
+			Connector connector = port.getConnector();
+			Object value = null;
+			String bValue = null;
+			// if port not connected use current value
+			if (connector == null) {
+				assert port.getVariable() != null;
+				value = trace.getCurrentState().value(port.getVariable().getName());
+				assert value != null;
+				bValue = value.toString();
+			} else {
+				value = connector.getValue();
+				switch (port.getType()) {
+				case BOOLEAN:
+					bValue = getBooleanToEventB((Boolean) value);
+					break;
+				case INTEGER:
+					bValue = getIntegerToEventB((Integer) value);
+					break;
+				case REAL:
+					bValue = getDoubleToEventB((Double) value, getIntToRealPrecision());
+					break;
+				case STRING:
+					bValue = getStringToEventB((String) value);
+					break;
+				}
+			}
+			
+			
+			// add parameter to event predicate string
+			predicate.append("&" + parameterName + "=" + bValue);
+			
+			// set port value
+			port.setValue(value);
+		}
+		
+		// execute 'read inputs' event with calculated parameter predicate
+		try {
+			trace = trace.add(eventName, predicate.toString());
+		} catch (BException e) {
+			throw new SimulationException("Executing 'read inputs' event by ProB failed: " + e.getMessage());
+			//FIXME: add error handling if read inputs operation not found (not enabled etc.)
+		}
+
+		// update trace
+		setTrace(trace);
+	}
+	
+	private String getBooleanToEventB(Boolean value) {
+		return value.toString().toUpperCase();
+	}
+
+	private String getIntegerToEventB(Integer value) {
+		return value.toString();
+	}
+
+	private String getDoubleToEventB(Double value, int precision) {
+		double toB = value.doubleValue() * Math.pow(10, precision);
+		return Integer.toString((int) toB);
+	}
+
+	private String getStringToEventB(String value) {
+		return value;
+	}
+
+	/**
+	 * Returns enabled event by name.
+	 * 
+	 * @param trace
+	 * @param eventName
+	 * @return
+	 */
+	private OpInfo findEnabled(Trace trace, String eventName) {
+		for (OpInfo op : trace.getNextTransitions()) {
+			if (op.name.equals(eventName)) {
+				return op;
+			}
+		}
+		return null;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void writeOutputs() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Trace trace = getTrace();
+		assert trace != null;
+		
+		for (Port port : getOutputs()) {
+			Object value = getValueEventB(trace, port, getIntToRealPrecision());
+			
+			// send value to connector if connected
+			Connector connector = port.getConnector();
+			if (connector != null) {
+				connector.setValue(value);
+			}
+			
+			// set port value
+			port.setValue(value);
+		}
+
+		// update trace
+		setTrace(trace);
+	}
+
+	/**
+	 * Returns variable value from Event-B.
+	 * 
+	 * @param trace
+	 * @param variable
+	 * @param precision Event-B variable (int) to double conversion precision
+	 * @return
+	 */
+	private Object getValueEventB(Trace trace, AbstractVariable variable, int precision) {
+		String name = variable.getName();
+		Object value = null;
+		switch (variable.getType()) {
+		case BOOLEAN:
+			value = getBooleanFromEventB(trace, name);
+			break;
+		case INTEGER:
+			value = getIntegerFromEventB(trace, name);
+			break;
+		case REAL:
+			value = getDoubleFromEventB(trace, name, precision);
+			break;
+		case STRING:
+			value = getStringFromEventB(trace, name);
+			break;
+		}
+		return value;
+	}
+	
+	/**
+	 * Returns a boolean value from Event-B animation trace.
+	 * 
+	 * @param trace current animation trace
+	 * @param name variable name
+	 * @return
+	 */
+	private Boolean getBooleanFromEventB(Trace trace, String name) {
+		String value = (String) trace.getCurrentState().value(name);
+		return Boolean.valueOf(value);
+	}
+
+	/**
+	 * Returns an integer value from Event-B animation trace.
+	 * 
+	 * @param trace current animation trace
+	 * @param name variable name
+	 * @return
+	 */
+	private Integer getIntegerFromEventB(Trace trace, String name) {
+		String value = (String) trace.getCurrentState().value(name);
+		return Integer.valueOf(value);
+	}
+	
+	/**
+	 * Returns a double value from Event-B animation trace.
+	 * As doubles are not yet supported by Event-B,
+	 * they are modelled as integers, converted from a double
+	 * with a specified precision: double = int / (10 ^ precision)
+	 * 
+	 * @param trace current animation trace
+	 * @param name variable name
+	 * @param precision int to double conversion precision
+	 * @return
+	 */
+	private Double getDoubleFromEventB(Trace trace, String name, int precision) {
+		Integer integer = getIntegerFromEventB(trace, name);
+		return integer.doubleValue() / Math.pow(10d, precision);
+	}
+
+	/**
+	 * Returns a string value from Event-B animation trace.
+	 * 
+	 * @param trace current animation trace
+	 * @param name variable name
+	 * @return
+	 */
+	private String getStringFromEventB(Trace trace, String name) {
+		String value = (String) trace.getCurrentState().value(name);
+		return value;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void doStep(double time, double step) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Trace trace = getTrace();
+		assert trace != null;
+		Event updateEvent = getUpdateEvent();
+		assert updateEvent != null;
+		Event readEvent = getReadInputsEvent();
+		assert readEvent != null;
+		
+		String updateEventName = updateEvent.getName();
+		boolean update = false;
+		while (!update) {
+			// find and execute update event
+			for (OpInfo op : trace.getNextTransitions()) {
+				if (op.name.equals(updateEventName)) {
+					// execute only if update and readInputs events are not the same
+					if (updateEvent != readEvent) {
+						trace = trace.add(op.id);
+					}
+					update = true;
+					break;
+				}
+			}
+			
+			// if not found, execute any event
+			if (!update)
+				trace = trace.anyEvent(null);
+		}
+		
+		// update variables
+		for (AbstractVariable v : getVariables())
+			v.setValue(trace.getCurrentState().value(v.getName()));
+		// update ports: only outputs need to be updated - inputs shouldn't have changed
+		for (Port p : getOutputs())
+			p.setValue(trace.getCurrentState().value(p.getName()));
+		
+		// update trace
+		setTrace(trace);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void terminate() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		//XXX: nothing to do here
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public void instantiate() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void instantiate() throws SimulationException {
+		final IEventBRoot machineRoot = getMachineRoot(getMachine());
+		if (machineRoot == null)
+			throw new SimulationException("Cannot load machine component '" + getName()
+					+ "'. Machine root cannot be determined.");
+		
+		EventBTranslator eventBTranslator = new EventBTranslator(machineRoot);
+
+		Injector injector = ServletContextListener.INJECTOR;
+
+		final EventBFactory instance = injector
+				.getInstance(EventBFactory.class);
+
+		EventBModel model = instance.load(eventBTranslator.getMainComponent(),
+				eventBTranslator.getMachines(), eventBTranslator.getContexts(),
+				eventBTranslator.getModelFile());
+
+		StringWriter writer = new StringWriter();
+		PrintWriter pto = new PrintWriter(writer);
+		try {
+			TranslatorFactory.translate(machineRoot, pto);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			//TODO: add error handling
+		}
+
+		StateSpace s = model.getStatespace();
+		
+		Pattern p2 = Pattern.compile("^package\\((.*?)\\)\\.");
+		Matcher m2 = p2.matcher(writer.toString());
+		m2.find();
+		String cmd = m2.group(1);
+
+		s.execute(new LoadEventBCommand(cmd));
+		s.execute(new StartAnimationCommand());
+
+		Trace t = new Trace(s);
+		setTrace(t);
+	}
+
+	/**
+	 * Returns Event-B Root element of a machine.
+	 * @param machine
+	 * @return
+	 */
+	private IEventBRoot getMachineRoot(Machine machine) {
+		Resource resource = machine.eResource();
+		if (resource != null) {
+			URI uri = resource.getURI();
+			if (uri.isPlatformResource()) {
+				IFile file = WorkspaceSynchronizer.getFile(resource);
+				IRodinFile rodinFile = RodinCore.valueOf(file);
+				if (rodinFile != null) {
+					return (IEventBRoot) rodinFile.getRoot();
+				}
+			}
+			//TODO: root for a non-workspace resource?
+		}
+		return null;
 	}
 
 	/**
@@ -651,9 +1007,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
 				if (resolve) return getReadInputsEvent();
 				return basicGetReadInputsEvent();
-			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
-				if (resolve) return getWriteOutputsEvent();
-				return basicGetWriteOutputsEvent();
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				if (resolve) return getTimeVariable();
 				return basicGetTimeVariable();
@@ -662,6 +1015,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return basicGetUpdateEvent();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return getTrace();
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				return getStepPeriod();
+			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
+				return getIntToRealPrecision();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -699,9 +1056,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
 				setReadInputsEvent((Event)newValue);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
-				setWriteOutputsEvent((Event)newValue);
-				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)newValue);
 				return;
@@ -710,6 +1064,12 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace((Trace)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				setStepPeriod((Double)newValue);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
+				setIntToRealPrecision((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -744,9 +1104,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
 				setReadInputsEvent((Event)null);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
-				setWriteOutputsEvent((Event)null);
-				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)null);
 				return;
@@ -755,6 +1112,12 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace(TRACE_EDEFAULT);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				setStepPeriod(STEP_PERIOD_EDEFAULT);
+				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
+				setIntToRealPrecision(INT_TO_REAL_PRECISION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -782,14 +1145,16 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return machine != null;
 			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
 				return readInputsEvent != null;
-			case ComponentsPackage.EVENT_BCOMPONENT__WRITE_OUTPUTS_EVENT:
-				return writeOutputsEvent != null;
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				return timeVariable != null;
 			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
 				return updateEvent != null;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				return stepPeriod != STEP_PERIOD_EDEFAULT;
+			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
+				return intToRealPrecision != INT_TO_REAL_PRECISION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -858,6 +1223,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		result.append(composed);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", stepPeriod: ");
+		result.append(stepPeriod);
+		result.append(", intToRealPrecision: ");
+		result.append(intToRealPrecision);
 		result.append(')');
 		return result.toString();
 	}

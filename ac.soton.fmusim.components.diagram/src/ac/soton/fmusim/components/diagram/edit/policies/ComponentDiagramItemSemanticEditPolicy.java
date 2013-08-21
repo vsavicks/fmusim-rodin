@@ -15,6 +15,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 
 import ac.soton.fmusim.components.diagram.edit.commands.ConnectorCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.DisplayComponentCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.commands.EventBComponentCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.commands.FMUComponentCreateCommand;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
@@ -44,6 +45,10 @@ public class ComponentDiagramItemSemanticEditPolicy extends
 		}
 		if (ComponentsElementTypes.Connector_2003 == req.getElementType()) {
 			return getGEFWrapper(new ConnectorCreateCommand(req));
+		}
+		if (ComponentsElementTypes.DisplayComponent_2006 == req
+				.getElementType()) {
+			return getGEFWrapper(new DisplayComponentCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

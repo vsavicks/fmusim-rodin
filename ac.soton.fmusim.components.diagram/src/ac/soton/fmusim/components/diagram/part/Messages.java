@@ -275,52 +275,57 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Variable3CreationTool_title;
+	public static String DisplayComponent3CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Variable3CreationTool_desc;
+	public static String Variable4CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String InputPort4CreationTool_title;
+	public static String Variable4CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String InputPort4CreationTool_desc;
+	public static String InputPort5CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String OutputPort5CreationTool_title;
+	public static String InputPort5CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String OutputPort5CreationTool_desc;
+	public static String OutputPort6CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Connector6CreationTool_title;
+	public static String OutputPort6CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Connector6CreationTool_desc;
+	public static String Connector7CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String Link7CreationTool_title;
+	public static String Connector7CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String Link7CreationTool_desc;
+	public static String Link8CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Link8CreationTool_desc;
 
 	/**
 	 * @generated
@@ -361,6 +366,11 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_EventBPort_3004_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_DisplayPort_3013_outgoinglinks;
 
 	/**
 	 * @generated

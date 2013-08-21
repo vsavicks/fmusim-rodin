@@ -114,14 +114,14 @@ public class ComponentAdapterFactory implements IAdapterFactory {
 		component.setName(machine.getName());
 		component.setMachine(machine);
 		
-		for (Variable v : machine.getVariables()) {
-			EventBVariable variable = ComponentsFactory.eINSTANCE.createEventBVariable();
-			variable.setVariable(v);
-			variable.setDescription(v.getComment());
-			variable.setCausality(VariableCausality.INTERNAL);
-			variable.setType(VariableType.STRING);
-			component.getVariables().add(variable);
-		}
+//		for (Variable v : machine.getVariables()) {
+//			EventBVariable variable = ComponentsFactory.eINSTANCE.createEventBVariable();
+//			variable.setVariable(v);
+//			variable.setDescription(v.getComment());
+//			variable.setCausality(VariableCausality.INTERNAL);
+//			variable.setType(VariableType.STRING);
+//			component.getVariables().add(variable);
+//		}
 			
 		return component;
 	}

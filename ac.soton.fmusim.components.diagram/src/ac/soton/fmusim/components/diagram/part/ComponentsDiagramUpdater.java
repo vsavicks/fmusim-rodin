@@ -25,6 +25,8 @@ import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
+import ac.soton.fmusim.components.DisplayComponent;
+import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.FMUComponent;
@@ -32,6 +34,8 @@ import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
@@ -61,6 +65,8 @@ public class ComponentsDiagramUpdater {
 			return getFMUComponent_2001SemanticChildren(view);
 		case EventBComponentEditPart.VISUAL_ID:
 			return getEventBComponent_2002SemanticChildren(view);
+		case DisplayComponentEditPart.VISUAL_ID:
+			return getDisplayComponent_2006SemanticChildren(view);
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
 			return getFMUComponentFMUVariablesCompartment_7001SemanticChildren(view);
 		case EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID:
@@ -89,6 +95,10 @@ public class ComponentsDiagramUpdater {
 				continue;
 			}
 			if (visualID == EventBComponentEditPart.VISUAL_ID) {
+				result.add(new ComponentsNodeDescriptor(childElement, visualID));
+				continue;
+			}
+			if (visualID == DisplayComponentEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -173,6 +183,28 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List<ComponentsNodeDescriptor> getDisplayComponent_2006SemanticChildren(
+			View view) {
+		if (!view.isSetElement()) {
+			return Collections.emptyList();
+		}
+		DisplayComponent modelElement = (DisplayComponent) view.getElement();
+		LinkedList<ComponentsNodeDescriptor> result = new LinkedList<ComponentsNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getInputs().iterator(); it.hasNext();) {
+			Port childElement = (Port) it.next();
+			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
+					childElement);
+			if (visualID == DisplayPortEditPart.VISUAL_ID) {
+				result.add(new ComponentsNodeDescriptor(childElement, visualID));
+				continue;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List<ComponentsNodeDescriptor> getFMUComponentFMUVariablesCompartment_7001SemanticChildren(
 			View view) {
 		if (false == view.eContainer() instanceof View) {
@@ -238,6 +270,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBComponent_2002ContainedLinks(view);
 		case ConnectorEditPart.VISUAL_ID:
 			return getConnector_2003ContainedLinks(view);
+		case DisplayComponentEditPart.VISUAL_ID:
+			return getDisplayComponent_2006ContainedLinks(view);
 		case FMUPortEditPart.VISUAL_ID:
 			return getFMUPort_3001ContainedLinks(view);
 		case FMUPort2EditPart.VISUAL_ID:
@@ -250,6 +284,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBPort_3004ContainedLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010ContainedLinks(view);
+		case DisplayPortEditPart.VISUAL_ID:
+			return getDisplayPort_3013ContainedLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -265,6 +301,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBComponent_2002IncomingLinks(view);
 		case ConnectorEditPart.VISUAL_ID:
 			return getConnector_2003IncomingLinks(view);
+		case DisplayComponentEditPart.VISUAL_ID:
+			return getDisplayComponent_2006IncomingLinks(view);
 		case FMUPortEditPart.VISUAL_ID:
 			return getFMUPort_3001IncomingLinks(view);
 		case FMUPort2EditPart.VISUAL_ID:
@@ -277,6 +315,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBPort_3004IncomingLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010IncomingLinks(view);
+		case DisplayPortEditPart.VISUAL_ID:
+			return getDisplayPort_3013IncomingLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -292,6 +332,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBComponent_2002OutgoingLinks(view);
 		case ConnectorEditPart.VISUAL_ID:
 			return getConnector_2003OutgoingLinks(view);
+		case DisplayComponentEditPart.VISUAL_ID:
+			return getDisplayComponent_2006OutgoingLinks(view);
 		case FMUPortEditPart.VISUAL_ID:
 			return getFMUPort_3001OutgoingLinks(view);
 		case FMUPort2EditPart.VISUAL_ID:
@@ -304,6 +346,8 @@ public class ComponentsDiagramUpdater {
 			return getEventBPort_3004OutgoingLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010OutgoingLinks(view);
+		case DisplayPortEditPart.VISUAL_ID:
+			return getDisplayPort_3013OutgoingLinks(view);
 		}
 		return Collections.emptyList();
 	}
@@ -336,6 +380,14 @@ public class ComponentsDiagramUpdater {
 	 * @generated
 	 */
 	public static List<ComponentsLinkDescriptor> getConnector_2003ContainedLinks(
+			View view) {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<ComponentsLinkDescriptor> getDisplayComponent_2006ContainedLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -403,6 +455,17 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List<ComponentsLinkDescriptor> getDisplayPort_3013ContainedLinks(
+			View view) {
+		DisplayPort modelElement = (DisplayPort) view.getElement();
+		LinkedList<ComponentsLinkDescriptor> result = new LinkedList<ComponentsLinkDescriptor>();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Port_Connector_4001(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List<ComponentsLinkDescriptor> getFMUComponent_2001IncomingLinks(
 			View view) {
 		return Collections.emptyList();
@@ -428,6 +491,14 @@ public class ComponentsDiagramUpdater {
 		result.addAll(getIncomingFeatureModelFacetLinks_Port_Connector_4001(
 				modelElement, crossReferences));
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<ComponentsLinkDescriptor> getDisplayComponent_2006IncomingLinks(
+			View view) {
+		return Collections.emptyList();
 	}
 
 	/**
@@ -481,6 +552,14 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List<ComponentsLinkDescriptor> getDisplayPort_3013IncomingLinks(
+			View view) {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List<ComponentsLinkDescriptor> getFMUComponent_2001OutgoingLinks(
 			View view) {
 		return Collections.emptyList();
@@ -498,6 +577,14 @@ public class ComponentsDiagramUpdater {
 	 * @generated
 	 */
 	public static List<ComponentsLinkDescriptor> getConnector_2003OutgoingLinks(
+			View view) {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<ComponentsLinkDescriptor> getDisplayComponent_2006OutgoingLinks(
 			View view) {
 		return Collections.emptyList();
 	}
@@ -560,6 +647,17 @@ public class ComponentsDiagramUpdater {
 	public static List<ComponentsLinkDescriptor> getEventBVariable_3010OutgoingLinks(
 			View view) {
 		return Collections.emptyList();
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<ComponentsLinkDescriptor> getDisplayPort_3013OutgoingLinks(
+			View view) {
+		DisplayPort modelElement = (DisplayPort) view.getElement();
+		LinkedList<ComponentsLinkDescriptor> result = new LinkedList<ComponentsLinkDescriptor>();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Port_Connector_4001(modelElement));
+		return result;
 	}
 
 	/**
