@@ -209,7 +209,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			}
 			
 			// create trace and add to port/chart
-		    ITrace2D trace = new Trace2DLtd(100); 
+		    ITrace2D trace = new Trace2DLtd(300); 
 		    trace.setName(port.getName());
 		    trace.setColor(color);
 		    port.setTrace(trace);
