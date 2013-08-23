@@ -24,9 +24,9 @@
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/None"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="components.ecore#//Colour">
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Blue"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Red"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Green"/>
-      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Blue"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Orange"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Yellow"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Pink"/>

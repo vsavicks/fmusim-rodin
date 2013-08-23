@@ -11,6 +11,7 @@ package ac.soton.fmusim.components.exceptions;
  * @author vitaly
  *
  */
+@SuppressWarnings("serial")
 public class SimulationException extends Exception {
 
 	/**

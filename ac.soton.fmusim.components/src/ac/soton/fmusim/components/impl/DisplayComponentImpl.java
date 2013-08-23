@@ -198,14 +198,14 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			Color color;
 			assert port.getColour() != null;
 			switch (port.getColour()) {
+			case BLUE: color = Color.BLUE; break;
 			case RED: color = Color.RED; break;
 			case GREEN: color = Color.GREEN; break;
-			case BLUE: color = Color.BLUE; break;
 			case ORANGE: color = Color.ORANGE; break;
 			case YELLOW: color = Color.YELLOW; break;
 			case PINK: color = Color.PINK; break;
 			case CYAN: color = Color.CYAN; break;
-			default: color = Color.BLACK;
+			default: color = Color.BLUE;
 			}
 			
 			// create trace and add to port/chart

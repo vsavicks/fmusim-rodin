@@ -26,6 +26,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum Colour implements Enumerator {
 	/**
+	 * The '<em><b>Blue</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BLUE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BLUE(0, "Blue", "Blue"), /**
 	 * The '<em><b>Red</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -33,9 +41,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RED(0, "Red", "Red"),
-
-	/**
+	RED(0, "Red", "Red"), /**
 	 * The '<em><b>Green</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -44,16 +50,6 @@ public enum Colour implements Enumerator {
 	 * @ordered
 	 */
 	GREEN(0, "Green", "Green"),
-
-	/**
-	 * The '<em><b>Blue</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BLUE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	BLUE(0, "Blue", "Blue"),
 
 	/**
 	 * The '<em><b>Orange</b></em>' literal object.
@@ -94,6 +90,21 @@ public enum Colour implements Enumerator {
 	CYAN(0, "Cyan", "Cyan");
 
 	/**
+	 * The '<em><b>Blue</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Blue</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #BLUE
+	 * @model name="Blue"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BLUE_VALUE = 0;
+
+	/**
 	 * The '<em><b>Red</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -122,21 +133,6 @@ public enum Colour implements Enumerator {
 	 * @ordered
 	 */
 	public static final int GREEN_VALUE = 0;
-
-	/**
-	 * The '<em><b>Blue</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Blue</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #BLUE
-	 * @model name="Blue"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int BLUE_VALUE = 0;
 
 	/**
 	 * The '<em><b>Orange</b></em>' literal value.
@@ -206,9 +202,9 @@ public enum Colour implements Enumerator {
 	 */
 	private static final Colour[] VALUES_ARRAY =
 		new Colour[] {
+			BLUE,
 			RED,
 			GREEN,
-			BLUE,
 			ORANGE,
 			YELLOW,
 			PINK,
@@ -263,7 +259,7 @@ public enum Colour implements Enumerator {
 	 */
 	public static Colour get(int value) {
 		switch (value) {
-			case RED_VALUE: return RED;
+			case BLUE_VALUE: return BLUE;
 		}
 		return null;
 	}

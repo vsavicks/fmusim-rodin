@@ -9,13 +9,13 @@
  */
 package ac.soton.fmusim.components.impl;
 
-import ac.soton.fmusim.components.Colour;
 import info.monitorenter.gui.chart.ITrace2D;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import ac.soton.fmusim.components.Colour;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.DisplayPort;
 
@@ -62,7 +62,7 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Colour COLOUR_EDEFAULT = Colour.RED;
+	protected static final Colour COLOUR_EDEFAULT = Colour.BLUE;
 
 	/**
 	 * The cached value of the '{@link #getColour() <em>Colour</em>}' attribute.
