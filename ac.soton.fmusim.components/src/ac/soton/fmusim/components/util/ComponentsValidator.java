@@ -7,8 +7,6 @@
  */
 package ac.soton.fmusim.components.util;
 
-import ac.soton.fmusim.components.*;
-import ac.soton.fmusim.components.exceptions.SimulationException;
 import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.ITrace2D;
 
@@ -22,6 +20,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 
 import ac.soton.fmusim.components.AbstractVariable;
+import ac.soton.fmusim.components.Colour;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -38,6 +37,7 @@ import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.exceptions.SimulationException;
 import de.prob.cosimulation.FMU;
 import de.prob.statespace.Trace;
 

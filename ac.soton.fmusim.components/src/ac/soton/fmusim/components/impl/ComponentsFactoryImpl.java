@@ -7,8 +7,6 @@
  */
 package ac.soton.fmusim.components.impl;
 
-import ac.soton.fmusim.components.*;
-import ac.soton.fmusim.components.exceptions.SimulationException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -16,6 +14,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import ac.soton.fmusim.components.Colour;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -30,6 +29,7 @@ import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.exceptions.SimulationException;
 import de.prob.cosimulation.FMU;
 
 /**

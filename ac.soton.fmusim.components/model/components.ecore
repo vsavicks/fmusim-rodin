@@ -131,9 +131,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="SimExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.SimulationException"/>
   <eClassifiers xsi:type="ecore:EEnum" name="Colour">
+    <eLiterals name="Blue"/>
     <eLiterals name="Red"/>
     <eLiterals name="Green"/>
-    <eLiterals name="Blue"/>
     <eLiterals name="Orange"/>
     <eLiterals name="Yellow"/>
     <eLiterals name="Pink"/>

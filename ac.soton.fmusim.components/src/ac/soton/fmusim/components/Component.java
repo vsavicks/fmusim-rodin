@@ -7,8 +7,9 @@
  */
 package ac.soton.fmusim.components;
 
-import ac.soton.fmusim.components.exceptions.SimulationException;
 import org.eclipse.emf.common.util.EList;
+
+import ac.soton.fmusim.components.exceptions.SimulationException;
 
 /**
  * <!-- begin-user-doc -->

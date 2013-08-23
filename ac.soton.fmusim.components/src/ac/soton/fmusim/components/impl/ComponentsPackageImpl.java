@@ -1007,9 +1007,9 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.NONE);
 
 		initEEnum(colourEEnum, Colour.class, "Colour");
+		addEEnumLiteral(colourEEnum, Colour.BLUE);
 		addEEnumLiteral(colourEEnum, Colour.RED);
 		addEEnumLiteral(colourEEnum, Colour.GREEN);
-		addEEnumLiteral(colourEEnum, Colour.BLUE);
 		addEEnumLiteral(colourEEnum, Colour.ORANGE);
 		addEEnumLiteral(colourEEnum, Colour.YELLOW);
 		addEEnumLiteral(colourEEnum, Colour.PINK);
