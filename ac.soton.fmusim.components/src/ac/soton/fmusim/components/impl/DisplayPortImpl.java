@@ -9,6 +9,7 @@
  */
 package ac.soton.fmusim.components.impl;
 
+import ac.soton.fmusim.components.Colour;
 import info.monitorenter.gui.chart.ITrace2D;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -26,6 +27,7 @@ import ac.soton.fmusim.components.DisplayPort;
  * The following features are implemented:
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.impl.DisplayPortImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.DisplayPortImpl#getColour <em>Colour</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,6 +53,26 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 	 * @ordered
 	 */
 	protected ITrace2D trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getColour() <em>Colour</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getColour()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Colour COLOUR_EDEFAULT = Colour.RED;
+
+	/**
+	 * The cached value of the '{@link #getColour() <em>Colour</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getColour()
+	 * @generated
+	 * @ordered
+	 */
+	protected Colour colour = COLOUR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -97,11 +119,34 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Colour getColour() {
+		return colour;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setColour(Colour newColour) {
+		Colour oldColour = colour;
+		colour = newColour == null ? COLOUR_EDEFAULT : newColour;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.DISPLAY_PORT__COLOUR, oldColour, colour));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ComponentsPackage.DISPLAY_PORT__TRACE:
 				return getTrace();
+			case ComponentsPackage.DISPLAY_PORT__COLOUR:
+				return getColour();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -116,6 +161,9 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 		switch (featureID) {
 			case ComponentsPackage.DISPLAY_PORT__TRACE:
 				setTrace((ITrace2D)newValue);
+				return;
+			case ComponentsPackage.DISPLAY_PORT__COLOUR:
+				setColour((Colour)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -132,6 +180,9 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 			case ComponentsPackage.DISPLAY_PORT__TRACE:
 				setTrace(TRACE_EDEFAULT);
 				return;
+			case ComponentsPackage.DISPLAY_PORT__COLOUR:
+				setColour(COLOUR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -146,6 +197,8 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 		switch (featureID) {
 			case ComponentsPackage.DISPLAY_PORT__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+			case ComponentsPackage.DISPLAY_PORT__COLOUR:
+				return colour != COLOUR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -162,6 +215,8 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (trace: ");
 		result.append(trace);
+		result.append(", colour: ");
+		result.append(colour);
 		result.append(')');
 		return result.toString();
 	}

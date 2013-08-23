@@ -20,6 +20,7 @@ import info.monitorenter.gui.chart.ITrace2D;
  * The following features are supported:
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.DisplayPort#getTrace <em>Trace</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.DisplayPort#getColour <em>Colour</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,5 +54,34 @@ public interface DisplayPort extends Port {
 	 * @generated
 	 */
 	void setTrace(ITrace2D value);
+
+	/**
+	 * Returns the value of the '<em><b>Colour</b></em>' attribute.
+	 * The literals are from the enumeration {@link ac.soton.fmusim.components.Colour}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Colour</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Colour</em>' attribute.
+	 * @see ac.soton.fmusim.components.Colour
+	 * @see #setColour(Colour)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getDisplayPort_Colour()
+	 * @model
+	 * @generated
+	 */
+	Colour getColour();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.DisplayPort#getColour <em>Colour</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Colour</em>' attribute.
+	 * @see ac.soton.fmusim.components.Colour
+	 * @see #getColour()
+	 * @generated
+	 */
+	void setColour(Colour value);
 
 } // DisplayPort

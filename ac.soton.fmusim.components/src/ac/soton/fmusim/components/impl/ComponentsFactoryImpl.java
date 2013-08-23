@@ -103,6 +103,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return createVariableTypeFromString(eDataType, initialValue);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
 				return createVariableCausalityFromString(eDataType, initialValue);
+			case ComponentsPackage.COLOUR:
+				return createColourFromString(eDataType, initialValue);
 			case ComponentsPackage.FMU_CLASS:
 				return createFmuClassFromString(eDataType, initialValue);
 			case ComponentsPackage.SIM_EXCEPTION_CLASS:
@@ -124,6 +126,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return convertVariableTypeToString(eDataType, instanceValue);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
 				return convertVariableCausalityToString(eDataType, instanceValue);
+			case ComponentsPackage.COLOUR:
+				return convertColourToString(eDataType, instanceValue);
 			case ComponentsPackage.FMU_CLASS:
 				return convertFmuClassToString(eDataType, instanceValue);
 			case ComponentsPackage.SIM_EXCEPTION_CLASS:
@@ -270,6 +274,26 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * @generated
 	 */
 	public String convertVariableCausalityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Colour createColourFromString(EDataType eDataType, String initialValue) {
+		Colour result = Colour.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertColourToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

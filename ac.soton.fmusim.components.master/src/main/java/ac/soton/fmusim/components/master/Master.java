@@ -15,6 +15,7 @@ import java.io.IOException;
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
+import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 
@@ -87,8 +88,9 @@ public class Master {
 	
 			// create output file
 			resultOut = apiCreateOutput((File) resultFile);
-			if (resultOut != null) {
+			if (resultOut == null) {
 				//TODO: add proper output error handling
+				return;
 			}
 	
 			// initialisation step
@@ -112,6 +114,10 @@ public class Master {
 				
 				// read port values
 				for (Component c : diagram.getComponents())
+					c.writeOutputs();
+				
+				// write port values
+				for (Component c : diagram.getComponents())
 					try {
 						c.readInputs();
 					} catch (SimulationException e) {
@@ -119,16 +125,13 @@ public class Master {
 						e.printStackTrace();
 					}
 				
-				// write port values
-				for (Component c : diagram.getComponents())
-					c.writeOutputs();
-				
 				// do step
 				for (Component c : diagram.getComponents())
 					c.doStep(tCurrent, step);
 				
 				// progress the time
 				tCurrent += step;
+				diagram.setTime(tCurrent);
 				
 				// write output
 				apiOutput(diagram, tCurrent, resultOut);
@@ -156,6 +159,9 @@ public class Master {
 	 * Runs the simulation to completion.
 	 */
 	public void simulateAll() {
+		//XXX: hack to reset simulation for step simulation if during that an error occurs
+		simulating = false;
+		
 		// instantiate components
 		try {
 			for (Component c : diagram.getComponents())
@@ -206,6 +212,7 @@ public class Master {
 			
 			// progress the time
 			tCurrent += step;
+			diagram.setTime(tCurrent);
 			
 			// write output
 			apiOutput(diagram, tCurrent, resultOut);
@@ -228,6 +235,10 @@ public class Master {
 		try {
 			writer.write("time");
 			for (Component c : diagram.getComponents()) {
+				//XXX: current hack to ignore display component for outputs
+				if (c instanceof DisplayComponent)
+					continue;
+				
 				String name = c.getName();
 				for (Port p : c.getInputs())
 					writer.write(SEPARATOR + name + "." + p.getName());
@@ -247,6 +258,10 @@ public class Master {
 		try {
 			writer.write(Double.toString(time));
 			for (Component c : diagram.getComponents()) {
+				//XXX: current hack to ignore display component for outputs
+				if (c instanceof DisplayComponent)
+					continue;
+				
 				for (Port p : c.getInputs()) {
 					writer.write(SEPARATOR + toPlotValue(p.getValue().toString()));
 				}

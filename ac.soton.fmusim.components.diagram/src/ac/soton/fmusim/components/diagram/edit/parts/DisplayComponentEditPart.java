@@ -7,6 +7,13 @@
  */
 package ac.soton.fmusim.components.diagram.edit.parts;
 
+import info.monitorenter.gui.chart.Chart2D;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
@@ -16,6 +23,8 @@ import org.eclipse.draw2d.ScalablePolygonShape;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -27,6 +36,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPar
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.OpenEditPolicy;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
@@ -35,6 +45,7 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent;
 import org.eclipse.swt.graphics.Color;
 
+import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.diagram.edit.policies.DisplayComponentCanonicalEditPolicy;
 import ac.soton.fmusim.components.diagram.edit.policies.DisplayComponentItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -67,7 +78,7 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
@@ -83,6 +94,58 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		
+		// double-click edit policy handler for opening a frame window with rendered plot
+		installEditPolicy(EditPolicyRoles.OPEN_ROLE, createOpenEditPolicy(this));
+	}
+	
+	private EditPolicy createOpenEditPolicy(final DisplayComponentEditPart editPart) {
+		return new OpenEditPolicy() {
+			private DisplayComponentEditPart part = editPart;
+			
+			@Override
+			protected Command getOpenCommand(Request request) {
+				return new Command() {
+					@Override
+					public void execute() {
+						final DisplayComponent component = (DisplayComponent) part.resolveSemanticElement();
+						assert component != null;
+						
+						// get chart or create one if not yet instantiated
+						final Chart2D chart;
+						if (component.getChart() != null) {
+							chart = component.getChart();
+						} else {
+							chart = new Chart2D();
+							chart.setVisible(false);
+							TransactionalEditingDomain editingDomain = part.getEditingDomain();
+							editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+								@Override
+								protected void doExecute() {
+									component.setChart(chart);
+								}
+							});
+						}
+						
+						// display the chart if not visible yet
+						if (!chart.isVisible()) {
+							final JFrame frame = new JFrame("Display");
+							frame.getContentPane().add(chart);
+						    frame.setSize(300,300);
+							frame.addWindowListener(new WindowAdapter() {
+								public void windowClosing(WindowEvent e) {
+									frame.dispose();
+									chart.setVisible(false);
+								}
+							});
+							chart.setVisible(true);
+							frame.setVisible(true);
+						}
+					}
+					
+				};
+			}
+		};
 	}
 
 	/**

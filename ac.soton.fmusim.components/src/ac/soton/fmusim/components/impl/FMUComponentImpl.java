@@ -263,7 +263,10 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		// update variables
 		for (AbstractVariable v : getVariables())
 			v.setValue(getValueFMU(fmu, v));
-		//TODO: update port values
+		for (Port p : getInputs())
+			p.setValue(getValueFMU(fmu, p));
+		for (Port p : getOutputs())
+			p.setValue(getValueFMU(fmu, p));
 	}
 
 	/**
@@ -356,7 +359,9 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		// update variables
 		for (AbstractVariable v : getVariables())
 			v.setValue(getValueFMU(fmu, v));
-		//TODO: update port values
+		// update only output ports - inputs should not have changed
+		for (Port p : getOutputs())
+			p.setValue(getValueFMU(fmu, p));
 	}
 
 	/**

@@ -64,6 +64,7 @@ public class DisplayPortItemProvider
 			super.getPropertyDescriptors(object);
 
 			addTracePropertyDescriptor(object);
+			addColourPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -82,6 +83,28 @@ public class DisplayPortItemProvider
 				 getString("_UI_DisplayPort_trace_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_DisplayPort_trace_feature", "_UI_DisplayPort_type"),
 				 ComponentsPackage.Literals.DISPLAY_PORT__TRACE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Colour feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addColourPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DisplayPort_colour_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DisplayPort_colour_feature", "_UI_DisplayPort_type"),
+				 ComponentsPackage.Literals.DISPLAY_PORT__COLOUR,
 				 true,
 				 false,
 				 false,
@@ -128,6 +151,7 @@ public class DisplayPortItemProvider
 
 		switch (notification.getFeatureID(DisplayPort.class)) {
 			case ComponentsPackage.DISPLAY_PORT__TRACE:
+			case ComponentsPackage.DISPLAY_PORT__COLOUR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

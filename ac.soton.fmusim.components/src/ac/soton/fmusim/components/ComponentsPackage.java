@@ -1093,13 +1093,22 @@ public interface ComponentsPackage extends EPackage {
 	int DISPLAY_PORT__TRACE = PORT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Colour</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__COLOUR = PORT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Display Port</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DISPLAY_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+	int DISPLAY_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
@@ -1122,6 +1131,16 @@ public interface ComponentsPackage extends EPackage {
 	int VARIABLE_CAUSALITY = 15;
 
 	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.Colour <em>Colour</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.Colour
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getColour()
+	 * @generated
+	 */
+	int COLOUR = 16;
+
+	/**
 	 * The meta object id for the '<em>Fmu Class</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1129,7 +1148,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFmuClass()
 	 * @generated
 	 */
-	int FMU_CLASS = 16;
+	int FMU_CLASS = 17;
 
 	/**
 	 * The meta object id for the '<em>Trace Class</em>' data type.
@@ -1139,7 +1158,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getTraceClass()
 	 * @generated
 	 */
-	int TRACE_CLASS = 17;
+	int TRACE_CLASS = 18;
 
 	/**
 	 * The meta object id for the '<em>Trace2 DClass</em>' data type.
@@ -1149,7 +1168,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getTrace2DClass()
 	 * @generated
 	 */
-	int TRACE2_DCLASS = 18;
+	int TRACE2_DCLASS = 19;
 
 	/**
 	 * The meta object id for the '<em>Chart2 DClass</em>' data type.
@@ -1159,7 +1178,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getChart2DClass()
 	 * @generated
 	 */
-	int CHART2_DCLASS = 19;
+	int CHART2_DCLASS = 20;
 
 	/**
 	 * The meta object id for the '<em>Sim Exception Class</em>' data type.
@@ -1169,7 +1188,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getSimExceptionClass()
 	 * @generated
 	 */
-	int SIM_EXCEPTION_CLASS = 20;
+	int SIM_EXCEPTION_CLASS = 21;
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
@@ -1631,6 +1650,17 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getDisplayPort_Trace();
 
 	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.DisplayPort#getColour <em>Colour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Colour</em>'.
+	 * @see ac.soton.fmusim.components.DisplayPort#getColour()
+	 * @see #getDisplayPort()
+	 * @generated
+	 */
+	EAttribute getDisplayPort_Colour();
+
+	/**
 	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1649,6 +1679,16 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getVariableCausality();
+
+	/**
+	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.Colour <em>Colour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Colour</em>'.
+	 * @see ac.soton.fmusim.components.Colour
+	 * @generated
+	 */
+	EEnum getColour();
 
 	/**
 	 * Returns the meta object for data type '{@link de.prob.cosimulation.FMU <em>Fmu Class</em>}'.
@@ -2100,6 +2140,14 @@ public interface ComponentsPackage extends EPackage {
 		EAttribute DISPLAY_PORT__TRACE = eINSTANCE.getDisplayPort_Trace();
 
 		/**
+		 * The meta object literal for the '<em><b>Colour</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DISPLAY_PORT__COLOUR = eINSTANCE.getDisplayPort_Colour();
+
+		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2118,6 +2166,16 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum VARIABLE_CAUSALITY = eINSTANCE.getVariableCausality();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.Colour <em>Colour</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.Colour
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getColour()
+		 * @generated
+		 */
+		EEnum COLOUR = eINSTANCE.getColour();
 
 		/**
 		 * The meta object literal for the '<em>Fmu Class</em>' data type.

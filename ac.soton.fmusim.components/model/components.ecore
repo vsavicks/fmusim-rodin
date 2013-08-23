@@ -127,6 +127,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="DisplayPort" eSuperTypes="#//Port">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="#//Trace2DClass"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colour" eType="#//Colour"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="SimExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.SimulationException"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="Colour">
+    <eLiterals name="Red"/>
+    <eLiterals name="Green"/>
+    <eLiterals name="Blue"/>
+    <eLiterals name="Orange"/>
+    <eLiterals name="Yellow"/>
+    <eLiterals name="Pink"/>
+    <eLiterals name="Cyan"/>
+  </eClassifiers>
 </ecore:EPackage>

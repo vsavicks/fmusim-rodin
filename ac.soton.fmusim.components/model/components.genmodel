@@ -23,6 +23,15 @@
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/Internal"/>
       <genEnumLiterals ecoreEnumLiteral="components.ecore#//VariableCausality/None"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="components.ecore#//Colour">
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Red"/>
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Green"/>
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Blue"/>
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Orange"/>
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Yellow"/>
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Pink"/>
+      <genEnumLiterals ecoreEnumLiteral="components.ecore#//Colour/Cyan"/>
+    </genEnums>
     <genDataTypes ecoreDataType="components.ecore#//FmuClass"/>
     <genDataTypes ecoreDataType="components.ecore#//TraceClass"/>
     <genDataTypes ecoreDataType="components.ecore#//Trace2DClass"/>
@@ -102,6 +111,7 @@
     </genClasses>
     <genClasses ecoreClass="components.ecore#//DisplayPort">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//DisplayPort/trace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//DisplayPort/colour"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

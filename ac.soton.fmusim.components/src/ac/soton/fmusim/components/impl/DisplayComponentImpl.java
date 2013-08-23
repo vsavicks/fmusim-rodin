@@ -13,6 +13,7 @@ import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.ITrace2D;
 import info.monitorenter.gui.chart.traces.Trace2DLtd;
 
+import java.awt.Color;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -193,11 +194,24 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			assert p instanceof DisplayPort;
 			DisplayPort port = (DisplayPort) p;
 			
+			// get trace colour
+			Color color;
+			assert port.getColour() != null;
+			switch (port.getColour()) {
+			case RED: color = Color.RED; break;
+			case GREEN: color = Color.GREEN; break;
+			case BLUE: color = Color.BLUE; break;
+			case ORANGE: color = Color.ORANGE; break;
+			case YELLOW: color = Color.YELLOW; break;
+			case PINK: color = Color.PINK; break;
+			case CYAN: color = Color.CYAN; break;
+			default: color = Color.BLACK;
+			}
+			
 			// create trace and add to port/chart
 		    ITrace2D trace = new Trace2DLtd(100); 
 		    trace.setName(port.getName());
-		    //TODO: get the color from a dedicated port attribute
-		    trace.setColor(java.awt.Color.RED);
+		    trace.setColor(color);
 		    port.setTrace(trace);
 		    getChart().addTrace(trace);
 		}
@@ -278,6 +292,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	public void instantiate() throws SimulationException {
 		if (getChart() == null) {
 			Chart2D chart = new Chart2D();
+			chart.setVisible(false);
 			setChart(chart);
 		}
 	}

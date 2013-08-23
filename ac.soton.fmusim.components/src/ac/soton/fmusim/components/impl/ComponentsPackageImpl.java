@@ -26,6 +26,7 @@ import org.eventb.emf.core.CorePackage;
 import org.eventb.emf.core.machine.MachinePackage;
 
 import ac.soton.fmusim.components.AbstractVariable;
+import ac.soton.fmusim.components.Colour;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsFactory;
@@ -166,6 +167,13 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * @generated
 	 */
 	private EEnum variableCausalityEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum colourEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -667,6 +675,15 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getDisplayPort_Colour() {
+		return (EAttribute)displayPortEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getVariableType() {
 		return variableTypeEEnum;
 	}
@@ -678,6 +695,15 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 */
 	public EEnum getVariableCausality() {
 		return variableCausalityEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getColour() {
+		return colourEEnum;
 	}
 
 	/**
@@ -809,10 +835,12 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 
 		displayPortEClass = createEClass(DISPLAY_PORT);
 		createEAttribute(displayPortEClass, DISPLAY_PORT__TRACE);
+		createEAttribute(displayPortEClass, DISPLAY_PORT__COLOUR);
 
 		// Create enums
 		variableTypeEEnum = createEEnum(VARIABLE_TYPE);
 		variableCausalityEEnum = createEEnum(VARIABLE_CAUSALITY);
+		colourEEnum = createEEnum(COLOUR);
 
 		// Create data types
 		fmuClassEDataType = createEDataType(FMU_CLASS);
@@ -963,6 +991,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 
 		initEClass(displayPortEClass, DisplayPort.class, "DisplayPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDisplayPort_Trace(), this.getTrace2DClass(), "trace", null, 0, 1, DisplayPort.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDisplayPort_Colour(), this.getColour(), "colour", null, 0, 1, DisplayPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(variableTypeEEnum, VariableType.class, "VariableType");
@@ -976,6 +1005,15 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.OUTPUT);
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.INTERNAL);
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.NONE);
+
+		initEEnum(colourEEnum, Colour.class, "Colour");
+		addEEnumLiteral(colourEEnum, Colour.RED);
+		addEEnumLiteral(colourEEnum, Colour.GREEN);
+		addEEnumLiteral(colourEEnum, Colour.BLUE);
+		addEEnumLiteral(colourEEnum, Colour.ORANGE);
+		addEEnumLiteral(colourEEnum, Colour.YELLOW);
+		addEEnumLiteral(colourEEnum, Colour.PINK);
+		addEEnumLiteral(colourEEnum, Colour.CYAN);
 
 		// Initialize data types
 		initEDataType(fmuClassEDataType, FMU.class, "FmuClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

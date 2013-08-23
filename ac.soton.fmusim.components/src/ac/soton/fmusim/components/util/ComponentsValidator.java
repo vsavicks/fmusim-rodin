@@ -161,6 +161,8 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateVariableType((VariableType)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
 				return validateVariableCausality((VariableCausality)value, diagnostics, context);
+			case ComponentsPackage.COLOUR:
+				return validateColour((Colour)value, diagnostics, context);
 			case ComponentsPackage.FMU_CLASS:
 				return validateFmuClass((FMU)value, diagnostics, context);
 			case ComponentsPackage.TRACE_CLASS:
@@ -451,6 +453,15 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateVariableCausality(VariableCausality variableCausality, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateColour(Colour colour, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
