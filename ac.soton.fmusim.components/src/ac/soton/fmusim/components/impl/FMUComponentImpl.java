@@ -376,7 +376,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		Object value = null;
 		switch (variable.getType()) {
 		case BOOLEAN:
-			value  = fmu.getBoolean(name);
+			value  = fmu.getBoolean(name) == false; //XXX: hack to fix the bug with JFMI (returns negated value of actual boolean value)
 			break;
 		case INTEGER:
 			value = fmu.getInt(name);

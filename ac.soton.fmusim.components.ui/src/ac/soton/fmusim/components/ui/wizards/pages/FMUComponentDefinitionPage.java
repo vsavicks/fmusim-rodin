@@ -191,7 +191,7 @@ public class FMUComponentDefinitionPage extends WizardPage {
 			inputsViewer.setInput(currentModel.getInputs());
 			outputsViewer.setInput(currentModel.getOutputs());
 			
-			internalsViewer.setAllChecked(true);
+			internalsViewer.setAllChecked(false);
 			inputsViewer.setAllChecked(true);
 			outputsViewer.setAllChecked(true);
 			

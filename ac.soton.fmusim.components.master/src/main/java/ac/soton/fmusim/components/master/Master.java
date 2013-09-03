@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.jscience.mathematics.number.Real;
+
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
@@ -44,10 +46,10 @@ public class Master {
 	}
 
 	private ComponentDiagram diagram;
-	private double tCurrent;
-	private double tStart;
-	private double tStop;
-	private double step;
+	private Real tCurrent;
+	private Real tStart;
+	private Real tStop;
+	private Real step;
 	private File resultFile;
 	private BufferedWriter resultOut;
 	private boolean simulating;
@@ -64,9 +66,9 @@ public class Master {
 	 */
 	public Master(ComponentDiagram diagram, double tStart, double tStop, double step, File resultFile) {
 		this.diagram = diagram;
-		this.tStart = tStart;
-		this.tStop = tStop;
-		this.step = step;
+		this.tStart = Real.valueOf(tStart);
+		this.tStop = Real.valueOf(tStop);
+		this.step = Real.valueOf(step);
 		this.resultFile = resultFile;
 	}
 	
@@ -95,7 +97,7 @@ public class Master {
 	
 			// initialisation step
 			for (Component c : diagram.getComponents())
-				c.initialise(tStart, tStop);
+				c.initialise(tStart.doubleValue(), tStop.doubleValue());
 			
 			// initial output
 			apiOutputColumns(diagram, resultOut);
@@ -110,7 +112,7 @@ public class Master {
 		
 		// simulation step
 		if (simulating) {
-			if (tCurrent < tStop) {
+			if (tCurrent.isLessThan(tStop)) {
 				
 				// read port values
 				for (Component c : diagram.getComponents())
@@ -127,18 +129,18 @@ public class Master {
 				
 				// do step
 				for (Component c : diagram.getComponents())
-					c.doStep(tCurrent, step);
+					c.doStep(tCurrent.doubleValue(), step.doubleValue());
 				
 				// progress the time
-				tCurrent += step;
-				diagram.setTime(tCurrent);
+				tCurrent = tCurrent.plus(step);
+				diagram.setTime(tCurrent.doubleValue());
 				
 				// write output
 				apiOutput(diagram, tCurrent, resultOut);
 			}
 			
 			// termination step, if finished
-			if (tCurrent >= tStop) {
+			if (tCurrent.compareTo(tStop) >= 0) {
 				simulating = false;
 				
 				for (Component c : diagram.getComponents())
@@ -181,7 +183,7 @@ public class Master {
 		
 		// initialisation step
 		for (Component c : diagram.getComponents())
-			c.initialise(tStart, tStop);
+			c.initialise(tStart.doubleValue(), tStop.doubleValue());
 		
 		// initial output
 		apiOutputColumns(diagram, resultOut);
@@ -191,7 +193,7 @@ public class Master {
 		tCurrent = tStart;
 
 		// simulation loop
-		while (tCurrent < tStop) {
+		while (tCurrent.isLessThan(tStop)) {
 			
 			// read port values
 			for (Component c : diagram.getComponents())
@@ -208,11 +210,11 @@ public class Master {
 			
 			// do step
 			for (Component c : diagram.getComponents())
-				c.doStep(tCurrent, step);
+				c.doStep(tCurrent.doubleValue(), step.doubleValue());
 			
 			// progress the time
-			tCurrent += step;
-			diagram.setTime(tCurrent);
+			tCurrent = tCurrent.plus(step);
+			diagram.setTime(tCurrent.doubleValue());
 			
 			// write output
 			apiOutput(diagram, tCurrent, resultOut);
@@ -254,9 +256,9 @@ public class Master {
 		}
 	}
 
-	private void apiOutput(ComponentDiagram diagram, double time, BufferedWriter writer) {
+	private void apiOutput(ComponentDiagram diagram, Real time, BufferedWriter writer) {
 		try {
-			writer.write(Double.toString(time));
+			writer.write(time.toText().toString());
 			for (Component c : diagram.getComponents()) {
 				//XXX: current hack to ignore display component for outputs
 				if (c instanceof DisplayComponent)

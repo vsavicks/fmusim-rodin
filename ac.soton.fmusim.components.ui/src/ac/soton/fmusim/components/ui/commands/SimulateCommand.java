@@ -98,7 +98,7 @@ public class SimulateCommand extends AbstractHandler {
 	 */
 	private void simulate(final double endTime, double step, final ComponentDiagram diagram, IProgressMonitor monitor) {
 
-		new Master(diagram, 0, endTime, step, new File("/Users/vitaly/results.csv")).simulateAll();
+		new Master(diagram, 0, endTime, step, new File("C:/Users/vitaly/results.csv")).simulateAll();
 		
 //		FMIMaster master = new FMIMaster();
 //		master.simulate(diagram, endTime, step);
