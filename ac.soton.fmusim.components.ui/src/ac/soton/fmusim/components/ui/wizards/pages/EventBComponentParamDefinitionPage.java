@@ -28,6 +28,7 @@ import org.eventb.emf.core.EventBNamed;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Variable;
 
+import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.ui.controls.EditableTableViewerContainer;
 import ac.soton.fmusim.components.ui.controls.EventBNamedComboContainer;
@@ -170,13 +171,15 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		stepPeriodText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-				validateStepPeriod();
+				if (validateStepPeriod())
+					currentModel.setStepPeriod(Double.parseDouble(stepPeriodText.getText()));
 			}
 		});
 		precisionText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-				validatePrecision();
+				if (validatePrecision())
+					currentModel.setRealPrecision(Integer.parseInt(precisionText.getText()));
 			}
 		});
 		timeVariableCombo.addSelectionListener(new SelectionAdapter() {
@@ -200,18 +203,20 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		});
 	}
 
-	protected void validateStepPeriod() {
+	protected boolean validateStepPeriod() {
 		if (stepPeriodValidator != null) {
 			stepPeriodValid = stepPeriodValidator.isValid(stepPeriodText.getText()) == null;
 		}
 		validatePage();
+		return stepPeriodValid;
 	}
 
-	protected void validatePrecision() {
+	protected boolean validatePrecision() {
 		if (precisionValidator != null) {
 			precisionValid = precisionValidator.isValid(precisionText.getText()) == null;
 		}
 		validatePage();
+		return precisionValid;
 	}
 
 	/**
@@ -277,6 +282,14 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		
 		setPageComplete(valid);
 	}
-	
+
+	public boolean isModified() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Component getModel() {
+		return currentModel;
+	}
 
 }

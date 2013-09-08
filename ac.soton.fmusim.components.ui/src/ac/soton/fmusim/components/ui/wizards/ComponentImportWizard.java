@@ -21,7 +21,6 @@ import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.ui.ComponentsUIPlugin;
 import ac.soton.fmusim.components.ui.resource.FMUResourceFactory;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
-import ac.soton.fmusim.components.ui.wizards.pages.AbstractComponentDefinitionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSelectionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.EventBComponentParamDefinitionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.EventBComponentVariableDefinitionPage;
@@ -38,8 +37,8 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 	// pages
 	protected ComponentModelSelectionPage componentModelSelectionPage;
 	protected FMUComponentDefinitionPage fmuComponentDefinitionPage;
-	protected AbstractComponentDefinitionPage eventBComponentParamDefinitionPage;
-	protected AbstractComponentDefinitionPage eventBComponentVariableDefinitionPage;
+	protected EventBComponentParamDefinitionPage eventBComponentParamDefinitionPage;
+	protected EventBComponentVariableDefinitionPage eventBComponentVariableDefinitionPage;
 
 	@SuppressWarnings("unused")
 	private IWorkbench workbench;
@@ -51,9 +50,12 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 	 * variables and ports have been selected/configured.
 	 */
 	protected boolean isInDefinitionMode() {
-		//TODO: only FMU definition page considered
 		if (componentModelSelectionPage.getModel() == fmuComponentDefinitionPage.getModel()
 				&& fmuComponentDefinitionPage.isModified()) {
+			return true;
+		}
+		if (componentModelSelectionPage.getModel() == eventBComponentVariableDefinitionPage.getModel()
+				&& eventBComponentVariableDefinitionPage.isModified()) {
 			return true;
 		}
 		return false;
@@ -80,11 +82,11 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 					component.getOutputs().clear();
 					component.getOutputs().addAll(fmuComponentDefinitionPage.getCheckedOutputs());
 				} else if (model instanceof EventBComponent) {
-					//TODO: implement selective variables
-//					EventBComponent component = (EventBComponent) model;
-//					// remove unselected variables
-//					component.getVariables().clear();
-//					component.getVariables().addAll(eventBComponentDefinitionPage.getCheckedVariables());
+					EventBComponent component = (EventBComponent) model;
+					
+					// remove unselected variables
+					component.getVariables().clear();
+					component.getVariables().addAll(eventBComponentVariableDefinitionPage.getCheckedVariables());
 				}
 			}
 			return true;

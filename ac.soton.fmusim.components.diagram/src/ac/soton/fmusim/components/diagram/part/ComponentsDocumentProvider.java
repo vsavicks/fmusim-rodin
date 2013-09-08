@@ -812,6 +812,12 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 						}
 
 						machine.getExtensions().add(compCopy);
+//						try {
+//							machine.eResource().save(null);
+//						} catch (IOException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
 					}
 				});
 			}

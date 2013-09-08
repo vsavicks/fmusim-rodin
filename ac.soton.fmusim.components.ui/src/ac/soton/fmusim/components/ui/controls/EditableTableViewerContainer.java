@@ -40,11 +40,10 @@ import ac.soton.fmusim.components.ui.providers.SelectionDialogProvider;
 public class EditableTableViewerContainer extends TableViewerContainer {
 
 	private Composite plate;
-	private Button addButton;
-	private Button removeButton;
 	private List<?> inputSource;
 	int idColumnIndex;
-	List<ColumnProvider> columnProviders;
+	private Button addButton;
+	private Button removeButton;
 	private Listener changeListener;
 	private SelectionDialogProvider dialogProvider;
 
@@ -171,7 +170,7 @@ public class EditableTableViewerContainer extends TableViewerContainer {
 	 * @return
 	 */
 	protected ILabelProvider getInputLabelProvider() {
-		// if column providers defined, use ID provider
+		// if column providers defined, use ID provider (default is 0, if not set)
 		if (columnProviders != null)
 			return (ILabelProvider) columnProviders.get(idColumnIndex).getLabelProvider();
 		

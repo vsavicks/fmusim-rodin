@@ -21,6 +21,7 @@ import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
+import ac.soton.fmusim.components.ui.controls.CheckboxTableViewerContainer;
 import ac.soton.fmusim.components.ui.providers.ColumnProvider;
 
 
@@ -122,6 +123,7 @@ public class FMUComponentDefinitionPage extends AbstractComponentDefinitionPage 
 			
 			// set input
 			currentModel = (FMUComponent) source.getModel();
+			
 			inputsViewer.setInput(currentModel.getInputs());
 			outputsViewer.setInput(currentModel.getOutputs());
 			internalsViewer.setInput(currentModel.getVariables());
@@ -129,10 +131,12 @@ public class FMUComponentDefinitionPage extends AbstractComponentDefinitionPage 
 			outputsViewer.setAllChecked(true);
 			internalsViewer.setAllChecked(false);
 			
+//			setModified(false);
+			
 			((Composite) getControl()).layout(true, true);
 		}
 	}
-	
+
 	/**
 	 * Returns a list of checked input ports.
 	 * @return
@@ -186,6 +190,8 @@ public class FMUComponentDefinitionPage extends AbstractComponentDefinitionPage 
 	 * @return true if modified
 	 */
 	public boolean isModified() {
+		//FIXME: considers only the number, but not the actual checked/unchecked elements
+		//FIXME: current model not set until the page is displayed, so before that everything would be displayed - including all unnecessary internal variables
 		return currentModel.getVariables().size() != internalsViewer.getCheckedElements().length
 				|| currentModel.getInputs().size() != inputsViewer.getCheckedElements().length
 				|| currentModel.getOutputs().size() != outputsViewer.getCheckedElements().length;

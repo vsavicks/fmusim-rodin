@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import ac.soton.fmusim.components.ui.controls.CheckboxTableViewerContainer;
 import ac.soton.fmusim.components.ui.controls.EditableTableViewerContainer;
 import ac.soton.fmusim.components.ui.controls.EventBNamedComboContainer;
 import ac.soton.fmusim.components.ui.providers.ColumnProvider;

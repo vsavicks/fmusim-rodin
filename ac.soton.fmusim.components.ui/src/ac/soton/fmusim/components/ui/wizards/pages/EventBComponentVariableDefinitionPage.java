@@ -20,9 +20,12 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.eventb.emf.core.machine.Parameter;
 
+import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
+import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.VariableCausality;
+import ac.soton.fmusim.components.ui.controls.CheckboxTableViewerContainer;
 import ac.soton.fmusim.components.ui.controls.EditableTableViewerContainer;
 import ac.soton.fmusim.components.ui.dialogs.EventBPortDialog;
 import ac.soton.fmusim.components.ui.providers.ColumnProvider;
@@ -43,6 +46,7 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 	// UI elements
 	private EditableTableViewerContainer inputsViewer;
 	private EditableTableViewerContainer outputsViewer;
+	private CheckboxTableViewerContainer variablesViewer;
 
 	/**
 	 * @param pageName
@@ -108,12 +112,10 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 	/**
 	 * Creates a group of UI controls for defining variables.
 	 * 
-	 * @param plate
+	 * @param parent
 	 */
 	private void createVariableGroup(Composite parent) {
-		Group group = createLabeledGroup(parent, "Variables", "Select Event-B variables to be displayed");
-		
-		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		variablesViewer = createLabeledCheckboxTable(parent, "Variables:", "Select variables", createVariableColumnProviders(), null);
 	}
 
 	/**
@@ -142,6 +144,21 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 			}}));
 		return providers;
 	}
+
+	private List<ColumnProvider> createVariableColumnProviders() {
+		ArrayList<ColumnProvider> providers = new ArrayList<ColumnProvider>();
+		providers.add(new ColumnProvider("Name", 100, new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				return ((EventBVariable) element).getName();
+			}}));
+		providers.add(new ColumnProvider("Comment", 200, new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				return ((EventBVariable) element).getDescription();
+			}}));
+		return providers;
+	}
 	
 	@Override
 	public void setVisible(boolean visible) {
@@ -155,10 +172,41 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 			
 			// set input
 			currentModel = (EventBComponent) source.getModel();
+			
 			inputsViewer.setInput(null, currentModel.getInputs());
 			outputsViewer.setInput(null, currentModel.getOutputs());
+			variablesViewer.setInput(currentModel.getVariables());
+			variablesViewer.setAllChecked(false);
 			
 			((Composite) getControl()).layout(true, true);
 		}
+	}
+
+	/**
+	 * Returns a list of checked variables.
+	 * 
+	 * @return
+	 */
+	public List<EventBVariable> getCheckedVariables() {
+		List<EventBVariable> variables = new ArrayList<EventBVariable>();
+		for (Object var : variablesViewer.getCheckedElements()) {
+			variables.add((EventBVariable) var);
+		}
+		return variables;
+	}
+	
+	/**
+	 * Checks if any element was unchecked in the viewers i.e. model was modified.
+	 * 
+	 * @return true if modified
+	 */
+	public boolean isModified() {
+		//FIXME: return correct modification flag
+		//FIXME: until page is displayed all variables would be added if finished on model selection page, or removed if finished on param page
+		return currentModel.getVariables().size() != variablesViewer.getCheckedElements().length;
+	}
+
+	public Component getModel() {
+		return currentModel;
 	}
 }

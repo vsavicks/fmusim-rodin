@@ -5,11 +5,11 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package ac.soton.fmusim.components.ui.wizards.pages;
+package ac.soton.fmusim.components.ui.controls;
 
 import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.ICheckStateListener;
 
-import ac.soton.fmusim.components.ui.controls.TableViewerContainer;
 
 /**
  * Container for checkbox table viewer.
@@ -42,6 +42,10 @@ public class CheckboxTableViewerContainer extends TableViewerContainer {
 	 */
 	public Object[] getCheckedElements() {
 		return ((CheckboxTableViewer) tableViewer).getCheckedElements();
+	}
+	
+	public void addCheckStateListener(ICheckStateListener listener) {
+		((CheckboxTableViewer) tableViewer).addCheckStateListener(listener);
 	}
 
 }

@@ -94,23 +94,25 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
-		
+
 		// double-click edit policy handler for opening a frame window with rendered plot
 		installEditPolicy(EditPolicyRoles.OPEN_ROLE, createOpenEditPolicy(this));
 	}
-	
-	private EditPolicy createOpenEditPolicy(final DisplayComponentEditPart editPart) {
+
+	private EditPolicy createOpenEditPolicy(
+			final DisplayComponentEditPart editPart) {
 		return new OpenEditPolicy() {
 			private DisplayComponentEditPart part = editPart;
-			
+
 			@Override
 			protected Command getOpenCommand(Request request) {
 				return new Command() {
 					@Override
 					public void execute() {
-						final DisplayComponent component = (DisplayComponent) part.resolveSemanticElement();
+						final DisplayComponent component = (DisplayComponent) part
+								.resolveSemanticElement();
 						assert component != null;
-						
+
 						// get chart or create one if not yet instantiated
 						final Chart2D chart;
 						if (component.getChart() != null) {
@@ -118,20 +120,22 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 						} else {
 							chart = new Chart2D();
 							chart.setVisible(false);
-							TransactionalEditingDomain editingDomain = part.getEditingDomain();
-							editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-								@Override
-								protected void doExecute() {
-									component.setChart(chart);
-								}
-							});
+							TransactionalEditingDomain editingDomain = part
+									.getEditingDomain();
+							editingDomain.getCommandStack().execute(
+									new RecordingCommand(editingDomain) {
+										@Override
+										protected void doExecute() {
+											component.setChart(chart);
+										}
+									});
 						}
-						
+
 						// display the chart if not visible yet
 						if (!chart.isVisible()) {
 							final JFrame frame = new JFrame("Display");
 							frame.getContentPane().add(chart);
-						    frame.setSize(300,300);
+							frame.setSize(300, 300);
 							frame.addWindowListener(new WindowAdapter() {
 								public void windowClosing(WindowEvent e) {
 									frame.dispose();
@@ -142,7 +146,7 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 							frame.setVisible(true);
 						}
 					}
-					
+
 				};
 			}
 		};
