@@ -271,9 +271,9 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		valid &= stepPeriodValid & precisionValid;
 		
 		if (readEventsViewer.getInput() != null)
-			valid &= readEventsViewer.getInput().size() > 0;
+			valid &= ((List<?>) readEventsViewer.getInput()).size() > 0;
 		if (updateEventsViewer.getInput() != null)
-			valid &= updateEventsViewer.getInput().size() > 0;
+			valid &= ((List<?>) updateEventsViewer.getInput()).size() > 0;
 		
 		setPageComplete(valid);
 	}

@@ -17,7 +17,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -26,7 +25,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
 import ac.soton.fmusim.components.ui.providers.ColumnProvider;
@@ -39,15 +37,14 @@ import ac.soton.fmusim.components.ui.providers.SelectionDialogProvider;
  * @author vitaly
  *
  */
-public class EditableTableViewerContainer {
+public class EditableTableViewerContainer extends TableViewerContainer {
 
 	private Composite plate;
-	private TableViewer tableViewer;
 	private Button addButton;
 	private Button removeButton;
 	private List<?> inputSource;
-	private int idColumnIndex;
-	private List<ColumnProvider> columnProviders;
+	int idColumnIndex;
+	List<ColumnProvider> columnProviders;
 	private Listener changeListener;
 	private SelectionDialogProvider dialogProvider;
 
@@ -56,8 +53,7 @@ public class EditableTableViewerContainer {
 	 * @param viewer
 	 */
 	public EditableTableViewerContainer(TableViewer viewer) {
-		assert viewer != null;
-		tableViewer = viewer;
+		super(viewer);
 		
 		// swap table parent to composite
 		Composite parent = tableViewer.getTable().getParent();
@@ -141,11 +137,23 @@ public class EditableTableViewerContainer {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				removeButton.setEnabled(true);
-				//XXX: check that button is also disabled correctly
 			}
 		});
 
 		buttonPlate.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+	}
+	
+	/**
+	 * Creates table columns from the column providers.
+	 * 
+	 * @param columnProviders list of column providers
+	 * @param idColumnIndex index of ID column provider, also used when selecting new elements
+	 */
+	public void setColumnProviders(List<ColumnProvider> columnProviders, int idColumnIndex) {
+		super.setColumnProviders(columnProviders);
+		
+		assert idColumnIndex >= 0 && idColumnIndex < columnProviders.size();
+		this.idColumnIndex = idColumnIndex;
 	}
 
 	/**
@@ -181,65 +189,14 @@ public class EditableTableViewerContainer {
 	}
 
 	/**
-	 * Creates table columns from the column providers.
-	 * 
-	 * @param columnProviders list of column providers
-	 * @param idColumnIndex index of ID column provider, also used when selecting new elements
-	 */
-	public void setColumns(List<ColumnProvider> columnProviders, int idColumnIndex) {
-		assert idColumnIndex >= 0 && idColumnIndex < columnProviders.size();
-		this.idColumnIndex = idColumnIndex;
-		this.columnProviders = columnProviders;
-		
-		for (ColumnProvider provider : columnProviders) {
-			TableViewerColumn column = createTableViewerColumn(tableViewer, provider.getTitle(), provider.getBound());
-			column.setLabelProvider(provider.getLabelProvider());
-		}
-	}
-
-	/**
-	 * Creates a table viewer column.
-	 * 
-	 * @param viewer 
-	 * @param title column title
-	 * @param bound column width bound
-	 * @return table viewer column
-	 */
-	private TableViewerColumn createTableViewerColumn(TableViewer viewer, String title, int bound) {
-		TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
-		final TableColumn column = viewerColumn.getColumn();
-		column.setText(title);
-		column.setWidth(bound);
-		return viewerColumn;
-	}
-
-	/**
-	 * Returns table viewer.
-	 * 
-	 * @return
-	 */
-	public TableViewer getViewer() {
-		return tableViewer;
-	}
-
-	/**
 	 * Sets table viewer input.
 	 * 
 	 * @param source input source (can be null if a selection dialog is used as element source)
 	 * @param input current table content
 	 */
 	public void setInput(List<?> source, Object input) {
+		super.setInput(input);
 		inputSource = source;
-		tableViewer.setInput(input);
-	}
-
-	/**
-	 * Returns table viewer input.
-	 * 
-	 * @return
-	 */
-	public List<?> getInput() {
-		return (List<?>) tableViewer.getInput();
 	}
 	
 	/**

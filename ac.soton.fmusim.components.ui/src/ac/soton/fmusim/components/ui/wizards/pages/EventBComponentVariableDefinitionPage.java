@@ -153,18 +153,12 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 			if (currentModel != null && currentModel == source.getModel())
 				return;
 			
-			currentModel = (EventBComponent) source.getModel();
-			
 			// set input
+			currentModel = (EventBComponent) source.getModel();
 			inputsViewer.setInput(null, currentModel.getInputs());
 			outputsViewer.setInput(null, currentModel.getOutputs());
 			
 			((Composite) getControl()).layout(true, true);
 		}
-	}
-
-	public void validatePage() {
-		// nothing to validate
-		setPageComplete(true);
 	}
 }

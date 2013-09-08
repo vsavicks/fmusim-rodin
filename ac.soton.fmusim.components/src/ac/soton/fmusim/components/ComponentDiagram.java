@@ -71,7 +71,7 @@ public interface ComponentDiagram extends NamedElement {
 	 * @return the value of the '<em>Time</em>' attribute.
 	 * @see #setTime(double)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_Time()
-	 * @model
+	 * @model transient="true"
 	 * @generated
 	 */
 	double getTime();

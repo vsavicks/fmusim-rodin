@@ -10,19 +10,12 @@ package ac.soton.fmusim.components.ui.wizards.pages;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.TableColumn;
 
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.FMUComponent;
@@ -38,13 +31,15 @@ import ac.soton.fmusim.components.ui.providers.ColumnProvider;
  * @author matthias, vitaly
  *
  */
-public class FMUComponentDefinitionPage extends WizardPage {
+public class FMUComponentDefinitionPage extends AbstractComponentDefinitionPage {
 	
-	private CheckboxTableViewer internalsViewer;
-	private CheckboxTableViewer inputsViewer;
-	private CheckboxTableViewer outputsViewer;
 	private ComponentModelSource source;
 	private FMUComponent currentModel;
+
+	// UI elements
+	private CheckboxTableViewerContainer inputsViewer;
+	private CheckboxTableViewerContainer outputsViewer;
+	private CheckboxTableViewerContainer internalsViewer;
 
 	public FMUComponentDefinitionPage(String pageName, ComponentModelSource source) {
 		super(pageName);
@@ -73,10 +68,10 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		plate.setLayout(new GridLayout());
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		// labeled check-box tables
-		internalsViewer = createLabeledTable(plate, "Internal state variables and parameters to be displayed inside a component", createColumnProviders(), null);
-		inputsViewer = createLabeledTable(plate, "Input variables to be displayed as component input ports", createColumnProviders(), null);
-		outputsViewer = createLabeledTable(plate, "Output variables to be displayed as component output ports", createColumnProviders(), null);
+		// variable tables
+		inputsViewer = createLabeledCheckboxTable(plate, "Input:", "Select input ports", createColumnProviders(), null);
+		outputsViewer = createLabeledCheckboxTable(plate, "Output:", "Select output ports", createColumnProviders(), null);
+		internalsViewer = createLabeledCheckboxTable(plate, "Internal:", "Select internal variables and parameters", createColumnProviders(), null);
 		
 		return plate;
 	}
@@ -112,68 +107,6 @@ public class FMUComponentDefinitionPage extends WizardPage {
 		return providers;
 	}
 
-	/**
-	 * Creates a labeled check-box table with columns defined by the column providers and an optional viewer filter.
-	 * 
-	 * @param parent
-	 * @param labelText
-	 * @param columnProviders 
-	 * @param filter
-	 * @return table viewer
-	 */
-	private CheckboxTableViewer createLabeledTable(Composite parent, String labelText, List<ColumnProvider> columnProviders, ViewerFilter filter) {
-		{
-			// label
-			Label label = new Label(parent, SWT.NONE);
-			label.setText(labelText);
-			label.setLayoutData(new GridData());
-			
-			// table
-			CheckboxTableViewer tableViewer = CheckboxTableViewer.newCheckList(parent, SWT.BORDER);
-			tableViewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-			createColumns(tableViewer, columnProviders);
-			tableViewer.getTable().setHeaderVisible(true);
-			tableViewer.setContentProvider(ArrayContentProvider.getInstance());
-			if (filter != null)
-				tableViewer.addFilter(filter);
-			
-			return tableViewer;
-		}
-	}
-
-	/**
-	 * Creates check-box table columns from the column providers.
-	 * 
-	 * @param tableViewer
-	 * @param columnProviders
-	 */
-	private void createColumns(CheckboxTableViewer tableViewer, List<ColumnProvider> columnProviders) {
-		// empty column for the check-box control
-		TableViewerColumn zeroColumn = new TableViewerColumn(tableViewer, SWT.NONE);
-		zeroColumn.setLabelProvider(new ColumnLabelProvider());
-		
-		for (ColumnProvider provider : columnProviders) {
-			TableViewerColumn column = createTableViewerColumn(tableViewer, provider.getTitle(), provider.getBound());
-			column.setLabelProvider(provider.getLabelProvider());
-		}
-	}
-
-	/**
-	 * Creates a table viewer column.
-	 * 
-	 * @param tableViewer  table viewer
-	 * @param title column title
-	 * @param bound column width bound
-	 * @return table viewer column
-	 */
-	private TableViewerColumn createTableViewerColumn(CheckboxTableViewer tableViewer, String title, int bound) {
-		TableViewerColumn viewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
-		final TableColumn column = viewerColumn.getColumn();
-		column.setText(title);
-		column.setWidth(bound);
-		return viewerColumn;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
 	 */
@@ -187,43 +120,21 @@ public class FMUComponentDefinitionPage extends WizardPage {
 			if (currentModel != null && currentModel == source.getModel())
 				return;
 			
+			// set input
 			currentModel = (FMUComponent) source.getModel();
-			internalsViewer.setInput(currentModel.getVariables());
 			inputsViewer.setInput(currentModel.getInputs());
 			outputsViewer.setInput(currentModel.getOutputs());
-			
-			internalsViewer.setAllChecked(false);
+			internalsViewer.setInput(currentModel.getVariables());
 			inputsViewer.setAllChecked(true);
 			outputsViewer.setAllChecked(true);
+			internalsViewer.setAllChecked(false);
 			
 			((Composite) getControl()).layout(true, true);
 		}
 	}
-
-	/**
-	 * @return
-	 */
-	@SuppressWarnings("unused")
-	private boolean validatePage() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	/**
-	 * Returns a list of selected internal variables.
-	 * 
-	 * @return
-	 */
-	public List<FMUVariable> getCheckedInternals() {
-		List<FMUVariable> variables = new ArrayList<FMUVariable>();
-		for (Object var : internalsViewer.getCheckedElements()) {
-			variables.add((FMUVariable) var);
-		}
-		return variables;
-	}
 	
 	/**
-	 * Returns a list of selected input ports.
+	 * Returns a list of checked input ports.
 	 * @return
 	 */
 	public List<FMUPort> getCheckedInputs() {
@@ -235,7 +146,7 @@ public class FMUComponentDefinitionPage extends WizardPage {
 	}
 	
 	/**
-	 * Returns a list of selected output ports.
+	 * Returns a list of checked output ports.
 	 * 
 	 * @return
 	 */
@@ -245,6 +156,19 @@ public class FMUComponentDefinitionPage extends WizardPage {
 			outputs.add((FMUPort) inp);
 		}
 		return outputs;
+	}
+
+	/**
+	 * Returns a list of checked internal variables.
+	 * 
+	 * @return
+	 */
+	public List<FMUVariable> getCheckedInternals() {
+		List<FMUVariable> variables = new ArrayList<FMUVariable>();
+		for (Object var : internalsViewer.getCheckedElements()) {
+			variables.add((FMUVariable) var);
+		}
+		return variables;
 	}
 	
 	/**

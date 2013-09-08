@@ -80,6 +80,7 @@ public class ComponentsPaletteProvider implements IPaletteProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gmf.runtime.diagram.ui.services.palette.IPaletteProvider#contributeToPalette(org.eclipse.ui.IEditorPart, java.lang.Object, org.eclipse.gef.palette.PaletteRoot, java.util.Map)
 	 */
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void contributeToPalette(final IEditorPart editor, Object content,
 			PaletteRoot root, Map predefinedEntries) {

@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
@@ -93,6 +94,7 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		Text text = new Text(plate, SWT.SINGLE | SWT.BORDER);
 		text.setToolTipText(tooltip);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		//TODO: needs to be moved out - this layout responsibility of parent
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 		return text;
 	}
@@ -111,6 +113,7 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		EventBNamedComboContainer comboWrap = new EventBNamedComboContainer(new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY));
 		comboWrap.getCombo().setToolTipText(tooltip);
 		comboWrap.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		//TODO: needs to be moved out - this layout responsibility of parent
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 		return comboWrap;
 	}
@@ -119,36 +122,70 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 	 * Creates a labeled table with columns defined by the column providers and an optional viewer filter.
 	 * 
 	 * @param parent
-	 * @param name
+	 * @param labelText
 	 * @param tooltip
 	 * @param columnProviders 
 	 * @param filter
 	 * @return table viewer
 	 */
-	public EditableTableViewerContainer createLabeledEditableTable(Composite parent, String name, String tooltip, List<ColumnProvider> columnProviders, ViewerFilter filter) {
+	public EditableTableViewerContainer createLabeledEditableTable(Composite parent, String labelText, String tooltip, List<ColumnProvider> columnProviders, ViewerFilter filter) {
 		Composite plate = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		plate.setLayout(layout);
 		
 		// label
 		Label label = new Label(plate, SWT.NONE);
-		label.setText(name);
+		label.setText(labelText);
 		label.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
 		
 		// table
 		EditableTableViewerContainer tableWrap = new EditableTableViewerContainer(new TableViewer(plate, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION));
 		tableWrap.getViewer().getTable().setToolTipText(tooltip);
 		tableWrap.getViewer().getTable().setHeaderVisible(true);
-		tableWrap.setColumns(columnProviders, 0);
+		tableWrap.setColumnProviders(columnProviders, 0);
 		tableWrap.getViewer().setContentProvider(ArrayContentProvider.getInstance());
 		if (filter != null)
 			tableWrap.getViewer().addFilter(filter);
 		tableWrap.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		
+		//TODO: needs to be moved out - this layout responsibility of parent
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		return tableWrap;
 	}
 	
+	/**
+	 * Creates a labeled check-box table with columns defined by the column providers and an optional viewer filter.
+	 * 
+	 * @param parent
+	 * @param labelText
+	 * @param tooltip
+	 * @param columnProviders 
+	 * @param filter
+	 * @return table viewer
+	 */
+	public CheckboxTableViewerContainer createLabeledCheckboxTable(Composite parent, String labelText, String tooltip, List<ColumnProvider> columnProviders, ViewerFilter filter) {
+		Composite plate = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		plate.setLayout(layout);
+		
+		// label
+		Label label = new Label(plate, SWT.NONE);
+		label.setText(labelText);
+		label.setLayoutData(new GridData());
+		
+		// table
+		CheckboxTableViewerContainer tableWrap = new CheckboxTableViewerContainer(CheckboxTableViewer.newCheckList(plate, SWT.BORDER));
+		tableWrap.getViewer().getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		tableWrap.getViewer().getTable().setToolTipText(tooltip);
+		tableWrap.getViewer().getTable().setHeaderVisible(true);
+		tableWrap.setColumnProviders(columnProviders);
+		tableWrap.getViewer().setContentProvider(ArrayContentProvider.getInstance());
+		if (filter != null)
+			tableWrap.getViewer().addFilter(filter);
+
+		//TODO: needs to be moved out - this layout responsibility of parent
+		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		return tableWrap;
+	}
 
 }
