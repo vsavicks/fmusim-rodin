@@ -8,12 +8,12 @@
 package ac.soton.fmusim.components.ui.dialogs;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.dialogs.SelectionDialog;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.Parameter;
@@ -49,12 +50,12 @@ import ac.soton.fmusim.components.VariableType;
  * @author vitaly
  *
  */
-public class EventBPortDialog extends Dialog {
+public class EventBPortDialog extends SelectionDialog {
 
 	private Combo typeCombo;
 	private Combo variableCombo;
 	private Combo parameterCombo;
-	private Set<String> usedVariables;
+	private Set<String> usedNames;
 	private Map<String, Variable> variableMap;
 	private Map<String, Parameter> parameterMap;
 	private DecoratedInputValidator variableValidator;
@@ -70,18 +71,18 @@ public class EventBPortDialog extends Dialog {
 	 * @param parentShell
 	 * @param component target component of the new port
 	 * @param causality port variable causality
-	 * @param event IO event used to read from or write to the port
+	 * @param event IO event (only for reading input ports, so not required if causality is other that INPUT)
 	 */
 	public EventBPortDialog(Shell parentShell, EventBComponent component, VariableCausality causality, Event event) {
 		super(parentShell);
 		
 		// build up a set of existing names and event map
 		if (component != null) {
-			usedVariables = new HashSet<String>(component.getInputs().size() + component.getOutputs().size());
+			usedNames = new HashSet<String>(component.getInputs().size() + component.getOutputs().size());
 			for (Port p : component.getInputs())
-				usedVariables.add(p.getName());
+				usedNames.add(p.getName());
 			for (Port p : component.getOutputs())
-				usedVariables.add(p.getName());
+				usedNames.add(p.getName());
 			
 			// set causality
 			this.causality = causality;
@@ -91,6 +92,11 @@ public class EventBPortDialog extends Dialog {
 			variableMap = new HashMap<String, Variable>(machine.getVariables().size());
 			for (Variable variable : machine.getVariables()) {
 				variableMap.put(variable.getName(), variable);
+			}
+			
+			// variable is optional for input ports
+			if (causality == VariableCausality.INPUT) {
+				variableValid = true;
 			}
 			
 			// if event defined, construct map of event parameters for combo
@@ -163,7 +169,7 @@ public class EventBPortDialog extends Dialog {
 			typeCombo.select(0);
 		}
 		
-		// read/write event parameter combo
+		// event parameter combo
 		if (parameterMap != null) {
 			Label parameterLabel = new Label(plate, SWT.NONE);
 			parameterLabel.setText("Parameter:");
@@ -195,9 +201,10 @@ public class EventBPortDialog extends Dialog {
 						false)) {
 			@Override
 			public String isValidInput(String variable) {
-				if (variable == null || variable.isEmpty())
+				// variable is compulsory for output ports
+				if (causality == VariableCausality.OUTPUT && (variable == null || variable.isEmpty()))
 					return "Variable cannot be empty";
-				if (usedVariables != null && usedVariables.contains(variable.trim()))
+				if (usedNames != null && usedNames.contains(variable.trim()))
 					return "Port for this variable already exists";
 				return null;
 			}
@@ -213,7 +220,9 @@ public class EventBPortDialog extends Dialog {
 				@Override
 				public String isValidInput(String parameter) {
 					if (parameter == null || parameter.isEmpty())
-						return "Event parameter cannot be empty";
+						return "Parameter cannot be empty";
+					if (usedNames != null && usedNames.contains(parameter.trim()))
+						return "Port for this parameter already exists";
 					return null;
 				}
 			};
@@ -283,19 +292,32 @@ public class EventBPortDialog extends Dialog {
 	 */
 	@Override
 	protected void okPressed() {
-		String variableStr = variableCombo.getItem(variableCombo.getSelectionIndex());
 		String typeStr = typeCombo.getItem(typeCombo.getSelectionIndex());
 		
 		port = ComponentsFactory.eINSTANCE.createEventBPort();
-		port.setName(variableMap.get(variableStr).getName());
-		port.setVariable(variableMap.get(variableStr));
 		port.setType(VariableType.getByName(typeStr));
 		port.setCausality(causality);
+
+		// currently it is optional for the case of abstract event with a parameter only for the guard
+		if (variableCombo.getSelectionIndex() > 0) {
+			String variableStr = variableCombo.getItem(variableCombo.getSelectionIndex());
+			port.setVariable(variableMap.get(variableStr));
+		}
 		
 		// if parameter was defined set parameter from combo
 		if (parameterMap != null) {
-			if (parameterCombo.getSelectionIndex() > 0)
-				port.setParameter(parameterMap.get(parameterCombo.getItem(parameterCombo.getSelectionIndex())));
+			if (parameterCombo.getSelectionIndex() > 0) {
+				String parameterStr = parameterCombo.getItem(parameterCombo.getSelectionIndex());
+				port.setParameter(parameterMap.get(parameterStr));
+			}
+		}
+		
+		// either variable or port has to be present
+		assert port.getVariable() != null || port.getParameter() != null;
+		if (port.getVariable() != null) {
+			port.setName(port.getVariable().getName());
+		} else {
+			port.setName(port.getParameter().getName());
 		}
 		
 		super.okPressed();
@@ -308,6 +330,11 @@ public class EventBPortDialog extends Dialog {
 	 */
 	public EventBPort getPort() {
 		return port;
+	}
+
+	@Override
+	public Object[] getResult() {
+		return Collections.singleton(getPort()).toArray();
 	}
 
 

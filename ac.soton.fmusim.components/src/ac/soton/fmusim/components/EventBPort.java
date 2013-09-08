@@ -67,7 +67,7 @@ public interface EventBPort extends Port {
 	 * @return the value of the '<em>Variable</em>' reference.
 	 * @see #setVariable(Variable)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBPort_Variable()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	Variable getVariable();

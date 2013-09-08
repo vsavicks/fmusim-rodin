@@ -10,6 +10,7 @@ package ac.soton.fmusim.components;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
@@ -27,12 +28,12 @@ import de.prob.statespace.Trace;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#isComposed <em>Composed</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getMachine <em>Machine</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getReadInputEvents <em>Read Input Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvents <em>Update Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision <em>Int To Real Precision</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getRealPrecision <em>Real Precision</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,30 +95,20 @@ public interface EventBComponent extends AbstractExtension, Component {
 	void setMachine(Machine value);
 
 	/**
-	 * Returns the value of the '<em><b>Read Inputs Event</b></em>' reference.
+	 * Returns the value of the '<em><b>Read Input Events</b></em>' reference list.
+	 * The list contents are of type {@link org.eventb.emf.core.machine.Event}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Read Inputs Event</em>' reference isn't clear,
+	 * If the meaning of the '<em>Read Input Events</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Read Inputs Event</em>' reference.
-	 * @see #setReadInputsEvent(Event)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_ReadInputsEvent()
-	 * @model
+	 * @return the value of the '<em>Read Input Events</em>' reference list.
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_ReadInputEvents()
+	 * @model required="true"
 	 * @generated
 	 */
-	Event getReadInputsEvent();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Read Inputs Event</em>' reference.
-	 * @see #getReadInputsEvent()
-	 * @generated
-	 */
-	void setReadInputsEvent(Event value);
+	EList<Event> getReadInputEvents();
 
 	/**
 	 * Returns the value of the '<em><b>Time Variable</b></em>' reference.
@@ -146,30 +137,20 @@ public interface EventBComponent extends AbstractExtension, Component {
 	void setTimeVariable(Variable value);
 
 	/**
-	 * Returns the value of the '<em><b>Update Event</b></em>' reference.
+	 * Returns the value of the '<em><b>Update Events</b></em>' reference list.
+	 * The list contents are of type {@link org.eventb.emf.core.machine.Event}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Update Event</em>' reference isn't clear,
+	 * If the meaning of the '<em>Update Events</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Update Event</em>' reference.
-	 * @see #setUpdateEvent(Event)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_UpdateEvent()
+	 * @return the value of the '<em>Update Events</em>' reference list.
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_UpdateEvents()
 	 * @model required="true"
 	 * @generated
 	 */
-	Event getUpdateEvent();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Update Event</em>' reference.
-	 * @see #getUpdateEvent()
-	 * @generated
-	 */
-	void setUpdateEvent(Event value);
+	EList<Event> getUpdateEvents();
 
 	/**
 	 * Returns the value of the '<em><b>Trace</b></em>' attribute.
@@ -199,6 +180,7 @@ public interface EventBComponent extends AbstractExtension, Component {
 
 	/**
 	 * Returns the value of the '<em><b>Step Period</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Step Period</em>' attribute isn't clear,
@@ -208,7 +190,7 @@ public interface EventBComponent extends AbstractExtension, Component {
 	 * @return the value of the '<em>Step Period</em>' attribute.
 	 * @see #setStepPeriod(double)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_StepPeriod()
-	 * @model
+	 * @model default="1" required="true"
 	 * @generated
 	 */
 	double getStepPeriod();
@@ -224,30 +206,30 @@ public interface EventBComponent extends AbstractExtension, Component {
 	void setStepPeriod(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Int To Real Precision</b></em>' attribute.
+	 * Returns the value of the '<em><b>Real Precision</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Int To Real Precision</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Real Precision</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Int To Real Precision</em>' attribute.
-	 * @see #setIntToRealPrecision(int)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_IntToRealPrecision()
+	 * @return the value of the '<em>Real Precision</em>' attribute.
+	 * @see #setRealPrecision(int)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_RealPrecision()
 	 * @model
 	 * @generated
 	 */
-	int getIntToRealPrecision();
+	int getRealPrecision();
 
 	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision <em>Int To Real Precision</em>}' attribute.
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getRealPrecision <em>Real Precision</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Int To Real Precision</em>' attribute.
-	 * @see #getIntToRealPrecision()
+	 * @param value the new value of the '<em>Real Precision</em>' attribute.
+	 * @see #getRealPrecision()
 	 * @generated
 	 */
-	void setIntToRealPrecision(int value);
+	void setRealPrecision(int value);
 
 	/**
 	 * <!-- begin-user-doc -->

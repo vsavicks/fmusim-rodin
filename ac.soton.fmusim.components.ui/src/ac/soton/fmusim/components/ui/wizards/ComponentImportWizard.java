@@ -21,11 +21,15 @@ import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.ui.ComponentsUIPlugin;
 import ac.soton.fmusim.components.ui.resource.FMUResourceFactory;
 import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
+import ac.soton.fmusim.components.ui.wizards.pages.AbstractComponentDefinitionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSelectionPage;
-import ac.soton.fmusim.components.ui.wizards.pages.EventBComponentDefinitionPage;
+import ac.soton.fmusim.components.ui.wizards.pages.EventBComponentParamDefinitionPage;
+import ac.soton.fmusim.components.ui.wizards.pages.EventBComponentVariableDefinitionPage;
 import ac.soton.fmusim.components.ui.wizards.pages.FMUComponentDefinitionPage;
 
 /**
+ * Component import wizard that allows to import and configure component.
+ * 
  * @author vitaly
  *
  */
@@ -34,8 +38,10 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 	// pages
 	protected ComponentModelSelectionPage componentModelSelectionPage;
 	protected FMUComponentDefinitionPage fmuComponentDefinitionPage;
-	protected EventBComponentDefinitionPage eventBComponentDefinitionPage;
+	protected AbstractComponentDefinitionPage eventBComponentParamDefinitionPage;
+	protected AbstractComponentDefinitionPage eventBComponentVariableDefinitionPage;
 
+	@SuppressWarnings("unused")
 	private IWorkbench workbench;
 	private IStructuredSelection selection;
 	
@@ -45,6 +51,7 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 	 * variables and ports have been selected/configured.
 	 */
 	protected boolean isInDefinitionMode() {
+		//TODO: only FMU definition page considered
 		if (componentModelSelectionPage.getModel() == fmuComponentDefinitionPage.getModel()
 				&& fmuComponentDefinitionPage.isModified()) {
 			return true;
@@ -57,30 +64,28 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-//		try {
-//		//TODO: get model from the final page and add it to the diagram
-//			WizardUtil.saveModel(getContainer(), toolingModelSelectionPage.getResource());
-//		} catch (Exception exception) {
-//			Plugin.log(exception);
-//			return false;
-//		}
 		Component model = componentModelSelectionPage.getModel();
 		if (componentModelSelectionPage.getModel() != null) {
 			if (isInDefinitionMode()) {
 				if (model instanceof FMUComponent) {
 					FMUComponent component = (FMUComponent) model;
-					// remove unselected variables:
-						// internal
+					
+					// leave only selected variables
 					component.getVariables().clear();
 					component.getVariables().addAll(fmuComponentDefinitionPage.getCheckedInternals());
-						// inputs
+					
 					component.getInputs().clear();
 					component.getInputs().addAll(fmuComponentDefinitionPage.getCheckedInputs());
-						// outputs
+					
 					component.getOutputs().clear();
 					component.getOutputs().addAll(fmuComponentDefinitionPage.getCheckedOutputs());
+				} else if (model instanceof EventBComponent) {
+					//TODO: implement selective variables
+//					EventBComponent component = (EventBComponent) model;
+//					// remove unselected variables
+//					component.getVariables().clear();
+//					component.getVariables().addAll(eventBComponentDefinitionPage.getCheckedVariables());
 				}
-				//TODO: consider selective event-b ports
 			}
 			return true;
 		}
@@ -118,12 +123,19 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 		fmuComponentDefinitionPage.setImageDescriptor(ComponentsUIPlugin.getInstance().getImageRegistry().getDescriptor(ComponentsUIPlugin.FMU_COMPONENT_IMAGE));
 		addPage(fmuComponentDefinitionPage);
 		
-		// event-b component configuration page
-		eventBComponentDefinitionPage = new EventBComponentDefinitionPage("EventBComponentDefinitionPage", componentModelSelectionPage);
-		eventBComponentDefinitionPage.setTitle(Messages.EventBComponentDefinitionPageTitle);
-		eventBComponentDefinitionPage.setDescription(Messages.EventBComponentDefinitionPageDesc);
-		eventBComponentDefinitionPage.setImageDescriptor(ComponentsUIPlugin.getInstance().getImageRegistry().getDescriptor(ComponentsUIPlugin.EVENTB_COMPONENT_IMAGE));
-		addPage(eventBComponentDefinitionPage);
+		// event-b component parameter configuration page
+		eventBComponentParamDefinitionPage = new EventBComponentParamDefinitionPage("EventBComponentParamDefinitionPage", componentModelSelectionPage);
+		eventBComponentParamDefinitionPage.setTitle(Messages.EventBComponentParameterDefinitionPageTitle);
+		eventBComponentParamDefinitionPage.setDescription(Messages.EventBComponentParameterDefinitionPageDesc);
+		eventBComponentParamDefinitionPage.setImageDescriptor(ComponentsUIPlugin.getInstance().getImageRegistry().getDescriptor(ComponentsUIPlugin.EVENTB_COMPONENT_IMAGE));
+		addPage(eventBComponentParamDefinitionPage);
+		
+		// event-b component variable configuration page
+		eventBComponentVariableDefinitionPage = new EventBComponentVariableDefinitionPage("EventBComponentVariableDefinitionPage", componentModelSelectionPage);
+		eventBComponentVariableDefinitionPage.setTitle(Messages.EventBComponentVariableDefinitionPageTitle);
+		eventBComponentVariableDefinitionPage.setDescription(Messages.EventBComponentVariableDefinitionPageDesc);
+		eventBComponentVariableDefinitionPage.setImageDescriptor(ComponentsUIPlugin.getInstance().getImageRegistry().getDescriptor(ComponentsUIPlugin.EVENTB_COMPONENT_IMAGE));
+		addPage(eventBComponentVariableDefinitionPage);
 	}
 
 	/**
@@ -147,15 +159,20 @@ public class ComponentImportWizard extends Wizard implements IImportWizard {
 			if (model instanceof FMUComponent)
 				return fmuComponentDefinitionPage;
 			else if (model instanceof EventBComponent)
-				return eventBComponentDefinitionPage;
+				return eventBComponentParamDefinitionPage;
 		}
 		
-		// skip event-b page if current page is the FMU page
+		// no next page if current page is the FMU page
 		if (page instanceof FMUComponentDefinitionPage) {
 			IWizardPage nextPage = super.getNextPage(page);
-			if (nextPage instanceof EventBComponentDefinitionPage)
-				return super.getNextPage(nextPage);
+			if (nextPage instanceof EventBComponentParamDefinitionPage)
+				return null;
 		}
 		return super.getNextPage(page);
+	}
+
+	@Override
+	public boolean canFinish() {
+		return super.canFinish();
 	}
 }

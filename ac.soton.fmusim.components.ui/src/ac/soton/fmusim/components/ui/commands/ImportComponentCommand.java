@@ -77,9 +77,9 @@ public class ImportComponentCommand extends AbstractHandler {
 		
 		// adding component to diagram
 		final Component component = wiz.getComponent();
-		final ComponentDiagram diagram = (ComponentDiagram) diagramEditor.getDiagram().getElement();
-		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 		if (component != null) {
+			final ComponentDiagram diagram = (ComponentDiagram) diagramEditor.getDiagram().getElement();
+			TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 			editingDomain.getCommandStack().execute(
 					new RecordingCommand(editingDomain) {
 						protected void doExecute() {

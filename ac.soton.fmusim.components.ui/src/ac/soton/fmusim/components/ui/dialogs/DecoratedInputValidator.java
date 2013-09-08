@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010 University of Southampton.
+ * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 
 /**
+ * Decorated validator for use in the input dialogs to show
+ * the validation markers on assigned input controls.
+ * 
  * @author vitaly
  *
  */

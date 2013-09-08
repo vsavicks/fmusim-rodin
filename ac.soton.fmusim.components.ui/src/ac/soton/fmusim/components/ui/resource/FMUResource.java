@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import de.prob.cosimulation.FMU;
 
 /**
- * FMU resource.
+ * FMU resource to enable loading an .fmu file as an EMF resource.
  * 
  * @author vitaly
  *
@@ -66,8 +66,6 @@ public class FMUResource extends ResourceImpl {
 		fmu = new FMU(filePath);
 		fmuPath = filePath;
 	}
-	
-	
 	
 	/**
 	 * Returns resource fmu.

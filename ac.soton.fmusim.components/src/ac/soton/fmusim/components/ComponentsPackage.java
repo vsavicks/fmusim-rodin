@@ -519,13 +519,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__MACHINE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Read Inputs Event</b></em>' reference.
+	 * The feature id for the '<em><b>Read Input Events</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__READ_INPUTS_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
+	int EVENT_BCOMPONENT__READ_INPUT_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Time Variable</b></em>' reference.
@@ -537,13 +537,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__TIME_VARIABLE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Update Event</b></em>' reference.
+	 * The feature id for the '<em><b>Update Events</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__UPDATE_EVENT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
+	int EVENT_BCOMPONENT__UPDATE_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
@@ -564,13 +564,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__STEP_PERIOD = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
 
 	/**
-	 * The feature id for the '<em><b>Int To Real Precision</b></em>' attribute.
+	 * The feature id for the '<em><b>Real Precision</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__INT_TO_REAL_PRECISION = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
+	int EVENT_BCOMPONENT__REAL_PRECISION = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
@@ -1383,15 +1383,15 @@ public interface ComponentsPackage extends EPackage {
 	EReference getEventBComponent_Machine();
 
 	/**
-	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getReadInputsEvent <em>Read Inputs Event</em>}'.
+	 * Returns the meta object for the reference list '{@link ac.soton.fmusim.components.EventBComponent#getReadInputEvents <em>Read Input Events</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Read Inputs Event</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getReadInputsEvent()
+	 * @return the meta object for the reference list '<em>Read Input Events</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getReadInputEvents()
 	 * @see #getEventBComponent()
 	 * @generated
 	 */
-	EReference getEventBComponent_ReadInputsEvent();
+	EReference getEventBComponent_ReadInputEvents();
 
 	/**
 	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}'.
@@ -1405,15 +1405,15 @@ public interface ComponentsPackage extends EPackage {
 	EReference getEventBComponent_TimeVariable();
 
 	/**
-	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvent <em>Update Event</em>}'.
+	 * Returns the meta object for the reference list '{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvents <em>Update Events</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Update Event</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getUpdateEvent()
+	 * @return the meta object for the reference list '<em>Update Events</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getUpdateEvents()
 	 * @see #getEventBComponent()
 	 * @generated
 	 */
-	EReference getEventBComponent_UpdateEvent();
+	EReference getEventBComponent_UpdateEvents();
 
 	/**
 	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}'.
@@ -1438,15 +1438,15 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getEventBComponent_StepPeriod();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision <em>Int To Real Precision</em>}'.
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getRealPrecision <em>Real Precision</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Int To Real Precision</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getIntToRealPrecision()
+	 * @return the meta object for the attribute '<em>Real Precision</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getRealPrecision()
 	 * @see #getEventBComponent()
 	 * @generated
 	 */
-	EAttribute getEventBComponent_IntToRealPrecision();
+	EAttribute getEventBComponent_RealPrecision();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUComponent <em>FMU Component</em>}'.
@@ -1924,12 +1924,12 @@ public interface ComponentsPackage extends EPackage {
 		EReference EVENT_BCOMPONENT__MACHINE = eINSTANCE.getEventBComponent_Machine();
 
 		/**
-		 * The meta object literal for the '<em><b>Read Inputs Event</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Read Input Events</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EVENT_BCOMPONENT__READ_INPUTS_EVENT = eINSTANCE.getEventBComponent_ReadInputsEvent();
+		EReference EVENT_BCOMPONENT__READ_INPUT_EVENTS = eINSTANCE.getEventBComponent_ReadInputEvents();
 
 		/**
 		 * The meta object literal for the '<em><b>Time Variable</b></em>' reference feature.
@@ -1940,12 +1940,12 @@ public interface ComponentsPackage extends EPackage {
 		EReference EVENT_BCOMPONENT__TIME_VARIABLE = eINSTANCE.getEventBComponent_TimeVariable();
 
 		/**
-		 * The meta object literal for the '<em><b>Update Event</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Update Events</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EVENT_BCOMPONENT__UPDATE_EVENT = eINSTANCE.getEventBComponent_UpdateEvent();
+		EReference EVENT_BCOMPONENT__UPDATE_EVENTS = eINSTANCE.getEventBComponent_UpdateEvents();
 
 		/**
 		 * The meta object literal for the '<em><b>Trace</b></em>' attribute feature.
@@ -1964,12 +1964,12 @@ public interface ComponentsPackage extends EPackage {
 		EAttribute EVENT_BCOMPONENT__STEP_PERIOD = eINSTANCE.getEventBComponent_StepPeriod();
 
 		/**
-		 * The meta object literal for the '<em><b>Int To Real Precision</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Real Precision</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EVENT_BCOMPONENT__INT_TO_REAL_PRECISION = eINSTANCE.getEventBComponent_IntToRealPrecision();
+		EAttribute EVENT_BCOMPONENT__REAL_PRECISION = eINSTANCE.getEventBComponent_RealPrecision();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.

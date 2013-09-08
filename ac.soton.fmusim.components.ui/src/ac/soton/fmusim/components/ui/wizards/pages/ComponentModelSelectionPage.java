@@ -34,20 +34,12 @@ import ac.soton.fmusim.components.ui.resource.ResourceLocationProvider;
  */
 public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage implements ComponentModelSource {
 
-	private static final String COMP = "componentModel";
 	private Component model;
 
 	public ComponentModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
 		super(pageId, rloc, resourceSet, new String[]{"bum","fmu"});
 	}
 
-	protected void addExtensions() {
-		addExtension(COMP, new ComponentSelectorExtension());
-	}
-
-	/* (non-Javadoc)
-	 * @see ac.soton.fmusim.components.ui.wizards.pages.ExtensibleModelSelectionPage#resourceChanged()
-	 */
 	@Override
 	protected void resourceChanged() {
 		super.resourceChanged();
@@ -58,7 +50,7 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 			if (rc.size() >= 1 && rc.get(0) instanceof Machine) {
 				EventBComponent component = (EventBComponent) Platform.getAdapterManager().getAdapter(rc.get(0), Component.class);
 				if (component != null) {
-					// copy a component and set a new AbstractExtension reference attribute
+					// copy component and set a new AbstractExtension reference attribute
 					// to avoid conflicts with other instances of the same machine component
 					EventBComponent componentCopy = EcoreUtil.copy(component);
 					componentCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID + "." + EcoreUtil.generateUUID());
@@ -75,18 +67,18 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 			}
 		}
 	}
+//
+//	@Override
+//	public void validatePage() {
+//		super.validatePage();
+//		if ()
+//	}
 
-	/* (non-Javadoc)
-	 * @see ac.soton.fmusim.components.ui.wizards.pages.experimental.ComponentModelSource#getModel()
-	 */
 	@Override
 	public Component getModel() {
 		return model;
 	}
 
-	/* (non-Javadoc)
-	 * @see ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource#like(ac.soton.fmusim.components.ui.wizards.pages.ComponentModelSource)
-	 */
 	@Override
 	public boolean like(ComponentModelSource source) {
 		return model == source.getModel();

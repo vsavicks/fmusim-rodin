@@ -13,7 +13,6 @@ import java.io.File;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -29,6 +28,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.master.Master;
+import ac.soton.fmusim.components.ui.ComponentsUIPlugin;
 import ac.soton.fmusim.components.ui.dialogs.SimulationInputDialog;
 
 /**
@@ -50,6 +50,7 @@ public class SimulateStepCommand extends AbstractHandler {
 		final TransactionalEditingDomain editingDomain = ((DiagramEditor) diagramEditor)
 				.getEditingDomain();
 		
+		// show the input wizard only if the simulation is not running already
 		if (master == null || !master.isSimulating()) {
 			SimulationInputDialog simulationInputDialog = new SimulationInputDialog(shell, 10.0, 0.1);
 			if (simulationInputDialog.open() != InputDialog.OK)
@@ -80,8 +81,7 @@ public class SimulateStepCommand extends AbstractHandler {
 					if (monitor.isCanceled())
 						return Status.CANCEL_STATUS;
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					return new Status(Status.ERROR, ComponentsUIPlugin.getPluginID(), e.getMessage());
 				}
 				return Status.OK_STATUS;
 			}

@@ -9,8 +9,13 @@ package ac.soton.fmusim.components.impl;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -77,12 +83,12 @@ import de.prob.webconsole.ServletContextListener;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#isComposed <em>Composed</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getMachine <em>Machine</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getReadInputsEvent <em>Read Inputs Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getReadInputEvents <em>Read Input Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getUpdateEvent <em>Update Event</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getUpdateEvents <em>Update Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTrace <em>Trace</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getStepPeriod <em>Step Period</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getIntToRealPrecision <em>Int To Real Precision</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getRealPrecision <em>Real Precision</em>}</li>
  * </ul>
  * </p>
  *
@@ -170,14 +176,14 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	protected Machine machine;
 
 	/**
-	 * The cached value of the '{@link #getReadInputsEvent() <em>Read Inputs Event</em>}' reference.
+	 * The cached value of the '{@link #getReadInputEvents() <em>Read Input Events</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getReadInputsEvent()
+	 * @see #getReadInputEvents()
 	 * @generated
 	 * @ordered
 	 */
-	protected Event readInputsEvent;
+	protected EList<Event> readInputEvents;
 
 	/**
 	 * The cached value of the '{@link #getTimeVariable() <em>Time Variable</em>}' reference.
@@ -190,14 +196,14 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	protected Variable timeVariable;
 
 	/**
-	 * The cached value of the '{@link #getUpdateEvent() <em>Update Event</em>}' reference.
+	 * The cached value of the '{@link #getUpdateEvents() <em>Update Events</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUpdateEvent()
+	 * @see #getUpdateEvents()
 	 * @generated
 	 * @ordered
 	 */
-	protected Event updateEvent;
+	protected EList<Event> updateEvents;
 
 	/**
 	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute.
@@ -227,7 +233,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+	protected static final double STEP_PERIOD_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
@@ -240,24 +246,24 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIntToRealPrecision() <em>Int To Real Precision</em>}' attribute.
+	 * The default value of the '{@link #getRealPrecision() <em>Real Precision</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIntToRealPrecision()
+	 * @see #getRealPrecision()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int INT_TO_REAL_PRECISION_EDEFAULT = 0;
+	protected static final int REAL_PRECISION_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getIntToRealPrecision() <em>Int To Real Precision</em>}' attribute.
+	 * The cached value of the '{@link #getRealPrecision() <em>Real Precision</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIntToRealPrecision()
+	 * @see #getRealPrecision()
 	 * @generated
 	 * @ordered
 	 */
-	protected int intToRealPrecision = INT_TO_REAL_PRECISION_EDEFAULT;
+	protected int realPrecision = REAL_PRECISION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -390,37 +396,11 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Event getReadInputsEvent() {
-		if (readInputsEvent != null && readInputsEvent.eIsProxy()) {
-			InternalEObject oldReadInputsEvent = (InternalEObject)readInputsEvent;
-			readInputsEvent = (Event)eResolveProxy(oldReadInputsEvent);
-			if (readInputsEvent != oldReadInputsEvent) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT, oldReadInputsEvent, readInputsEvent));
-			}
+	public EList<Event> getReadInputEvents() {
+		if (readInputEvents == null) {
+			readInputEvents = new EObjectResolvingEList<Event>(Event.class, this, ComponentsPackage.EVENT_BCOMPONENT__READ_INPUT_EVENTS);
 		}
-		return readInputsEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Event basicGetReadInputsEvent() {
-		return readInputsEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setReadInputsEvent(Event newReadInputsEvent) {
-		Event oldReadInputsEvent = readInputsEvent;
-		readInputsEvent = newReadInputsEvent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT, oldReadInputsEvent, readInputsEvent));
+		return readInputEvents;
 	}
 
 	/**
@@ -466,49 +446,23 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Event> getUpdateEvents() {
+		if (updateEvents == null) {
+			updateEvents = new EObjectResolvingEList<Event>(Event.class, this, ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS);
+		}
+		return updateEvents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<AbstractVariable> getVariables() {
 		if (variables == null) {
 			variables = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.EVENT_BCOMPONENT__VARIABLES);
 		}
 		return variables;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Event getUpdateEvent() {
-		if (updateEvent != null && updateEvent.eIsProxy()) {
-			InternalEObject oldUpdateEvent = (InternalEObject)updateEvent;
-			updateEvent = (Event)eResolveProxy(oldUpdateEvent);
-			if (updateEvent != oldUpdateEvent) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT, oldUpdateEvent, updateEvent));
-			}
-		}
-		return updateEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Event basicGetUpdateEvent() {
-		return updateEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setUpdateEvent(Event newUpdateEvent) {
-		Event oldUpdateEvent = updateEvent;
-		updateEvent = newUpdateEvent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT, oldUpdateEvent, updateEvent));
 	}
 
 	/**
@@ -558,8 +512,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getIntToRealPrecision() {
-		return intToRealPrecision;
+	public int getRealPrecision() {
+		return realPrecision;
 	}
 
 	/**
@@ -567,11 +521,11 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIntToRealPrecision(int newIntToRealPrecision) {
-		int oldIntToRealPrecision = intToRealPrecision;
-		intToRealPrecision = newIntToRealPrecision;
+	public void setRealPrecision(int newRealPrecision) {
+		int oldRealPrecision = realPrecision;
+		realPrecision = newRealPrecision;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION, oldIntToRealPrecision, intToRealPrecision));
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION, oldRealPrecision, realPrecision));
 	}
 
 	/**
@@ -642,11 +596,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	public void readInputs() throws SimulationException {
 		Trace trace = getTrace();
 		assert trace != null;
-		Event readEvent = getReadInputsEvent();
-		assert readEvent != null;
+		EList<Event> readEvents = getReadInputEvents();
+		assert readEvents != null && readEvents.size() > 0;
 		
-		String eventName = readEvent.getName();
-		OpInfo op = findEnabled(trace, eventName);
+		OpInfo op = findEnabled(trace, readEvents);
 		assert op != null;
 		//TODO: treat read event not enabled as invalid state (maybe throw an exception)
 		
@@ -679,7 +632,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 					bValue = getIntegerToEventB((Integer) value);
 					break;
 				case REAL:
-					bValue = getDoubleToEventB((Double) value, getIntToRealPrecision());
+					bValue = getDoubleToEventB((Double) value, getRealPrecision());
 					break;
 				case STRING:
 					bValue = getStringToEventB((String) value);
@@ -697,7 +650,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		// execute 'read inputs' event with calculated parameter predicate
 		try {
-			trace = trace.add(eventName, predicate.toString());
+			trace = trace.add(op.name, predicate.toString());
 		} catch (BException e) {
 			throw new SimulationException("Executing 'read inputs' event by ProB failed: " + e.getMessage());
 			//FIXME: add error handling if read inputs operation not found (not enabled etc.)
@@ -725,18 +678,32 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	}
 
 	/**
-	 * Returns enabled event by name.
+	 * Returns enabled operation from the list of events.
 	 * 
 	 * @param trace
-	 * @param eventName
+	 * @param events list of events
 	 * @return
 	 */
-	private OpInfo findEnabled(Trace trace, String eventName) {
+	private OpInfo findEnabled(Trace trace, EList<Event> events) {
+		// get names of all events
+		Set<String> eventNames = new HashSet<String>(events.size());
+		for (Event event : events)
+			eventNames.add(event.getName());
+		
+		// find enabled events that match by name
+		List<OpInfo> enabledOps = new ArrayList<OpInfo>(events.size());
 		for (OpInfo op : trace.getNextTransitions()) {
-			if (op.name.equals(eventName)) {
-				return op;
+			if (eventNames.contains(op.name)) {
+				enabledOps.add(op);
 			}
 		}
+		
+		// return a random enabled op
+		if (enabledOps.size() > 0) {
+			int idx = new Random().nextInt(enabledOps.size());
+			return enabledOps.get(idx);
+		}
+		
 		return null;
 	}
 
@@ -750,7 +717,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		assert trace != null;
 		
 		for (Port port : getOutputs()) {
-			Object value = getValueEventB(trace, port, getIntToRealPrecision());
+			Object value = getValueEventB(trace, port, getRealPrecision());
 			
 			// send value to connector if connected
 			Connector connector = port.getConnector();
@@ -854,24 +821,25 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	public void doStep(double time, double step) {
 		Trace trace = getTrace();
 		assert trace != null;
-		Event updateEvent = getUpdateEvent();
-		assert updateEvent != null;
-		Event readEvent = getReadInputsEvent();
-		assert readEvent != null;
+		EList<Event> updateEvents = getUpdateEvents();
+		assert updateEvents != null &&  updateEvents.size() > 0;
+		EList<Event> readEvents = getReadInputEvents();
+		assert readEvents != null && readEvents.size() > 0;
 		
-		String updateEventName = updateEvent.getName();
 		boolean update = false;
 		while (!update) {
-			// find and execute update event
-			for (OpInfo op : trace.getNextTransitions()) {
-				if (op.name.equals(updateEventName)) {
-					// execute only if update and readInputs events are not the same
-					if (updateEvent != readEvent) {
-						trace = trace.add(op.id);
-					}
-					update = true;
-					break;
+			// find and execute an update event
+			OpInfo op = findEnabled(trace, updateEvents);
+			if (op != null) {
+				// execute only if update event is not also a readInput event
+				//XXX: only would work if all enabled update events would either also be readInput events or not
+				// as the update event picked up at random previously means other enabled update events would be ignored,
+				// though some of them may be readInput events or not
+				if (findEvent(op, readEvents) == null) {
+					trace = trace.add(op.id);
 				}
+				update = true;
+				break;
 			}
 			
 			// if not found, execute any event
@@ -888,6 +856,20 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		// update trace
 		setTrace(trace);
+	}
+
+	/**
+	 * Returns an event corresponding to an operation, or null of not found.
+	 * 
+	 * @param operation
+	 * @param events list of events
+	 * @return
+	 */
+	private Event findEvent(OpInfo operation, EList<Event> events) {
+		for (Event event : events)
+			if (operation.name.equals(event.getName()))
+				return event;
+		return null;
 	}
 
 	/**
@@ -1004,21 +986,19 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				if (resolve) return getMachine();
 				return basicGetMachine();
-			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
-				if (resolve) return getReadInputsEvent();
-				return basicGetReadInputsEvent();
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUT_EVENTS:
+				return getReadInputEvents();
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				if (resolve) return getTimeVariable();
 				return basicGetTimeVariable();
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
-				if (resolve) return getUpdateEvent();
-				return basicGetUpdateEvent();
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
+				return getUpdateEvents();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return getTrace();
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
 				return getStepPeriod();
-			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
-				return getIntToRealPrecision();
+			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
+				return getRealPrecision();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1053,14 +1033,16 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				setMachine((Machine)newValue);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
-				setReadInputsEvent((Event)newValue);
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUT_EVENTS:
+				getReadInputEvents().clear();
+				getReadInputEvents().addAll((Collection<? extends Event>)newValue);
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)newValue);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
-				setUpdateEvent((Event)newValue);
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
+				getUpdateEvents().clear();
+				getUpdateEvents().addAll((Collection<? extends Event>)newValue);
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace((Trace)newValue);
@@ -1068,8 +1050,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
 				setStepPeriod((Double)newValue);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
-				setIntToRealPrecision((Integer)newValue);
+			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
+				setRealPrecision((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1101,14 +1083,14 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				setMachine((Machine)null);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
-				setReadInputsEvent((Event)null);
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUT_EVENTS:
+				getReadInputEvents().clear();
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)null);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
-				setUpdateEvent((Event)null);
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
+				getUpdateEvents().clear();
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace(TRACE_EDEFAULT);
@@ -1116,8 +1098,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
 				setStepPeriod(STEP_PERIOD_EDEFAULT);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
-				setIntToRealPrecision(INT_TO_REAL_PRECISION_EDEFAULT);
+			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
+				setRealPrecision(REAL_PRECISION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -1143,18 +1125,18 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return composed != COMPOSED_EDEFAULT;
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
 				return machine != null;
-			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUTS_EVENT:
-				return readInputsEvent != null;
+			case ComponentsPackage.EVENT_BCOMPONENT__READ_INPUT_EVENTS:
+				return readInputEvents != null && !readInputEvents.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				return timeVariable != null;
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENT:
-				return updateEvent != null;
+			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
+				return updateEvents != null && !updateEvents.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
 				return stepPeriod != STEP_PERIOD_EDEFAULT;
-			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
-				return intToRealPrecision != INT_TO_REAL_PRECISION_EDEFAULT;
+			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
+				return realPrecision != REAL_PRECISION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1225,8 +1207,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		result.append(trace);
 		result.append(", stepPeriod: ");
 		result.append(stepPeriod);
-		result.append(", intToRealPrecision: ");
-		result.append(intToRealPrecision);
+		result.append(", realPrecision: ");
+		result.append(realPrecision);
 		result.append(')');
 		return result.toString();
 	}

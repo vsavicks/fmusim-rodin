@@ -28,6 +28,7 @@ import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
+import ac.soton.fmusim.components.ui.providers.ColumnProvider;
 
 
 /**

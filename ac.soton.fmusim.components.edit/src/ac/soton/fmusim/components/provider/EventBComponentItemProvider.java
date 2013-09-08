@@ -68,12 +68,12 @@ public class EventBComponentItemProvider
 			addNamePropertyDescriptor(object);
 			addComposedPropertyDescriptor(object);
 			addMachinePropertyDescriptor(object);
-			addReadInputsEventPropertyDescriptor(object);
+			addReadInputEventsPropertyDescriptor(object);
 			addTimeVariablePropertyDescriptor(object);
-			addUpdateEventPropertyDescriptor(object);
+			addUpdateEventsPropertyDescriptor(object);
 			addTracePropertyDescriptor(object);
 			addStepPeriodPropertyDescriptor(object);
-			addIntToRealPrecisionPropertyDescriptor(object);
+			addRealPrecisionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -145,19 +145,19 @@ public class EventBComponentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Read Inputs Event feature.
+	 * This adds a property descriptor for the Read Input Events feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addReadInputsEventPropertyDescriptor(Object object) {
+	protected void addReadInputEventsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBComponent_readInputsEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_readInputsEvent_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__READ_INPUTS_EVENT,
+				 getString("_UI_EventBComponent_readInputEvents_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_readInputEvents_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__READ_INPUT_EVENTS,
 				 true,
 				 false,
 				 true,
@@ -189,19 +189,19 @@ public class EventBComponentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Update Event feature.
+	 * This adds a property descriptor for the Update Events feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUpdateEventPropertyDescriptor(Object object) {
+	protected void addUpdateEventsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBComponent_updateEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_updateEvent_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__UPDATE_EVENT,
+				 getString("_UI_EventBComponent_updateEvents_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_updateEvents_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__UPDATE_EVENTS,
 				 true,
 				 false,
 				 true,
@@ -255,19 +255,19 @@ public class EventBComponentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Int To Real Precision feature.
+	 * This adds a property descriptor for the Real Precision feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addIntToRealPrecisionPropertyDescriptor(Object object) {
+	protected void addRealPrecisionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBComponent_intToRealPrecision_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_intToRealPrecision_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION,
+				 getString("_UI_EventBComponent_realPrecision_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_realPrecision_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__REAL_PRECISION,
 				 true,
 				 false,
 				 false,
@@ -348,7 +348,7 @@ public class EventBComponentItemProvider
 			case ComponentsPackage.EVENT_BCOMPONENT__NAME:
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
-			case ComponentsPackage.EVENT_BCOMPONENT__INT_TO_REAL_PRECISION:
+			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__INPUTS:

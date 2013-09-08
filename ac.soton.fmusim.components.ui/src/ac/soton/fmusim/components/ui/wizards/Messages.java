@@ -45,8 +45,10 @@ public class Messages {
 	public static String FMUComponentDefinitionPageDesc;
 	
 	// event-b definition page
-	public static String EventBComponentDefinitionPageTitle;
-	public static String EventBComponentDefinitionPageDesc;
+	public static String EventBComponentParameterDefinitionPageTitle;
+	public static String EventBComponentParameterDefinitionPageDesc;
+	public static String EventBComponentVariableDefinitionPageTitle;
+	public static String EventBComponentVariableDefinitionPageDesc;
 
 	// component import wizard
 	public static String ComponentModelSelectionPageTitle;

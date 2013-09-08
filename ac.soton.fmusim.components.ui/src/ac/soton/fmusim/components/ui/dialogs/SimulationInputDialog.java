@@ -22,6 +22,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
+ * Simulation parameters input dialog.
+ * Requires to input simulation time and step size.
+ * 
  * @author vitaly
  *
  */

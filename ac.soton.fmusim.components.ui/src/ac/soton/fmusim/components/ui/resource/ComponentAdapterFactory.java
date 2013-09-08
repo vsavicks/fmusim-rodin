@@ -10,7 +10,6 @@ package ac.soton.fmusim.components.ui.resource;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.machine.Machine;
-import org.eventb.emf.core.machine.Variable;
 import org.ptolemy.fmi.FMIModelDescription;
 import org.ptolemy.fmi.FMIScalarVariable;
 import org.ptolemy.fmi.FMIScalarVariable.Causality;
@@ -20,16 +19,16 @@ import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBComponent;
-import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.Port;
-import ac.soton.fmusim.components.VariableCausality;
-import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.util.FmiUtil;
 import de.prob.cosimulation.FMU;
 
 /**
+ * Adapter factory for adapting an Event-B machine or FMU to a
+ * corresponding simulation component.
+ * 
  * @author vitaly
  *
  */
@@ -59,31 +58,27 @@ public class ComponentAdapterFactory implements IAdapterFactory {
 	private Component createFMUComponent(FMU fmu) {
 		FMIModelDescription modelDescription = fmu.getModelDescription();
 		
-		FMUComponent component = ComponentsFactory.eINSTANCE
-				.createFMUComponent();
+		FMUComponent component = ComponentsFactory.eINSTANCE.createFMUComponent();
 		component.setName(modelDescription.modelName);
 		//TODO: set path (probably requires adapting an FMU resource instead of FMU)
+		// as path is not available from the FMU itself
 //		fmuComponent.setPath(filePath);
 		component.setFmu(fmu);
 		
 		for (FMIScalarVariable scalarVariable : modelDescription.modelVariables) {
 			AbstractVariable variable = null;
 			
-			// internal variables
 			if (scalarVariable.causality == Causality.internal) {
 				variable = ComponentsFactory.eINSTANCE.createFMUVariable();
 				component.getVariables().add((FMUVariable) variable);
-				//FIXME: set causality to internal
-				
-				// ports
-			} else if (scalarVariable.causality == Causality.input || scalarVariable.causality == Causality.output) {
+			} else if (scalarVariable.causality == Causality.input) {
 				variable = ComponentsFactory.eINSTANCE.createFMUPort();
-				if (scalarVariable.causality == Causality.input) {
-					component.getInputs().add((Port) variable);
-				} else if (scalarVariable.causality == Causality.output) {
-					component.getOutputs().add((Port) variable);
-				}
+				component.getInputs().add((Port) variable);
+			} else if (scalarVariable.causality == Causality.output) {
+				variable = ComponentsFactory.eINSTANCE.createFMUPort();
+				component.getOutputs().add((Port) variable);
 			}
+			assert variable != null;
 			
 			// common variable attributes
 			variable.setName(scalarVariable.name);
@@ -114,6 +109,8 @@ public class ComponentAdapterFactory implements IAdapterFactory {
 		component.setName(machine.getName());
 		component.setMachine(machine);
 		
+		//TODO: remove variables (should be unselected in the wizard by default,
+		// as many of the variables don't need to be displayed (mode variables e.g. from statemachine)
 //		for (Variable v : machine.getVariables()) {
 //			EventBVariable variable = ComponentsFactory.eINSTANCE.createEventBVariable();
 //			variable.setVariable(v);

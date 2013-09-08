@@ -73,14 +73,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="composed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="machine" lowerBound="1"
         eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Machine"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="readInputsEvent" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="readInputEvents" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="timeVariable" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Variable"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="updateEvent" lowerBound="1"
-        eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="updateEvents" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="#//TraceClass"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="intToRealPrecision" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepPeriod" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="realPrecision" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUComponent" eSuperTypes="#//Component">
     <eOperations name="hasValidFmuPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -99,8 +101,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="FMUPort" eSuperTypes="#//Port"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventBPort" eSuperTypes="#//Port">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Parameter"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
-        eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Variable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUVariable" eSuperTypes="#//AbstractVariable"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement">

@@ -33,7 +33,7 @@ public class Master {
 	private static final String SEPARATOR = ",";
 
 	/**
-	 * Master exception thrown if simulation goes wrong.
+	 * Master exception, thrown if simulation goes wrong.
 	 * 
 	 * @author vitaly
 	 *
@@ -76,6 +76,9 @@ public class Master {
 		return simulating;
 	}
 	
+	/**
+	 * Runs one step of simulation and pauses.
+	 */
 	public void simulateStep() {
 		if (!simulating) {
 			// instantiate components
