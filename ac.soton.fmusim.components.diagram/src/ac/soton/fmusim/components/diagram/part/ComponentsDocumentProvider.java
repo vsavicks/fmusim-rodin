@@ -784,7 +784,7 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 	private void doSaveComponents(IDocument document) {
 		ComponentDiagram diagram = (ComponentDiagram) ((IDiagramDocument) document)
 				.getDiagram().getElement();
-		TransactionalEditingDomain domain = ((IDiagramDocument) document)
+		final TransactionalEditingDomain domain = ((IDiagramDocument) document)
 				.getEditingDomain();
 		CompoundCommand compoundCmd = new CompoundCommand();
 
@@ -797,27 +797,28 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 				compoundCmd.append(new RecordingCommand(domain) {
 					@Override
 					protected void doExecute() {
-						EventBComponent compCopy = (EventBComponent) EcoreUtil
-								.copy(comp);
-						Machine machine = ((EventBComponent) comp).getMachine();
-
-						// remove any existing extensions of the same id (EventB component)
-						Iterator<AbstractExtension> it = machine
-								.getExtensions().iterator();
-						while (it.hasNext()) {
-							if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
-									.equals(it.next().getExtensionId())) {
-								it.remove();
+						EventBComponent compCopy = (EventBComponent) EcoreUtil.copy(comp);
+						try {
+							Resource resource = domain.getResourceSet().getResource(compCopy.getMachine().getURI(), true);
+							
+							if (resource != null && resource.isLoaded()) {
+								Machine machine = (Machine) resource.getContents().get(0);
+								
+								// remove any existing extensions of the same id (EventB component)
+								Iterator<AbstractExtension> it = machine.getExtensions().iterator();
+								while (it.hasNext()) {
+									if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID.equals(it.next().getExtensionId())) {
+										it.remove();
+									}
+								}
+								compCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID+"."+EcoreUtil.generateUUID());
+								machine.getExtensions().add(compCopy);
+								resource.save(Collections.EMPTY_MAP);
 							}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-
-						machine.getExtensions().add(compCopy);
-//						try {
-//							machine.eResource().save(null);
-//						} catch (IOException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
 					}
 				});
 			}
