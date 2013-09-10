@@ -8,10 +8,11 @@
 package ac.soton.fmusim.components.ui.controls;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.gmf.runtime.common.ui.dialogs.PopupDialog;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -25,6 +26,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.dialogs.ListSelectionDialog;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
 import ac.soton.fmusim.components.ui.providers.ColumnProvider;
@@ -117,10 +119,11 @@ public class EditableTableViewerContainer extends TableViewerContainer {
 				ISelection selection = tableViewer.getSelection();
 				if (selection != null && selection instanceof IStructuredSelection) {
 					IStructuredSelection sel = (IStructuredSelection) selection;
-					// removing only the first selected element, as table is set to a single selection style
-					Object element = sel.getFirstElement();
-					Object input = tableViewer.getInput();
-					((List) input).remove(element);
+					List input = (List) tableViewer.getInput();
+					for (Iterator it = sel.iterator(); it.hasNext(); ) {
+						Object element = it.next();
+						input.remove(element);
+					}
 					
 					// refresh table and buttons
 					tableViewer.refresh();
@@ -217,14 +220,14 @@ public class EditableTableViewerContainer extends TableViewerContainer {
 
 	/**
 	 * Returns selection dialog, used when pressing Add button to add elements to the table.
-	 * If selection dialog provider is not set, by default a PopupDialog (list dialog) is returned,
+	 * If selection dialog provider is not set, by default a ListSelectionDialog is returned,
 	 * Override or set dialog provider via setSelectionDialogProvider() if custom dialog is required.
 	 * 
 	 * @return
 	 */
 	protected SelectionDialog getSelectionDialog() {
 		if (dialogProvider == null) {
-			return new PopupDialog(tableViewer.getControl().getShell(), getInputSource(), getInputLabelProvider());
+			return new ListSelectionDialog(tableViewer.getControl().getShell(), getInputSource(), new ArrayContentProvider(), getInputLabelProvider(), null);
 		}
 		return dialogProvider.getDialog();
 	}

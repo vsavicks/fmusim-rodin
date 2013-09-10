@@ -140,7 +140,7 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		label.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
 		
 		// table
-		EditableTableViewerContainer tableWrap = new EditableTableViewerContainer(new TableViewer(plate, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION));
+		EditableTableViewerContainer tableWrap = new EditableTableViewerContainer(new TableViewer(plate, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION));
 		tableWrap.getViewer().getTable().setToolTipText(tooltip);
 		tableWrap.getViewer().getTable().setHeaderVisible(true);
 		tableWrap.setColumnProviders(columnProviders, 0);
@@ -175,7 +175,7 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		label.setLayoutData(new GridData());
 		
 		// table
-		CheckboxTableViewerContainer tableWrap = new CheckboxTableViewerContainer(CheckboxTableViewer.newCheckList(plate, SWT.BORDER));
+		CheckboxTableViewerContainer tableWrap = new CheckboxTableViewerContainer(CheckboxTableViewer.newCheckList(plate, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER));
 		tableWrap.getViewer().getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		tableWrap.getViewer().getTable().setToolTipText(tooltip);
 		tableWrap.getViewer().getTable().setHeaderVisible(true);
@@ -184,7 +184,7 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		if (filter != null)
 			tableWrap.getViewer().addFilter(filter);
 
-		//TODO: needs to be moved out - this layout responsibility of parent
+		//TODO: needs to be moved out - this is layout responsibility of parent
 		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		return tableWrap;
 	}

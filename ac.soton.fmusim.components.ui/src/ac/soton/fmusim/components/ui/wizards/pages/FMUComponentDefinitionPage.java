@@ -84,17 +84,17 @@ public class FMUComponentDefinitionPage extends AbstractComponentDefinitionPage 
 	 */
 	private List<ColumnProvider> createColumnProviders() {
 		ArrayList<ColumnProvider> providers = new ArrayList<ColumnProvider>();
-		providers.add(new ColumnProvider("Name", 100, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Name", 200, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				return ((AbstractVariable) element).getName();
 			}}));
-		providers.add(new ColumnProvider("Type", 100, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Type", 70, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				return ((AbstractVariable) element).getType().toString();
 			}}));
-		providers.add(new ColumnProvider("Value", 100, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Value", 70, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				Object value = ((AbstractVariable) element).getValue();
@@ -130,8 +130,6 @@ public class FMUComponentDefinitionPage extends AbstractComponentDefinitionPage 
 			inputsViewer.setAllChecked(true);
 			outputsViewer.setAllChecked(true);
 			internalsViewer.setAllChecked(false);
-			
-//			setModified(false);
 			
 			((Composite) getControl()).layout(true, true);
 		}
