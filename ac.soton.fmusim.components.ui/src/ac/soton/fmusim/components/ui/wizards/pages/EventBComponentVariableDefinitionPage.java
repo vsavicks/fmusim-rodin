@@ -98,6 +98,7 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 		inputsViewer.setSelectionDialogProvider(new SelectionDialogProvider() {
 			@Override
 			public SelectionDialog getDialog() {
+				//XXX: assumes all read input events have the same signature (name and number of parameters), so one event is sufficient for the dialog
 				return new EventBPortDialog(getShell(), currentModel, VariableCausality.INPUT, currentModel.getReadInputEvents().get(0));
 			}
 		});

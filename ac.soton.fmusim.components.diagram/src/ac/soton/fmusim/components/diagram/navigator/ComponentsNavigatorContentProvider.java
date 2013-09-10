@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -230,6 +232,18 @@ public class ComponentsNavigatorContentProvider implements
 			return getViewChildren(navigatorItem.getView(), parentElement);
 		}
 
+		/*
+		 * Due to plugin.xml restrictions this code will be called only for views representing
+		 * shortcuts to this diagram elements created on other diagrams. 
+		 */
+		if (parentElement instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) parentElement)
+					.getAdapter(View.class);
+			if (view != null) {
+				return getViewChildren(view, parentElement);
+			}
+		}
+
 		return EMPTY_ARRAY;
 	}
 
@@ -241,6 +255,7 @@ public class ComponentsNavigatorContentProvider implements
 
 		case ComponentDiagramEditPart.VISUAL_ID: {
 			LinkedList<ComponentsAbstractNavigatorItem> result = new LinkedList<ComponentsAbstractNavigatorItem>();
+			result.addAll(getForeignShortcuts((Diagram) view, parentElement));
 			Diagram sv = (Diagram) view;
 			ComponentsNavigatorGroup links = new ComponentsNavigatorGroup(
 					Messages.NavigatorGroupName_ComponentDiagram_1000_links,
@@ -614,6 +629,22 @@ public class ComponentsNavigatorContentProvider implements
 			result.add(new ComponentsNavigatorItem(nextView, parent, isLeafs));
 		}
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Collection<ComponentsNavigatorItem> getForeignShortcuts(
+			Diagram diagram, Object parent) {
+		LinkedList<View> result = new LinkedList<View>();
+		for (Iterator<View> it = diagram.getChildren().iterator(); it.hasNext();) {
+			View nextView = it.next();
+			if (!isOwnView(nextView)
+					&& nextView.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+				result.add(nextView);
+			}
+		}
+		return createNavigatorItems(result, parent, false);
 	}
 
 	/**

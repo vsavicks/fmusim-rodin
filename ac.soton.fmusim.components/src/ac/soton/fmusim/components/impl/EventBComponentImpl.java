@@ -599,7 +599,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		EList<Event> readEvents = getReadInputEvents();
 		assert readEvents != null && readEvents.size() > 0;
 		
-		OpInfo op = findEnabled(trace, readEvents);
+		OpInfo op = findAnyEnabled(trace, readEvents);
 		assert op != null;
 		//TODO: treat read event not enabled as invalid state (maybe throw an exception)
 		
@@ -618,10 +618,13 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			String bValue = null;
 			// if port not connected use current value
 			if (connector == null) {
-				assert port.getVariable() != null;
-				value = trace.getCurrentState().value(port.getVariable().getName());
-				assert value != null;
-				bValue = value.toString();
+				if (port.getVariable() != null) {
+					value = trace.getCurrentState().value(port.getVariable().getName());
+					assert value != null;
+					bValue = value.toString();
+				} else {
+					bValue = port.getValue().toString();
+				}
 			} else {
 				value = connector.getValue();
 				switch (port.getType()) {
@@ -639,7 +642,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 					break;
 				}
 			}
-			
 			
 			// add parameter to event predicate string
 			predicate.append("&" + parameterName + "=" + bValue);
@@ -678,13 +680,14 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	}
 
 	/**
-	 * Returns enabled operation from the list of events.
+	 * Returns any enabled operation from the list of events, i.e.
+	 * if multiple operations are enabled, a random one is selected.
 	 * 
-	 * @param trace
+	 * @param trace trace of operations
 	 * @param events list of events
 	 * @return
 	 */
-	private OpInfo findEnabled(Trace trace, EList<Event> events) {
+	private OpInfo findAnyEnabled(Trace trace, EList<Event> events) {
 		// get names of all events
 		Set<String> eventNames = new HashSet<String>(events.size());
 		for (Event event : events)
@@ -829,7 +832,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		boolean update = false;
 		while (!update) {
 			// find and execute an update event
-			OpInfo op = findEnabled(trace, updateEvents);
+			OpInfo op = findAnyEnabled(trace, updateEvents);
 			if (op != null) {
 				// execute only if update event is not also a readInput event
 				//XXX: only would work if all enabled update events would either also be readInput events or not
@@ -859,7 +862,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	}
 
 	/**
-	 * Returns an event corresponding to an operation, or null of not found.
+	 * Returns first matching event corresponding to an operation, or null of not found.
 	 * 
 	 * @param operation
 	 * @param events list of events

@@ -135,7 +135,8 @@ public class ComponentsVisualIDRegistry {
 		}
 		String containerModelID = ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry
 				.getModelID(containerView);
-		if (!ComponentDiagramEditPart.MODEL_ID.equals(containerModelID)) {
+		if (!ComponentDiagramEditPart.MODEL_ID.equals(containerModelID)
+				&& !"bum".equals(containerModelID) && !"components".equals(containerModelID)) { //$NON-NLS-1$ //$NON-NLS-2$
 			return -1;
 		}
 		int containerVisualID;
@@ -221,7 +222,8 @@ public class ComponentsVisualIDRegistry {
 	public static boolean canCreateNode(View containerView, int nodeVisualID) {
 		String containerModelID = ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry
 				.getModelID(containerView);
-		if (!ComponentDiagramEditPart.MODEL_ID.equals(containerModelID)) {
+		if (!ComponentDiagramEditPart.MODEL_ID.equals(containerModelID)
+				&& !"bum".equals(containerModelID) && !"components".equals(containerModelID)) { //$NON-NLS-1$ //$NON-NLS-2$
 			return false;
 		}
 		int containerVisualID;

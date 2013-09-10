@@ -216,6 +216,10 @@
       <?gmfgen generated="true"?>
       <viewProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsViewProvider">
          <Priority name="Lowest"/>
+         <object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
+            <method name="getType()" value="bum,components"/>
+         </object>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Components"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2006,3001,3002,3009,3003,3004,3010,3013"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001"/>
@@ -480,11 +484,17 @@
         	      <test property="org.eclipse.core.resources.extension" value="cmd"/>
                </and>
                <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="ac.soton.fmusim.components.diagram.isShortcut"/>
+           	   </adapt>
             </or>
          </triggerPoints>
          <possibleChildren>
             <or>
          	   <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="ac.soton.fmusim.components.diagram.isShortcut"/>
+           	   </adapt>
             </or>
          </possibleChildren>
          <commonSorter 
@@ -528,6 +538,9 @@
          <enablement>
             <or>
                <instanceof value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="ac.soton.fmusim.components.diagram.isShortcut"/>
+           	   </adapt>
             </or>
          </enablement>
       </actionProvider>
@@ -621,6 +634,28 @@
          <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>
    </extension>
+<extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+            <method name="getType()" value="2001,2002,2003,2006"/>
+         </object>
+         <context decoratorTargets="generated-top-nodes"/>
+      </decoratorProvider>
+   </extension>
+
+<extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isShortcut">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="ac.soton.fmusim.components.diagram.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="ac.soton.fmusim.components.diagram"
+           properties="isShortcut"
+           class="ac.soton.fmusim.components.diagram.part.ComponentsShortcutPropertyTester">
+       </propertyTester>
+   </extension>
+
 
 
    <!-- optionally, specify keybindings -->

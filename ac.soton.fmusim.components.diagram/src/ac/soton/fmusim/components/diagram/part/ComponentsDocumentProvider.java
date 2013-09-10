@@ -797,21 +797,29 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 				compoundCmd.append(new RecordingCommand(domain) {
 					@Override
 					protected void doExecute() {
-						EventBComponent compCopy = (EventBComponent) EcoreUtil.copy(comp);
+						EventBComponent compCopy = (EventBComponent) EcoreUtil
+								.copy(comp);
 						try {
-							Resource resource = domain.getResourceSet().getResource(compCopy.getMachine().getURI(), true);
-							
+							Resource resource = domain.getResourceSet()
+									.getResource(
+											compCopy.getMachine().getURI(),
+											true);
+
 							if (resource != null && resource.isLoaded()) {
-								Machine machine = (Machine) resource.getContents().get(0);
-								
+								Machine machine = (Machine) resource
+										.getContents().get(0);
+
 								// remove any existing extensions of the same id (EventB component)
-								Iterator<AbstractExtension> it = machine.getExtensions().iterator();
+								Iterator<AbstractExtension> it = machine
+										.getExtensions().iterator();
 								while (it.hasNext()) {
-									if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID.equals(it.next().getExtensionId())) {
+									if (ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
+											.equals(it.next().getExtensionId())) {
 										it.remove();
 									}
 								}
-								compCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID+"."+EcoreUtil.generateUUID());
+								compCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
+										+ "." + EcoreUtil.generateUUID());
 								machine.getExtensions().add(compCopy);
 								resource.save(Collections.EMPTY_MAP);
 							}

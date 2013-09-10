@@ -127,6 +127,19 @@
                type="ac.soton.fmusim.components.Component">
          </adapter>
       </factory>
+      <factory
+            adaptableType="org.eventb.core.basis.MachineRoot"
+            class="ac.soton.fmusim.components.ui.resource.EObjectAdapterFactory1">
+         <adapter
+               type="org.eclipse.emf.ecore.EObject">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         point="ac.soton.eventb.emf.core.extension.navigator.adapterFactories">
+      <factory
+            class="ac.soton.fmusim.components.provider.ComponentsItemProviderAdapterFactory">
+      </factory>
    </extension>
 
 </plugin>

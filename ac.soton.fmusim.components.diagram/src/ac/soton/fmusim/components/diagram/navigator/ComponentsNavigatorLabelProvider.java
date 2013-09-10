@@ -7,6 +7,7 @@
  */
 package ac.soton.fmusim.components.diagram.navigator;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
@@ -102,6 +103,14 @@ public class ComponentsNavigatorLabelProvider extends LabelProvider implements
 			return getImage(navigatorItem.getView());
 		}
 
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+			if (view != null && isOwnView(view)) {
+				return getImage(view);
+			}
+		}
+
 		return super.getImage(element);
 	}
 
@@ -188,6 +197,14 @@ public class ComponentsNavigatorLabelProvider extends LabelProvider implements
 				return null;
 			}
 			return getText(navigatorItem.getView());
+		}
+
+		// Due to plugin.xml content will be called only for "own" views
+		if (element instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+			if (view != null && isOwnView(view)) {
+				return getText(view);
+			}
 		}
 
 		return super.getText(element);

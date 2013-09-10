@@ -57,6 +57,14 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static boolean isShortcutOrphaned(View view) {
+		return !view.isSetElement() || view.getElement() == null
+				|| view.getElement().eIsProxy();
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List<ComponentsNodeDescriptor> getSemanticChildren(View view) {
 		switch (ComponentsVisualIDRegistry.getVisualID(view)) {
 		case ComponentDiagramEditPart.VISUAL_ID:

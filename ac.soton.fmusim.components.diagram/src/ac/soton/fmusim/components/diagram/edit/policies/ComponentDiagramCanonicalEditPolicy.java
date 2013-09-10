@@ -110,6 +110,9 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected boolean isOrphaned(Collection<EObject> semanticChildren,
 			final View view) {
+		if (isShortcut(view)) {
+			return ComponentsDiagramUpdater.isShortcutOrphaned(view);
+		}
 		return isMyDiagramElement(view)
 				&& !semanticChildren.contains(view.getElement());
 	}
@@ -132,6 +135,13 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
+	protected static boolean isShortcut(View view) {
+		return view.getEAnnotation("Shortcut") != null; //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void refreshSemantic() {
 		if (resolveSemanticElement() == null) {
 			return;
@@ -141,9 +151,15 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 				.getComponentDiagram_1000SemanticChildren((View) getHost()
 						.getModel());
 		LinkedList<View> orphaned = new LinkedList<View>();
-		// we care to check only views we recognize as ours
+		// we care to check only views we recognize as ours and not shortcuts
 		LinkedList<View> knownViewChildren = new LinkedList<View>();
 		for (View v : getViewChildren()) {
+			if (isShortcut(v)) {
+				if (ComponentsDiagramUpdater.isShortcutOrphaned(v)) {
+					orphaned.add(v);
+				}
+				continue;
+			}
 			if (isMyDiagramElement(v)) {
 				knownViewChildren.add(v);
 			}
@@ -483,7 +499,7 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 		 * @generated
 		 */
 		public void putView(EObject domainElement, View view) {
-			if (!containsKey(view.getElement())) {
+			if (!containsKey(view.getElement()) || !isShortcut(view)) {
 				this.put(domainElement, view);
 			}
 		}
