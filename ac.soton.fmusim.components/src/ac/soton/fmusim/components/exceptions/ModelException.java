@@ -8,32 +8,31 @@
 package ac.soton.fmusim.components.exceptions;
 
 /**
- * Exception indicating that the simulation has encountered a problem.
- * Handling this exception should involve stopping the simulation process.
+ * Exception indicating that the simulated model is invalid.
  * 
  * @author vitaly
  *
  */
 @SuppressWarnings("serial")
-public class SimulationException extends Exception {
+public class ModelException extends Exception {
 
 	/**
 	 * 
 	 */
-	public SimulationException() {
+	public ModelException() {
 	}
 
 	/**
 	 * @param arg0
 	 */
-	public SimulationException(String arg0) {
+	public ModelException(String arg0) {
 		super(arg0);
 	}
 
 	/**
 	 * @param arg0
 	 */
-	public SimulationException(Throwable arg0) {
+	public ModelException(Throwable arg0) {
 		super(arg0);
 	}
 
@@ -41,7 +40,7 @@ public class SimulationException extends Exception {
 	 * @param arg0
 	 * @param arg1
 	 */
-	public SimulationException(String arg0, Throwable arg1) {
+	public ModelException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
 	}
 

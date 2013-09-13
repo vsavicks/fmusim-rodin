@@ -17,9 +17,9 @@
       <eParameters name="tStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eParameters name="tStop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eOperations>
-    <eOperations name="readInputs" eExceptions="#//SimExceptionClass"/>
-    <eOperations name="writeOutputs"/>
-    <eOperations name="doStep">
+    <eOperations name="readInputs" eExceptions="#//SimExceptionClass #//ModelExceptionClass"/>
+    <eOperations name="writeOutputs" eExceptions="#//SimExceptionClass #//ModelExceptionClass"/>
+    <eOperations name="doStep" eExceptions="#//SimExceptionClass #//ModelExceptionClass">
       <eParameters name="time" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDouble"/>
       <eParameters name="step" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDouble"/>
     </eOperations>
@@ -141,4 +141,5 @@
     <eLiterals name="Pink"/>
     <eLiterals name="Cyan"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="ModelExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.ModelException"/>
 </ecore:EPackage>

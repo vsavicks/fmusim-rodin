@@ -53,6 +53,7 @@ import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
 
@@ -593,19 +594,13 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @throws SimulationException 
 	 * @generated NOT
 	 */
-	public void readInputs() throws SimulationException {
+	public void readInputs() throws SimulationException, ModelException {
 		Trace trace = getTrace();
 		assert trace != null;
 		EList<Event> readEvents = getReadInputEvents();
 		assert readEvents != null && readEvents.size() > 0;
 		
-		OpInfo op = findAnyEnabled(trace, readEvents);
-		assert op != null;
-		//TODO: treat read event not enabled as invalid state (maybe throw an exception)
-		
 		// build parameter predicate for event execution
-		// including only parameter values for the ports
-		// that are connected to a feeding connector
 		StringBuilder predicate = new StringBuilder("TRUE=TRUE");
 		for (Port p : getInputs()) {
 			assert p instanceof EventBPort;
@@ -614,33 +609,26 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			String parameterName = port.getParameter().getName();
 			
 			Connector connector = port.getConnector();
-			Object value = null;
-			String bValue = null;
-			// if port not connected use current value
-			if (connector == null) {
-				if (port.getVariable() != null) {
-					value = trace.getCurrentState().value(port.getVariable().getName());
-					assert value != null;
-					bValue = value.toString();
-				} else {
-					bValue = port.getValue().toString();
-				}
-			} else {
-				value = connector.getValue();
-				switch (port.getType()) {
-				case BOOLEAN:
-					bValue = getBooleanToEventB((Boolean) value);
-					break;
-				case INTEGER:
-					bValue = getIntegerToEventB((Integer) value);
-					break;
-				case REAL:
-					bValue = getDoubleToEventB((Double) value, getRealPrecision());
-					break;
-				case STRING:
-					bValue = getStringToEventB((String) value);
-					break;
-				}
+			
+			// if port not connected, let ProB to pick the value non-deterministically
+			if (connector == null)
+				continue;
+			
+			Object value = connector.getValue();	// value from connector
+			String bValue = null;					// value to be passed to event, thus in Event-B format
+			switch (port.getType()) {
+			case BOOLEAN:
+				bValue = getBooleanToEventB((Boolean) value);
+				break;
+			case INTEGER:
+				bValue = getIntegerToEventB((Integer) value);
+				break;
+			case REAL:
+				bValue = getDoubleToEventB((Double) value, getRealPrecision());
+				break;
+			case STRING:
+				bValue = getStringToEventB((String) value);
+				break;
 			}
 			
 			// add parameter to event predicate string
@@ -649,13 +637,30 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			// set port value
 			port.setValue(value);
 		}
+
+		OpInfo op = null;
+		for (Event e : readEvents) {
+			try {
+				op = trace.findOneOp(e.getName(), predicate.toString());
+				
+				//TODO: set randomly chosen values of disconnected ports
+			} catch (BException e1) {
+				throw new SimulationException("Finding 'read inputs' event '" + e.getName() + "' by ProB failed: " + e1.getMessage());
+			} catch (IllegalArgumentException e1) {
+				// if operation was not found, carry on looking
+			}
+		}
 		
+		// if not found at all, likely indicates that model is not correct
+		if (op == null) {
+			throw new ModelException("No enabled 'read inputs' events could be found for component '" + this.getName() + "' with the predicate: " + predicate.toString());
+		}
+
 		// execute 'read inputs' event with calculated parameter predicate
 		try {
 			trace = trace.add(op.name, predicate.toString());
 		} catch (BException e) {
 			throw new SimulationException("Executing 'read inputs' event by ProB failed: " + e.getMessage());
-			//FIXME: add error handling if read inputs operation not found (not enabled etc.)
 		}
 
 		// update trace
@@ -709,6 +714,39 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		return null;
 	}
+	
+//	/**
+//	 * Returns any enabled operation from the list of events.
+//	 * The operation must satisfy a predicate.
+//	 * 
+//	 * @param trace trace of operations
+//	 * @param events list of events
+//	 * @param predicate operation predicate
+//	 * @return
+//	 */
+//	//TODO complete implementation to use the predicate
+//	private OpInfo findAnyEnabled(Trace trace, EList<Event> events, String predicate) {
+//		// get names of all events
+//		Set<String> eventNames = new HashSet<String>(events.size());
+//		for (Event event : events)
+//			eventNames.add(event.getName());
+//		
+//		// find enabled events that match by name
+//		List<OpInfo> enabledOps = new ArrayList<OpInfo>(events.size());
+//		for (OpInfo op : trace.getNextTransitions()) {
+//			if (eventNames.contains(op.name)) {
+//				enabledOps.add(op);
+//			}
+//		}
+//		
+//		// return a random enabled op
+//		if (enabledOps.size() > 0) {
+//			int idx = new Random().nextInt(enabledOps.size());
+//			return enabledOps.get(idx);
+//		}
+//		
+//		return null;
+//	}
 
 	/**
 	 * <!-- begin-user-doc -->

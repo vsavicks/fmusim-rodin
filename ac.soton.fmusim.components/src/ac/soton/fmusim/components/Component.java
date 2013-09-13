@@ -9,6 +9,7 @@ package ac.soton.fmusim.components;
 
 import org.eclipse.emf.common.util.EList;
 
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 
 /**
@@ -89,26 +90,26 @@ public interface Component extends NamedElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model exceptions="ac.soton.fmusim.components.SimExceptionClass"
+	 * @model exceptions="ac.soton.fmusim.components.SimExceptionClass ac.soton.fmusim.components.ModelExceptionClass"
 	 * @generated
 	 */
-	void readInputs() throws SimulationException;
+	void readInputs() throws SimulationException, ModelException;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model
+	 * @model exceptions="ac.soton.fmusim.components.SimExceptionClass ac.soton.fmusim.components.ModelExceptionClass"
 	 * @generated
 	 */
-	void writeOutputs();
+	void writeOutputs() throws SimulationException, ModelException;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model
+	 * @model exceptions="ac.soton.fmusim.components.SimExceptionClass ac.soton.fmusim.components.ModelExceptionClass"
 	 * @generated
 	 */
-	void doStep(double time, double step);
+	void doStep(double time, double step) throws SimulationException, ModelException;
 
 	/**
 	 * <!-- begin-user-doc -->

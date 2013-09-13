@@ -1191,6 +1191,16 @@ public interface ComponentsPackage extends EPackage {
 	int SIM_EXCEPTION_CLASS = 21;
 
 	/**
+	 * The meta object id for the '<em>Model Exception Class</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.exceptions.ModelException
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getModelExceptionClass()
+	 * @generated
+	 */
+	int MODEL_EXCEPTION_CLASS = 22;
+
+	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1746,6 +1756,17 @@ public interface ComponentsPackage extends EPackage {
 	EDataType getSimExceptionClass();
 
 	/**
+	 * Returns the meta object for data type '{@link ac.soton.fmusim.components.exceptions.ModelException <em>Model Exception Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Model Exception Class</em>'.
+	 * @see ac.soton.fmusim.components.exceptions.ModelException
+	 * @model instanceClass="ac.soton.fmusim.components.exceptions.ModelException"
+	 * @generated
+	 */
+	EDataType getModelExceptionClass();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2226,6 +2247,16 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType SIM_EXCEPTION_CLASS = eINSTANCE.getSimExceptionClass();
+
+		/**
+		 * The meta object literal for the '<em>Model Exception Class</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.exceptions.ModelException
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getModelExceptionClass()
+		 * @generated
+		 */
+		EDataType MODEL_EXCEPTION_CLASS = eINSTANCE.getModelExceptionClass();
 
 	}
 

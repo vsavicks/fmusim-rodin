@@ -37,6 +37,7 @@ import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import de.prob.cosimulation.FMU;
 import de.prob.statespace.Trace;
@@ -173,6 +174,8 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateChart2DClass((Chart2D)value, diagnostics, context);
 			case ComponentsPackage.SIM_EXCEPTION_CLASS:
 				return validateSimExceptionClass((SimulationException)value, diagnostics, context);
+			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
+				return validateModelExceptionClass((ModelException)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -507,6 +510,15 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateSimExceptionClass(SimulationException simExceptionClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateModelExceptionClass(ModelException modelExceptionClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

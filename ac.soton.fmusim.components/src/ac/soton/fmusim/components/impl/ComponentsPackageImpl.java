@@ -44,6 +44,7 @@ import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
 import de.prob.cosimulation.FMU;
@@ -209,6 +210,13 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * @generated
 	 */
 	private EDataType simExceptionClassEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType modelExceptionClassEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -756,6 +764,15 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getModelExceptionClass() {
+		return modelExceptionClassEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ComponentsFactory getComponentsFactory() {
 		return (ComponentsFactory)getEFactoryInstance();
 	}
@@ -848,6 +865,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		trace2DClassEDataType = createEDataType(TRACE2_DCLASS);
 		chart2DClassEDataType = createEDataType(CHART2_DCLASS);
 		simExceptionClassEDataType = createEDataType(SIM_EXCEPTION_CLASS);
+		modelExceptionClassEDataType = createEDataType(MODEL_EXCEPTION_CLASS);
 	}
 
 	/**
@@ -915,12 +933,17 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 
 		op = addEOperation(componentEClass, null, "readInputs", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getSimExceptionClass());
+		addEException(op, this.getModelExceptionClass());
 
-		addEOperation(componentEClass, null, "writeOutputs", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(componentEClass, null, "writeOutputs", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEException(op, this.getSimExceptionClass());
+		addEException(op, this.getModelExceptionClass());
 
 		op = addEOperation(componentEClass, null, "doStep", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEDouble(), "time", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEDouble(), "step", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEException(op, this.getSimExceptionClass());
+		addEException(op, this.getModelExceptionClass());
 
 		addEOperation(componentEClass, null, "terminate", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1021,6 +1044,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEDataType(trace2DClassEDataType, ITrace2D.class, "Trace2DClass", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(chart2DClassEDataType, Chart2D.class, "Chart2DClass", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(simExceptionClassEDataType, SimulationException.class, "SimExceptionClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(modelExceptionClassEDataType, ModelException.class, "ModelExceptionClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
