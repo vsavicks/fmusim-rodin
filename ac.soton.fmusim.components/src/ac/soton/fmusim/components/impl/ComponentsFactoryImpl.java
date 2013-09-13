@@ -29,6 +29,7 @@ import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import de.prob.cosimulation.FMU;
 
@@ -109,6 +110,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return createFmuClassFromString(eDataType, initialValue);
 			case ComponentsPackage.SIM_EXCEPTION_CLASS:
 				return createSimExceptionClassFromString(eDataType, initialValue);
+			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
+				return createModelExceptionClassFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -132,6 +135,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return convertFmuClassToString(eDataType, instanceValue);
 			case ComponentsPackage.SIM_EXCEPTION_CLASS:
 				return convertSimExceptionClassToString(eDataType, instanceValue);
+			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
+				return convertModelExceptionClassToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -330,6 +335,24 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * @generated
 	 */
 	public String convertSimExceptionClassToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModelException createModelExceptionClassFromString(EDataType eDataType, String initialValue) {
+		return (ModelException)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertModelExceptionClassToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

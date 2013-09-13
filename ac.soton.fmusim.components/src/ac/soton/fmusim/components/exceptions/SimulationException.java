@@ -8,6 +8,9 @@
 package ac.soton.fmusim.components.exceptions;
 
 /**
+ * Exception indicating that the simulation has encountered a problem.
+ * Handling this exception should involve stopping the simulation process.
+ * 
  * @author vitaly
  *
  */
@@ -18,7 +21,6 @@ public class SimulationException extends Exception {
 	 * 
 	 */
 	public SimulationException() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -26,7 +28,6 @@ public class SimulationException extends Exception {
 	 */
 	public SimulationException(String arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -34,7 +35,6 @@ public class SimulationException extends Exception {
 	 */
 	public SimulationException(Throwable arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -43,7 +43,6 @@ public class SimulationException extends Exception {
 	 */
 	public SimulationException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
 	}
 
 }

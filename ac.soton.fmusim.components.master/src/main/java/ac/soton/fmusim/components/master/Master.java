@@ -19,6 +19,7 @@ import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 
 /**
@@ -119,7 +120,15 @@ public class Master {
 				
 				// read port values
 				for (Component c : diagram.getComponents())
-					c.writeOutputs();
+					try {
+						c.writeOutputs();
+					} catch (SimulationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ModelException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				
 				// write port values
 				for (Component c : diagram.getComponents())
@@ -128,11 +137,22 @@ public class Master {
 					} catch (SimulationException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} catch (ModelException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				
 				// do step
 				for (Component c : diagram.getComponents())
-					c.doStep(tCurrent.doubleValue(), step.doubleValue());
+					try {
+						c.doStep(tCurrent.doubleValue(), step.doubleValue());
+					} catch (SimulationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ModelException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				
 				// progress the time
 				tCurrent = tCurrent.plus(step);
@@ -200,7 +220,15 @@ public class Master {
 			
 			// read port values
 			for (Component c : diagram.getComponents())
-				c.writeOutputs();
+				try {
+					c.writeOutputs();
+				} catch (SimulationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ModelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			
 			// write port values
 			for (Component c : diagram.getComponents())
@@ -209,11 +237,22 @@ public class Master {
 				} catch (SimulationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (ModelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			
 			// do step
 			for (Component c : diagram.getComponents())
-				c.doStep(tCurrent.doubleValue(), step.doubleValue());
+				try {
+					c.doStep(tCurrent.doubleValue(), step.doubleValue());
+				} catch (SimulationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ModelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 			// progress the time
 			tCurrent = tCurrent.plus(step);
