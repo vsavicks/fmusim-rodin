@@ -70,7 +70,7 @@ public class EventBComponentItemProvider
 			addMachinePropertyDescriptor(object);
 			addReadInputEventsPropertyDescriptor(object);
 			addTimeVariablePropertyDescriptor(object);
-			addUpdateEventsPropertyDescriptor(object);
+			addWaitEventsPropertyDescriptor(object);
 			addTracePropertyDescriptor(object);
 			addStepPeriodPropertyDescriptor(object);
 			addRealPrecisionPropertyDescriptor(object);
@@ -189,19 +189,19 @@ public class EventBComponentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Update Events feature.
+	 * This adds a property descriptor for the Wait Events feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUpdateEventsPropertyDescriptor(Object object) {
+	protected void addWaitEventsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBComponent_updateEvents_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_updateEvents_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__UPDATE_EVENTS,
+				 getString("_UI_EventBComponent_waitEvents_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_waitEvents_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__WAIT_EVENTS,
 				 true,
 				 false,
 				 true,

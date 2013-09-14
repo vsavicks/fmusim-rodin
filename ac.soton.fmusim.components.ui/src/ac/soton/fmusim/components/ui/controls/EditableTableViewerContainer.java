@@ -48,6 +48,7 @@ public class EditableTableViewerContainer extends TableViewerContainer {
 	private Button removeButton;
 	private Listener changeListener;
 	private SelectionDialogProvider dialogProvider;
+	private boolean enabled;
 
 	/**
 	 * Contructor.
@@ -143,6 +144,8 @@ public class EditableTableViewerContainer extends TableViewerContainer {
 		});
 
 		buttonPlate.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+		
+		enabled = true;
 	}
 	
 	/**
@@ -239,5 +242,25 @@ public class EditableTableViewerContainer extends TableViewerContainer {
 		if (changeListener != null)
 			changeListener.handleEvent(null);
 	}
+	
+	/**
+	 * Sets enabled status of table elements.
+	 * 
+	 * @param enabled
+	 */
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		tableViewer.getTable().setEnabled(enabled);
+		addButton.setEnabled(enabled);
+		removeButton.setEnabled(enabled);
+	}
 
+	/**
+	 * Returns enabled status of the table.
+	 * 
+	 * @return
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
 }

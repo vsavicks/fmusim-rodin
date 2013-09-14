@@ -86,7 +86,7 @@ import de.prob.webconsole.ServletContextListener;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getMachine <em>Machine</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getReadInputEvents <em>Read Input Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getUpdateEvents <em>Update Events</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getWaitEvents <em>Wait Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTrace <em>Trace</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getStepPeriod <em>Step Period</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getRealPrecision <em>Real Precision</em>}</li>
@@ -197,14 +197,14 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	protected Variable timeVariable;
 
 	/**
-	 * The cached value of the '{@link #getUpdateEvents() <em>Update Events</em>}' reference list.
+	 * The cached value of the '{@link #getWaitEvents() <em>Wait Events</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUpdateEvents()
+	 * @see #getWaitEvents()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Event> updateEvents;
+	protected EList<Event> waitEvents;
 
 	/**
 	 * The default value of the '{@link #getTrace() <em>Trace</em>}' attribute.
@@ -447,11 +447,11 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Event> getUpdateEvents() {
-		if (updateEvents == null) {
-			updateEvents = new EObjectResolvingEList<Event>(Event.class, this, ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS);
+	public EList<Event> getWaitEvents() {
+		if (waitEvents == null) {
+			waitEvents = new EObjectResolvingEList<Event>(Event.class, this, ComponentsPackage.EVENT_BCOMPONENT__WAIT_EVENTS);
 		}
-		return updateEvents;
+		return waitEvents;
 	}
 
 	/**
@@ -714,39 +714,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		return null;
 	}
-	
-//	/**
-//	 * Returns any enabled operation from the list of events.
-//	 * The operation must satisfy a predicate.
-//	 * 
-//	 * @param trace trace of operations
-//	 * @param events list of events
-//	 * @param predicate operation predicate
-//	 * @return
-//	 */
-//	//TODO complete implementation to use the predicate
-//	private OpInfo findAnyEnabled(Trace trace, EList<Event> events, String predicate) {
-//		// get names of all events
-//		Set<String> eventNames = new HashSet<String>(events.size());
-//		for (Event event : events)
-//			eventNames.add(event.getName());
-//		
-//		// find enabled events that match by name
-//		List<OpInfo> enabledOps = new ArrayList<OpInfo>(events.size());
-//		for (OpInfo op : trace.getNextTransitions()) {
-//			if (eventNames.contains(op.name)) {
-//				enabledOps.add(op);
-//			}
-//		}
-//		
-//		// return a random enabled op
-//		if (enabledOps.size() > 0) {
-//			int idx = new Random().nextInt(enabledOps.size());
-//			return enabledOps.get(idx);
-//		}
-//		
-//		return null;
-//	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -862,21 +829,17 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	public void doStep(double time, double step) {
 		Trace trace = getTrace();
 		assert trace != null;
-		EList<Event> updateEvents = getUpdateEvents();
-		assert updateEvents != null &&  updateEvents.size() > 0;
+		EList<Event> waitEvents = getWaitEvents();
+		assert waitEvents.size() > 0;
 		EList<Event> readEvents = getReadInputEvents();
-		assert readEvents != null && readEvents.size() > 0;
 		
 		boolean update = false;
 		while (!update) {
 			// find and execute an update event
-			OpInfo op = findAnyEnabled(trace, updateEvents);
+			OpInfo op = findAnyEnabled(trace, waitEvents);
 			if (op != null) {
-				// execute only if update event is not also a readInput event
-				//XXX: only would work if all enabled update events would either also be readInput events or not
-				// as the update event picked up at random previously means other enabled update events would be ignored,
-				// though some of them may be readInput events or not
-				if (findEvent(op, readEvents) == null) {
+				// execute only if wait event is not also a readInput event (if inputs exist)
+				if (readEvents.size() > 0 && findEvent(op, readEvents) == null) {
 					trace = trace.add(op.id);
 				}
 				update = true;
@@ -1032,8 +995,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				if (resolve) return getTimeVariable();
 				return basicGetTimeVariable();
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
-				return getUpdateEvents();
+			case ComponentsPackage.EVENT_BCOMPONENT__WAIT_EVENTS:
+				return getWaitEvents();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return getTrace();
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
@@ -1081,9 +1044,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)newValue);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
-				getUpdateEvents().clear();
-				getUpdateEvents().addAll((Collection<? extends Event>)newValue);
+			case ComponentsPackage.EVENT_BCOMPONENT__WAIT_EVENTS:
+				getWaitEvents().clear();
+				getWaitEvents().addAll((Collection<? extends Event>)newValue);
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace((Trace)newValue);
@@ -1130,8 +1093,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				setTimeVariable((Variable)null);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
-				getUpdateEvents().clear();
+			case ComponentsPackage.EVENT_BCOMPONENT__WAIT_EVENTS:
+				getWaitEvents().clear();
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace(TRACE_EDEFAULT);
@@ -1170,8 +1133,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return readInputEvents != null && !readInputEvents.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__TIME_VARIABLE:
 				return timeVariable != null;
-			case ComponentsPackage.EVENT_BCOMPONENT__UPDATE_EVENTS:
-				return updateEvents != null && !updateEvents.isEmpty();
+			case ComponentsPackage.EVENT_BCOMPONENT__WAIT_EVENTS:
+				return waitEvents != null && !waitEvents.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:

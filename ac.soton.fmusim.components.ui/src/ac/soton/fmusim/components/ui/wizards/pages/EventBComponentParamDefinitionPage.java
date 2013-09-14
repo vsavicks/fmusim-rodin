@@ -52,7 +52,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	private Text precisionText;
 	private EventBNamedComboContainer timeVariableCombo;
 	private EditableTableViewerContainer readEventsViewer;
-	private EditableTableViewerContainer updateEventsViewer;
+	private EditableTableViewerContainer waitEventsViewer;
 	private DecoratedInputValidator stepPeriodValidator;
 	private DecoratedInputValidator precisionValidator;
 	private boolean stepPeriodValid;
@@ -102,7 +102,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		
 		stepPeriodText = createLabeledText(group, "Step Period:", "Enter time period of one simulation step");
 		precisionText = createLabeledText(group, "Precision:", "Enter Real signal to Event-B integer conversion precision (x10 magnitude)");
-		timeVariableCombo = createLabeledEventBNamedCombo(group, "Time Variable:", "Select variable that holds the simulation time (optional)");
+		timeVariableCombo = createLabeledEventBNamedCombo(group, "Time Variable*:", "Select variable that holds the simulation time (optional)");
 		
 		group.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 	}
@@ -113,10 +113,10 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	 * @param parent
 	 */
 	private void createEventGroup(Composite parent) {
-		Group group = createLabeledGroup(parent, "Events", "Select Event-B machine events for reading inputs and simulation step update");
+		Group group = createLabeledGroup(parent, "Events", "Select Event-B machine events for reading inputs and simulation step wait");
 		
-		readEventsViewer = createLabeledEditableTable(group, "Read Input:", "Add/Remove events for reading input signals", createEventColumnProviders(), null);
-		updateEventsViewer = createLabeledEditableTable(group, "Update:", "Add/Remove events for simulation step update", createEventColumnProviders(), null);
+		readEventsViewer = createLabeledEditableTable(group, "Read Input*:", "Add/Remove events for reading input signals", createEventColumnProviders(), null);
+		waitEventsViewer = createLabeledEditableTable(group, "Wait:", "Add/Remove events for simulation step wait", createEventColumnProviders(), null);
 		
 		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 	}
@@ -195,7 +195,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 				validatePage();
 			}
 		});
-		updateEventsViewer.setChangeListener(new Listener() {
+		waitEventsViewer.setChangeListener(new Listener() {
 			@Override
 			public void handleEvent(org.eclipse.swt.widgets.Event event) {
 				validatePage();
@@ -226,7 +226,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	 */
 	private List<ColumnProvider> createEventColumnProviders() {
 		ArrayList<ColumnProvider> providers = new ArrayList<ColumnProvider>();
-		providers.add(new ColumnProvider("Name", 100, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Name", 200, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				return ((Event) element).getName();
@@ -256,11 +256,12 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 			precisionText.setText(Integer.toString(currentModel.getRealPrecision()));
 			timeVariableCombo.setInput(currentModel.getMachine().getVariables(), currentModel.getTimeVariable());
 			readEventsViewer.setInput(currentModel.getMachine().getEvents(), currentModel.getReadInputEvents());
-			updateEventsViewer.setInput(currentModel.getMachine().getEvents(), currentModel.getUpdateEvents());
+			waitEventsViewer.setInput(currentModel.getMachine().getEvents(), currentModel.getWaitEvents());
 			
 			// clear error message
 			//TODO: implement error messages and input validation
 //			setErrorMessage(null);
+			setMessage("*Optional input");
 			
 			((Composite) getControl()).layout(true, true);
 			
@@ -275,10 +276,8 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		boolean valid = true;
 		valid &= stepPeriodValid & precisionValid;
 		
-		if (readEventsViewer.getInput() != null)
-			valid &= ((List<?>) readEventsViewer.getInput()).size() > 0;
-		if (updateEventsViewer.getInput() != null)
-			valid &= ((List<?>) updateEventsViewer.getInput()).size() > 0;
+		if (waitEventsViewer.getInput() != null)
+			valid &= ((List<?>) waitEventsViewer.getInput()).size() > 0;
 		
 		setPageComplete(valid);
 	}

@@ -39,7 +39,7 @@ import ac.soton.fmusim.components.ui.wizards.ComponentImportWizard;
 public class ImportComponentCommand extends AbstractHandler {
 
 	private static final int WIZARD_WIDTH_INCH = 6;
-	private static final int WIZARD_HEIGHT_INCH = 8;
+	private static final int WIZARD_HEIGHT_INCH = 7;
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)

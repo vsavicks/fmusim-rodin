@@ -537,13 +537,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__TIME_VARIABLE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Update Events</b></em>' reference list.
+	 * The feature id for the '<em><b>Wait Events</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__UPDATE_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
+	int EVENT_BCOMPONENT__WAIT_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
@@ -1415,15 +1415,15 @@ public interface ComponentsPackage extends EPackage {
 	EReference getEventBComponent_TimeVariable();
 
 	/**
-	 * Returns the meta object for the reference list '{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvents <em>Update Events</em>}'.
+	 * Returns the meta object for the reference list '{@link ac.soton.fmusim.components.EventBComponent#getWaitEvents <em>Wait Events</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Update Events</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getUpdateEvents()
+	 * @return the meta object for the reference list '<em>Wait Events</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getWaitEvents()
 	 * @see #getEventBComponent()
 	 * @generated
 	 */
-	EReference getEventBComponent_UpdateEvents();
+	EReference getEventBComponent_WaitEvents();
 
 	/**
 	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}'.
@@ -1961,12 +1961,12 @@ public interface ComponentsPackage extends EPackage {
 		EReference EVENT_BCOMPONENT__TIME_VARIABLE = eINSTANCE.getEventBComponent_TimeVariable();
 
 		/**
-		 * The meta object literal for the '<em><b>Update Events</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Wait Events</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EVENT_BCOMPONENT__UPDATE_EVENTS = eINSTANCE.getEventBComponent_UpdateEvents();
+		EReference EVENT_BCOMPONENT__WAIT_EVENTS = eINSTANCE.getEventBComponent_WaitEvents();
 
 		/**
 		 * The meta object literal for the '<em><b>Trace</b></em>' attribute feature.

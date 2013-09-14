@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -28,8 +30,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
-import org.eventb.emf.core.machine.Event;
-import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.Parameter;
 import org.eventb.emf.core.machine.Variable;
 
@@ -73,10 +73,10 @@ public class EventBPortDialog extends SelectionDialog {
 	 * @param causality port variable causality
 	 * @param event IO event (only for reading input ports, so not required if causality is other that INPUT)
 	 */
-	public EventBPortDialog(Shell parentShell, EventBComponent component, VariableCausality causality, Event event) {
+	public EventBPortDialog(Shell parentShell, EventBComponent component, VariableCausality causality, List<Variable> variables, List<Parameter> parameters) {
 		super(parentShell);
 		
-		// build up a set of existing names and event map
+		// build up a set of existing names
 		if (component != null) {
 			usedNames = new HashSet<String>(component.getInputs().size() + component.getOutputs().size());
 			for (Port p : component.getInputs())
@@ -84,29 +84,20 @@ public class EventBPortDialog extends SelectionDialog {
 			for (Port p : component.getOutputs())
 				usedNames.add(p.getName());
 			
-			// set causality
 			this.causality = causality;
 			
-			// construct map of variables for combo
-			Machine machine = component.getMachine();
-			variableMap = new HashMap<String, Variable>(machine.getVariables().size());
-			for (Variable variable : machine.getVariables()) {
-				variableMap.put(variable.getName(), variable);
+			if (variables != null) {
+				variableMap = new HashMap<String, Variable>(variables.size());
+				for (Variable variable : variables) {
+					variableMap.put(variable.getName(), variable);
+				}
 			}
 			
-			// variable is optional for input ports
-			if (causality == VariableCausality.INPUT) {
-				variableValid = true;
-			}
-			
-			// if event defined, construct map of event parameters for combo
-			if (event != null) {
-				parameterMap = new HashMap<String, Parameter>(event.getParameters().size());
-				for (Parameter parameter : event.getParameters()) {
+			if (parameters != null) {
+				parameterMap = new HashMap<String, Parameter>(parameters.size());
+				for (Parameter parameter : parameters) {
 					parameterMap.put(parameter.getName(), parameter);
 				}
-			} else {
-				parameterValid = true;
 			}
 		}
 	}
@@ -134,24 +125,13 @@ public class EventBPortDialog extends SelectionDialog {
 		plate.setText("Event-B port attributes");
 		
 		// variable label and combo
-		Label variableLabel = new Label(plate, SWT.NONE);
-		variableLabel.setText("Variable:");
-		variableCombo = new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY);
-		variableCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-		variableCombo.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				validateVariable();
-			}
-		});
-		{
-			String[] items = new String[variableMap.size() + 1];
-			int i = 0;
-			items[i++] = ""; // empty item
-			for (String name : variableMap.keySet())
-				items[i++] = name;
-			Arrays.sort(items);
-			variableCombo.setItems(items);
+		if (variableMap != null) {
+			variableCombo = createCombo(plate, "Variable:", variableMap, new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					validateVariable();
+				}
+			});
 		}
 		
 		// type label and combo
@@ -171,44 +151,44 @@ public class EventBPortDialog extends SelectionDialog {
 		
 		// event parameter combo
 		if (parameterMap != null) {
-			Label parameterLabel = new Label(plate, SWT.NONE);
-			parameterLabel.setText("Parameter:");
-			parameterCombo = new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY);
-			parameterCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-			parameterCombo.addSelectionListener(new SelectionAdapter() {
+			parameterCombo = createCombo(plate, "Parameter:", parameterMap, new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					validateParameter();
 				}
 			});
-			{
-				String[] items = new String[parameterMap.size() + 1];
-				int i = 0;
-				items[i++] = ""; // empty item
-				for (String name : parameterMap.keySet())
-					items[i++] = name;
-				Arrays.sort(items);
-				parameterCombo.setItems(items);
-			}
 		}
 		
-		// validators
-		variableValidator = new DecoratedInputValidator(
-				DecoratedInputValidator.createDecorator(
-						variableCombo,
-						"Please select variable",
-						FieldDecorationRegistry.DEC_ERROR, 
-						false)) {
-			@Override
-			public String isValidInput(String variable) {
-				// variable is compulsory for output ports
-				if (causality == VariableCausality.OUTPUT && (variable == null || variable.isEmpty()))
-					return "Variable cannot be empty";
-				if (usedNames != null && usedNames.contains(variable.trim()))
-					return "Port for this variable already exists";
-				return null;
-			}
-		};
+		// validators & initial validation
+		createValidators();
+		parameterValid = parameterMap == null;
+		variableValid = variableMap == null;
+		
+		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		return composite;
+	}
+
+	/**
+	 * Creates input validators.
+	 */
+	private void createValidators() {
+		if (variableMap != null) {
+			variableValidator = new DecoratedInputValidator(
+					DecoratedInputValidator.createDecorator(
+							variableCombo,
+							"Please select variable",
+							FieldDecorationRegistry.DEC_ERROR, 
+							false)) {
+				@Override
+				public String isValidInput(String variable) {
+					if (variable == null || variable.isEmpty())
+						return "Variable cannot be empty";
+					if (usedNames != null && usedNames.contains(variable.trim()))
+						return "Port for this variable already exists";
+					return null;
+				}
+			};
+		}
 		
 		if (parameterMap != null) {
 			parameterValidator = new DecoratedInputValidator(
@@ -227,9 +207,33 @@ public class EventBPortDialog extends SelectionDialog {
 				}
 			};
 		}
-		
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		return composite;
+	}
+
+	/**
+	 * Creates and returns a combo.
+	 * 
+	 * @param parent parent
+	 * @param label label of the combo
+	 * @param map map of elements to populate combo
+	 * @param listener combo selection listener
+	 * @return
+	 */
+	private Combo createCombo(Composite parent, String label, Map<String, ? extends Object> map, SelectionListener listener) {
+		Label variableLabel = new Label(parent, SWT.NONE);
+		variableLabel.setText(label);
+		Combo combo = new Combo(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
+		combo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
+		combo.addSelectionListener(listener);
+		{
+			String[] items = new String[map.size() + 1];
+			int i = 0;
+			items[i++] = ""; // empty item
+			for (String name : map.keySet())
+				items[i++] = name;
+			Arrays.sort(items);
+			combo.setItems(items);
+		}
+		return combo;
 	}
 	
 
@@ -273,9 +277,7 @@ public class EventBPortDialog extends SelectionDialog {
 	}
 
 	/**
-	 * Updates the buttons based on validation:
-	 * - variable
-	 * - parameter
+	 * Updates the buttons based on validation.
 	 */
 	private void update() {
 		boolean valid = true;
@@ -298,13 +300,15 @@ public class EventBPortDialog extends SelectionDialog {
 		port.setType(VariableType.getByName(typeStr));
 		port.setCausality(causality);
 
-		// currently it is optional for the case of abstract event with a parameter only for the guard
-		if (variableCombo.getSelectionIndex() > 0) {
-			String variableStr = variableCombo.getItem(variableCombo.getSelectionIndex());
-			port.setVariable(variableMap.get(variableStr));
+		// set variable if defined
+		if (variableMap != null) {
+			if (variableCombo.getSelectionIndex() > 0) {
+				String variableStr = variableCombo.getItem(variableCombo.getSelectionIndex());
+				port.setVariable(variableMap.get(variableStr));
+			}
 		}
 		
-		// if parameter was defined set parameter from combo
+		// set parameter if defined
 		if (parameterMap != null) {
 			if (parameterCombo.getSelectionIndex() > 0) {
 				String parameterStr = parameterCombo.getItem(parameterCombo.getSelectionIndex());

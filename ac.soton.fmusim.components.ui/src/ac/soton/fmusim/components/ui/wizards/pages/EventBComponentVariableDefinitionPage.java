@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.dialogs.SelectionDialog;
-import org.eventb.emf.core.machine.Parameter;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.EventBComponent;
@@ -99,13 +98,13 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 			@Override
 			public SelectionDialog getDialog() {
 				//XXX: assumes all read input events have the same signature (name and number of parameters), so one event is sufficient for the dialog
-				return new EventBPortDialog(getShell(), currentModel, VariableCausality.INPUT, currentModel.getReadInputEvents().get(0));
+				return new EventBPortDialog(getShell(), currentModel, VariableCausality.INPUT, null, currentModel.getReadInputEvents().get(0).getParameters());
 			}
 		});
 		outputsViewer.setSelectionDialogProvider(new SelectionDialogProvider() {
 			@Override
 			public SelectionDialog getDialog() {
-				return new EventBPortDialog(getShell(), currentModel, VariableCausality.OUTPUT, null);
+				return new EventBPortDialog(getShell(), currentModel, VariableCausality.OUTPUT, currentModel.getMachine().getVariables(), null);
 			}
 		});
 	}
@@ -126,29 +125,22 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 	 */
 	private List<ColumnProvider> createPortColumnProviders() {
 		ArrayList<ColumnProvider> providers = new ArrayList<ColumnProvider>();
-		providers.add(new ColumnProvider("Name", 100, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Name", 200, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				return ((EventBPort) element).getName();
 			}}));
-		providers.add(new ColumnProvider("Type", 100, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Type", 70, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				return ((EventBPort) element).getType().toString();
-			}}));
-		providers.add(new ColumnProvider("Parameter", 100, new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				Parameter parameter = ((EventBPort) element).getParameter();
-				// parameter is not required for the output ports
-				return  parameter == null ? null : parameter.getName();
 			}}));
 		return providers;
 	}
 
 	private List<ColumnProvider> createVariableColumnProviders() {
 		ArrayList<ColumnProvider> providers = new ArrayList<ColumnProvider>();
-		providers.add(new ColumnProvider("Name", 100, new ColumnLabelProvider() {
+		providers.add(new ColumnProvider("Name", 200, new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				return ((EventBVariable) element).getName();
@@ -167,19 +159,23 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 		if (visible) {
 			assert source.getModel() instanceof EventBComponent;
 			
-			// don't refresh the viewers if the model didn't change
-			if (currentModel != null && currentModel == source.getModel())
-				return;
+			// only refresh the viewers if the model changed
+			if (currentModel == null || currentModel != source.getModel()) {
 			
-			// set input
-			currentModel = (EventBComponent) source.getModel();
+				// set input
+				currentModel = (EventBComponent) source.getModel();
+				
+				inputsViewer.setInput(null, currentModel.getInputs());
+				outputsViewer.setInput(null, currentModel.getOutputs());
+				variablesViewer.setInput(currentModel.getVariables());
+				variablesViewer.setAllChecked(false);
+				
+				((Composite) getControl()).layout(true, true);
+			}
 			
-			inputsViewer.setInput(null, currentModel.getInputs());
-			outputsViewer.setInput(null, currentModel.getOutputs());
-			variablesViewer.setInput(currentModel.getVariables());
-			variablesViewer.setAllChecked(false);
-			
-			((Composite) getControl()).layout(true, true);
+			// disable input port definition if read input events not defined
+			//FIXME: handle case if read event has been redefined and some of ports left are pointing to the wrong event (not read event anymore)
+			inputsViewer.setEnabled(currentModel.getReadInputEvents().isEmpty() == false);
 		}
 	}
 

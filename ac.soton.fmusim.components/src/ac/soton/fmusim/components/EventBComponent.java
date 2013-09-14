@@ -30,7 +30,7 @@ import de.prob.statespace.Trace;
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getMachine <em>Machine</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getReadInputEvents <em>Read Input Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getUpdateEvents <em>Update Events</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getWaitEvents <em>Wait Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getRealPrecision <em>Real Precision</em>}</li>
@@ -105,7 +105,7 @@ public interface EventBComponent extends AbstractExtension, Component {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Read Input Events</em>' reference list.
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_ReadInputEvents()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	EList<Event> getReadInputEvents();
@@ -137,20 +137,20 @@ public interface EventBComponent extends AbstractExtension, Component {
 	void setTimeVariable(Variable value);
 
 	/**
-	 * Returns the value of the '<em><b>Update Events</b></em>' reference list.
+	 * Returns the value of the '<em><b>Wait Events</b></em>' reference list.
 	 * The list contents are of type {@link org.eventb.emf.core.machine.Event}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Update Events</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Wait Events</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Update Events</em>' reference list.
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_UpdateEvents()
+	 * @return the value of the '<em>Wait Events</em>' reference list.
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_WaitEvents()
 	 * @model required="true"
 	 * @generated
 	 */
-	EList<Event> getUpdateEvents();
+	EList<Event> getWaitEvents();
 
 	/**
 	 * Returns the value of the '<em><b>Trace</b></em>' attribute.
