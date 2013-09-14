@@ -397,11 +397,12 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @generated NOT
 	 */
 	public void terminate() {
-		FMU fmu = getFmu();
-		assert fmu != null;
-		
-		fmu.terminate();
-		setFmu(null);
+		//FIXME: termination causes JVM to fail (invalid memory access)
+//		FMU fmu = getFmu();
+//		assert fmu != null;
+//		
+//		fmu.terminate();
+//		setFmu(null);
 	}
 
 	/**
