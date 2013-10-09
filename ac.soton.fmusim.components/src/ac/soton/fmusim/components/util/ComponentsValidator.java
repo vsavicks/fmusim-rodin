@@ -10,14 +10,20 @@ package ac.soton.fmusim.components.util;
 import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.ITrace2D;
 
+import java.text.MessageFormat;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eventb.emf.core.machine.Event;
+import org.eventb.emf.core.machine.Parameter;
 
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Colour;
@@ -227,35 +233,34 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateConnector_CompatiblePorts(Connector connector, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		// TODO implement the constraint
-		// -> specify the condition that violates the constraint
-		// -> verify the diagnostic details, including severity, code, and message
-		// Ensure that you remove @generated or mark it @generated NOT
-		
+
 		// skip if none or a single port is connected
 		EList<Port> ports = connector.getPorts();
 		if (ports.size() < 2)
 			return true;
 		
+		// find two non-matching ports
 		boolean failed = false;
-		VariableType type = ports.get(0).getType();
+		Port port1 = ports.get(0);
+		Port port2 = null;
+		VariableType type = port1.getType();
 		for (Port p : ports) {
 			if (p.getType() != type) {
 				failed = true;
+				port2 = p;
 				break;
 			}
 		}
+		
 		if (failed) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.ERROR,
-						 DIAGNOSTIC_SOURCE,
-						 0,
-						 "_UI_GenericConstraint_diagnostic",
-						 new Object[] { "CompatiblePorts", getObjectLabel(connector, context) },
-						 new Object[] { connector },
-						 context));
+					(new BasicDiagnostic
+							(Diagnostic.ERROR,
+							 ComponentsValidator.DIAGNOSTIC_SOURCE,
+							 0,
+							 MessageFormat.format("Connected ports ''{0}'' and ''{1}'' have incompatible types", new Object[] { getObjectLabel(port1, context), getObjectLabel(port2, context) }),	
+							 new Object [] { connector }));
 			}
 			return false;
 		}
@@ -272,10 +277,7 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateConnector_CompleteConnection(Connector connector, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		// TODO implement the constraint
-		// -> specify the condition that violates the constraint
-		// -> verify the diagnostic details, including severity, code, and message
-		// Ensure that you remove @generated or mark it @generated NOT
+
 		EList<Port> ports = connector.getPorts();
 		boolean input = false;
 		for (Port p : ports) {
@@ -288,14 +290,12 @@ public class ComponentsValidator extends EObjectValidator {
 		if (!input && ports.size() > 0) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.ERROR,
-						 DIAGNOSTIC_SOURCE,
-						 0,
-						 "_UI_GenericConstraint_diagnostic",
-						 new Object[] { "CompleteConnection", getObjectLabel(connector, context) },
-						 new Object[] { connector },
-						 context));
+					(new BasicDiagnostic
+							(Diagnostic.ERROR,
+							 ComponentsValidator.DIAGNOSTIC_SOURCE,
+							 0,
+							 MessageFormat.format("Connector ''{0}'' has no output port attached", new Object[] { getObjectLabel(connector, context) }),	
+							 new Object [] { connector }));
 			}
 			return false;
 		}
@@ -335,8 +335,59 @@ public class ComponentsValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(eventBComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(eventBComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(eventBComponent, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEventBComponent_ConsistentReadInputEvents(eventBComponent, diagnostics, context);
 		if (result || diagnostics != null) result &= validateEventBComponent_hasValidMachineReference(eventBComponent, diagnostics, context);
 		return result;
+	}
+
+	/**
+	 * Validates the ConsistentReadInputEvents constraint of '<em>Event BComponent</em>'.
+	 * <!-- begin-user-doc -->
+	 * All read input events must have the same number and names of parameters.
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateEventBComponent_ConsistentReadInputEvents(EventBComponent eventBComponent, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		EList<Event> events = eventBComponent.getReadInputEvents();
+		if (events.size() < 2)
+			return true;
+		
+		Event event1 = events.get(0);
+		Set<String> paramNames = new HashSet<String>();
+		for (Parameter p : event1.getParameters())
+			paramNames.add(p.getName());
+		
+		boolean failed = false;
+		Event event2 = null;
+		for (Event e : events) {
+			if (event1.getParameters().size() != e.getParameters().size()) {
+				event2 = e;
+				failed = true;
+				break;
+			}
+			for (Parameter p : e.getParameters()) {
+				if (!paramNames.contains(p.getName())) {
+					event2 = e;
+					failed = true;
+					break;
+				}
+			}
+		}
+			
+		if (failed) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(new BasicDiagnostic
+							(Diagnostic.ERROR,
+							 ComponentsValidator.DIAGNOSTIC_SOURCE,
+							 0,
+							 MessageFormat.format("Component ''{0}'' has inconsistent read input events ''{1}'' and ''{2}'' (mismatched number/names of parameters)", new Object[] { getObjectLabel(eventBComponent, context), event1.getName(), event2.getName() }),	
+							 new Object [] { eventBComponent }));
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**

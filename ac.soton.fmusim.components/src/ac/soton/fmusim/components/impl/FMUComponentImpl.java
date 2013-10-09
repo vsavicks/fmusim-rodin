@@ -9,6 +9,7 @@ package ac.soton.fmusim.components.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Map;
 
@@ -21,7 +22,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -227,10 +227,6 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @generated NOT
 	 */
 	public boolean hasValidFmuPath(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		// TODO: implement this method
-		// -> specify the condition that violates the invariant
-		// -> verify the details of the diagnostic, including severity and message
-		// Ensure that you remove @generated or mark it @generated NOT
 		
 		String p = getPath();
 		if (p == null || new File(p).exists() == false) {
@@ -240,7 +236,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 						(Diagnostic.ERROR,
 						 ComponentsValidator.DIAGNOSTIC_SOURCE,
 						 ComponentsValidator.FMU_COMPONENT__HAS_VALID_FMU_PATH,
-						 EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] { "hasValidFmuPath", EObjectValidator.getObjectLabel(this, context) }),
+						//TODO: use external string resource and a default approach, i.e. EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] {...
+						 MessageFormat.format("Component ''{0}'' must have a valid FMU path", new Object[] { EObjectValidator.getObjectLabel(this, context) }),	
 						 new Object [] { this }));
 			}
 			return false;

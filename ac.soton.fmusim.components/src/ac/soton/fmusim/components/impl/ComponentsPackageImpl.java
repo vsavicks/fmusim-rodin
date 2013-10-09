@@ -1069,7 +1069,13 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		   source, 
 		   new String[] {
 			 "constraints", "CompatiblePorts CompleteConnection"
-		   });	
+		   });			
+		addAnnotation
+		  (eventBComponentEClass, 
+		   source, 
+		   new String[] {
+			 "constraints", "ConsistentReadInputEvents"
+		   });
 	}
 
 	/**
@@ -1087,7 +1093,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		   },
 		   new URI[] {
 			 URI.createURI(CorePackage.eNS_URI).appendFragment("//machine/Machine")
-		   });
+		   });	
 	}
 
 } //ComponentsPackageImpl

@@ -9,6 +9,7 @@ package ac.soton.fmusim.components.impl;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -30,7 +31,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -536,10 +536,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public boolean hasValidMachineReference(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		// TODO: implement this method
-		// -> specify the condition that violates the invariant
-		// -> verify the details of the diagnostic, including severity and message
-		// Ensure that you remove @generated or mark it @generated NOT
 		
 		// get method to retrieve a machine with a proxy resolution
 		Machine m = getMachine();
@@ -552,7 +548,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 						(Diagnostic.ERROR,
 						 ComponentsValidator.DIAGNOSTIC_SOURCE,
 						 ComponentsValidator.EVENT_BCOMPONENT__HAS_VALID_MACHINE_REFERENCE,
-						 EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] { "hasValidMachineReference", EObjectValidator.getObjectLabel(this, context) }),
+						//TODO: use external string resource and a default approach, i.e. EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] {...
+						 MessageFormat.format("Component ''{0}'' must have a valid Machine reference", new Object[] { EObjectValidator.getObjectLabel(this, context) }),
 						 new Object [] { this }));
 			}
 			return false;

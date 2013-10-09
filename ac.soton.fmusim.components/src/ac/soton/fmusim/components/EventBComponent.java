@@ -38,7 +38,7 @@ import de.prob.statespace.Trace;
  * </p>
  *
  * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='ConsistentReadInputEvents'"
  * @generated
  */
 public interface EventBComponent extends AbstractExtension, Component {

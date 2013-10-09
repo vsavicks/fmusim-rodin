@@ -102,7 +102,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		
 		stepPeriodText = createLabeledText(group, "Step Period:", "Enter time period of one simulation step");
 		precisionText = createLabeledText(group, "Precision:", "Enter Real signal to Event-B integer conversion precision (x10 magnitude)");
-		timeVariableCombo = createLabeledEventBNamedCombo(group, "Time Variable*:", "Select variable that holds the simulation time (optional)");
+		timeVariableCombo = createLabeledEventBNamedCombo(group, "Time Variable:", "Select variable that holds the simulation time (optional)");
 		
 		group.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 	}
@@ -115,7 +115,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	private void createEventGroup(Composite parent) {
 		Group group = createLabeledGroup(parent, "Events", "Select Event-B machine events for reading inputs and simulation step wait");
 		
-		readEventsViewer = createLabeledEditableTable(group, "Read Input*:", "Add/Remove events for reading input signals", createEventColumnProviders(), null);
+		readEventsViewer = createLabeledEditableTable(group, "Read Input:", "Add/Remove events for reading input signals", createEventColumnProviders(), null);
 		waitEventsViewer = createLabeledEditableTable(group, "Wait:", "Add/Remove events for simulation step wait", createEventColumnProviders(), null);
 		
 		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -261,7 +261,6 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 			// clear error message
 			//TODO: implement error messages and input validation
 //			setErrorMessage(null);
-			setMessage("*Optional input");
 			
 			((Composite) getControl()).layout(true, true);
 			

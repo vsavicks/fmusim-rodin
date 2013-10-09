@@ -7,69 +7,49 @@
  */
 package ac.soton.fmusim.components.ui.commands;
 
+import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.IHandler;
-import org.eclipse.core.commands.IHandlerListener;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.action.Action;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.handlers.HandlerUtil;
+
+import ac.soton.fmusim.components.diagram.part.ValidateAction;
 
 /**
+ * Validation command that calls EMF validation via GMF-generated validate action.
+ * 
  * @author vitaly
  *
  */
-public class ValidateCommand implements IHandler {
+public class ValidateCommand extends AbstractHandler {
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.IHandler#addHandlerListener(org.eclipse.core.commands.IHandlerListener)
-	 */
-	@Override
-	public void addHandlerListener(IHandlerListener handlerListener) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.IHandler#dispose()
-	 */
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		// TODO Auto-generated method stub
+		IEditorPart diagramEditor = HandlerUtil.getActiveEditorChecked(event);
+
+		// reuse GMF-generated validate action from the diagram
+		Action validateAction = new ValidateAction(diagramEditor.getSite().getPage());
+		validateAction.run();
+		
+//		// show error markers if added
+//		IResource resource = (IResource) diagramEditor.getEditorInput().getAdapter(IResource.class);
+//		if (resource == null)
+//			return null;
+//		IMarker[] problems = null;
+//		   int depth = IResource.DEPTH_INFINITE;
+//		   try {
+//		      problems = resource.findMarkers(IMarker.PROBLEM, true, depth);
+//		      for (IMarker marker : problems) {
+//		    	  System.err.println(marker.getAttribute(IMarker.MESSAGE));
+//		      }
+//		   } catch (CoreException e) {
+//		      // something went wrong
+//		   }
 		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.IHandler#isEnabled()
-	 */
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.IHandler#isHandled()
-	 */
-	@Override
-	public boolean isHandled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.IHandler#removeHandlerListener(org.eclipse.core.commands.IHandlerListener)
-	 */
-	@Override
-	public void removeHandlerListener(IHandlerListener handlerListener) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

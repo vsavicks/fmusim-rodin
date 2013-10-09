@@ -62,6 +62,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventBComponent" eSuperTypes="../../org.eventb.emf.core/model/eventbcore.ecore#//AbstractExtension #//Component">
     <eAnnotations source="org.eventb.emf.core.extendedMetaClasses" references="../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Machine"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ConsistentReadInputEvents"/>
+    </eAnnotations>
     <eOperations name="hasValidMachineReference" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
       <eParameters name="context">
