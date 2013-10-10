@@ -573,13 +573,22 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__REAL_PRECISION = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
 
 	/**
+	 * The feature id for the '<em><b>Step Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__STEP_TIME = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 12;
+
+	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 12;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -1459,6 +1468,17 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getEventBComponent_RealPrecision();
 
 	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getStepTime <em>Step Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Step Time</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getStepTime()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EAttribute getEventBComponent_StepTime();
+
+	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUComponent <em>FMU Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1991,6 +2011,14 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT_BCOMPONENT__REAL_PRECISION = eINSTANCE.getEventBComponent_RealPrecision();
+
+		/**
+		 * The meta object literal for the '<em><b>Step Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_BCOMPONENT__STEP_TIME = eINSTANCE.getEventBComponent_StepTime();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.

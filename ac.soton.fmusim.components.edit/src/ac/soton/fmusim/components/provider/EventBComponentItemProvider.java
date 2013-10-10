@@ -74,6 +74,7 @@ public class EventBComponentItemProvider
 			addTracePropertyDescriptor(object);
 			addStepPeriodPropertyDescriptor(object);
 			addRealPrecisionPropertyDescriptor(object);
+			addStepTimePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -277,6 +278,28 @@ public class EventBComponentItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Step Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStepTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBComponent_stepTime_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_stepTime_feature", "_UI_EventBComponent_type"),
+				 ComponentsPackage.Literals.EVENT_BCOMPONENT__STEP_TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -349,6 +372,7 @@ public class EventBComponentItemProvider
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
 			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_TIME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__INPUTS:

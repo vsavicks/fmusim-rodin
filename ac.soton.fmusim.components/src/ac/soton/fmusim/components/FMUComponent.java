@@ -69,7 +69,7 @@ public interface FMUComponent extends Component {
 	 * @return the value of the '<em>Path</em>' attribute.
 	 * @see #setPath(String)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getFMUComponent_Path()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getPath();

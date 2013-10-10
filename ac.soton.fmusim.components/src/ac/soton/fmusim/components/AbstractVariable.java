@@ -43,7 +43,7 @@ public interface AbstractVariable extends NamedElement {
 	 * @see ac.soton.fmusim.components.VariableType
 	 * @see #setType(VariableType)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getAbstractVariable_Type()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	VariableType getType();
@@ -72,7 +72,7 @@ public interface AbstractVariable extends NamedElement {
 	 * @see ac.soton.fmusim.components.VariableCausality
 	 * @see #setCausality(VariableCausality)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getAbstractVariable_Causality()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	VariableCausality getCausality();
@@ -99,7 +99,7 @@ public interface AbstractVariable extends NamedElement {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(Object)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getAbstractVariable_Value()
-	 * @model
+	 * @model transient="true"
 	 * @generated
 	 */
 	Object getValue();

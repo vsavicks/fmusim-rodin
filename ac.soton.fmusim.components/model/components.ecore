@@ -74,7 +74,8 @@
         </eGenericType>
       </eParameters>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="composed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="composed" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="machine" lowerBound="1"
         eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Machine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="readInputEvents" upperBound="-1"
@@ -87,6 +88,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepPeriod" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="realPrecision" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUComponent" eSuperTypes="#//Component">
     <eOperations name="hasValidFmuPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -100,7 +103,7 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fmu" eType="#//FmuClass"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUPort" eSuperTypes="#//Port"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventBPort" eSuperTypes="#//Port">
@@ -109,9 +112,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUVariable" eSuperTypes="#//AbstractVariable"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//VariableType"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="causality" eType="#//VariableCausality"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//VariableType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="causality" lowerBound="1"
+        eType="#//VariableCausality"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+        transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventBVariable" eSuperTypes="#//AbstractVariable">
@@ -132,7 +137,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="DisplayPort" eSuperTypes="#//Port">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="#//Trace2DClass"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colour" eType="#//Colour"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colour" lowerBound="1"
+        eType="#//Colour"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="SimExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.SimulationException"/>
   <eClassifiers xsi:type="ecore:EEnum" name="Colour">
@@ -145,4 +151,5 @@
     <eLiterals name="Cyan"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="ModelExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.ModelException"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="RealClass" instanceClassName="org.jscience.mathematics.number.Real"/>
 </ecore:EPackage>

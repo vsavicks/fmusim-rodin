@@ -186,6 +186,10 @@
         <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/realPrecision"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_qQXW4QbgEeOXoIToTGj-Wg"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_0mSd0DGeEeOiSMvdhus4og" type="3001">
+        <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/stepTime"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0mSd0TGeEeOiSMvdhus4og"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_pxjaMX-4EeK7u7SmhPWfmA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_pxjaMn-4EeK7u7SmhPWfmA"/>
     </children>
@@ -466,6 +470,15 @@
     </children>
     <element xmi:type="ecore:EDataType" href="components.ecore#//ModelExceptionClass"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rWKBERxnEeOH1pQ3ah4JLg" x="72" y="207"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_yZbuQDGqEeOiSMvdhus4og" type="2004" fontName="Lucida Grande">
+    <children xmi:type="notation:DecorationNode" xmi:id="_yZc8YDGqEeOiSMvdhus4og" type="5004"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_yZc8YTGqEeOiSMvdhus4og" type="7010">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_yZc8YjGqEeOiSMvdhus4og"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_yZc8YzGqEeOiSMvdhus4og"/>
+    </children>
+    <element xmi:type="ecore:EDataType" href="components.ecore#//RealClass"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yZbuQTGqEeOiSMvdhus4og" x="166" y="184"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_u62CMXm4EeKkmMQLVB9wUg"/>
   <element xmi:type="ecore:EPackage" href="components.ecore#/"/>

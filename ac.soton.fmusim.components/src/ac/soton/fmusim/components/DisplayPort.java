@@ -68,7 +68,7 @@ public interface DisplayPort extends Port {
 	 * @see ac.soton.fmusim.components.Colour
 	 * @see #setColour(Colour)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getDisplayPort_Colour()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	Colour getColour();
