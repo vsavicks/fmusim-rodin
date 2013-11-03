@@ -28,8 +28,6 @@
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
     <containsShortcutsTo>bum</containsShortcutsTo>
-    <containsShortcutsTo>components</containsShortcutsTo>
-    <shortcutsProvidedFor>bum</shortcutsProvidedFor>
     <shortcutsProvidedFor>components</shortcutsProvidedFor>
     <domainDiagramElement
         href="components.genmodel#//components/ComponentDiagram"/>

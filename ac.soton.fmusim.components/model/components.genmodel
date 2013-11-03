@@ -38,6 +38,7 @@
     <genDataTypes ecoreDataType="components.ecore#//Chart2DClass"/>
     <genDataTypes ecoreDataType="components.ecore#//SimExceptionClass"/>
     <genDataTypes ecoreDataType="components.ecore#//ModelExceptionClass"/>
+    <genDataTypes ecoreDataType="components.ecore#//RealClass"/>
     <genClasses ecoreClass="components.ecore#//ComponentDiagram">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/components"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/connectors"/>
