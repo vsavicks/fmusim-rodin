@@ -157,6 +157,9 @@
             <actionExtension
                   pattern="ac.soton.fmusim.components.diagram.navigatorActionProvider">
             </actionExtension>
+            <actionExtension
+                  pattern="ac.soton.fmusim.components.ui.navigator.actionProvider">
+            </actionExtension>
          </includes>
       </viewerActionBinding>
    </extension>
@@ -233,6 +236,33 @@
             wizardId="ac.soton.fmusim.components.diagram.part.ComponentsCreationWizardID">
          <enablement></enablement>
       </commonWizard>
+      <actionProvider
+            class="ac.soton.fmusim.components.ui.navigator.NavigatorComponentsDiagramActionProvider"
+            id="ac.soton.fmusim.components.ui.navigator.actionProvider">
+         <enablement>
+            <and>
+               <instanceof
+                     value="ac.soton.fmusim.components.diagram.navigator.ComponentsAbstractNavigatorItem">
+               </instanceof>
+               <adapt
+                     type="org.eclipse.gmf.runtime.notation.View">
+                  <test
+                        property="ac.soton.fmusim.components.ui.isComponentDiagram">
+                  </test>
+               </adapt>
+            </and>
+         </enablement>
+      </actionProvider>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="ac.soton.fmusim.components.ui.properties.ComponentsPropertyTester"
+            id="ac.soton.fmusim.components.ui.ComponentsPropertyTester"
+            namespace="ac.soton.fmusim.components.ui"
+            properties="isComponentDiagram"
+            type="org.eclipse.gmf.runtime.notation.View">
+      </propertyTester>
    </extension>
 
 </plugin>
