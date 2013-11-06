@@ -626,7 +626,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		// update step time if period is non-zero
 		if (getStepPeriod() != 0)
-			setStepTime(Real.valueOf(tStart).plus(Real.valueOf(getStepPeriod())).doubleValue());
+			setStepTime(Real.valueOf(tStart).doubleValue());//XXX: //.plus(Real.valueOf(getStepPeriod())).doubleValue());
 		
 		// update trace
 		setTrace(trace);
@@ -873,9 +873,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	public void doStep(double time, double step) {
 		// only proceed update if the step time has elapsed
 		//XXX: assumes simulation step is always smaller than component's stepPeriod (non-zero)
-		Real componentStepTime = Real.valueOf(getStepTime());
-		if (getStepPeriod() != 0 && componentStepTime.isLargerThan(Real.valueOf(time).plus(Real.valueOf(step))))
-			return;
+//		Real componentStepTime = Real.valueOf(getStepTime());
+//		if (getStepPeriod() != 0 && componentStepTime.compareTo(Real.valueOf(time)) >= 0)//XXX: //.plus(Real.valueOf(step))))
+//			return;
 			
 		Trace trace = getTrace();
 		assert trace != null;
@@ -908,9 +908,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
 		
-		// update step time
-		if (getStepPeriod() != 0)
-			setStepTime(componentStepTime.plus(Real.valueOf(getStepPeriod())).doubleValue());
+//		// update step time
+//		if (getStepPeriod() != 0)
+//			setStepTime(componentStepTime.plus(Real.valueOf(getStepPeriod())).doubleValue());
 		
 		// update trace
 		setTrace(trace);

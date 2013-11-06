@@ -31,6 +31,7 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 
@@ -185,10 +186,11 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	public void initialise(double tStart, double tStop) {
 		Chart2D chart = getChart();
 		assert chart != null;
+		int counter = 1;
 		
 		// remove previous traces
 		chart.removeAllTraces();
-		
+
 		// add traces for all connected ports
 		for (Port p : getInputs()) {
 			assert p instanceof DisplayPort;
@@ -208,9 +210,23 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			default: color = Color.BLUE;
 			}
 			
+			// get plotted signal name either from the port
+			// or from a connected output
+			String signalName = port.getName();
+			if (signalName == null) {
+				if (port.getConnector() != null) {
+					for (Port pt : port.getConnector().getPorts()) {
+						if (pt.getCausality() == VariableCausality.OUTPUT)
+							signalName = pt.getName();
+					}
+				}
+			}
+			if (signalName == null)
+				signalName = "<signal"+(counter++) +">";
+			
 			// create trace and add to port/chart
 		    ITrace2D trace = new Trace2DLtd(300); 
-		    trace.setName(port.getName());
+		    trace.setName(signalName);
 		    trace.setColor(color);
 		    port.setTrace(trace);
 		    getChart().addTrace(trace);

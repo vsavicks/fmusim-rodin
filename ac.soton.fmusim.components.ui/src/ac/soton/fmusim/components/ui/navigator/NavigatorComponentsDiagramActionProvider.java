@@ -23,14 +23,12 @@ public class NavigatorComponentsDiagramActionProvider extends
 	@Override
 	public void fillContextMenu(IMenuManager menu) {
 		super.fillContextMenu(menu);
-		
 		menu.appendToGroup(IWorkbenchActionConstants.MB_ADDITIONS, new DeleteDiagramAction(getActionSite()));
 	}
 
 	@Override
 	public void fillActionBars(IActionBars actionBars) {
 		super.fillActionBars(actionBars);
-
         // forwards pressing the delete key to deleteAction
         actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new DeleteDiagramAction(getActionSite()));
 	}

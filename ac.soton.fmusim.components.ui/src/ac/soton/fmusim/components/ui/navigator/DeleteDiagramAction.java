@@ -44,6 +44,43 @@ public class DeleteDiagramAction extends Action {
 
 	@Override
 	public void run() {
+		if (!(site.getStructuredViewer().getSelection().isEmpty())) {
+			IStructuredSelection ssel = (IStructuredSelection) site.getStructuredViewer().getSelection();
+			
+			Object element = ssel.getFirstElement();	// TODO: add support for multiple files
+			if (element instanceof IAdaptable) {
+				View view = (View) ((IAdaptable) element).getAdapter(View.class);
+				Resource resource = view.eResource();
+				
+				if (resource != null && resource.isLoaded()) {
+					IFile file = WorkspaceSynchronizer.getFile(resource);
+					MessageDialog dialog = new MessageDialog(
+							site.getViewSite().getShell(), 
+							"Confirm Diagram Delete", 
+							null,
+							"Are you sure you want to delete the diagram file '"
+									+ file.getName() 
+									+ "' from the project '"
+									+ file.getParent().getName() 
+									+ "' ?",
+							MessageDialog.QUESTION,
+							new String[] { "Yes", "No" }, 
+							0);
+
+					if (dialog.open() == 0) {
+						try {
+							closeOpenedEditor(file);
+							file.delete(false, false, new NullProgressMonitor());
+						} catch (PartInitException e) {
+							e.printStackTrace();
+						} catch (CoreException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+		
 // MULTIPLE FILES HANDLING (from Systerel's ActionCollection)
 //			
 //			// Putting the selection into a set which does not contains any pair
@@ -95,42 +132,6 @@ public class DeleteDiagramAction extends Action {
 //			}
 //		}
 		
-		if (!(site.getStructuredViewer().getSelection().isEmpty())) {
-			IStructuredSelection ssel = (IStructuredSelection) site.getStructuredViewer().getSelection();
-			
-			Object element = ssel.getFirstElement();	// TODO: add support for multiple files
-			if (element instanceof IAdaptable) {
-				View view = (View) ((IAdaptable) element).getAdapter(View.class);
-				Resource resource = view.eResource();
-				
-				if (resource != null && resource.isLoaded()) {
-					IFile file = WorkspaceSynchronizer.getFile(resource);
-					MessageDialog dialog = new MessageDialog(
-							site.getViewSite().getShell(), 
-							"Confirm Diagram Delete", 
-							null,
-							"Are you sure you want to delete the diagram file '"
-									+ file.getName() 
-									+ "' from the project '"
-									+ file.getParent().getName() 
-									+ "' ?",
-							MessageDialog.QUESTION,
-							new String[] { "Yes", "No" }, 
-							0);
-
-					if (dialog.open() == 0) {
-						try {
-							closeOpenedEditor(file);
-							file.delete(false, false, new NullProgressMonitor());
-						} catch (PartInitException e) {
-							e.printStackTrace();
-						} catch (CoreException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		}
 	}
 	
 	/**

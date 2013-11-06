@@ -13,7 +13,9 @@ import java.io.File;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -23,13 +25,16 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import ac.soton.fmusim.components.ComponentDiagram;
+import ac.soton.fmusim.components.diagram.part.ValidateAction;
 import ac.soton.fmusim.components.master.Master;
 import ac.soton.fmusim.components.ui.ComponentsUIPlugin;
 import ac.soton.fmusim.components.ui.dialogs.SimulationInputDialog;
@@ -48,6 +53,9 @@ public class SimulateCommand extends AbstractHandler {
 		IEditorPart diagramEditor = HandlerUtil.getActiveEditorChecked(event);
 		Shell shell = diagramEditor.getEditorSite().getShell();
 		assert diagramEditor instanceof DiagramEditor;
+		if (validate(diagramEditor) == false)
+			return null;
+		
 		final TransactionalEditingDomain editingDomain = ((DiagramEditor) diagramEditor)
 				.getEditingDomain();
 		
@@ -95,6 +103,36 @@ public class SimulateCommand extends AbstractHandler {
 		job.schedule();
 		
 		return null;
+	}
+
+	/**
+	 * Validate the editor content.
+	 * Returns true if validation has found no problems, otherwise false.
+	 * @param diagramEditor
+	 */
+	public static boolean validate(IEditorPart diagramEditor) {
+		Action validateAction = new ValidateAction(diagramEditor.getSite().getPage());
+		validateAction.run();
+
+		// show error markers if added
+		IResource resource = (IResource) diagramEditor.getEditorInput().getAdapter(IResource.class);
+		if (resource == null)
+			return false;
+		IMarker[] problems = null;
+		int depth = IResource.DEPTH_INFINITE;
+		try {
+			problems = resource.findMarkers(IMarker.PROBLEM, true, depth);
+			if (problems.length > 0) {
+				new MessageDialog(diagramEditor.getSite().getShell(),
+						"Validation", null,
+						"Please fix the validation problems first.",
+						MessageDialog.ERROR, new String[] { "OK" }, 0).open();
+				return false;
+			}
+		} catch (CoreException e) {
+			return false;
+		}
+		return true;
 	}
 
 }

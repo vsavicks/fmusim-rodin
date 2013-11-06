@@ -99,9 +99,6 @@
                   label="Simulate"
                   style="push">
             </command>
-            <visibleWhen
-                  checkEnabled="true">
-            </visibleWhen>
             <command
                   commandId="ac.soton.fmusim.components.ui.commands.SimulateStep"
                   icon="icons/SimulateStep.gif"

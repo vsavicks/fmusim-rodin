@@ -43,7 +43,7 @@
       <?gmfgen generated="true"?>
   	  <wizard
   	     name="%newWizardName"
-  	     icon="icons/obj16/ComponentsDiagramFile.gif"
+  	     icon="icons/obj16/ComponentsDiagramFileNew.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="ac.soton.fmusim.components.diagram.part.ComponentsCreationWizard"
   	     id="ac.soton.fmusim.components.diagram.part.ComponentsCreationWizardID">

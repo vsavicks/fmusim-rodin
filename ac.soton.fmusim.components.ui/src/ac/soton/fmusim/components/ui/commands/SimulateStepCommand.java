@@ -47,6 +47,9 @@ public class SimulateStepCommand extends AbstractHandler {
 		IEditorPart diagramEditor = HandlerUtil.getActiveEditorChecked(event);
 		Shell shell = diagramEditor.getEditorSite().getShell();
 		assert diagramEditor instanceof DiagramEditor;
+		if (SimulateCommand.validate(diagramEditor) == false)
+			return null;
+		
 		final TransactionalEditingDomain editingDomain = ((DiagramEditor) diagramEditor)
 				.getEditingDomain();
 		
