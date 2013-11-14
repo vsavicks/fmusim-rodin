@@ -7,37 +7,19 @@
  */
 package ac.soton.fmusim.components.diagram.edit.parts;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.SelectionRequest;
-import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor;
-import org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest;
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
-import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent;
-import org.eventb.emf.core.machine.Machine;
 
-import ac.soton.fmusim.components.Component;
-import ac.soton.fmusim.components.diagram.edit.commands.ComponentsCreateShortcutDecorationsCommand;
-import ac.soton.fmusim.components.diagram.edit.commands.EventBComponentCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.policies.ComponentDiagramCanonicalEditPolicy;
 import ac.soton.fmusim.components.diagram.edit.policies.ComponentDiagramItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -76,75 +58,55 @@ public class ComponentDiagramEditPart extends DiagramEditPart {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
 				new CreationEditPolicyWithCustomReparent(
 						ComponentsVisualIDRegistry.TYPED_INSTANCE));
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
-				new DiagramDragDropEditPolicy() {
-					public Command getDropObjectsCommand(
-							DropObjectsRequest dropRequest) {
-						ArrayList<CreateViewRequest.ViewDescriptor> viewDescriptors = new ArrayList<CreateViewRequest.ViewDescriptor>();
-						
-						// create Event-B comp.
-//						if (!dropRequest.getObjects().isEmpty() && dropRequest.getObjects().get(0) instanceof Machine) {
-//							Machine machine = (Machine) dropRequest.getObjects().get(0);
-//							ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(
-//									new EObjectAdapter(machine),
-//									Node.class, 
-//									ComponentsVisualIDRegistry.getType(EventBComponentEditPart.VISUAL_ID),
-//									getDiagramPreferencesHint());
-//							viewDescriptors.add(viewDescriptor);
-//							Command command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
-//							if (command != null) {
-//								return command
-//										.chain(new ICommandProxy(
-//												new ComponentsCreateShortcutDecorationsCommand(
-//														getEditingDomain(),
-//														(View) getModel(),
-//														viewDescriptors)));
+//		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
+//				new DiagramDragDropEditPolicy() {
+//					public Command getDropObjectsCommand(
+//							DropObjectsRequest dropRequest) {
+//						ArrayList<CreateViewRequest.ViewDescriptor> viewDescriptors = new ArrayList<CreateViewRequest.ViewDescriptor>();
+//						
+//						for (Iterator<?> it = dropRequest.getObjects()
+//								.iterator(); it.hasNext();) {
+//							Object nextObject = it.next();
+//							if (false == nextObject instanceof EObject) {
+//								continue;
 //							}
+//
+//							if (nextObject instanceof Machine) {
+////								nextObject = Platform.getAdapterManager().getAdapter(nextObject, Component.class);
+//							}
+//							viewDescriptors
+//									.add(new CreateViewRequest.ViewDescriptor(
+//											new EObjectAdapter(
+//													(EObject) nextObject),
+//											Node.class, null,
+//											getDiagramPreferencesHint()));
 //						}
-						
-						for (Iterator<?> it = dropRequest.getObjects()
-								.iterator(); it.hasNext();) {
-							Object nextObject = it.next();
-							if (false == nextObject instanceof EObject) {
-								continue;
-							}
-
-							if (nextObject instanceof Machine) {
-								nextObject = Platform.getAdapterManager().getAdapter(nextObject, Component.class);
-							}
-							viewDescriptors
-									.add(new CreateViewRequest.ViewDescriptor(
-											new EObjectAdapter(
-													(EObject) nextObject),
-											Node.class, null,
-											getDiagramPreferencesHint()));
-						}
-						
-						
-						
-						return createShortcutsCommand(dropRequest,
-								viewDescriptors);
-					}
-
-					private Command createShortcutsCommand(
-							DropObjectsRequest dropRequest,
-							List<CreateViewRequest.ViewDescriptor> viewDescriptors) {
-						Command command = createViewsAndArrangeCommand(
-								dropRequest, viewDescriptors);
-						if (command != null) {
-							return command
-									.chain(new ICommandProxy(
-											new ComponentsCreateShortcutDecorationsCommand(
-													getEditingDomain(),
-													(View) getModel(),
-													viewDescriptors)));
-						}
-						return null;
-					}
-				});
+//						
+//						
+//						
+//						return createShortcutsCommand(dropRequest,
+//								viewDescriptors);
+//					}
+//
+//					private Command createShortcutsCommand(
+//							DropObjectsRequest dropRequest,
+//							List<CreateViewRequest.ViewDescriptor> viewDescriptors) {
+//						Command command = createViewsAndArrangeCommand(
+//								dropRequest, viewDescriptors);
+//						if (command != null) {
+//							return command
+//									.chain(new ICommandProxy(
+//											new ComponentsCreateShortcutDecorationsCommand(
+//													getEditingDomain(),
+//													(View) getModel(),
+//													viewDescriptors)));
+//						}
+//						return null;
+//					}
+//				});
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#getTargetEditPart(org.eclipse.gef.Request)
 	 */
