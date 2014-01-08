@@ -13,7 +13,9 @@ import java.io.File;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -23,6 +25,7 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
@@ -64,7 +67,12 @@ public class SimulateStepCommand extends AbstractHandler {
 			final ComponentDiagram diagram = (ComponentDiagram) ((DiagramEditor) diagramEditor)
 					.getDiagram().getElement();
 			
-			master = new Master(diagram, 0, time, step, new File("C:/Users/vitaly/results.csv"));
+			// get output path
+			IEditorInput input = diagramEditor.getEditorInput();
+			IResource res = (IResource) input.getAdapter(IResource.class);
+			IPath loc = res.getLocation().removeLastSegments(1).append("results.csv");
+			
+			master = new Master(diagram, 0, time, step, new File(loc.toOSString()));
 		}
 		
 		// execute simulation in a job
