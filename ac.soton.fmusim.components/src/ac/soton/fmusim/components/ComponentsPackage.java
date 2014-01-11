@@ -200,13 +200,22 @@ public interface ComponentsPackage extends EPackage {
 	int COMPONENT__VARIABLES = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Step Period</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__STEP_PERIOD = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Component</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int COMPONENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.ConnectorImpl <em>Connector</em>}' class.
@@ -501,13 +510,22 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__VARIABLES = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Step Period</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__STEP_PERIOD = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 4;
+
+	/**
 	 * The feature id for the '<em><b>Composed</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__COMPOSED = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 4;
+	int EVENT_BCOMPONENT__COMPOSED = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Machine</b></em>' reference.
@@ -516,7 +534,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__MACHINE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 5;
+	int EVENT_BCOMPONENT__MACHINE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Read Input Events</b></em>' reference list.
@@ -525,7 +543,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__READ_INPUT_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 6;
+	int EVENT_BCOMPONENT__READ_INPUT_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Time Variable</b></em>' reference.
@@ -534,7 +552,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__TIME_VARIABLE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 7;
+	int EVENT_BCOMPONENT__TIME_VARIABLE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Wait Events</b></em>' reference list.
@@ -543,7 +561,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__WAIT_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 8;
+	int EVENT_BCOMPONENT__WAIT_EVENTS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
@@ -552,34 +570,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT__TRACE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Step Period</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__STEP_PERIOD = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Real Precision</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__REAL_PRECISION = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Step Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__STEP_TIME = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 12;
+	int EVENT_BCOMPONENT__TRACE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
@@ -588,7 +579,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 13;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -635,6 +626,15 @@ public interface ComponentsPackage extends EPackage {
 	 * @ordered
 	 */
 	int FMU_COMPONENT__VARIABLES = COMPONENT__VARIABLES;
+
+	/**
+	 * The feature id for the '<em><b>Step Period</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_COMPONENT__STEP_PERIOD = COMPONENT__STEP_PERIOD;
 
 	/**
 	 * The feature id for the '<em><b>Fmu</b></em>' attribute.
@@ -819,13 +819,22 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BPORT__VARIABLE = PORT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Real Precision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BPORT__REAL_PRECISION = PORT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Event BPort</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BPORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 2;
+	int EVENT_BPORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
@@ -1009,6 +1018,15 @@ public interface ComponentsPackage extends EPackage {
 	 * @ordered
 	 */
 	int DISPLAY_COMPONENT__VARIABLES = COMPONENT__VARIABLES;
+
+	/**
+	 * The feature id for the '<em><b>Step Period</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_COMPONENT__STEP_PERIOD = COMPONENT__STEP_PERIOD;
 
 	/**
 	 * The feature id for the '<em><b>Chart</b></em>' attribute.
@@ -1210,6 +1228,16 @@ public interface ComponentsPackage extends EPackage {
 	int MODEL_EXCEPTION_CLASS = 22;
 
 	/**
+	 * The meta object id for the '<em>Real Class</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.jscience.mathematics.number.Real
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getRealClass()
+	 * @generated
+	 */
+	int REAL_CLASS = 23;
+
+	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1294,6 +1322,17 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getComponent_Variables();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.Component#getStepPeriod <em>Step Period</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Step Period</em>'.
+	 * @see ac.soton.fmusim.components.Component#getStepPeriod()
+	 * @see #getComponent()
+	 * @generated
+	 */
+	EAttribute getComponent_StepPeriod();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.Connector <em>Connector</em>}'.
@@ -1446,39 +1485,6 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getEventBComponent_Trace();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Step Period</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getStepPeriod()
-	 * @see #getEventBComponent()
-	 * @generated
-	 */
-	EAttribute getEventBComponent_StepPeriod();
-
-	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getRealPrecision <em>Real Precision</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Real Precision</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getRealPrecision()
-	 * @see #getEventBComponent()
-	 * @generated
-	 */
-	EAttribute getEventBComponent_RealPrecision();
-
-	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getStepTime <em>Step Time</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Step Time</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getStepTime()
-	 * @see #getEventBComponent()
-	 * @generated
-	 */
-	EAttribute getEventBComponent_StepTime();
-
-	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUComponent <em>FMU Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1551,6 +1557,17 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEventBPort_Variable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBPort#getRealPrecision <em>Real Precision</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Real Precision</em>'.
+	 * @see ac.soton.fmusim.components.EventBPort#getRealPrecision()
+	 * @see #getEventBPort()
+	 * @generated
+	 */
+	EAttribute getEventBPort_RealPrecision();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUVariable <em>FMU Variable</em>}'.
@@ -1787,6 +1804,17 @@ public interface ComponentsPackage extends EPackage {
 	EDataType getModelExceptionClass();
 
 	/**
+	 * Returns the meta object for data type '{@link org.jscience.mathematics.number.Real <em>Real Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Real Class</em>'.
+	 * @see org.jscience.mathematics.number.Real
+	 * @model instanceClass="org.jscience.mathematics.number.Real"
+	 * @generated
+	 */
+	EDataType getRealClass();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1875,6 +1903,14 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPONENT__VARIABLES = eINSTANCE.getComponent_Variables();
+
+		/**
+		 * The meta object literal for the '<em><b>Step Period</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT__STEP_PERIOD = eINSTANCE.getComponent_StepPeriod();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.ConnectorImpl <em>Connector</em>}' class.
@@ -1997,30 +2033,6 @@ public interface ComponentsPackage extends EPackage {
 		EAttribute EVENT_BCOMPONENT__TRACE = eINSTANCE.getEventBComponent_Trace();
 
 		/**
-		 * The meta object literal for the '<em><b>Step Period</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVENT_BCOMPONENT__STEP_PERIOD = eINSTANCE.getEventBComponent_StepPeriod();
-
-		/**
-		 * The meta object literal for the '<em><b>Real Precision</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVENT_BCOMPONENT__REAL_PRECISION = eINSTANCE.getEventBComponent_RealPrecision();
-
-		/**
-		 * The meta object literal for the '<em><b>Step Time</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVENT_BCOMPONENT__STEP_TIME = eINSTANCE.getEventBComponent_StepTime();
-
-		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2081,6 +2093,14 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EVENT_BPORT__VARIABLE = eINSTANCE.getEventBPort_Variable();
+
+		/**
+		 * The meta object literal for the '<em><b>Real Precision</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_BPORT__REAL_PRECISION = eINSTANCE.getEventBPort_RealPrecision();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUVariableImpl <em>FMU Variable</em>}' class.
@@ -2285,6 +2305,16 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType MODEL_EXCEPTION_CLASS = eINSTANCE.getModelExceptionClass();
+
+		/**
+		 * The meta object literal for the '<em>Real Class</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.jscience.mathematics.number.Real
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getRealClass()
+		 * @generated
+		 */
+		EDataType REAL_CLASS = eINSTANCE.getRealClass();
 
 	}
 

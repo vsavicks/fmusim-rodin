@@ -190,6 +190,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="FMU Variable"
           editHelperClassName="FMUVariableEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
@@ -368,6 +369,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Event-B Variable"
           editHelperClassName="EventBVariableEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
@@ -399,6 +401,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Display Port"
           editHelperClassName="DisplayPortEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -630,6 +633,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Display Component"
           editHelperClassName="DisplayComponentEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Parameter;
+import org.jscience.mathematics.number.Real;
 
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Colour;
@@ -182,6 +183,8 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateSimExceptionClass((SimulationException)value, diagnostics, context);
 			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
 				return validateModelExceptionClass((ModelException)value, diagnostics, context);
+			case ComponentsPackage.REAL_CLASS:
+				return validateRealClass((Real)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -570,6 +573,15 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModelExceptionClass(ModelException modelExceptionClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateRealClass(Real realClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

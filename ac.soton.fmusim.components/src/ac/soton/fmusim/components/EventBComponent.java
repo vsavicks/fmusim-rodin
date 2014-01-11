@@ -32,9 +32,6 @@ import de.prob.statespace.Trace;
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getWaitEvents <em>Wait Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getRealPrecision <em>Real Precision</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.EventBComponent#getStepTime <em>Step Time</em>}</li>
  * </ul>
  * </p>
  *
@@ -178,85 +175,6 @@ public interface EventBComponent extends AbstractExtension, Component {
 	 * @generated
 	 */
 	void setTrace(Trace value);
-
-	/**
-	 * Returns the value of the '<em><b>Step Period</b></em>' attribute.
-	 * The default value is <code>"1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Step Period</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Step Period</em>' attribute.
-	 * @see #setStepPeriod(double)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_StepPeriod()
-	 * @model default="1" required="true"
-	 * @generated
-	 */
-	double getStepPeriod();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getStepPeriod <em>Step Period</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Step Period</em>' attribute.
-	 * @see #getStepPeriod()
-	 * @generated
-	 */
-	void setStepPeriod(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Real Precision</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Real Precision</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Real Precision</em>' attribute.
-	 * @see #setRealPrecision(int)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_RealPrecision()
-	 * @model
-	 * @generated
-	 */
-	int getRealPrecision();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getRealPrecision <em>Real Precision</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Real Precision</em>' attribute.
-	 * @see #getRealPrecision()
-	 * @generated
-	 */
-	void setRealPrecision(int value);
-
-	/**
-	 * Returns the value of the '<em><b>Step Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Step Time</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Step Time</em>' attribute.
-	 * @see #setStepTime(double)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_StepTime()
-	 * @model transient="true"
-	 * @generated
-	 */
-	double getStepTime();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getStepTime <em>Step Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Step Time</em>' attribute.
-	 * @see #getStepTime()
-	 * @generated
-	 */
-	void setStepTime(double value);
 
 	/**
 	 * <!-- begin-user-doc -->

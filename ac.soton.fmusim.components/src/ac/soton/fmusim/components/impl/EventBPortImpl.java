@@ -26,6 +26,7 @@ import ac.soton.fmusim.components.EventBPort;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBPortImpl#getParameter <em>Parameter</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBPortImpl#getVariable <em>Variable</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBPortImpl#getRealPrecision <em>Real Precision</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,6 +51,24 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	 * @ordered
 	 */
 	protected Variable variable;
+	/**
+	 * The default value of the '{@link #getRealPrecision() <em>Real Precision</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRealPrecision()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int REAL_PRECISION_EDEFAULT = 0;
+	/**
+	 * The cached value of the '{@link #getRealPrecision() <em>Real Precision</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRealPrecision()
+	 * @generated
+	 * @ordered
+	 */
+	protected int realPrecision = REAL_PRECISION_EDEFAULT;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -150,6 +169,27 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getRealPrecision() {
+		return realPrecision;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRealPrecision(int newRealPrecision) {
+		int oldRealPrecision = realPrecision;
+		realPrecision = newRealPrecision;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BPORT__REAL_PRECISION, oldRealPrecision, realPrecision));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -159,6 +199,8 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 			case ComponentsPackage.EVENT_BPORT__VARIABLE:
 				if (resolve) return getVariable();
 				return basicGetVariable();
+			case ComponentsPackage.EVENT_BPORT__REAL_PRECISION:
+				return getRealPrecision();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -176,6 +218,9 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 				return;
 			case ComponentsPackage.EVENT_BPORT__VARIABLE:
 				setVariable((Variable)newValue);
+				return;
+			case ComponentsPackage.EVENT_BPORT__REAL_PRECISION:
+				setRealPrecision((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,6 +240,9 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 			case ComponentsPackage.EVENT_BPORT__VARIABLE:
 				setVariable((Variable)null);
 				return;
+			case ComponentsPackage.EVENT_BPORT__REAL_PRECISION:
+				setRealPrecision(REAL_PRECISION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -211,8 +259,26 @@ public class EventBPortImpl extends PortImpl implements EventBPort {
 				return parameter != null;
 			case ComponentsPackage.EVENT_BPORT__VARIABLE:
 				return variable != null;
+			case ComponentsPackage.EVENT_BPORT__REAL_PRECISION:
+				return realPrecision != REAL_PRECISION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (realPrecision: ");
+		result.append(realPrecision);
+		result.append(')');
+		return result.toString();
 	}
 
 } //EventBPortImpl

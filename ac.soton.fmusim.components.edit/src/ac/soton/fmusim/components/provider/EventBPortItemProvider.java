@@ -21,6 +21,8 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.VariableCausality;
@@ -62,6 +64,7 @@ public class EventBPortItemProvider
 
 			addParameterPropertyDescriptor(object);
 			addVariablePropertyDescriptor(object);
+			addRealPrecisionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -111,6 +114,28 @@ public class EventBPortItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Real Precision feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRealPrecisionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventBPort_realPrecision_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventBPort_realPrecision_feature", "_UI_EventBPort_type"),
+				 ComponentsPackage.Literals.EVENT_BPORT__REAL_PRECISION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns EventBPort.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -153,6 +178,12 @@ public class EventBPortItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(EventBPort.class)) {
+			case ComponentsPackage.EVENT_BPORT__REAL_PRECISION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

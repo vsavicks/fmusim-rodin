@@ -45,6 +45,7 @@ import ac.soton.fmusim.components.exceptions.SimulationException;
  *   <li>{@link ac.soton.fmusim.components.impl.DisplayComponentImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.DisplayComponentImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.DisplayComponentImpl#getVariables <em>Variables</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.DisplayComponentImpl#getStepPeriod <em>Step Period</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.DisplayComponentImpl#getChart <em>Chart</em>}</li>
  * </ul>
  * </p>
@@ -81,6 +82,26 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 * @ordered
 	 */
 	protected EList<AbstractVariable> variables;
+
+	/**
+	 * The default value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getChart() <em>Chart</em>}' attribute.
@@ -155,6 +176,27 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			variables = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.DISPLAY_COMPONENT__VARIABLES);
 		}
 		return variables;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getStepPeriod() {
+		return stepPeriod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStepPeriod(double newStepPeriod) {
+		double oldStepPeriod = stepPeriod;
+		stepPeriod = newStepPeriod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD, oldStepPeriod, stepPeriod));
 	}
 
 	/**
@@ -345,6 +387,8 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 				return getOutputs();
 			case ComponentsPackage.DISPLAY_COMPONENT__VARIABLES:
 				return getVariables();
+			case ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD:
+				return getStepPeriod();
 			case ComponentsPackage.DISPLAY_COMPONENT__CHART:
 				return getChart();
 		}
@@ -372,6 +416,9 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 				getVariables().clear();
 				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
 				return;
+			case ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD:
+				setStepPeriod((Double)newValue);
+				return;
 			case ComponentsPackage.DISPLAY_COMPONENT__CHART:
 				setChart((Chart2D)newValue);
 				return;
@@ -396,6 +443,9 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			case ComponentsPackage.DISPLAY_COMPONENT__VARIABLES:
 				getVariables().clear();
 				return;
+			case ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD:
+				setStepPeriod(STEP_PERIOD_EDEFAULT);
+				return;
 			case ComponentsPackage.DISPLAY_COMPONENT__CHART:
 				setChart(CHART_EDEFAULT);
 				return;
@@ -417,6 +467,8 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 				return outputs != null && !outputs.isEmpty();
 			case ComponentsPackage.DISPLAY_COMPONENT__VARIABLES:
 				return variables != null && !variables.isEmpty();
+			case ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD:
+				return stepPeriod != STEP_PERIOD_EDEFAULT;
 			case ComponentsPackage.DISPLAY_COMPONENT__CHART:
 				return CHART_EDEFAULT == null ? chart != null : !CHART_EDEFAULT.equals(chart);
 		}
@@ -433,7 +485,9 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (chart: ");
+		result.append(" (stepPeriod: ");
+		result.append(stepPeriod);
+		result.append(", chart: ");
 		result.append(chart);
 		result.append(')');
 		return result.toString();

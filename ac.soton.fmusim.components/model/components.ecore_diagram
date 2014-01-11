@@ -36,6 +36,10 @@
   <children xmi:type="notation:Shape" xmi:id="_u-S-2Xm4EeKkmMQLVB9wUg" type="2001" fontName="Lucida Grande">
     <children xmi:type="notation:DecorationNode" xmi:id="_u-Tl4Hm4EeKkmMQLVB9wUg" type="5001"/>
     <children xmi:type="notation:BasicCompartment" xmi:id="_u-Tl4Xm4EeKkmMQLVB9wUg" type="7001">
+      <children xmi:type="notation:Node" xmi:id="_F8ZngHr9EeOFTJZkHk3OTQ" type="3001">
+        <element xmi:type="ecore:EAttribute" href="components.ecore#//Component/stepPeriod"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F8ZngXr9EeOFTJZkHk3OTQ"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_u-Tl4nm4EeKkmMQLVB9wUg"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_u-Tl43m4EeKkmMQLVB9wUg"/>
     </children>
@@ -178,18 +182,6 @@
         <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/trace"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="__3uM0fnaEeKLHMibo6pnCQ"/>
       </children>
-      <children xmi:type="notation:Node" xmi:id="_ZL-o0AbgEeOXoIToTGj-Wg" type="3001">
-        <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/stepPeriod"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_ZL-o0QbgEeOXoIToTGj-Wg"/>
-      </children>
-      <children xmi:type="notation:Node" xmi:id="_qQXW4AbgEeOXoIToTGj-Wg" type="3001">
-        <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/realPrecision"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_qQXW4QbgEeOXoIToTGj-Wg"/>
-      </children>
-      <children xmi:type="notation:Node" xmi:id="_0mSd0DGeEeOiSMvdhus4og" type="3001">
-        <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/stepTime"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_0mSd0TGeEeOiSMvdhus4og"/>
-      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_pxjaMX-4EeK7u7SmhPWfmA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_pxjaMn-4EeK7u7SmhPWfmA"/>
     </children>
@@ -249,6 +241,10 @@
   <children xmi:type="notation:Shape" xmi:id="_W8XVgH-7EeK7u7SmhPWfmA" type="2001" fontName="Lucida Grande">
     <children xmi:type="notation:DecorationNode" xmi:id="_W8X8kX-7EeK7u7SmhPWfmA" type="5001"/>
     <children xmi:type="notation:BasicCompartment" xmi:id="_W8X8kn-7EeK7u7SmhPWfmA" type="7001">
+      <children xmi:type="notation:Node" xmi:id="_QkqmsHr9EeOFTJZkHk3OTQ" type="3001">
+        <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBPort/realPrecision"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QkqmsXr9EeOFTJZkHk3OTQ"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_W8X8k3-7EeK7u7SmhPWfmA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_W8X8lH-7EeK7u7SmhPWfmA"/>
     </children>
@@ -491,7 +487,7 @@
     </children>
     <styles xmi:type="notation:FontStyle" xmi:id="_u_7WgXm4EeKkmMQLVB9wUg" fontName="Lucida Grande"/>
     <element xmi:type="ecore:EReference" href="components.ecore#//ComponentDiagram/components"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_u_7Wgnm4EeKkmMQLVB9wUg" points="[38, 59, 3, -197]$[38, 117, 3, -139]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_u_7Wgnm4EeKkmMQLVB9wUg" points="[22, 59, -30, -220]$[22, 117, -30, -162]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_vBQzQnm4EeKkmMQLVB9wUg" id="(0.2391304347826087,0.0)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_vBRaUHm4EeKkmMQLVB9wUg" id="(0.496,1.0)"/>
   </edges>

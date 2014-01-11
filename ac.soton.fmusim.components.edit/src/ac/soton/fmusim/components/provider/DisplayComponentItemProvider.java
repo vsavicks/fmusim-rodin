@@ -65,9 +65,32 @@ public class DisplayComponentItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addStepPeriodPropertyDescriptor(object);
 			addChartPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Step Period feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStepPeriodPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Component_stepPeriod_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Component_stepPeriod_feature", "_UI_Component_type"),
+				 ComponentsPackage.Literals.COMPONENT__STEP_PERIOD,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -161,6 +184,7 @@ public class DisplayComponentItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DisplayComponent.class)) {
+			case ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD:
 			case ComponentsPackage.DISPLAY_COMPONENT__CHART:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

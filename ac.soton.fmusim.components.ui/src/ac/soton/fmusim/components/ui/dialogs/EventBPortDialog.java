@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.eventb.emf.core.machine.Parameter;
 import org.eventb.emf.core.machine.Variable;
@@ -55,6 +56,7 @@ public class EventBPortDialog extends SelectionDialog {
 	private Combo typeCombo;
 	private Combo variableCombo;
 	private Combo parameterCombo;
+	private Spinner precisionSpinner;
 	private Set<String> usedNames;
 	private Map<String, Variable> variableMap;
 	private Map<String, Parameter> parameterMap;
@@ -132,21 +134,7 @@ public class EventBPortDialog extends SelectionDialog {
 					validateVariable();
 				}
 			});
-		}
-		
-		// type label and combo
-		Label typeLabel = new Label(plate, SWT.NONE);
-		typeLabel.setText("Type:");
-		typeCombo = new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY);
-		typeCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-		{
-			assert VariableType.VALUES.size() > 0;
-			String[] items = new String[VariableType.VALUES.size()];
-			for (int i = 0; i < VariableType.VALUES.size(); i++) {
-				items[i] = VariableType.VALUES.get(i).getName();
-			}
-			typeCombo.setItems(items);
-			typeCombo.select(0);
+			variableCombo.setToolTipText("Select a machine variable that represents an output signal");
 		}
 		
 		// event parameter combo
@@ -157,7 +145,41 @@ public class EventBPortDialog extends SelectionDialog {
 					validateParameter();
 				}
 			});
+			parameterCombo.setToolTipText("Select a read event parameter that respresents an input signal");
 		}
+		
+		// type label and combo
+		Label typeLabel = new Label(plate, SWT.NONE);
+		typeLabel.setText("Type:");
+		typeCombo = new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY);
+		typeCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
+		typeCombo.setToolTipText("Select a type of the signal");
+		typeCombo.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				validateType();
+			}
+		});
+		{
+			assert VariableType.VALUES.size() > 0;
+			String[] items = new String[VariableType.VALUES.size()];
+			for (int i = 0; i < VariableType.VALUES.size(); i++) {
+				items[i] = VariableType.VALUES.get(i).getName();
+			}
+			typeCombo.setItems(items);
+			typeCombo.select(0);
+		}
+		
+		// int to real precision spinner/label
+		Label precisionLabel = new Label(plate, SWT.NONE);
+		precisionLabel.setText("Precision:");
+		precisionSpinner = new Spinner (plate, SWT.BORDER);
+		precisionSpinner.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
+		precisionSpinner.setToolTipText("Set a multiplier for converting FMI Real type to Event-B Integer and back");
+		precisionSpinner.setMinimum(0);
+		precisionSpinner.setMaximum(10);
+		precisionSpinner.setSelection(0);
+		precisionSpinner.setIncrement(1);
 		
 		// validators & initial validation
 		createValidators();
@@ -247,9 +269,9 @@ public class EventBPortDialog extends SelectionDialog {
 
 	/**
 	 * Validates type.
-	 * XXX: not implemented
 	 */
 	protected void validateType() {
+		precisionSpinner.setEnabled(VariableType.REAL.getName().equals(typeCombo.getText()));
 	}
 
 	/**
@@ -299,6 +321,7 @@ public class EventBPortDialog extends SelectionDialog {
 		port = ComponentsFactory.eINSTANCE.createEventBPort();
 		port.setType(VariableType.getByName(typeStr));
 		port.setCausality(causality);
+		port.setRealPrecision(precisionSpinner.getSelection());
 
 		// set variable if defined
 		if (variableMap != null) {

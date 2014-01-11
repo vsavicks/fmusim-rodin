@@ -42,7 +42,6 @@ import org.eventb.emf.core.impl.AbstractExtensionImpl;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.Variable;
-import org.jscience.mathematics.number.Real;
 import org.rodinp.core.IRodinFile;
 import org.rodinp.core.RodinCore;
 
@@ -83,15 +82,13 @@ import de.prob.webconsole.ServletContextListener;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getVariables <em>Variables</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getStepPeriod <em>Step Period</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#isComposed <em>Composed</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getMachine <em>Machine</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getReadInputEvents <em>Read Input Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getWaitEvents <em>Wait Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTrace <em>Trace</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getStepPeriod <em>Step Period</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getRealPrecision <em>Real Precision</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getStepTime <em>Step Time</em>}</li>
  * </ul>
  * </p>
  *
@@ -147,6 +144,26 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected EList<AbstractVariable> variables;
+
+	/**
+	 * The default value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isComposed() <em>Composed</em>}' attribute.
@@ -227,66 +244,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected Trace trace = TRACE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStepPeriod()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double STEP_PERIOD_EDEFAULT = 1.0;
-
-	/**
-	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStepPeriod()
-	 * @generated
-	 * @ordered
-	 */
-	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getRealPrecision() <em>Real Precision</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRealPrecision()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int REAL_PRECISION_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getRealPrecision() <em>Real Precision</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRealPrecision()
-	 * @generated
-	 * @ordered
-	 */
-	protected int realPrecision = REAL_PRECISION_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getStepTime() <em>Step Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStepTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double STEP_TIME_EDEFAULT = 0.0;
-
-	/**
-	 * The cached value of the '{@link #getStepTime() <em>Step Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStepTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected double stepTime = STEP_TIME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -532,48 +489,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int getRealPrecision() {
-		return realPrecision;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRealPrecision(int newRealPrecision) {
-		int oldRealPrecision = realPrecision;
-		realPrecision = newRealPrecision;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION, oldRealPrecision, realPrecision));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getStepTime() {
-		return stepTime;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setStepTime(double newStepTime) {
-		double oldStepTime = stepTime;
-		stepTime = newStepTime;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__STEP_TIME, oldStepTime, stepTime));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
 	 * Event-B Component must have a valid reference to an existing machine.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
@@ -624,9 +539,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
 		
-		// update step time if period is non-zero
-		setStepTime(Real.valueOf(tStart).doubleValue());
-		
 		// update trace
 		setTrace(trace);
 	}
@@ -671,7 +583,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				bValue = getIntegerToEventB((Integer) value);
 				break;
 			case REAL:
-				bValue = getDoubleToEventB((Double) value, getRealPrecision());
+				bValue = getDoubleToEventB((Double) value, port.getRealPrecision());
 				break;
 			case STRING:
 				bValue = getStringToEventB((String) value);
@@ -772,7 +684,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		assert trace != null;
 		
 		for (Port port : getOutputs()) {
-			Object value = getValueEventB(trace, port, getRealPrecision());
+			Object value = getValueEventB(trace, port, ((EventBPort) port).getRealPrecision());
 			
 			// send value to connector if connected
 			Connector connector = port.getConnector();
@@ -874,12 +786,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void doStep(double time, double step) {
-		// only proceed update if the step time has elapsed
-		//XXX: assumes simulation step is always smaller than component's stepPeriod (non-zero)
-		Real componentStepTime = Real.valueOf(getStepTime());
-		if (Real.valueOf(time).compareTo(componentStepTime) < 0)
-			return;
-			
 		Trace trace = getTrace();
 		assert trace != null;
 		EList<Event> waitEvents = getWaitEvents();
@@ -910,9 +816,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		// update ports: only outputs need to be updated - inputs shouldn't have changed
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
-		
-		// update step time
-		setStepTime(componentStepTime.plus(Real.valueOf(getStepPeriod())).doubleValue());
 		
 		// update trace
 		setTrace(trace);
@@ -1041,6 +944,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return getOutputs();
 			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
 				return getVariables();
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				return getStepPeriod();
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				return isComposed();
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
@@ -1055,12 +960,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return getWaitEvents();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return getTrace();
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
-				return getStepPeriod();
-			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
-				return getRealPrecision();
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_TIME:
-				return getStepTime();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1089,6 +988,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				getVariables().clear();
 				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
 				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				setStepPeriod((Double)newValue);
+				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				setComposed((Boolean)newValue);
 				return;
@@ -1108,15 +1010,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace((Trace)newValue);
-				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
-				setStepPeriod((Double)newValue);
-				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
-				setRealPrecision((Integer)newValue);
-				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_TIME:
-				setStepTime((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1142,6 +1035,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
 				getVariables().clear();
 				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				setStepPeriod(STEP_PERIOD_EDEFAULT);
+				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				setComposed(COMPOSED_EDEFAULT);
 				return;
@@ -1159,15 +1055,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace(TRACE_EDEFAULT);
-				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
-				setStepPeriod(STEP_PERIOD_EDEFAULT);
-				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
-				setRealPrecision(REAL_PRECISION_EDEFAULT);
-				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_TIME:
-				setStepTime(STEP_TIME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -1189,6 +1076,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return outputs != null && !outputs.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES:
 				return variables != null && !variables.isEmpty();
+			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
+				return stepPeriod != STEP_PERIOD_EDEFAULT;
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				return composed != COMPOSED_EDEFAULT;
 			case ComponentsPackage.EVENT_BCOMPONENT__MACHINE:
@@ -1201,12 +1090,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return waitEvents != null && !waitEvents.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
-				return stepPeriod != STEP_PERIOD_EDEFAULT;
-			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
-				return realPrecision != REAL_PRECISION_EDEFAULT;
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_TIME:
-				return stepTime != STEP_TIME_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1229,6 +1112,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				case ComponentsPackage.EVENT_BCOMPONENT__INPUTS: return ComponentsPackage.COMPONENT__INPUTS;
 				case ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS: return ComponentsPackage.COMPONENT__OUTPUTS;
 				case ComponentsPackage.EVENT_BCOMPONENT__VARIABLES: return ComponentsPackage.COMPONENT__VARIABLES;
+				case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD: return ComponentsPackage.COMPONENT__STEP_PERIOD;
 				default: return -1;
 			}
 		}
@@ -1253,6 +1137,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				case ComponentsPackage.COMPONENT__INPUTS: return ComponentsPackage.EVENT_BCOMPONENT__INPUTS;
 				case ComponentsPackage.COMPONENT__OUTPUTS: return ComponentsPackage.EVENT_BCOMPONENT__OUTPUTS;
 				case ComponentsPackage.COMPONENT__VARIABLES: return ComponentsPackage.EVENT_BCOMPONENT__VARIABLES;
+				case ComponentsPackage.COMPONENT__STEP_PERIOD: return ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD;
 				default: return -1;
 			}
 		}
@@ -1271,16 +1156,12 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", stepPeriod: ");
+		result.append(stepPeriod);
 		result.append(", composed: ");
 		result.append(composed);
 		result.append(", trace: ");
 		result.append(trace);
-		result.append(", stepPeriod: ");
-		result.append(stepPeriod);
-		result.append(", realPrecision: ");
-		result.append(realPrecision);
-		result.append(", stepTime: ");
-		result.append(stepTime);
 		result.append(')');
 		return result.toString();
 	}

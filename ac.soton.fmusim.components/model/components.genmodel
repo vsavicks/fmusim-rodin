@@ -48,6 +48,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//Component/inputs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//Component/outputs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//Component/variables"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//Component/stepPeriod"/>
       <genOperations ecoreOperation="components.ecore#//Component/initialise">
         <genParameters ecoreParameter="components.ecore#//Component/initialise/tStart"/>
         <genParameters ecoreParameter="components.ecore#//Component/initialise/tStop"/>
@@ -78,9 +79,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/timeVariable"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBComponent/waitEvents"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/trace"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/stepPeriod"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/realPrecision"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBComponent/stepTime"/>
       <genOperations ecoreOperation="components.ecore#//EventBComponent/hasValidMachineReference">
         <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/diagnostics"/>
         <genParameters ecoreParameter="components.ecore#//EventBComponent/hasValidMachineReference/context"/>
@@ -98,6 +96,7 @@
     <genClasses ecoreClass="components.ecore#//EventBPort">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/parameter"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//EventBPort/variable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//EventBPort/realPrecision"/>
     </genClasses>
     <genClasses ecoreClass="components.ecore#//FMUVariable"/>
     <genClasses image="false" ecoreClass="components.ecore#//AbstractVariable">

@@ -66,15 +66,13 @@ public class EventBComponentItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addStepPeriodPropertyDescriptor(object);
 			addComposedPropertyDescriptor(object);
 			addMachinePropertyDescriptor(object);
 			addReadInputEventsPropertyDescriptor(object);
 			addTimeVariablePropertyDescriptor(object);
 			addWaitEventsPropertyDescriptor(object);
 			addTracePropertyDescriptor(object);
-			addStepPeriodPropertyDescriptor(object);
-			addRealPrecisionPropertyDescriptor(object);
-			addStepTimePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -244,53 +242,9 @@ public class EventBComponentItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBComponent_stepPeriod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_stepPeriod_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__STEP_PERIOD,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Real Precision feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRealPrecisionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBComponent_realPrecision_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_realPrecision_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__REAL_PRECISION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Step Time feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addStepTimePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBComponent_stepTime_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_stepTime_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__STEP_TIME,
+				 getString("_UI_Component_stepPeriod_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Component_stepPeriod_feature", "_UI_Component_type"),
+				 ComponentsPackage.Literals.COMPONENT__STEP_PERIOD,
 				 true,
 				 false,
 				 false,
@@ -369,10 +323,8 @@ public class EventBComponentItemProvider
 
 		switch (notification.getFeatureID(EventBComponent.class)) {
 			case ComponentsPackage.EVENT_BCOMPONENT__NAME:
-			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
-			case ComponentsPackage.EVENT_BCOMPONENT__REAL_PRECISION:
-			case ComponentsPackage.EVENT_BCOMPONENT__STEP_TIME:
+			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__INPUTS:

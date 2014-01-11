@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.jscience.mathematics.number.Real;
 
 import ac.soton.fmusim.components.Colour;
 import ac.soton.fmusim.components.ComponentDiagram;
@@ -112,6 +113,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return createSimExceptionClassFromString(eDataType, initialValue);
 			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
 				return createModelExceptionClassFromString(eDataType, initialValue);
+			case ComponentsPackage.REAL_CLASS:
+				return createRealClassFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -137,6 +140,8 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return convertSimExceptionClassToString(eDataType, instanceValue);
 			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
 				return convertModelExceptionClassToString(eDataType, instanceValue);
+			case ComponentsPackage.REAL_CLASS:
+				return convertRealClassToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -353,6 +358,24 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * @generated
 	 */
 	public String convertModelExceptionClassToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Real createRealClassFromString(EDataType eDataType, String initialValue) {
+		return (Real)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRealClassToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

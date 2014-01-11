@@ -45,6 +45,7 @@ import de.prob.cosimulation.FMU;
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getVariables <em>Variables</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getStepPeriod <em>Step Period</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getFmu <em>Fmu</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getPath <em>Path</em>}</li>
  * </ul>
@@ -82,6 +83,26 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @ordered
 	 */
 	protected EList<AbstractVariable> variables;
+
+	/**
+	 * The default value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepPeriod()
+	 * @generated
+	 * @ordered
+	 */
+	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getFmu() <em>Fmu</em>}' attribute.
@@ -176,6 +197,27 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 			variables = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.FMU_COMPONENT__VARIABLES);
 		}
 		return variables;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getStepPeriod() {
+		return stepPeriod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStepPeriod(double newStepPeriod) {
+		double oldStepPeriod = stepPeriod;
+		stepPeriod = newStepPeriod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_COMPONENT__STEP_PERIOD, oldStepPeriod, stepPeriod));
 	}
 
 	/**
@@ -448,6 +490,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				return getOutputs();
 			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
 				return getVariables();
+			case ComponentsPackage.FMU_COMPONENT__STEP_PERIOD:
+				return getStepPeriod();
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				return getFmu();
 			case ComponentsPackage.FMU_COMPONENT__PATH:
@@ -477,6 +521,9 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				getVariables().clear();
 				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
 				return;
+			case ComponentsPackage.FMU_COMPONENT__STEP_PERIOD:
+				setStepPeriod((Double)newValue);
+				return;
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				setFmu((FMU)newValue);
 				return;
@@ -504,6 +551,9 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
 				getVariables().clear();
 				return;
+			case ComponentsPackage.FMU_COMPONENT__STEP_PERIOD:
+				setStepPeriod(STEP_PERIOD_EDEFAULT);
+				return;
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				setFmu(FMU_EDEFAULT);
 				return;
@@ -528,6 +578,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				return outputs != null && !outputs.isEmpty();
 			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
 				return variables != null && !variables.isEmpty();
+			case ComponentsPackage.FMU_COMPONENT__STEP_PERIOD:
+				return stepPeriod != STEP_PERIOD_EDEFAULT;
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				return FMU_EDEFAULT == null ? fmu != null : !FMU_EDEFAULT.equals(fmu);
 			case ComponentsPackage.FMU_COMPONENT__PATH:
@@ -546,7 +598,9 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (fmu: ");
+		result.append(" (stepPeriod: ");
+		result.append(stepPeriod);
+		result.append(", fmu: ");
 		result.append(fmu);
 		result.append(", path: ");
 		result.append(path);

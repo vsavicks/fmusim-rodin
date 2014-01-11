@@ -31,6 +31,7 @@
         eType="#//Port" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
         eType="#//AbstractVariable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connector" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -85,11 +86,6 @@
         upperBound="-1" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="#//TraceClass"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepPeriod" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="realPrecision" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUComponent" eSuperTypes="#//Component">
     <eOperations name="hasValidFmuPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -109,6 +105,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="EventBPort" eSuperTypes="#//Port">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Parameter"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="realPrecision" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUVariable" eSuperTypes="#//AbstractVariable"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement">

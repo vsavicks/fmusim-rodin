@@ -21,6 +21,7 @@ import org.eventb.emf.core.machine.Variable;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.EventBPort#getParameter <em>Parameter</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBPort#getVariable <em>Variable</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBPort#getRealPrecision <em>Real Precision</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,5 +82,31 @@ public interface EventBPort extends Port {
 	 * @generated
 	 */
 	void setVariable(Variable value);
+
+	/**
+	 * Returns the value of the '<em><b>Real Precision</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Real Precision</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Real Precision</em>' attribute.
+	 * @see #setRealPrecision(int)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBPort_RealPrecision()
+	 * @model
+	 * @generated
+	 */
+	int getRealPrecision();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBPort#getRealPrecision <em>Real Precision</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Real Precision</em>' attribute.
+	 * @see #getRealPrecision()
+	 * @generated
+	 */
+	void setRealPrecision(int value);
 
 } // EventBPort

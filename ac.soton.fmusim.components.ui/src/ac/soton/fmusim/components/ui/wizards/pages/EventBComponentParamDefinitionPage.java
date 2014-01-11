@@ -49,14 +49,11 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	
 	// UI elements
 	private Text stepPeriodText;
-	private Text precisionText;
 	private EventBNamedComboContainer timeVariableCombo;
 	private EditableTableViewerContainer readEventsViewer;
 	private EditableTableViewerContainer waitEventsViewer;
 	private DecoratedInputValidator stepPeriodValidator;
-	private DecoratedInputValidator precisionValidator;
 	private boolean stepPeriodValid;
-	private boolean precisionValid;
 
 	/**
 	 * @param pageName
@@ -101,7 +98,6 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		Group group = createLabeledGroup(parent, "Parameters", "Enter simulation step period, Real signal conversion precision and select time variable");
 		
 		stepPeriodText = createLabeledText(group, "Step Period:", "Enter time period of one simulation step");
-		precisionText = createLabeledText(group, "Precision:", "Enter Real signal to Event-B integer conversion precision (x10 magnitude)");
 		timeVariableCombo = createLabeledEventBNamedCombo(group, "Time Variable:", "Select variable that holds the simulation time (optional)");
 		
 		group.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
@@ -142,22 +138,6 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 			}
 		};
 		
-		precisionValidator = new DecoratedInputValidator(
-				DecoratedInputValidator.createDecorator(precisionText,
-						"Please enter Real signal to Event-B integer conversion precision (x10 magnitude)",
-						FieldDecorationRegistry.DEC_ERROR, false)) {
-			@Override
-			public String isValidInput(String stepString) {
-				try {
-					@SuppressWarnings("unused")
-					int input = Integer.parseInt(stepString);
-				} catch (NumberFormatException e) {
-					return "Invalid integer number format";
-				}
-				return null;
-			}
-		};
-		
 		//TODO: add decorators for invalid (absent) read/update events
 //		stepToTimeErrorDecorator = DecoratedInputValidator.createDecorator(stepText,
 //				"Step size cannot exceed simulation time",
@@ -173,13 +153,6 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 			public void modifyText(ModifyEvent e) {
 				if (validateStepPeriod())
 					currentModel.setStepPeriod(Double.parseDouble(stepPeriodText.getText()));
-			}
-		});
-		precisionText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				if (validatePrecision())
-					currentModel.setRealPrecision(Integer.parseInt(precisionText.getText()));
 			}
 		});
 		timeVariableCombo.addSelectionListener(new SelectionAdapter() {
@@ -209,14 +182,6 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 		}
 		validatePage();
 		return stepPeriodValid;
-	}
-
-	protected boolean validatePrecision() {
-		if (precisionValidator != null) {
-			precisionValid = precisionValidator.isValid(precisionText.getText()) == null;
-		}
-		validatePage();
-		return precisionValid;
 	}
 
 	/**
@@ -253,7 +218,6 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 			// set input
 			currentModel = (EventBComponent) source.getModel();
 			stepPeriodText.setText(Double.toString(currentModel.getStepPeriod()));
-			precisionText.setText(Integer.toString(currentModel.getRealPrecision()));
 			timeVariableCombo.setInput(currentModel.getMachine().getVariables(), currentModel.getTimeVariable());
 			readEventsViewer.setInput(currentModel.getMachine().getEvents(), currentModel.getReadInputEvents());
 			waitEventsViewer.setInput(currentModel.getMachine().getEvents(), currentModel.getWaitEvents());
@@ -273,10 +237,8 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	 */
 	public void validatePage() {
 		boolean valid = true;
-		valid &= stepPeriodValid & precisionValid;
-		
-		if (waitEventsViewer.getInput() != null)
-			valid &= ((List<?>) waitEventsViewer.getInput()).size() > 0;
+		valid &= stepPeriodValid;
+		valid &= waitEventsViewer.getInput() != null && ((List<?>) waitEventsViewer.getInput()).size() > 0;
 		
 		setPageComplete(valid);
 	}

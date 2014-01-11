@@ -23,6 +23,7 @@ import ac.soton.fmusim.components.exceptions.SimulationException;
  *   <li>{@link ac.soton.fmusim.components.Component#getInputs <em>Inputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.Component#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.Component#getVariables <em>Variables</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.Component#getStepPeriod <em>Step Period</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,6 +79,32 @@ public interface Component extends NamedElement {
 	 * @generated
 	 */
 	EList<AbstractVariable> getVariables();
+
+	/**
+	 * Returns the value of the '<em><b>Step Period</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Step Period</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Step Period</em>' attribute.
+	 * @see #setStepPeriod(double)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponent_StepPeriod()
+	 * @model
+	 * @generated
+	 */
+	double getStepPeriod();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.Component#getStepPeriod <em>Step Period</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Step Period</em>' attribute.
+	 * @see #getStepPeriod()
+	 * @generated
+	 */
+	void setStepPeriod(double value);
 
 	/**
 	 * <!-- begin-user-doc -->
