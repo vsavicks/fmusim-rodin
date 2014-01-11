@@ -625,8 +625,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			p.setValue(trace.getCurrentState().value(p.getName()));
 		
 		// update step time if period is non-zero
-		if (getStepPeriod() != 0)
-			setStepTime(Real.valueOf(tStart).doubleValue());//XXX: //.plus(Real.valueOf(getStepPeriod())).doubleValue());
+		setStepTime(Real.valueOf(tStart).doubleValue());
 		
 		// update trace
 		setTrace(trace);
@@ -642,7 +641,11 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		Trace trace = getTrace();
 		assert trace != null;
 		EList<Event> readEvents = getReadInputEvents();
-		assert readEvents != null && readEvents.size() > 0;
+		//FIXME: method call must be skipped if stepTime not yet reached by the current time
+		
+		// skip if no inputs
+		if (readEvents.isEmpty())
+			return;
 		
 		// build parameter predicate for event execution
 		StringBuilder predicate = new StringBuilder("TRUE=TRUE");
@@ -873,9 +876,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	public void doStep(double time, double step) {
 		// only proceed update if the step time has elapsed
 		//XXX: assumes simulation step is always smaller than component's stepPeriod (non-zero)
-//		Real componentStepTime = Real.valueOf(getStepTime());
-//		if (getStepPeriod() != 0 && componentStepTime.compareTo(Real.valueOf(time)) >= 0)//XXX: //.plus(Real.valueOf(step))))
-//			return;
+		Real componentStepTime = Real.valueOf(getStepTime());
+		if (Real.valueOf(time).compareTo(componentStepTime) < 0)
+			return;
 			
 		Trace trace = getTrace();
 		assert trace != null;
@@ -889,7 +892,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			OpInfo op = findAnyEnabled(trace, waitEvents);
 			if (op != null) {
 				// execute only if wait event is not also a readInput event (if inputs exist)
-				if (readEvents.size() > 0 && findEvent(op, readEvents) == null) {
+				if (findEvent(op, readEvents) == null) {
 					trace = trace.add(op.id);
 				}
 				update = true;
@@ -908,9 +911,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
 		
-//		// update step time
-//		if (getStepPeriod() != 0)
-//			setStepTime(componentStepTime.plus(Real.valueOf(getStepPeriod())).doubleValue());
+		// update step time
+		setStepTime(componentStepTime.plus(Real.valueOf(getStepPeriod())).doubleValue());
 		
 		// update trace
 		setTrace(trace);
