@@ -21,7 +21,11 @@
       </command>
       <command
             id="ac.soton.fmusim.components.ui.commands.SimulateStep"
-            name="Simulate Step">
+            name="Step">
+      </command>
+      <command
+            id="ac.soton.fmusim.components.ui.commands.Stop"
+            name="Stop">
       </command>
    </extension>
    <extension
@@ -74,6 +78,18 @@
             </with>
          </enabledWhen>
       </handler>
+      <handler
+            class="ac.soton.fmusim.components.ui.commands.StopCommand"
+            commandId="ac.soton.fmusim.components.ui.commands.Stop">
+         <enabledWhen>
+            <with
+                  variable="activePartId">
+               <equals
+                     value="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -85,26 +101,37 @@
                   commandId="ac.soton.fmusim.components.ui.commands.Import"
                   icon="icons/Import.gif"
                   label="Import"
-                  style="push">
+                  style="push"
+                  tooltip="Import a component for co-simulation">
             </command>
             <command
                   commandId="ac.soton.fmusim.components.ui.commands.Validate"
                   icon="icons/Validate.gif"
                   label="Validate"
-                  style="push">
+                  style="push"
+                  tooltip="Validate the component diagram">
             </command>
             <command
                   commandId="ac.soton.fmusim.components.ui.commands.Simulate"
                   icon="icons/Simulate.gif"
                   label="Simulate"
-                  style="push">
+                  style="push"
+                  tooltip="Run the simulation">
             </command>
             <command
                   commandId="ac.soton.fmusim.components.ui.commands.SimulateStep"
                   icon="icons/SimulateStep.gif"
-                  label="Simulate Step"
-                  style="push">
+                  label="Step"
+                  style="push"
+                  tooltip="Start/perform the next simulation step">
             </command>
+<!--            <command
+                  commandId="ac.soton.fmusim.components.ui.commands.Stop"
+                  icon="icons/Stop.gif"
+                  label="Stop"
+                  style="push"
+                  tooltip="Stop current simulation">
+            </command> -->
          </toolbar>
       </menuContribution>
    </extension>
