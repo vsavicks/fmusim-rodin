@@ -553,7 +553,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		Trace trace = getTrace();
 		assert trace != null;
 		EList<Event> readEvents = getReadInputEvents();
-		//FIXME: method call must be skipped if stepTime not yet reached by the current time
 		
 		// skip if no inputs
 		if (readEvents.isEmpty())
@@ -570,6 +569,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			Connector connector = port.getConnector();
 			
 			// if port not connected, let ProB to pick the value non-deterministically
+			//XXX: should it keep the previous (previous step) input value?
 			if (connector == null)
 				continue;
 			
