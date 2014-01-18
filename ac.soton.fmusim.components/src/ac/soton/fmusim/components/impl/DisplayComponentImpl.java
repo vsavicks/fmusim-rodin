@@ -10,10 +10,16 @@
 package ac.soton.fmusim.components.impl;
 
 import info.monitorenter.gui.chart.Chart2D;
+import info.monitorenter.gui.chart.IAxisScalePolicy;
 import info.monitorenter.gui.chart.ITrace2D;
+import info.monitorenter.gui.chart.ZoomableChart;
+import info.monitorenter.gui.chart.axis.AxisLinear;
+import info.monitorenter.gui.chart.labelformatters.LabelFormatterNumber;
 import info.monitorenter.gui.chart.traces.Trace2DLtd;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -349,8 +355,42 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 */
 	public void instantiate() throws SimulationException {
 		if (getChart() == null) {
-			Chart2D chart = new Chart2D();
-			chart.setVisible(false);
+			@SuppressWarnings("serial")
+			Chart2D chart = new ZoomableChart() {
+				long lastClickTime;
+				@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				if (e.getWhen() - lastClickTime < 500)
+					this.zoomAll();
+				lastClickTime = e.getWhen();
+			}};
+			
+			// remove original axes
+		    chart.removeAxisXBottom(chart.getAxisX());
+		    chart.removeAxisYLeft(chart.getAxisY());
+		    
+		    // empty label formatter
+		    @SuppressWarnings("serial")
+			LabelFormatterNumber lf = new LabelFormatterNumber(NumberFormat.getIntegerInstance()) {
+		    	@Override
+		    	public String format(double value) {
+		    		return "0";
+		    	}
+		    };
+		    
+		    // set new axes
+		    chart.addAxisXBottom(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())));
+		    chart.setAxisYLeft(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())), 0);
+		    chart.setAxisYRight(new AxisLinear<IAxisScalePolicy>(lf), 0);
+		    chart.setAxisXTop(new AxisLinear<IAxisScalePolicy>(lf), 0);
+		    
+		    chart.getAxisX().setPaintGrid(true);
+		    chart.getAxisY().setPaintGrid(true);
+		    chart.getAxisX().getAxisTitle().setTitle("");
+		    chart.getAxisY().getAxisTitle().setTitle("");
+		    chart.setGridColor(new Color(224,224,224));
+		    chart.setVisible(false);
 			setChart(chart);
 		}
 	}

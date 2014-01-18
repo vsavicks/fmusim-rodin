@@ -12,7 +12,9 @@ import info.monitorenter.gui.chart.Chart2D;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
@@ -51,6 +53,7 @@ import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.diagram.edit.policies.DisplayComponentCanonicalEditPolicy;
 import ac.soton.fmusim.components.diagram.edit.policies.DisplayComponentItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
+import ac.soton.fmusim.components.exceptions.SimulationException;
 
 /**
  * @generated
@@ -120,23 +123,36 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 						if (component.getChart() != null) {
 							chart = component.getChart();
 						} else {
-							chart = new Chart2D();
-							chart.setVisible(false);
 							TransactionalEditingDomain editingDomain = part
 									.getEditingDomain();
 							editingDomain.getCommandStack().execute(
 									new RecordingCommand(editingDomain) {
 										@Override
 										protected void doExecute() {
-											component.setChart(chart);
+											try {
+												component.instantiate();
+											} catch (SimulationException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
 										}
 									});
+							chart = component.getChart();
+							// if initialisation failed, cancel the display
+							if (chart == null)
+								return;
 						}
 
 						// display the chart if not visible yet
 						if (!chart.isVisible()) {
+							JPanel container = new JPanel();
+							container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+							container.setBackground(java.awt.Color.WHITE);
+							container.setLayout(new java.awt.BorderLayout());
+							container.add(chart, java.awt.BorderLayout.CENTER);
+							 
 							final JFrame frame = new JFrame("Display");
-							frame.getContentPane().add(chart);
+							frame.getContentPane().add(container);
 							frame.setSize(300, 300);
 							frame.addWindowListener(new WindowAdapter() {
 								public void windowClosing(WindowEvent e) {
