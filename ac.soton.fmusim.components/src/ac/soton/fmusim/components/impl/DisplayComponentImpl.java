@@ -273,7 +273,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 				signalName = "<signal"+(counter++) +">";
 			
 			// create trace and add to port/chart
-		    ITrace2D trace = new Trace2DLtd(300); 
+		    ITrace2D trace = new Trace2DLtd(500); 
 		    trace.setName(signalName);
 		    trace.setColor(color);
 		    port.setTrace(trace);

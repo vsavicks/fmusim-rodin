@@ -7,18 +7,15 @@
  */
 package ac.soton.fmusim.components.impl;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.Notification;
@@ -60,15 +57,11 @@ import ac.soton.fmusim.components.util.ComponentsValidator;
 import com.google.inject.Injector;
 
 import de.be4.classicalb.core.parser.exceptions.BException;
-import de.prob.animator.command.LoadEventBCommand;
-import de.prob.animator.command.StartAnimationCommand;
 import de.prob.model.eventb.EventBModel;
-import de.prob.rodin.translate.EventBTranslator;
 import de.prob.scripting.EventBFactory;
 import de.prob.statespace.OpInfo;
 import de.prob.statespace.StateSpace;
 import de.prob.statespace.Trace;
-import de.prob.ui.eventb.internal.TranslatorFactory;
 import de.prob.webconsole.ServletContextListener;
 
 /**
@@ -534,8 +527,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		// update variables and ports
 		for (AbstractVariable v : getVariables())
 			v.setValue(trace.getCurrentState().value(v.getName()));
-		for (Port p : getInputs())
-			p.setValue(trace.getCurrentState().value(p.getName()));
+//		for (Port p : getInputs())
+//			p.setValue(trace.getCurrentState().value(p.getName()));
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
 		
@@ -855,38 +848,27 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			throw new SimulationException("Cannot load machine component '" + getName()
 					+ "'. Machine root cannot be determined.");
 		
-		EventBTranslator eventBTranslator = new EventBTranslator(machineRoot);
+		String fileName = machineRoot.getResource().getRawLocation()
+				.makeAbsolute().toOSString();
+		if (fileName.endsWith(".buc")) {
+			fileName = fileName.replace(".buc", ".bcc");
+		} else {
+			fileName = fileName.replace(".bum", ".bcm");
+		}
 
 		Injector injector = ServletContextListener.INJECTOR;
 
 		final EventBFactory instance = injector
 				.getInstance(EventBFactory.class);
 
-		EventBModel model = instance.load(eventBTranslator.getMainComponent(),
-				eventBTranslator.getMachines(), eventBTranslator.getContexts(),
-				eventBTranslator.getModelFile());
-
-		StringWriter writer = new StringWriter();
-		PrintWriter pto = new PrintWriter(writer);
-		try {
-			TranslatorFactory.translate(machineRoot, pto);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			//TODO: add error handling
-		}
+		EventBModel model = instance.load(fileName,
+				new HashMap<String, String>(), true);
 
 		StateSpace s = model.getStatespace();
-		
-		Pattern p2 = Pattern.compile("^package\\((.*?)\\)\\.");
-		Matcher m2 = p2.matcher(writer.toString());
-		m2.find();
-		String cmd = m2.group(1);
-
-		s.execute(new LoadEventBCommand(cmd));
-		s.execute(new StartAnimationCommand());
 
 		Trace t = new Trace(s);
 		setTrace(t);
+		System.gc();
 	}
 
 	/**

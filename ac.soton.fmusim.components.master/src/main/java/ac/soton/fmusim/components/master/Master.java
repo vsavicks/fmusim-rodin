@@ -349,9 +349,9 @@ public class Master {
 				if (c instanceof DisplayComponent)
 					continue;
 				
-				for (Port p : c.getInputs()) {
-					writer.write(SEPARATOR + toPlotValue(p.getValue().toString()));
-				}
+//				for (Port p : c.getInputs()) {
+//					writer.write(SEPARATOR + toPlotValue(p.getValue().toString()));
+//				}
 				for (AbstractVariable v : c.getVariables()) {
 					writer.write(SEPARATOR + toPlotValue(v.getValue().toString()));
 				}
