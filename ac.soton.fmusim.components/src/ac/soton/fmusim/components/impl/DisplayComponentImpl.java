@@ -380,7 +380,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 		    };
 		    
 		    // set new axes
-		    chart.addAxisXBottom(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())));
+		    chart.setAxisXBottom(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())), 0);
 		    chart.setAxisYLeft(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())), 0);
 		    chart.setAxisYRight(new AxisLinear<IAxisScalePolicy>(lf), 0);
 		    chart.setAxisXTop(new AxisLinear<IAxisScalePolicy>(lf), 0);
