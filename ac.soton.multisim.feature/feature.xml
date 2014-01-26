@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="ac.soton.multisim.feature"
+      label="%featureName"
+      version="0.1.0.qualifier"
+      provider-name="%providerName"
+      plugin="ac.soton.multisim.branding">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://rodin-b-sharp.sourceforge.net/updates/site.xml"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eventb.emf.core" version="2.2.4"/>
+      <import plugin="org.eventb.core" version="2.5.1" match="greaterOrEqual"/>
+      <import plugin="de.prob.core.kernel" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="de.prob.core.rodin" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.workspace" version="1.5.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import plugin="org.eclipse.ui.navigator.resources"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
+      <import plugin="org.eclipse.ocl.ecore"/>
+      <import plugin="de.prob.core.kernel" version="1.0.0" match="equivalent"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.core"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
+      <import plugin="org.eclipse.gmf.tooling.runtime"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.gmf.runtime.draw2d.ui"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
+      <import plugin="org.eclipse.emf.validation"/>
+      <import plugin="org.eclipse.gef"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="ac.soton.fmusim.components" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="ac.soton.eventb.emf.core.extension" version="2.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.7.101" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="ac.soton.eventb.emf.core.extension.persistence" version="1.1.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.commands" version="3.6.0" match="equivalent"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="equivalent"/>
+      <import plugin="org.eclipse.ui.navigator" version="3.5.101" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.navigator.resources" version="3.4.300" match="greaterOrEqual"/>
+      <import plugin="org.eventb.emf.core" version="2.2.4" match="equivalent"/>
+      <import plugin="org.eclipse.emf.common.ui" version="2.7.0" match="equivalent"/>
+      <import plugin="org.eclipse.emf.transaction" version="1.4.0" match="equivalent"/>
+      <import plugin="org.eclipse.gmf.runtime.common.ui.services.dnd" version="1.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui" version="1.5.0" match="equivalent"/>
+      <import plugin="ac.soton.eventb.emf.core.extension.navigator" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="ac.soton.fmusim.components" version="1.0.0"/>
+      <import plugin="ac.soton.fmusim.components.master" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="ac.soton.fmusim.components.edit" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="ac.soton.fmusim.components.diagram" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.expressions" version="3.4.300" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="ac.soton.fmusim.components"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ac.soton.fmusim.components.diagram"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ac.soton.fmusim.components.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ac.soton.fmusim.components.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ac.soton.fmusim.components.master"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ac.soton.fmusim.components.persistence"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ac.soton.fmusim.components.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ac.soton.multisim.branding"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

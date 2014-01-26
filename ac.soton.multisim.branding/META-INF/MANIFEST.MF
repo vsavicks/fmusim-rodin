@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rodin Multi-Simulation Branding
+Bundle-SymbolicName: ac.soton.multisim.branding
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: University of Southampton
