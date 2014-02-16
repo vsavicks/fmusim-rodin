@@ -1048,13 +1048,12 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		addEEnumLiteral(variableCausalityEEnum, VariableCausality.NONE);
 
 		initEEnum(colourEEnum, Colour.class, "Colour");
+		addEEnumLiteral(colourEEnum, Colour.GREEN);
 		addEEnumLiteral(colourEEnum, Colour.BLUE);
 		addEEnumLiteral(colourEEnum, Colour.RED);
-		addEEnumLiteral(colourEEnum, Colour.GREEN);
-		addEEnumLiteral(colourEEnum, Colour.ORANGE);
 		addEEnumLiteral(colourEEnum, Colour.YELLOW);
 		addEEnumLiteral(colourEEnum, Colour.PINK);
-		addEEnumLiteral(colourEEnum, Colour.CYAN);
+		addEEnumLiteral(colourEEnum, Colour.BLACK);
 
 		// Initialize data types
 		initEDataType(fmuClassEDataType, FMU.class, "FmuClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

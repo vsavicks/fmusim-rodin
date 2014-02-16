@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eventb.core.IEventBRoot;
@@ -50,6 +49,7 @@ import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.NamedElement;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
@@ -60,6 +60,7 @@ import de.be4.classicalb.core.parser.exceptions.BException;
 import de.prob.model.eventb.EventBModel;
 import de.prob.scripting.EventBFactory;
 import de.prob.statespace.OpInfo;
+import de.prob.statespace.StateId;
 import de.prob.statespace.StateSpace;
 import de.prob.statespace.Trace;
 import de.prob.webconsole.ServletContextListener;
@@ -500,7 +501,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 						 ComponentsValidator.DIAGNOSTIC_SOURCE,
 						 ComponentsValidator.EVENT_BCOMPONENT__HAS_VALID_MACHINE_REFERENCE,
 						//TODO: use external string resource and a default approach, i.e. EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] {...
-						 MessageFormat.format("Component ''{0}'' must have a valid Machine reference", new Object[] { EObjectValidator.getObjectLabel(this, context) }),
+						 MessageFormat.format("Component ''{0}'' must have a valid Machine reference", new Object[] { this.getName() }),
 						 new Object [] { this }));
 			}
 			return false;
@@ -524,11 +525,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		if (currentOpName.startsWith("$initialise_machine") == false)
 			trace = trace.anyEvent(null);
 		
-		// update variables and ports
+		// update variables and output ports
+		//NOTE: input ports are bound to parameters, so no value for them
 		for (AbstractVariable v : getVariables())
 			v.setValue(trace.getCurrentState().value(v.getName()));
-//		for (Port p : getInputs())
-//			p.setValue(trace.getCurrentState().value(p.getName()));
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
 		
@@ -567,21 +567,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				continue;
 			
 			Object value = connector.getValue();	// value from connector
-			String bValue = null;					// value to be passed to event, thus in Event-B format
-			switch (port.getType()) {
-			case BOOLEAN:
-				bValue = getBooleanToEventB((Boolean) value);
-				break;
-			case INTEGER:
-				bValue = getIntegerToEventB((Integer) value);
-				break;
-			case REAL:
-				bValue = getDoubleToEventB((Double) value, port.getRealPrecision());
-				break;
-			case STRING:
-				bValue = getStringToEventB((String) value);
-				break;
-			}
+			String bValue = valueFmiToEventB(value, port.getType(), port.getRealPrecision());	// value to be passed to event, thus in Event-B format
 			
 			// add parameter to event predicate string
 			predicate.append("&" + parameterName + "=" + bValue);
@@ -619,21 +605,33 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		setTrace(trace);
 	}
 	
-	private String getBooleanToEventB(Boolean value) {
-		return value.toString().toUpperCase();
-	}
-
-	private String getIntegerToEventB(Integer value) {
-		return value.toString();
-	}
-
-	private String getDoubleToEventB(Double value, int precision) {
-		double toB = value.doubleValue() * Math.pow(10, precision);
-		return Integer.toString((int) toB);
-	}
-
-	private String getStringToEventB(String value) {
-		return value;
+	/**
+	 * Converts FMI value to Event-B.
+	 * Precision is required for the Real type.
+	 * 
+	 * @param value
+	 * @param type
+	 * @param precision
+	 * @return
+	 */
+	private String valueFmiToEventB(Object value, VariableType type, int precision) {
+		switch (type) {
+		case BOOLEAN:
+			assert value instanceof Boolean;
+			return value.toString().toUpperCase();
+		case INTEGER:
+			assert value instanceof Integer;
+			return value.toString();
+		case REAL:
+			assert value instanceof Double;
+			double toB = ((Double) value).doubleValue() * Math.pow(10, precision);
+			return Integer.toString((int) toB);
+		case STRING:
+			assert value instanceof String;
+			return (String) value;
+		default:
+			return null;
+		}
 	}
 
 	/**
@@ -675,9 +673,15 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	public void writeOutputs() {
 		Trace trace = getTrace();
 		assert trace != null;
+		StateId state = trace.getCurrentState();
 		
-		for (Port port : getOutputs()) {
-			Object value = getValueEventB(trace, port, ((EventBPort) port).getRealPrecision());
+		for (Port p : getOutputs()) {
+			assert p instanceof EventBPort;
+			EventBPort port = (EventBPort) p;
+			assert port.getVariable() != null;
+			String name = port.getVariable().getName();
+			String bValue = (String) state.value(name);
+			Object value = valueEventBToFmi(bValue, port.getType(), port.getRealPrecision());
 			
 			// send value to connector if connected
 			Connector connector = port.getConnector();
@@ -694,83 +698,30 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	}
 
 	/**
-	 * Returns variable value from Event-B.
-	 * 
-	 * @param trace
-	 * @param variable
-	 * @param precision Event-B variable (int) to double conversion precision
-	 * @return
-	 */
-	private Object getValueEventB(Trace trace, AbstractVariable variable, int precision) {
-		String name = variable.getName();
-		Object value = null;
-		switch (variable.getType()) {
-		case BOOLEAN:
-			value = getBooleanFromEventB(trace, name);
-			break;
-		case INTEGER:
-			value = getIntegerFromEventB(trace, name);
-			break;
-		case REAL:
-			value = getDoubleFromEventB(trace, name, precision);
-			break;
-		case STRING:
-			value = getStringFromEventB(trace, name);
-			break;
-		}
-		return value;
-	}
-	
-	/**
-	 * Returns a boolean value from Event-B animation trace.
-	 * 
-	 * @param trace current animation trace
-	 * @param name variable name
-	 * @return
-	 */
-	private Boolean getBooleanFromEventB(Trace trace, String name) {
-		String value = (String) trace.getCurrentState().value(name);
-		return Boolean.valueOf(value);
-	}
-
-	/**
-	 * Returns an integer value from Event-B animation trace.
-	 * 
-	 * @param trace current animation trace
-	 * @param name variable name
-	 * @return
-	 */
-	private Integer getIntegerFromEventB(Trace trace, String name) {
-		String value = (String) trace.getCurrentState().value(name);
-		return Integer.valueOf(value);
-	}
-	
-	/**
-	 * Returns a double value from Event-B animation trace.
-	 * As doubles are not yet supported by Event-B,
+	 * Convert Event-B value to FMI.
+	 * NOTE: As doubles are not yet supported by Event-B,
 	 * they are modelled as integers, converted from a double
 	 * with a specified precision: double = int / (10 ^ precision)
 	 * 
-	 * @param trace current animation trace
-	 * @param name variable name
-	 * @param precision int to double conversion precision
+	 * @param value
+	 * @param type
+	 * @param precision
 	 * @return
 	 */
-	private Double getDoubleFromEventB(Trace trace, String name, int precision) {
-		Integer integer = getIntegerFromEventB(trace, name);
-		return integer.doubleValue() / Math.pow(10d, precision);
-	}
-
-	/**
-	 * Returns a string value from Event-B animation trace.
-	 * 
-	 * @param trace current animation trace
-	 * @param name variable name
-	 * @return
-	 */
-	private String getStringFromEventB(Trace trace, String name) {
-		String value = (String) trace.getCurrentState().value(name);
-		return value;
+	private Object valueEventBToFmi(String value, VariableType type, int precision) {
+		switch (type) {
+		case BOOLEAN:
+			return Boolean.valueOf(value);
+		case INTEGER:
+			return Integer.valueOf(value);
+		case REAL:
+			Integer integer = Integer.valueOf(value);
+			return integer.doubleValue() / Math.pow(10d, precision);
+		case STRING:
+			return value;
+		default:
+			return null;
+		}
 	}
 
 	/**

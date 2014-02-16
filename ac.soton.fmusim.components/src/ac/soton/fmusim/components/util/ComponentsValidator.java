@@ -262,7 +262,7 @@ public class ComponentsValidator extends EObjectValidator {
 							(Diagnostic.ERROR,
 							 ComponentsValidator.DIAGNOSTIC_SOURCE,
 							 0,
-							 MessageFormat.format("Connected ports ''{0}'' and ''{1}'' have incompatible types", new Object[] { getObjectLabel(port1, context), getObjectLabel(port2, context) }),	
+							 MessageFormat.format("Connected ports ''{0}'' and ''{1}'' have incompatible types", new Object[] { port1.getName(), port2.getName() }),	
 							 new Object [] { connector }));
 			}
 			return false;
@@ -297,7 +297,7 @@ public class ComponentsValidator extends EObjectValidator {
 							(Diagnostic.ERROR,
 							 ComponentsValidator.DIAGNOSTIC_SOURCE,
 							 0,
-							 MessageFormat.format("Connector ''{0}'' has no output port attached", new Object[] { getObjectLabel(connector, context) }),	
+							 MessageFormat.format("Connector ''{0}'' has no output port attached", new Object[] { connector.getName() }),	
 							 new Object [] { connector }));
 			}
 			return false;
@@ -385,7 +385,7 @@ public class ComponentsValidator extends EObjectValidator {
 							(Diagnostic.ERROR,
 							 ComponentsValidator.DIAGNOSTIC_SOURCE,
 							 0,
-							 MessageFormat.format("Component ''{0}'' has inconsistent read input events ''{1}'' and ''{2}'' (mismatched number/names of parameters)", new Object[] { getObjectLabel(eventBComponent, context), event1.getName(), event2.getName() }),	
+							 MessageFormat.format("Component ''{0}'' has inconsistent read input events ''{1}'' and ''{2}'' (mismatched number/names of parameters)", new Object[] { eventBComponent.getName(), event1.getName(), event2.getName() }),	
 							 new Object [] { eventBComponent }));
 			}
 			return false;

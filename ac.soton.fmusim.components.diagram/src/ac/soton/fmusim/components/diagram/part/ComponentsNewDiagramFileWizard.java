@@ -189,7 +189,7 @@ public class ComponentsNewDiagramFileWizard extends Wizard {
 		 * @generated
 		 */
 		protected boolean validatePage() {
-			if (getModelElement() == null) {
+			if (selectedModelElement == null) {
 				setErrorMessage(Messages.ComponentsNewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
 				return false;
 			}
@@ -197,7 +197,7 @@ public class ComponentsNewDiagramFileWizard extends Wizard {
 					.getInstance()
 					.provides(
 							new CreateDiagramViewOperation(
-									new EObjectAdapter(getModelElement()),
+									new EObjectAdapter(selectedModelElement),
 									ComponentDiagramEditPart.MODEL_ID,
 									ComponentsDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 			setErrorMessage(result ? null

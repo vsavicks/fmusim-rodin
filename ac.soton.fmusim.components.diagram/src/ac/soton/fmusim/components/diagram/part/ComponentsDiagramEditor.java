@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -21,7 +22,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -50,7 +50,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.widgets.Shell;
@@ -66,7 +65,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.IShowInTargetList;
 import org.eclipse.ui.part.ShowInContext;
 
-import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.diagram.navigator.ComponentsNavigatorItem;
 
 /**
@@ -374,8 +372,6 @@ public class ComponentsDiagramEditor extends DiagramDocumentEditor implements
 						IAdaptable adaptable = (IAdaptable) nextSelectedObject;
 						nextSelectedObject = adaptable
 								.getAdapter(EObject.class);
-						if (nextSelectedObject == null)
-							nextSelectedObject = Platform.getAdapterManager().getAdapter(adaptable, Component.class);
 					}
 
 					if (nextSelectedObject instanceof EObject) {

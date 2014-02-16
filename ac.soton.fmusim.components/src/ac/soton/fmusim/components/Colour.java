@@ -26,6 +26,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum Colour implements Enumerator {
 	/**
+	 * The '<em><b>Green</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GREEN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	GREEN(0, "Green", "Green"), /**
 	 * The '<em><b>Blue</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -41,25 +49,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RED(0, "Red", "Red"), /**
-	 * The '<em><b>Green</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #GREEN_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	GREEN(0, "Green", "Green"),
-
-	/**
-	 * The '<em><b>Orange</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ORANGE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	ORANGE(0, "Orange", "Orange"),
+	RED(0, "Red", "Red"),
 
 	/**
 	 * The '<em><b>Yellow</b></em>' literal object.
@@ -80,14 +70,29 @@ public enum Colour implements Enumerator {
 	 * @ordered
 	 */
 	PINK(0, "Pink", "Pink"), /**
-	 * The '<em><b>Cyan</b></em>' literal object.
+	 * The '<em><b>Black</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #CYAN_VALUE
+	 * @see #BLACK_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	CYAN(0, "Cyan", "Cyan");
+	BLACK(0, "Black", "Black");
+
+	/**
+	 * The '<em><b>Green</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Green</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #GREEN
+	 * @model name="Green"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GREEN_VALUE = 0;
 
 	/**
 	 * The '<em><b>Blue</b></em>' literal value.
@@ -120,36 +125,6 @@ public enum Colour implements Enumerator {
 	public static final int RED_VALUE = 0;
 
 	/**
-	 * The '<em><b>Green</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Green</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #GREEN
-	 * @model name="Green"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int GREEN_VALUE = 0;
-
-	/**
-	 * The '<em><b>Orange</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Orange</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #ORANGE
-	 * @model name="Orange"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ORANGE_VALUE = 0;
-
-	/**
 	 * The '<em><b>Yellow</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -180,19 +155,19 @@ public enum Colour implements Enumerator {
 	public static final int PINK_VALUE = 0;
 
 	/**
-	 * The '<em><b>Cyan</b></em>' literal value.
+	 * The '<em><b>Black</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Cyan</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Black</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #CYAN
-	 * @model name="Cyan"
+	 * @see #BLACK
+	 * @model name="Black"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CYAN_VALUE = 0;
+	public static final int BLACK_VALUE = 0;
 
 	/**
 	 * An array of all the '<em><b>Colour</b></em>' enumerators.
@@ -202,13 +177,12 @@ public enum Colour implements Enumerator {
 	 */
 	private static final Colour[] VALUES_ARRAY =
 		new Colour[] {
+			GREEN,
 			BLUE,
 			RED,
-			GREEN,
-			ORANGE,
 			YELLOW,
 			PINK,
-			CYAN,
+			BLACK,
 		};
 
 	/**
@@ -259,7 +233,7 @@ public enum Colour implements Enumerator {
 	 */
 	public static Colour get(int value) {
 		switch (value) {
-			case BLUE_VALUE: return BLUE;
+			case GREEN_VALUE: return GREEN;
 		}
 		return null;
 	}

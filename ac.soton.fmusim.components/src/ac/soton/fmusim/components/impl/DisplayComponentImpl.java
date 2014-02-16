@@ -250,11 +250,10 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			switch (port.getColour()) {
 			case BLUE: color = Color.BLUE; break;
 			case RED: color = Color.RED; break;
-			case GREEN: color = Color.GREEN; break;
-			case ORANGE: color = Color.ORANGE; break;
-			case YELLOW: color = Color.YELLOW; break;
-			case PINK: color = Color.PINK; break;
-			case CYAN: color = Color.CYAN; break;
+			case GREEN: color = new Color(0, 137, 0); break;
+			case YELLOW: color = new Color(255,200,0); break;
+			case PINK: color = new Color(255,0,255); break;
+			case BLACK: color = Color.BLACK; break;
 			default: color = Color.BLUE;
 			}
 			
@@ -273,7 +272,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 				signalName = "<signal"+(counter++) +">";
 			
 			// create trace and add to port/chart
-		    ITrace2D trace = new Trace2DLtd(500); 
+		    ITrace2D trace = new Trace2DLtd(1500); 
 		    trace.setName(signalName);
 		    trace.setColor(color);
 		    port.setTrace(trace);

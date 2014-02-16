@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="components"
-    nsURI="http://soton.ac.uk/models/fmusim/components/1.0" nsPrefix="components">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="components" nsURI="http://soton.ac.uk/models/fmusim/components/1.0"
+    nsPrefix="components">
   <eClassifiers xsi:type="ecore:EClass" name="ComponentDiagram" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
         eType="#//Component" containment="true"/>
@@ -139,13 +138,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="SimExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.SimulationException"/>
   <eClassifiers xsi:type="ecore:EEnum" name="Colour">
-    <eLiterals name="Blue"/>
-    <eLiterals name="Red"/>
-    <eLiterals name="Green"/>
-    <eLiterals name="Orange"/>
+    <eLiterals name="Green" literal="Green"/>
+    <eLiterals name="Blue" literal="Blue"/>
+    <eLiterals name="Red" literal="Red"/>
     <eLiterals name="Yellow"/>
     <eLiterals name="Pink"/>
-    <eLiterals name="Cyan"/>
+    <eLiterals name="Black" literal="Black"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="ModelExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.ModelException"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RealClass" instanceClassName="org.jscience.mathematics.number.Real"/>

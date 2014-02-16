@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import ac.soton.fmusim.components.AbstractVariable;
@@ -279,7 +278,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 						 ComponentsValidator.DIAGNOSTIC_SOURCE,
 						 ComponentsValidator.FMU_COMPONENT__HAS_VALID_FMU_PATH,
 						//TODO: use external string resource and a default approach, i.e. EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] {...
-						 MessageFormat.format("Component ''{0}'' must have a valid FMU path", new Object[] { EObjectValidator.getObjectLabel(this, context) }),	
+						 MessageFormat.format("Component ''{0}'' must have a valid FMU path", new Object[] { this.getName() }),	
 						 new Object [] { this }));
 			}
 			return false;

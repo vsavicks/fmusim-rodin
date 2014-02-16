@@ -62,7 +62,7 @@ public class DisplayPortImpl extends PortImpl implements DisplayPort {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Colour COLOUR_EDEFAULT = Colour.BLUE;
+	protected static final Colour COLOUR_EDEFAULT = Colour.GREEN;
 
 	/**
 	 * The cached value of the '{@link #getColour() <em>Colour</em>}' attribute.

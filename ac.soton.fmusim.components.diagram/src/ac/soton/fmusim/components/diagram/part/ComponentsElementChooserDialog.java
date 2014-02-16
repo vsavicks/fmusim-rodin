@@ -136,7 +136,7 @@ public class ComponentsElementChooserDialog extends Dialog {
 	 */
 	private boolean isValidModelFile(IFile file) {
 		String fileExtension = file.getFullPath().getFileExtension();
-		return "bum".equals(fileExtension) || "components".equals(fileExtension); //$NON-NLS-1$ //$NON-NLS-2$
+		return "bum".equals(fileExtension); //$NON-NLS-1$
 	}
 
 	/**

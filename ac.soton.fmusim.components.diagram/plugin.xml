@@ -43,7 +43,7 @@
       <?gmfgen generated="true"?>
   	  <wizard
   	     name="%newWizardName"
-  	     icon="icons/obj16/ComponentsDiagramFileNew.gif"
+  	     icon="icons/obj16/ComponentsDiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="ac.soton.fmusim.components.diagram.part.ComponentsCreationWizard"
   	     id="ac.soton.fmusim.components.diagram.part.ComponentsCreationWizardID">
@@ -217,7 +217,7 @@
       <viewProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsViewProvider">
          <Priority name="Lowest"/>
          <object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
-            <method name="getType()" value="bum,components"/>
+            <method name="getType()" value="components"/>
          </object>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Components"/>

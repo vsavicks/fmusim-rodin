@@ -136,7 +136,7 @@ public class ComponentsVisualIDRegistry {
 		String containerModelID = ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry
 				.getModelID(containerView);
 		if (!ComponentDiagramEditPart.MODEL_ID.equals(containerModelID)
-				&& !"bum".equals(containerModelID) && !"components".equals(containerModelID)) { //$NON-NLS-1$ //$NON-NLS-2$
+				&& !"components".equals(containerModelID)) { //$NON-NLS-1$
 			return -1;
 		}
 		int containerVisualID;
@@ -223,7 +223,7 @@ public class ComponentsVisualIDRegistry {
 		String containerModelID = ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry
 				.getModelID(containerView);
 		if (!ComponentDiagramEditPart.MODEL_ID.equals(containerModelID)
-				&& !"bum".equals(containerModelID) && !"components".equals(containerModelID)) { //$NON-NLS-1$ //$NON-NLS-2$
+				&& !"components".equals(containerModelID)) { //$NON-NLS-1$
 			return false;
 		}
 		int containerVisualID;

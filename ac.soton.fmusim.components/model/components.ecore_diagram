@@ -421,20 +421,16 @@
     <children xmi:type="notation:DecorationNode" xmi:id="_OzdFYAp7EeOIf5Y7cygUDg" type="5005"/>
     <children xmi:type="notation:BasicCompartment" xmi:id="_OzdFYQp7EeOIf5Y7cygUDg" type="7011">
       <children xmi:type="notation:Node" xmi:id="_Q3q_4Ap7EeOIf5Y7cygUDg" type="3009">
-        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Red"/>
+        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Blue"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3q_4Qp7EeOIf5Y7cygUDg"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_SWNacAp7EeOIf5Y7cygUDg" type="3009">
-        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Green"/>
+        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Red"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_SWNacQp7EeOIf5Y7cygUDg"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_S5TgcAp7EeOIf5Y7cygUDg" type="3009">
-        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Blue"/>
+        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Green"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_S5TgcQp7EeOIf5Y7cygUDg"/>
-      </children>
-      <children xmi:type="notation:Node" xmi:id="_Tjpd8Ap7EeOIf5Y7cygUDg" type="3009">
-        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Orange"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_Tjpd8Qp7EeOIf5Y7cygUDg"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_UhyhMAp7EeOIf5Y7cygUDg" type="3009">
         <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Yellow"/>
@@ -445,7 +441,7 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_VApncQp7EeOIf5Y7cygUDg"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_Vkla8Ap7EeOIf5Y7cygUDg" type="3009">
-        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Cyan"/>
+        <element xmi:type="ecore:EEnumLiteral" href="components.ecore#//Colour/Black"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Vkla8Qp7EeOIf5Y7cygUDg"/>
       </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_OzdFYgp7EeOIf5Y7cygUDg"/>

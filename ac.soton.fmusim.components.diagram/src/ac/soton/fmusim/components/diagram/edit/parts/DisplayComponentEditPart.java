@@ -146,11 +146,12 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 						// display the chart if not visible yet
 						if (!chart.isVisible()) {
 							JPanel container = new JPanel();
-							container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+							container.setBorder(BorderFactory
+									.createEmptyBorder(10, 10, 10, 10));
 							container.setBackground(java.awt.Color.WHITE);
 							container.setLayout(new java.awt.BorderLayout());
 							container.add(chart, java.awt.BorderLayout.CENTER);
-							 
+
 							final JFrame frame = new JFrame("Display");
 							frame.getContentPane().add(container);
 							frame.setSize(300, 300);
