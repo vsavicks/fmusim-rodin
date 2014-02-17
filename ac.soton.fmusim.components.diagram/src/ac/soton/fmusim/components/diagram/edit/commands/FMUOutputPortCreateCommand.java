@@ -27,12 +27,12 @@ import ac.soton.fmusim.components.diagram.providers.ElementInitializers;
 /**
  * @generated
  */
-public class FMUPortOutputCreateCommand extends EditElementCommand {
+public class FMUOutputPortCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
 	 */
-	public FMUPortOutputCreateCommand(CreateElementRequest req) {
+	public FMUOutputPortCreateCommand(CreateElementRequest req) {
 		super(req.getLabel(), null, req);
 	}
 

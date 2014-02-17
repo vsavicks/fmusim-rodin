@@ -64,7 +64,7 @@ import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -171,7 +171,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				case EventBInputPortEditPart.VISUAL_ID:
 				case EventBVariableEditPart.VISUAL_ID:
 				case DisplayPortEditPart.VISUAL_ID:
-				case FMUPortOutputEditPart.VISUAL_ID:
+				case FMUOutputPortEditPart.VISUAL_ID:
 				case EventBOutputPortEditPart.VISUAL_ID:
 					if (domainElement == null
 							|| visualID != ComponentsVisualIDRegistry
@@ -190,7 +190,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				|| ConnectorEditPart.VISUAL_ID == visualID
 				|| DisplayComponentEditPart.VISUAL_ID == visualID
 				|| FMUInputPortEditPart.VISUAL_ID == visualID
-				|| FMUPortOutputEditPart.VISUAL_ID == visualID
+				|| FMUOutputPortEditPart.VISUAL_ID == visualID
 				|| FMUVariableEditPart.VISUAL_ID == visualID
 				|| EventBInputPortEditPart.VISUAL_ID == visualID
 				|| EventBOutputPortEditPart.VISUAL_ID == visualID
@@ -267,7 +267,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		case FMUInputPortEditPart.VISUAL_ID:
 			return createFMUPort_3001(domainElement, containerView, index,
 					persisted, preferencesHint);
-		case FMUPortOutputEditPart.VISUAL_ID:
+		case FMUOutputPortEditPart.VISUAL_ID:
 			return createFMUPort_3002(domainElement, containerView, index,
 					persisted, preferencesHint);
 		case FMUVariableEditPart.VISUAL_ID:
@@ -526,7 +526,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(ComponentsVisualIDRegistry
-				.getType(FMUPortOutputEditPart.VISUAL_ID));
+				.getType(FMUOutputPortEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		// initializeFromPreferences 

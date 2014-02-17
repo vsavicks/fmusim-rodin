@@ -34,7 +34,7 @@ import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
 
@@ -173,7 +173,7 @@ public class ComponentsVisualIDRegistry {
 			if (ComponentsPackage.eINSTANCE.getFMUPort().isSuperTypeOf(
 					domainElement.eClass())
 					&& isFMUPort_3002((FMUPort) domainElement)) {
-				return FMUPortOutputEditPart.VISUAL_ID;
+				return FMUOutputPortEditPart.VISUAL_ID;
 			}
 			break;
 		case EventBComponentEditPart.VISUAL_ID:
@@ -257,7 +257,7 @@ public class ComponentsVisualIDRegistry {
 			if (FMUInputPortEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (FMUPortOutputEditPart.VISUAL_ID == nodeVisualID) {
+			if (FMUOutputPortEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -405,7 +405,7 @@ public class ComponentsVisualIDRegistry {
 			return false;
 		case ConnectorEditPart.VISUAL_ID:
 		case FMUInputPortEditPart.VISUAL_ID:
-		case FMUPortOutputEditPart.VISUAL_ID:
+		case FMUOutputPortEditPart.VISUAL_ID:
 		case EventBInputPortEditPart.VISUAL_ID:
 		case EventBOutputPortEditPart.VISUAL_ID:
 		case FMUVariableEditPart.VISUAL_ID:

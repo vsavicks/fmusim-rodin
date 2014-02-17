@@ -36,13 +36,13 @@ import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Color;
 
-import ac.soton.fmusim.components.diagram.edit.policies.FMUPortOutputItemSemanticEditPolicy;
+import ac.soton.fmusim.components.diagram.edit.policies.FMUOutputPortItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 
 /**
  * @generated
  */
-public class FMUPortOutputEditPart extends AbstractBorderItemEditPart {
+public class FMUOutputPortEditPart extends AbstractBorderItemEditPart {
 
 	/**
 	 * @generated
@@ -62,7 +62,7 @@ public class FMUPortOutputEditPart extends AbstractBorderItemEditPart {
 	/**
 	 * @generated
 	 */
-	public FMUPortOutputEditPart(View view) {
+	public FMUOutputPortEditPart(View view) {
 		super(view);
 	}
 
@@ -74,7 +74,7 @@ public class FMUPortOutputEditPart extends AbstractBorderItemEditPart {
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE,
 				getPrimaryDragEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new FMUPortOutputItemSemanticEditPolicy());
+				new FMUOutputPortItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies

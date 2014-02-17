@@ -103,7 +103,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 				View childView = (View) child.getModel();
 				switch (ComponentsVisualIDRegistry.getVisualID(childView)) {
 				case FMUInputPortEditPart.VISUAL_ID:
-				case FMUPortOutputEditPart.VISUAL_ID:
+				case FMUOutputPortEditPart.VISUAL_ID:
 					return new BorderItemSelectionEditPolicy();
 				}
 				EditPolicy result = child
@@ -165,11 +165,11 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 							locator);
 			return true;
 		}
-		if (childEditPart instanceof FMUPortOutputEditPart) {
+		if (childEditPart instanceof FMUOutputPortEditPart) {
 			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
 					PositionConstants.EAST);
 			getBorderedFigure().getBorderItemContainer().add(
-					((FMUPortOutputEditPart) childEditPart).getFigure(),
+					((FMUOutputPortEditPart) childEditPart).getFigure(),
 					locator);
 			return true;
 		}
@@ -195,9 +195,9 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 					((FMUInputPortEditPart) childEditPart).getFigure());
 			return true;
 		}
-		if (childEditPart instanceof FMUPortOutputEditPart) {
+		if (childEditPart instanceof FMUOutputPortEditPart) {
 			getBorderedFigure().getBorderItemContainer().remove(
-					((FMUPortOutputEditPart) childEditPart).getFigure());
+					((FMUOutputPortEditPart) childEditPart).getFigure());
 			return true;
 		}
 		return false;

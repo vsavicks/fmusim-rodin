@@ -42,7 +42,7 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramUpdater;
 import ac.soton.fmusim.components.diagram.part.ComponentsNodeDescriptor;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -113,7 +113,7 @@ public class FMUComponentCanonicalEditPolicy extends CanonicalEditPolicy {
 	private boolean isMyDiagramElement(View view) {
 		int visualID = ComponentsVisualIDRegistry.getVisualID(view);
 		return visualID == FMUInputPortEditPart.VISUAL_ID
-				|| visualID == FMUPortOutputEditPart.VISUAL_ID;
+				|| visualID == FMUOutputPortEditPart.VISUAL_ID;
 	}
 
 	/**

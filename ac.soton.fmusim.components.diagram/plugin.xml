@@ -259,7 +259,7 @@
          <object class="ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart" id="Connector_2003"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart" id="DisplayComponent_2006"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart" id="FMUPort_3001"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart" id="FMUPort_3002"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart" id="FMUPort_3002"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart" id="FMUVariable_3009"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart" id="EventBPort_3003"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart" id="EventBPort_3004"/>

@@ -24,10 +24,10 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.diagram.edit.commands.FMUInputPortCreateCommand;
-import ac.soton.fmusim.components.diagram.edit.commands.FMUPortOutputCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.FMUOutputPortCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -54,7 +54,7 @@ public class FMUComponentItemSemanticEditPolicy extends
 			return getGEFWrapper(new FMUInputPortCreateCommand(req));
 		}
 		if (ComponentsElementTypes.FMUPort_3002 == req.getElementType()) {
-			return getGEFWrapper(new FMUPortOutputCreateCommand(req));
+			return getGEFWrapper(new FMUOutputPortCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -107,7 +107,7 @@ public class FMUComponentItemSemanticEditPolicy extends
 				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
 				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
-			case FMUPortOutputEditPart.VISUAL_ID:
+			case FMUOutputPortEditPart.VISUAL_ID:
 				for (Iterator<?> it = node.getSourceEdges().iterator(); it
 						.hasNext();) {
 					Edge outgoingLink = (Edge) it.next();

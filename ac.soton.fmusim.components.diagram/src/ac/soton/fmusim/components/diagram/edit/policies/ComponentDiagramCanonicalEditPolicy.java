@@ -48,7 +48,7 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramUpdater;
 import ac.soton.fmusim.components.diagram.part.ComponentsLinkDescriptor;
 import ac.soton.fmusim.components.diagram.part.ComponentsNodeDescriptor;
@@ -341,7 +341,7 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
-		case FMUPortOutputEditPart.VISUAL_ID: {
+		case FMUOutputPortEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(ComponentsDiagramUpdater
 						.getFMUPort_3002ContainedLinks(view));

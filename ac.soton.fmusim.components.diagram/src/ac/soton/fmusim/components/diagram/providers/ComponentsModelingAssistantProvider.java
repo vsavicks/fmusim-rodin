@@ -37,7 +37,7 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin;
 import ac.soton.fmusim.components.diagram.part.Messages;
 
@@ -93,8 +93,8 @@ public class ComponentsModelingAssistantProvider extends
 			return ((FMUInputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSource();
 		}
-		if (sourceEditPart instanceof FMUPortOutputEditPart) {
-			return ((FMUPortOutputEditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUOutputPortEditPart) {
+			return ((FMUOutputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSource();
 		}
 		if (sourceEditPart instanceof EventBInputPortEditPart) {
@@ -137,8 +137,8 @@ public class ComponentsModelingAssistantProvider extends
 			return ((FMUInputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
-		if (sourceEditPart instanceof FMUPortOutputEditPart) {
-			return ((FMUPortOutputEditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUOutputPortEditPart) {
+			return ((FMUOutputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
 		if (sourceEditPart instanceof EventBInputPortEditPart) {
@@ -181,8 +181,8 @@ public class ComponentsModelingAssistantProvider extends
 			return ((FMUInputPortEditPart) sourceEditPart)
 					.getMATypesForTarget(relationshipType);
 		}
-		if (sourceEditPart instanceof FMUPortOutputEditPart) {
-			return ((FMUPortOutputEditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUOutputPortEditPart) {
+			return ((FMUOutputPortEditPart) sourceEditPart)
 					.getMATypesForTarget(relationshipType);
 		}
 		if (sourceEditPart instanceof EventBInputPortEditPart) {

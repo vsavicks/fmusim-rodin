@@ -268,7 +268,7 @@ public class EventBInputPortEditPart extends AbstractBorderItemEditPart {
 	 * @generated
 	 */
 	static final Color THIS_BACK = new Color(null, 230, 230, 230);
-	
+
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		return new ChopboxAnchor(getNodeFigure());

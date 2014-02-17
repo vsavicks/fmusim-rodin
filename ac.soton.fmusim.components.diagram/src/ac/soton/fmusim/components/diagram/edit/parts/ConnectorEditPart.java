@@ -342,7 +342,8 @@ public class ConnectorEditPart extends AbstractBorderedShapeEditPart {
 	public void eraseTargetFeedback(Request request) {
 		super.eraseTargetFeedback(request);
 		IFigure layer = getLayer(LayerConstants.FEEDBACK_LAYER);
-		if (layer != null && feedbackFigure != null && feedbackFigure.getParent() != null) {
+		if (layer != null && feedbackFigure != null
+				&& feedbackFigure.getParent() != null) {
 			layer.remove(feedbackFigure);
 		}
 		feedbackFigure = null;

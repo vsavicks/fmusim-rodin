@@ -34,7 +34,7 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin;
@@ -320,7 +320,7 @@ public class ComponentsElementTypes {
 			return DisplayComponent_2006;
 		case FMUInputPortEditPart.VISUAL_ID:
 			return FMUPort_3001;
-		case FMUPortOutputEditPart.VISUAL_ID:
+		case FMUOutputPortEditPart.VISUAL_ID:
 			return FMUPort_3002;
 		case FMUVariableEditPart.VISUAL_ID:
 			return FMUVariable_3009;

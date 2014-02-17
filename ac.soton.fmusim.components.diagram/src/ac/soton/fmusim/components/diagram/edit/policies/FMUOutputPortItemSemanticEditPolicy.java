@@ -31,14 +31,14 @@ import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 /**
  * @generated
  */
-public class EventBPortOutputItemSemanticEditPolicy extends
+public class FMUOutputPortItemSemanticEditPolicy extends
 		ComponentsBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
-	public EventBPortOutputItemSemanticEditPolicy() {
-		super(ComponentsElementTypes.EventBPort_3004);
+	public FMUOutputPortItemSemanticEditPolicy() {
+		super(ComponentsElementTypes.FMUPort_3002);
 	}
 
 	/**

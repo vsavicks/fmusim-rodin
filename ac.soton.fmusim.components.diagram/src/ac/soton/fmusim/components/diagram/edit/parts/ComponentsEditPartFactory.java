@@ -56,8 +56,8 @@ public class ComponentsEditPartFactory implements EditPartFactory {
 			case FMUInputPortEditPart.VISUAL_ID:
 				return new FMUInputPortEditPart(view);
 
-			case FMUPortOutputEditPart.VISUAL_ID:
-				return new FMUPortOutputEditPart(view);
+			case FMUOutputPortEditPart.VISUAL_ID:
+				return new FMUOutputPortEditPart(view);
 
 			case FMUVariableEditPart.VISUAL_ID:
 				return new FMUVariableEditPart(view);

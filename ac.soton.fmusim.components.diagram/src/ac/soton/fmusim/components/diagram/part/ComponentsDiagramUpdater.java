@@ -44,7 +44,7 @@ import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
@@ -148,7 +148,7 @@ public class ComponentsDiagramUpdater {
 			Port childElement = (Port) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
-			if (visualID == FMUPortOutputEditPart.VISUAL_ID) {
+			if (visualID == FMUOutputPortEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -282,7 +282,7 @@ public class ComponentsDiagramUpdater {
 			return getDisplayComponent_2006ContainedLinks(view);
 		case FMUInputPortEditPart.VISUAL_ID:
 			return getFMUPort_3001ContainedLinks(view);
-		case FMUPortOutputEditPart.VISUAL_ID:
+		case FMUOutputPortEditPart.VISUAL_ID:
 			return getFMUPort_3002ContainedLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009ContainedLinks(view);
@@ -313,7 +313,7 @@ public class ComponentsDiagramUpdater {
 			return getDisplayComponent_2006IncomingLinks(view);
 		case FMUInputPortEditPart.VISUAL_ID:
 			return getFMUPort_3001IncomingLinks(view);
-		case FMUPortOutputEditPart.VISUAL_ID:
+		case FMUOutputPortEditPart.VISUAL_ID:
 			return getFMUPort_3002IncomingLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009IncomingLinks(view);
@@ -344,7 +344,7 @@ public class ComponentsDiagramUpdater {
 			return getDisplayComponent_2006OutgoingLinks(view);
 		case FMUInputPortEditPart.VISUAL_ID:
 			return getFMUPort_3001OutgoingLinks(view);
-		case FMUPortOutputEditPart.VISUAL_ID:
+		case FMUOutputPortEditPart.VISUAL_ID:
 			return getFMUPort_3002OutgoingLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009OutgoingLinks(view);
