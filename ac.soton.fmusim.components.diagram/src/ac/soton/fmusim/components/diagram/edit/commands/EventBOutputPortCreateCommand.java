@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,18 +21,18 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsFactory;
-import ac.soton.fmusim.components.FMUPort;
+import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.diagram.providers.ElementInitializers;
 
 /**
  * @generated
  */
-public class FMUPort2CreateCommand extends EditElementCommand {
+public class EventBOutputPortCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
 	 */
-	public FMUPort2CreateCommand(CreateElementRequest req) {
+	public EventBOutputPortCreateCommand(CreateElementRequest req) {
 		super(req.getLabel(), null, req);
 	}
 
@@ -62,12 +62,12 @@ public class FMUPort2CreateCommand extends EditElementCommand {
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor,
 			IAdaptable info) throws ExecutionException {
-		FMUPort newElement = ComponentsFactory.eINSTANCE.createFMUPort();
+		EventBPort newElement = ComponentsFactory.eINSTANCE.createEventBPort();
 
 		Component owner = (Component) getElementToEdit();
 		owner.getOutputs().add(newElement);
 
-		ElementInitializers.getInstance().init_FMUPort_3002(newElement);
+		ElementInitializers.getInstance().init_EventBPort_3004(newElement);
 
 		doConfigure(newElement, monitor, info);
 
@@ -78,7 +78,7 @@ public class FMUPort2CreateCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	protected void doConfigure(FMUPort newElement, IProgressMonitor monitor,
+	protected void doConfigure(EventBPort newElement, IProgressMonitor monitor,
 			IAdaptable info) throws ExecutionException {
 		IElementType elementType = ((CreateElementRequest) getRequest())
 				.getElementType();

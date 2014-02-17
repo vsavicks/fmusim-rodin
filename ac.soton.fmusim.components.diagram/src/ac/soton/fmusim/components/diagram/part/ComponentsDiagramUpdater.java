@@ -38,13 +38,13 @@ import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
@@ -138,7 +138,7 @@ public class ComponentsDiagramUpdater {
 			Port childElement = (Port) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
-			if (visualID == FMUPortEditPart.VISUAL_ID) {
+			if (visualID == FMUInputPortEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -148,7 +148,7 @@ public class ComponentsDiagramUpdater {
 			Port childElement = (Port) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
-			if (visualID == FMUPort2EditPart.VISUAL_ID) {
+			if (visualID == FMUPortOutputEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -170,7 +170,7 @@ public class ComponentsDiagramUpdater {
 			Port childElement = (Port) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
-			if (visualID == EventBPortEditPart.VISUAL_ID) {
+			if (visualID == EventBInputPortEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -180,7 +180,7 @@ public class ComponentsDiagramUpdater {
 			Port childElement = (Port) it.next();
 			int visualID = ComponentsVisualIDRegistry.getNodeVisualID(view,
 					childElement);
-			if (visualID == EventBPort2EditPart.VISUAL_ID) {
+			if (visualID == EventBOutputPortEditPart.VISUAL_ID) {
 				result.add(new ComponentsNodeDescriptor(childElement, visualID));
 				continue;
 			}
@@ -280,15 +280,15 @@ public class ComponentsDiagramUpdater {
 			return getConnector_2003ContainedLinks(view);
 		case DisplayComponentEditPart.VISUAL_ID:
 			return getDisplayComponent_2006ContainedLinks(view);
-		case FMUPortEditPart.VISUAL_ID:
+		case FMUInputPortEditPart.VISUAL_ID:
 			return getFMUPort_3001ContainedLinks(view);
-		case FMUPort2EditPart.VISUAL_ID:
+		case FMUPortOutputEditPart.VISUAL_ID:
 			return getFMUPort_3002ContainedLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009ContainedLinks(view);
-		case EventBPortEditPart.VISUAL_ID:
+		case EventBInputPortEditPart.VISUAL_ID:
 			return getEventBPort_3003ContainedLinks(view);
-		case EventBPort2EditPart.VISUAL_ID:
+		case EventBOutputPortEditPart.VISUAL_ID:
 			return getEventBPort_3004ContainedLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010ContainedLinks(view);
@@ -311,15 +311,15 @@ public class ComponentsDiagramUpdater {
 			return getConnector_2003IncomingLinks(view);
 		case DisplayComponentEditPart.VISUAL_ID:
 			return getDisplayComponent_2006IncomingLinks(view);
-		case FMUPortEditPart.VISUAL_ID:
+		case FMUInputPortEditPart.VISUAL_ID:
 			return getFMUPort_3001IncomingLinks(view);
-		case FMUPort2EditPart.VISUAL_ID:
+		case FMUPortOutputEditPart.VISUAL_ID:
 			return getFMUPort_3002IncomingLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009IncomingLinks(view);
-		case EventBPortEditPart.VISUAL_ID:
+		case EventBInputPortEditPart.VISUAL_ID:
 			return getEventBPort_3003IncomingLinks(view);
-		case EventBPort2EditPart.VISUAL_ID:
+		case EventBOutputPortEditPart.VISUAL_ID:
 			return getEventBPort_3004IncomingLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010IncomingLinks(view);
@@ -342,15 +342,15 @@ public class ComponentsDiagramUpdater {
 			return getConnector_2003OutgoingLinks(view);
 		case DisplayComponentEditPart.VISUAL_ID:
 			return getDisplayComponent_2006OutgoingLinks(view);
-		case FMUPortEditPart.VISUAL_ID:
+		case FMUInputPortEditPart.VISUAL_ID:
 			return getFMUPort_3001OutgoingLinks(view);
-		case FMUPort2EditPart.VISUAL_ID:
+		case FMUPortOutputEditPart.VISUAL_ID:
 			return getFMUPort_3002OutgoingLinks(view);
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009OutgoingLinks(view);
-		case EventBPortEditPart.VISUAL_ID:
+		case EventBInputPortEditPart.VISUAL_ID:
 			return getEventBPort_3003OutgoingLinks(view);
-		case EventBPort2EditPart.VISUAL_ID:
+		case EventBOutputPortEditPart.VISUAL_ID:
 			return getEventBPort_3004OutgoingLinks(view);
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010OutgoingLinks(view);

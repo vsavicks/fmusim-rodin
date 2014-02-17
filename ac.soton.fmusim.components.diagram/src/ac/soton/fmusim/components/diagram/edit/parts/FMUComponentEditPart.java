@@ -88,6 +88,7 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new FMUComponentCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
@@ -101,8 +102,8 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				View childView = (View) child.getModel();
 				switch (ComponentsVisualIDRegistry.getVisualID(childView)) {
-				case FMUPortEditPart.VISUAL_ID:
-				case FMUPort2EditPart.VISUAL_ID:
+				case FMUInputPortEditPart.VISUAL_ID:
+				case FMUPortOutputEditPart.VISUAL_ID:
 					return new BorderItemSelectionEditPolicy();
 				}
 				EditPolicy result = child
@@ -156,18 +157,20 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 					.getFigure());
 			return true;
 		}
-		if (childEditPart instanceof FMUPortEditPart) {
+		if (childEditPart instanceof FMUInputPortEditPart) {
 			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
 					PositionConstants.WEST);
-			getBorderedFigure().getBorderItemContainer().add(
-					((FMUPortEditPart) childEditPart).getFigure(), locator);
+			getBorderedFigure().getBorderItemContainer()
+					.add(((FMUInputPortEditPart) childEditPart).getFigure(),
+							locator);
 			return true;
 		}
-		if (childEditPart instanceof FMUPort2EditPart) {
+		if (childEditPart instanceof FMUPortOutputEditPart) {
 			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
 					PositionConstants.EAST);
 			getBorderedFigure().getBorderItemContainer().add(
-					((FMUPort2EditPart) childEditPart).getFigure(), locator);
+					((FMUPortOutputEditPart) childEditPart).getFigure(),
+					locator);
 			return true;
 		}
 		return false;
@@ -187,14 +190,14 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 					.getFigure());
 			return true;
 		}
-		if (childEditPart instanceof FMUPortEditPart) {
+		if (childEditPart instanceof FMUInputPortEditPart) {
 			getBorderedFigure().getBorderItemContainer().remove(
-					((FMUPortEditPart) childEditPart).getFigure());
+					((FMUInputPortEditPart) childEditPart).getFigure());
 			return true;
 		}
-		if (childEditPart instanceof FMUPort2EditPart) {
+		if (childEditPart instanceof FMUPortOutputEditPart) {
 			getBorderedFigure().getBorderItemContainer().remove(
-					((FMUPort2EditPart) childEditPart).getFigure());
+					((FMUPortOutputEditPart) childEditPart).getFigure());
 			return true;
 		}
 		return false;

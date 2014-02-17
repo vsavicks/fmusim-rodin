@@ -22,14 +22,9 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.parsers.ConnectorLabelExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.EventBVariableExpressionLabelParser;
@@ -97,42 +92,6 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser fMUPortName_5004Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getFMUPortName_5004Parser() {
-		if (fMUPortName_5004Parser == null) {
-			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
-					.getNamedElement_Name() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			fMUPortName_5004Parser = parser;
-		}
-		return fMUPortName_5004Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser fMUPortName_5005Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getFMUPortName_5005Parser() {
-		if (fMUPortName_5005Parser == null) {
-			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
-					.getNamedElement_Name() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			fMUPortName_5005Parser = parser;
-		}
-		return fMUPortName_5005Parser;
-	}
-
-	/**
-	 * @generated
-	 */
 	private FMUVariableExpressionLabelParser fMUVariable_3009Parser;
 
 	/**
@@ -143,42 +102,6 @@ public class ComponentsParserProvider extends AbstractProvider implements
 			fMUVariable_3009Parser = new FMUVariableExpressionLabelParser();
 		}
 		return fMUVariable_3009Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser eventBPortName_5006Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getEventBPortName_5006Parser() {
-		if (eventBPortName_5006Parser == null) {
-			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
-					.getNamedElement_Name() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			eventBPortName_5006Parser = parser;
-		}
-		return eventBPortName_5006Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser eventBPortName_5007Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getEventBPortName_5007Parser() {
-		if (eventBPortName_5007Parser == null) {
-			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
-					.getNamedElement_Name() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			eventBPortName_5007Parser = parser;
-		}
-		return eventBPortName_5007Parser;
 	}
 
 	/**
@@ -199,24 +122,6 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser displayPortName_5010Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getDisplayPortName_5010Parser() {
-		if (displayPortName_5010Parser == null) {
-			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
-					.getNamedElement_Name() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			displayPortName_5010Parser = parser;
-		}
-		return displayPortName_5010Parser;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
 		case FMUComponentNameEditPart.VISUAL_ID:
@@ -225,20 +130,10 @@ public class ComponentsParserProvider extends AbstractProvider implements
 			return getEventBComponentName_5002Parser();
 		case ConnectorValueEditPart.VISUAL_ID:
 			return getConnectorLabel_5003Parser();
-		case FMUPortNameTypeEditPart.VISUAL_ID:
-			return getFMUPortName_5004Parser();
-		case FMUPortNameType2EditPart.VISUAL_ID:
-			return getFMUPortName_5005Parser();
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009Parser();
-		case EventBPortNameTypeEditPart.VISUAL_ID:
-			return getEventBPortName_5006Parser();
-		case EventBPortNameType2EditPart.VISUAL_ID:
-			return getEventBPortName_5007Parser();
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010Parser();
-		case DisplayPortNameEditPart.VISUAL_ID:
-			return getDisplayPortName_5010Parser();
 		}
 		return null;
 	}

@@ -23,11 +23,11 @@ import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
-import ac.soton.fmusim.components.diagram.edit.commands.FMUPort2CreateCommand;
-import ac.soton.fmusim.components.diagram.edit.commands.FMUPortCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.FMUInputPortCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.FMUPortOutputCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -51,10 +51,10 @@ public class FMUComponentItemSemanticEditPolicy extends
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (ComponentsElementTypes.FMUPort_3001 == req.getElementType()) {
-			return getGEFWrapper(new FMUPortCreateCommand(req));
+			return getGEFWrapper(new FMUInputPortCreateCommand(req));
 		}
 		if (ComponentsElementTypes.FMUPort_3002 == req.getElementType()) {
-			return getGEFWrapper(new FMUPort2CreateCommand(req));
+			return getGEFWrapper(new FMUPortOutputCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -88,7 +88,7 @@ public class FMUComponentItemSemanticEditPolicy extends
 		for (Iterator<?> nit = view.getChildren().iterator(); nit.hasNext();) {
 			Node node = (Node) nit.next();
 			switch (ComponentsVisualIDRegistry.getVisualID(node)) {
-			case FMUPortEditPart.VISUAL_ID:
+			case FMUInputPortEditPart.VISUAL_ID:
 				for (Iterator<?> it = node.getSourceEdges().iterator(); it
 						.hasNext();) {
 					Edge outgoingLink = (Edge) it.next();
@@ -107,7 +107,7 @@ public class FMUComponentItemSemanticEditPolicy extends
 				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
 				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
-			case FMUPort2EditPart.VISUAL_ID:
+			case FMUPortOutputEditPart.VISUAL_ID:
 				for (Iterator<?> it = node.getSourceEdges().iterator(); it
 						.hasNext();) {
 					Edge outgoingLink = (Edge) it.next();

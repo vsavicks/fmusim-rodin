@@ -13,7 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.Shape;
@@ -86,6 +88,7 @@ public class ConnectorEditPart extends AbstractBorderedShapeEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ConnectorItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
@@ -316,11 +319,9 @@ public class ConnectorEditPart extends AbstractBorderedShapeEditPart {
 	 */
 	@Override
 	public void showTargetFeedback(Request request) {
-		// TODO Auto-generated method stub
 		super.showTargetFeedback(request);
-
-		// the feedback layer figures do not recieve mouse events so do not use
-		// it for popup bars
+		// the feedback layer figures do not receive mouse events so do not use
+		// it for pop-up bars
 		if (feedbackFigure == null) {
 			feedbackFigure = new Ellipse();
 			feedbackFigure.setFill(false);
@@ -339,13 +340,16 @@ public class ConnectorEditPart extends AbstractBorderedShapeEditPart {
 	 */
 	@Override
 	public void eraseTargetFeedback(Request request) {
-		// TODO Auto-generated method stub
 		super.eraseTargetFeedback(request);
 		IFigure layer = getLayer(LayerConstants.FEEDBACK_LAYER);
-		if (feedbackFigure != null && feedbackFigure.getParent() != null) {
+		if (layer != null && feedbackFigure != null && feedbackFigure.getParent() != null) {
 			layer.remove(feedbackFigure);
 		}
 		feedbackFigure = null;
 	}
 
+	@Override
+	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
+		return new EllipseAnchor(getNodeFigure());
+	}
 }

@@ -29,12 +29,12 @@ import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin;
@@ -318,15 +318,15 @@ public class ComponentsElementTypes {
 			return Connector_2003;
 		case DisplayComponentEditPart.VISUAL_ID:
 			return DisplayComponent_2006;
-		case FMUPortEditPart.VISUAL_ID:
+		case FMUInputPortEditPart.VISUAL_ID:
 			return FMUPort_3001;
-		case FMUPort2EditPart.VISUAL_ID:
+		case FMUPortOutputEditPart.VISUAL_ID:
 			return FMUPort_3002;
 		case FMUVariableEditPart.VISUAL_ID:
 			return FMUVariable_3009;
-		case EventBPortEditPart.VISUAL_ID:
+		case EventBInputPortEditPart.VISUAL_ID:
 			return EventBPort_3003;
-		case EventBPort2EditPart.VISUAL_ID:
+		case EventBOutputPortEditPart.VISUAL_ID:
 			return EventBPort_3004;
 		case EventBVariableEditPart.VISUAL_ID:
 			return EventBVariable_3010;

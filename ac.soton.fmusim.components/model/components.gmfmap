@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfmap:Mapping xmi:version="2.0"
+<gmfmap:Mapping
+    xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
@@ -42,15 +43,6 @@
                   body="VariableCausality::Input"/>
             </initializers>
           </domainInitializer>
-          <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping"
-              readOnly="true"
-              viewPattern="">
-            <diagramLabel
-                href="components.gmfgraph#PortLabel"/>
-            <features
-                href="components.ecore#//NamedElement/name"/>
-          </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
               href="components.gmftool#//@palette/@tools.0/@tools.4"/>
@@ -77,14 +69,6 @@
                   body="VariableCausality::Output"/>
             </initializers>
           </domainInitializer>
-          <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping"
-              readOnly="true">
-            <diagramLabel
-                href="components.gmfgraph#PortLabel"/>
-            <features
-                href="components.ecore#//NamedElement/name"/>
-          </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
               href="components.gmftool#//@palette/@tools.0/@tools.5"/>
@@ -159,15 +143,6 @@
                   body="VariableCausality::Input"/>
             </initializers>
           </domainInitializer>
-          <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping"
-              readOnly="true"
-              viewPattern="">
-            <diagramLabel
-                href="components.gmfgraph#PortLabel"/>
-            <features
-                href="components.ecore#//NamedElement/name"/>
-          </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
               href="components.gmftool#//@palette/@tools.0/@tools.4"/>
@@ -194,17 +169,6 @@
                   body="VariableCausality::Output"/>
             </initializers>
           </domainInitializer>
-          <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping"
-              readOnly="true"
-              viewPattern=""
-              editorPattern=""
-              editPattern="">
-            <diagramLabel
-                href="components.gmfgraph#PortLabel"/>
-            <features
-                href="components.ecore#//NamedElement/name"/>
-          </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
               href="components.gmftool#//@palette/@tools.0/@tools.5"/>

@@ -88,6 +88,7 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new EventBComponentCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
@@ -101,8 +102,8 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				View childView = (View) child.getModel();
 				switch (ComponentsVisualIDRegistry.getVisualID(childView)) {
-				case EventBPortEditPart.VISUAL_ID:
-				case EventBPort2EditPart.VISUAL_ID:
+				case EventBInputPortEditPart.VISUAL_ID:
+				case EventBOutputPortEditPart.VISUAL_ID:
 					return new BorderItemSelectionEditPolicy();
 				}
 				EditPolicy result = child
@@ -156,18 +157,20 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 					.getFigure());
 			return true;
 		}
-		if (childEditPart instanceof EventBPortEditPart) {
+		if (childEditPart instanceof EventBInputPortEditPart) {
 			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
 					PositionConstants.WEST);
 			getBorderedFigure().getBorderItemContainer().add(
-					((EventBPortEditPart) childEditPart).getFigure(), locator);
+					((EventBInputPortEditPart) childEditPart).getFigure(),
+					locator);
 			return true;
 		}
-		if (childEditPart instanceof EventBPort2EditPart) {
+		if (childEditPart instanceof EventBOutputPortEditPart) {
 			BorderItemLocator locator = new BorderItemLocator(getMainFigure(),
 					PositionConstants.EAST);
 			getBorderedFigure().getBorderItemContainer().add(
-					((EventBPort2EditPart) childEditPart).getFigure(), locator);
+					((EventBOutputPortEditPart) childEditPart).getFigure(),
+					locator);
 			return true;
 		}
 		return false;
@@ -187,14 +190,14 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 					.getFigure());
 			return true;
 		}
-		if (childEditPart instanceof EventBPortEditPart) {
+		if (childEditPart instanceof EventBInputPortEditPart) {
 			getBorderedFigure().getBorderItemContainer().remove(
-					((EventBPortEditPart) childEditPart).getFigure());
+					((EventBInputPortEditPart) childEditPart).getFigure());
 			return true;
 		}
-		if (childEditPart instanceof EventBPort2EditPart) {
+		if (childEditPart instanceof EventBOutputPortEditPart) {
 			getBorderedFigure().getBorderItemContainer().remove(
-					((EventBPort2EditPart) childEditPart).getFigure());
+					((EventBOutputPortEditPart) childEditPart).getFigure());
 			return true;
 		}
 		return false;

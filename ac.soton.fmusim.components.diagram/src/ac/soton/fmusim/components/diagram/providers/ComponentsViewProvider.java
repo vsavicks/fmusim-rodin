@@ -54,22 +54,17 @@ import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -171,13 +166,13 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				case EventBComponentEditPart.VISUAL_ID:
 				case ConnectorEditPart.VISUAL_ID:
 				case DisplayComponentEditPart.VISUAL_ID:
-				case FMUPortEditPart.VISUAL_ID:
+				case FMUInputPortEditPart.VISUAL_ID:
 				case FMUVariableEditPart.VISUAL_ID:
-				case EventBPortEditPart.VISUAL_ID:
+				case EventBInputPortEditPart.VISUAL_ID:
 				case EventBVariableEditPart.VISUAL_ID:
 				case DisplayPortEditPart.VISUAL_ID:
-				case FMUPort2EditPart.VISUAL_ID:
-				case EventBPort2EditPart.VISUAL_ID:
+				case FMUPortOutputEditPart.VISUAL_ID:
+				case EventBOutputPortEditPart.VISUAL_ID:
 					if (domainElement == null
 							|| visualID != ComponentsVisualIDRegistry
 									.getNodeVisualID(op.getContainerView(),
@@ -194,11 +189,11 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				|| EventBComponentEditPart.VISUAL_ID == visualID
 				|| ConnectorEditPart.VISUAL_ID == visualID
 				|| DisplayComponentEditPart.VISUAL_ID == visualID
-				|| FMUPortEditPart.VISUAL_ID == visualID
-				|| FMUPort2EditPart.VISUAL_ID == visualID
+				|| FMUInputPortEditPart.VISUAL_ID == visualID
+				|| FMUPortOutputEditPart.VISUAL_ID == visualID
 				|| FMUVariableEditPart.VISUAL_ID == visualID
-				|| EventBPortEditPart.VISUAL_ID == visualID
-				|| EventBPort2EditPart.VISUAL_ID == visualID
+				|| EventBInputPortEditPart.VISUAL_ID == visualID
+				|| EventBOutputPortEditPart.VISUAL_ID == visualID
 				|| EventBVariableEditPart.VISUAL_ID == visualID
 				|| DisplayPortEditPart.VISUAL_ID == visualID;
 	}
@@ -269,19 +264,19 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		case DisplayComponentEditPart.VISUAL_ID:
 			return createDisplayComponent_2006(domainElement, containerView,
 					index, persisted, preferencesHint);
-		case FMUPortEditPart.VISUAL_ID:
+		case FMUInputPortEditPart.VISUAL_ID:
 			return createFMUPort_3001(domainElement, containerView, index,
 					persisted, preferencesHint);
-		case FMUPort2EditPart.VISUAL_ID:
+		case FMUPortOutputEditPart.VISUAL_ID:
 			return createFMUPort_3002(domainElement, containerView, index,
 					persisted, preferencesHint);
 		case FMUVariableEditPart.VISUAL_ID:
 			return createFMUVariable_3009(domainElement, containerView, index,
 					persisted, preferencesHint);
-		case EventBPortEditPart.VISUAL_ID:
+		case EventBInputPortEditPart.VISUAL_ID:
 			return createEventBPort_3003(domainElement, containerView, index,
 					persisted, preferencesHint);
-		case EventBPort2EditPart.VISUAL_ID:
+		case EventBOutputPortEditPart.VISUAL_ID:
 			return createEventBPort_3004(domainElement, containerView, index,
 					persisted, preferencesHint);
 		case EventBVariableEditPart.VISUAL_ID:
@@ -497,7 +492,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(ComponentsVisualIDRegistry
-				.getType(FMUPortEditPart.VISUAL_ID));
+				.getType(FMUInputPortEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		// initializeFromPreferences 
@@ -517,14 +512,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
-		Node label5004 = createLabel(node,
-				ComponentsVisualIDRegistry
-						.getType(FMUPortNameTypeEditPart.VISUAL_ID));
-		label5004.setLayoutConstraint(NotationFactory.eINSTANCE
-				.createLocation());
-		Location location5004 = (Location) label5004.getLayoutConstraint();
-		location5004.setX(0);
-		location5004.setY(5);
 		return node;
 	}
 
@@ -539,7 +526,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(ComponentsVisualIDRegistry
-				.getType(FMUPort2EditPart.VISUAL_ID));
+				.getType(FMUPortOutputEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		// initializeFromPreferences 
@@ -559,14 +546,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
-		Node label5005 = createLabel(node,
-				ComponentsVisualIDRegistry
-						.getType(FMUPortNameType2EditPart.VISUAL_ID));
-		label5005.setLayoutConstraint(NotationFactory.eINSTANCE
-				.createLocation());
-		Location location5005 = (Location) label5005.getLayoutConstraint();
-		location5005.setX(0);
-		location5005.setY(5);
 		return node;
 	}
 
@@ -597,7 +576,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(ComponentsVisualIDRegistry
-				.getType(EventBPortEditPart.VISUAL_ID));
+				.getType(EventBInputPortEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		// initializeFromPreferences 
@@ -617,14 +596,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
-		Node label5006 = createLabel(node,
-				ComponentsVisualIDRegistry
-						.getType(EventBPortNameTypeEditPart.VISUAL_ID));
-		label5006.setLayoutConstraint(NotationFactory.eINSTANCE
-				.createLocation());
-		Location location5006 = (Location) label5006.getLayoutConstraint();
-		location5006.setX(0);
-		location5006.setY(5);
 		return node;
 	}
 
@@ -640,7 +611,7 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(ComponentsVisualIDRegistry
-				.getType(EventBPort2EditPart.VISUAL_ID));
+				.getType(EventBOutputPortEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		// initializeFromPreferences 
@@ -660,14 +631,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
-		Node label5007 = createLabel(node,
-				ComponentsVisualIDRegistry
-						.getType(EventBPortNameType2EditPart.VISUAL_ID));
-		label5007.setLayoutConstraint(NotationFactory.eINSTANCE
-				.createLocation());
-		Location location5007 = (Location) label5007.getLayoutConstraint();
-		location5007.setX(0);
-		location5007.setY(5);
 		return node;
 	}
 
@@ -718,14 +681,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
-		Node label5010 = createLabel(node,
-				ComponentsVisualIDRegistry
-						.getType(DisplayPortNameEditPart.VISUAL_ID));
-		label5010.setLayoutConstraint(NotationFactory.eINSTANCE
-				.createLocation());
-		Location location5010 = (Location) label5010.getLayoutConstraint();
-		location5010.setX(0);
-		location5010.setY(5);
 		return node;
 	}
 

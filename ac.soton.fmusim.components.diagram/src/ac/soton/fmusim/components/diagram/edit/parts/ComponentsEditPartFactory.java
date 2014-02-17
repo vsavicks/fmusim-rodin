@@ -53,41 +53,26 @@ public class ComponentsEditPartFactory implements EditPartFactory {
 			case DisplayComponentEditPart.VISUAL_ID:
 				return new DisplayComponentEditPart(view);
 
-			case FMUPortEditPart.VISUAL_ID:
-				return new FMUPortEditPart(view);
+			case FMUInputPortEditPart.VISUAL_ID:
+				return new FMUInputPortEditPart(view);
 
-			case FMUPortNameTypeEditPart.VISUAL_ID:
-				return new FMUPortNameTypeEditPart(view);
-
-			case FMUPort2EditPart.VISUAL_ID:
-				return new FMUPort2EditPart(view);
-
-			case FMUPortNameType2EditPart.VISUAL_ID:
-				return new FMUPortNameType2EditPart(view);
+			case FMUPortOutputEditPart.VISUAL_ID:
+				return new FMUPortOutputEditPart(view);
 
 			case FMUVariableEditPart.VISUAL_ID:
 				return new FMUVariableEditPart(view);
 
-			case EventBPortEditPart.VISUAL_ID:
-				return new EventBPortEditPart(view);
+			case EventBInputPortEditPart.VISUAL_ID:
+				return new EventBInputPortEditPart(view);
 
-			case EventBPortNameTypeEditPart.VISUAL_ID:
-				return new EventBPortNameTypeEditPart(view);
-
-			case EventBPort2EditPart.VISUAL_ID:
-				return new EventBPort2EditPart(view);
-
-			case EventBPortNameType2EditPart.VISUAL_ID:
-				return new EventBPortNameType2EditPart(view);
+			case EventBOutputPortEditPart.VISUAL_ID:
+				return new EventBOutputPortEditPart(view);
 
 			case EventBVariableEditPart.VISUAL_ID:
 				return new EventBVariableEditPart(view);
 
 			case DisplayPortEditPart.VISUAL_ID:
 				return new DisplayPortEditPart(view);
-
-			case DisplayPortNameEditPart.VISUAL_ID:
-				return new DisplayPortNameEditPart(view);
 
 			case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
 				return new FMUComponentVariablesCompartmentEditPart(view);

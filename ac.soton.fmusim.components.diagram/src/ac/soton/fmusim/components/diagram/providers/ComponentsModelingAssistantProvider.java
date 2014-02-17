@@ -33,11 +33,11 @@ import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorPlugin;
 import ac.soton.fmusim.components.diagram.part.Messages;
 
@@ -89,18 +89,20 @@ public class ComponentsModelingAssistantProvider extends
 	public List getRelTypesOnSource(IAdaptable source) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source
 				.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof FMUPortEditPart) {
-			return ((FMUPortEditPart) sourceEditPart).getMARelTypesOnSource();
-		}
-		if (sourceEditPart instanceof FMUPort2EditPart) {
-			return ((FMUPort2EditPart) sourceEditPart).getMARelTypesOnSource();
-		}
-		if (sourceEditPart instanceof EventBPortEditPart) {
-			return ((EventBPortEditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUInputPortEditPart) {
+			return ((FMUInputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSource();
 		}
-		if (sourceEditPart instanceof EventBPort2EditPart) {
-			return ((EventBPort2EditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUPortOutputEditPart) {
+			return ((FMUPortOutputEditPart) sourceEditPart)
+					.getMARelTypesOnSource();
+		}
+		if (sourceEditPart instanceof EventBInputPortEditPart) {
+			return ((EventBInputPortEditPart) sourceEditPart)
+					.getMARelTypesOnSource();
+		}
+		if (sourceEditPart instanceof EventBOutputPortEditPart) {
+			return ((EventBOutputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSource();
 		}
 		if (sourceEditPart instanceof DisplayPortEditPart) {
@@ -131,20 +133,20 @@ public class ComponentsModelingAssistantProvider extends
 				.getAdapter(IGraphicalEditPart.class);
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target
 				.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof FMUPortEditPart) {
-			return ((FMUPortEditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUInputPortEditPart) {
+			return ((FMUInputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
-		if (sourceEditPart instanceof FMUPort2EditPart) {
-			return ((FMUPort2EditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUPortOutputEditPart) {
+			return ((FMUPortOutputEditPart) sourceEditPart)
 					.getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
-		if (sourceEditPart instanceof EventBPortEditPart) {
-			return ((EventBPortEditPart) sourceEditPart)
+		if (sourceEditPart instanceof EventBInputPortEditPart) {
+			return ((EventBInputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
-		if (sourceEditPart instanceof EventBPort2EditPart) {
-			return ((EventBPort2EditPart) sourceEditPart)
+		if (sourceEditPart instanceof EventBOutputPortEditPart) {
+			return ((EventBOutputPortEditPart) sourceEditPart)
 					.getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
 		if (sourceEditPart instanceof DisplayPortEditPart) {
@@ -175,20 +177,20 @@ public class ComponentsModelingAssistantProvider extends
 			IElementType relationshipType) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source
 				.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof FMUPortEditPart) {
-			return ((FMUPortEditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUInputPortEditPart) {
+			return ((FMUInputPortEditPart) sourceEditPart)
 					.getMATypesForTarget(relationshipType);
 		}
-		if (sourceEditPart instanceof FMUPort2EditPart) {
-			return ((FMUPort2EditPart) sourceEditPart)
+		if (sourceEditPart instanceof FMUPortOutputEditPart) {
+			return ((FMUPortOutputEditPart) sourceEditPart)
 					.getMATypesForTarget(relationshipType);
 		}
-		if (sourceEditPart instanceof EventBPortEditPart) {
-			return ((EventBPortEditPart) sourceEditPart)
+		if (sourceEditPart instanceof EventBInputPortEditPart) {
+			return ((EventBInputPortEditPart) sourceEditPart)
 					.getMATypesForTarget(relationshipType);
 		}
-		if (sourceEditPart instanceof EventBPort2EditPart) {
-			return ((EventBPort2EditPart) sourceEditPart)
+		if (sourceEditPart instanceof EventBOutputPortEditPart) {
+			return ((EventBOutputPortEditPart) sourceEditPart)
 					.getMATypesForTarget(relationshipType);
 		}
 		if (sourceEditPart instanceof DisplayPortEditPart) {

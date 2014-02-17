@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -31,13 +31,13 @@ import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 /**
  * @generated
  */
-public class EventBPort2ItemSemanticEditPolicy extends
+public class EventBOutputPortItemSemanticEditPolicy extends
 		ComponentsBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
-	public EventBPort2ItemSemanticEditPolicy() {
+	public EventBOutputPortItemSemanticEditPolicy() {
 		super(ComponentsElementTypes.EventBPort_3004);
 	}
 

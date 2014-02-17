@@ -24,22 +24,17 @@ import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameType2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameType2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.FMUPortNameTypeEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.FMUPortOutputEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
 import ac.soton.fmusim.components.diagram.expressions.ComponentsOCLFactory;
 
@@ -173,24 +168,24 @@ public class ComponentsVisualIDRegistry {
 			if (ComponentsPackage.eINSTANCE.getFMUPort().isSuperTypeOf(
 					domainElement.eClass())
 					&& isFMUPort_3001((FMUPort) domainElement)) {
-				return FMUPortEditPart.VISUAL_ID;
+				return FMUInputPortEditPart.VISUAL_ID;
 			}
 			if (ComponentsPackage.eINSTANCE.getFMUPort().isSuperTypeOf(
 					domainElement.eClass())
 					&& isFMUPort_3002((FMUPort) domainElement)) {
-				return FMUPort2EditPart.VISUAL_ID;
+				return FMUPortOutputEditPart.VISUAL_ID;
 			}
 			break;
 		case EventBComponentEditPart.VISUAL_ID:
 			if (ComponentsPackage.eINSTANCE.getEventBPort().isSuperTypeOf(
 					domainElement.eClass())
 					&& isEventBPort_3003((EventBPort) domainElement)) {
-				return EventBPortEditPart.VISUAL_ID;
+				return EventBInputPortEditPart.VISUAL_ID;
 			}
 			if (ComponentsPackage.eINSTANCE.getEventBPort().isSuperTypeOf(
 					domainElement.eClass())
 					&& isEventBPort_3004((EventBPort) domainElement)) {
-				return EventBPort2EditPart.VISUAL_ID;
+				return EventBOutputPortEditPart.VISUAL_ID;
 			}
 			break;
 		case DisplayComponentEditPart.VISUAL_ID:
@@ -259,10 +254,10 @@ public class ComponentsVisualIDRegistry {
 			if (FMUComponentVariablesCompartmentEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (FMUPortEditPart.VISUAL_ID == nodeVisualID) {
+			if (FMUInputPortEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (FMUPort2EditPart.VISUAL_ID == nodeVisualID) {
+			if (FMUPortOutputEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -273,10 +268,10 @@ public class ComponentsVisualIDRegistry {
 			if (EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (EventBPortEditPart.VISUAL_ID == nodeVisualID) {
+			if (EventBInputPortEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
-			if (EventBPort2EditPart.VISUAL_ID == nodeVisualID) {
+			if (EventBOutputPortEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -287,31 +282,6 @@ public class ComponentsVisualIDRegistry {
 			break;
 		case DisplayComponentEditPart.VISUAL_ID:
 			if (DisplayPortEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case FMUPortEditPart.VISUAL_ID:
-			if (FMUPortNameTypeEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case FMUPort2EditPart.VISUAL_ID:
-			if (FMUPortNameType2EditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case EventBPortEditPart.VISUAL_ID:
-			if (EventBPortNameTypeEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case EventBPort2EditPart.VISUAL_ID:
-			if (EventBPortNameType2EditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case DisplayPortEditPart.VISUAL_ID:
-			if (DisplayPortNameEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -434,10 +404,10 @@ public class ComponentsVisualIDRegistry {
 		case ComponentDiagramEditPart.VISUAL_ID:
 			return false;
 		case ConnectorEditPart.VISUAL_ID:
-		case FMUPortEditPart.VISUAL_ID:
-		case FMUPort2EditPart.VISUAL_ID:
-		case EventBPortEditPart.VISUAL_ID:
-		case EventBPort2EditPart.VISUAL_ID:
+		case FMUInputPortEditPart.VISUAL_ID:
+		case FMUPortOutputEditPart.VISUAL_ID:
+		case EventBInputPortEditPart.VISUAL_ID:
+		case EventBOutputPortEditPart.VISUAL_ID:
 		case FMUVariableEditPart.VISUAL_ID:
 		case EventBVariableEditPart.VISUAL_ID:
 		case DisplayPortEditPart.VISUAL_ID:

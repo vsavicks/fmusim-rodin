@@ -41,8 +41,8 @@ import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsDiagramUpdater;
 import ac.soton.fmusim.components.diagram.part.ComponentsNodeDescriptor;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -112,8 +112,8 @@ public class EventBComponentCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	private boolean isMyDiagramElement(View view) {
 		int visualID = ComponentsVisualIDRegistry.getVisualID(view);
-		return visualID == EventBPortEditPart.VISUAL_ID
-				|| visualID == EventBPort2EditPart.VISUAL_ID;
+		return visualID == EventBInputPortEditPart.VISUAL_ID
+				|| visualID == EventBOutputPortEditPart.VISUAL_ID;
 	}
 
 	/**

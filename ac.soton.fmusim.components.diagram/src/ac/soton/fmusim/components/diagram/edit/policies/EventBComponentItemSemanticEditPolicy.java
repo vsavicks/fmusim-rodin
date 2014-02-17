@@ -23,11 +23,11 @@ import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
-import ac.soton.fmusim.components.diagram.edit.commands.EventBPort2CreateCommand;
-import ac.soton.fmusim.components.diagram.edit.commands.EventBPortCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.EventBInputPortCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.EventBOutputPortCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPort2EditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.EventBPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
@@ -51,10 +51,10 @@ public class EventBComponentItemSemanticEditPolicy extends
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (ComponentsElementTypes.EventBPort_3003 == req.getElementType()) {
-			return getGEFWrapper(new EventBPortCreateCommand(req));
+			return getGEFWrapper(new EventBInputPortCreateCommand(req));
 		}
 		if (ComponentsElementTypes.EventBPort_3004 == req.getElementType()) {
-			return getGEFWrapper(new EventBPort2CreateCommand(req));
+			return getGEFWrapper(new EventBOutputPortCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -88,7 +88,7 @@ public class EventBComponentItemSemanticEditPolicy extends
 		for (Iterator<?> nit = view.getChildren().iterator(); nit.hasNext();) {
 			Node node = (Node) nit.next();
 			switch (ComponentsVisualIDRegistry.getVisualID(node)) {
-			case EventBPortEditPart.VISUAL_ID:
+			case EventBInputPortEditPart.VISUAL_ID:
 				for (Iterator<?> it = node.getSourceEdges().iterator(); it
 						.hasNext();) {
 					Edge outgoingLink = (Edge) it.next();
@@ -107,7 +107,7 @@ public class EventBComponentItemSemanticEditPolicy extends
 				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
 				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
-			case EventBPort2EditPart.VISUAL_ID:
+			case EventBOutputPortEditPart.VISUAL_ID:
 				for (Iterator<?> it = node.getSourceEdges().iterator(); it
 						.hasNext();) {
 					Edge outgoingLink = (Edge) it.next();
