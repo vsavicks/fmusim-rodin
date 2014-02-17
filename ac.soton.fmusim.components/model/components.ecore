@@ -138,12 +138,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="SimExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.SimulationException"/>
   <eClassifiers xsi:type="ecore:EEnum" name="Colour">
-    <eLiterals name="Green" literal="Green"/>
+    <eLiterals name="Green" value="2" literal="Green"/>
     <eLiterals name="Blue" literal="Blue"/>
-    <eLiterals name="Red" literal="Red"/>
-    <eLiterals name="Yellow"/>
-    <eLiterals name="Pink"/>
-    <eLiterals name="Black" literal="Black"/>
+    <eLiterals name="Red" value="1" literal="Red"/>
+    <eLiterals name="Yellow" value="3"/>
+    <eLiterals name="Pink" value="4"/>
+    <eLiterals name="Black" value="5" literal="Black"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="ModelExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.ModelException"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RealClass" instanceClassName="org.jscience.mathematics.number.Real"/>

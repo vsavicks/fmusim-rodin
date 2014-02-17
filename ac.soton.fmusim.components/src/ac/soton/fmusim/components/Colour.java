@@ -33,7 +33,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GREEN(0, "Green", "Green"), /**
+	GREEN(2, "Green", "Green"), /**
 	 * The '<em><b>Blue</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -49,7 +49,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RED(0, "Red", "Red"),
+	RED(1, "Red", "Red"),
 
 	/**
 	 * The '<em><b>Yellow</b></em>' literal object.
@@ -59,7 +59,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	YELLOW(0, "Yellow", "Yellow"),
+	YELLOW(3, "Yellow", "Yellow"),
 
 	/**
 	 * The '<em><b>Pink</b></em>' literal object.
@@ -69,7 +69,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PINK(0, "Pink", "Pink"), /**
+	PINK(4, "Pink", "Pink"), /**
 	 * The '<em><b>Black</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -77,7 +77,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BLACK(0, "Black", "Black");
+	BLACK(5, "Black", "Black");
 
 	/**
 	 * The '<em><b>Green</b></em>' literal value.
@@ -92,7 +92,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int GREEN_VALUE = 0;
+	public static final int GREEN_VALUE = 2;
 
 	/**
 	 * The '<em><b>Blue</b></em>' literal value.
@@ -122,7 +122,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RED_VALUE = 0;
+	public static final int RED_VALUE = 1;
 
 	/**
 	 * The '<em><b>Yellow</b></em>' literal value.
@@ -137,7 +137,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int YELLOW_VALUE = 0;
+	public static final int YELLOW_VALUE = 3;
 
 	/**
 	 * The '<em><b>Pink</b></em>' literal value.
@@ -152,7 +152,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PINK_VALUE = 0;
+	public static final int PINK_VALUE = 4;
 
 	/**
 	 * The '<em><b>Black</b></em>' literal value.
@@ -167,7 +167,7 @@ public enum Colour implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int BLACK_VALUE = 0;
+	public static final int BLACK_VALUE = 5;
 
 	/**
 	 * An array of all the '<em><b>Colour</b></em>' enumerators.
@@ -234,6 +234,11 @@ public enum Colour implements Enumerator {
 	public static Colour get(int value) {
 		switch (value) {
 			case GREEN_VALUE: return GREEN;
+			case BLUE_VALUE: return BLUE;
+			case RED_VALUE: return RED;
+			case YELLOW_VALUE: return YELLOW;
+			case PINK_VALUE: return PINK;
+			case BLACK_VALUE: return BLACK;
 		}
 		return null;
 	}

@@ -19,6 +19,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.notation.View;
 
+import ac.soton.fmusim.components.Colour;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsFactory;
 import ac.soton.fmusim.components.DisplayPort;
@@ -58,7 +59,7 @@ public class DisplayPortCreateCommand extends EditElementCommand {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor,
 			IAdaptable info) throws ExecutionException {
@@ -66,6 +67,8 @@ public class DisplayPortCreateCommand extends EditElementCommand {
 				.createDisplayPort();
 
 		Component owner = (Component) getElementToEdit();
+		int colourIdx = owner.getInputs().size() % Colour.values().length;
+		newElement.setColour(Colour.get(colourIdx));
 		owner.getInputs().add(newElement);
 
 		ElementInitializers.getInstance().init_DisplayPort_3013(newElement);
