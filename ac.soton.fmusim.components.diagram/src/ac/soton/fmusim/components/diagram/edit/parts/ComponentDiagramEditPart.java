@@ -16,6 +16,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -37,6 +38,7 @@ import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicy
 import ac.soton.fmusim.components.diagram.edit.commands.ComponentsCreateShortcutDecorationsCommand;
 import ac.soton.fmusim.components.diagram.edit.policies.ComponentDiagramCanonicalEditPolicy;
 import ac.soton.fmusim.components.diagram.edit.policies.ComponentDiagramItemSemanticEditPolicy;
+import ac.soton.fmusim.components.diagram.edit.policies.CustomXYLayoutEditPolicy;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 
 /**
@@ -111,6 +113,8 @@ public class ComponentDiagramEditPart extends DiagramEditPart {
 						return null;
 					}
 				});
+		installEditPolicy(EditPolicy.LAYOUT_ROLE,
+				new CustomXYLayoutEditPolicy());
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
 

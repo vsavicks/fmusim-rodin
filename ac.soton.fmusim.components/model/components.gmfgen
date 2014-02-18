@@ -4,6 +4,7 @@
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType xsi:type="gmfgen:MetamodelType" displayName="Component Diagram" editHelperClassName="ComponentDiagramEditHelper"/>
     <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+    <behaviour xsi:type="gmfgen:CustomBehaviour" key="org.eclipse.gef.EditPolicy.LAYOUT_ROLE" editPolicyQualifiedClassName="ac.soton.fmusim.components.diagram.edit.policies.CustomXYLayoutEditPolicy"/>
     <containsShortcutsTo>bum</containsShortcutsTo>
     <shortcutsProvidedFor>components</shortcutsProvidedFor>
     <domainDiagramElement href="components.genmodel#//components/ComponentDiagram"/>
