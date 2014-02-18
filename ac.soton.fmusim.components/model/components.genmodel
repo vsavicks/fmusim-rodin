@@ -85,6 +85,7 @@
     <genClasses ecoreClass="components.ecore#//FMUComponent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUComponent/fmu"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUComponent/path"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//FMUComponent/parameters"/>
       <genOperations ecoreOperation="components.ecore#//FMUComponent/hasValidFmuPath">
         <genParameters ecoreParameter="components.ecore#//FMUComponent/hasValidFmuPath/diagnostics"/>
         <genParameters ecoreParameter="components.ecore#//FMUComponent/hasValidFmuPath/context"/>

@@ -15,10 +15,12 @@ import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -36,6 +38,8 @@ import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Color;
 
+import ac.soton.fmusim.components.ComponentsPackage;
+import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.diagram.edit.policies.EventBInputPortItemSemanticEditPolicy;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 
@@ -268,6 +272,33 @@ public class EventBInputPortEditPart extends AbstractBorderItemEditPart {
 	 * @generated
 	 */
 	static final Color THIS_BACK = new Color(null, 230, 230, 230);
+
+	@Override
+	protected void refreshChildren() {
+		super.refreshChildren();
+		refreshToolTip();
+	}
+
+	@Override
+	protected void handleNotificationEvent(Notification notification) {
+		super.handleNotificationEvent(notification);
+		if (notification.getFeature().equals(
+				ComponentsPackage.eINSTANCE.getNamedElement_Name()))
+			refreshToolTip();
+	}
+
+	private void refreshToolTip() {
+		IFigure tooltip = getFigure().getToolTip();
+		if (tooltip == null) {
+			tooltip = new Label();
+			getFigure().setToolTip(tooltip);
+		}
+
+		Port port = (Port) getNotationView().getElement();
+		String name = port.getName();
+		tooltip.setVisible(true);
+		((Label) tooltip).setText(name);
+	}
 
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {

@@ -655,13 +655,22 @@ public interface ComponentsPackage extends EPackage {
 	int FMU_COMPONENT__PATH = COMPONENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_COMPONENT__PARAMETERS = COMPONENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>FMU Component</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FMU_COMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 2;
+	int FMU_COMPONENT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUPortImpl <em>FMU Port</em>}' class.
@@ -1517,6 +1526,17 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getFMUComponent_Path();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link ac.soton.fmusim.components.FMUComponent#getParameters <em>Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
+	 * @see ac.soton.fmusim.components.FMUComponent#getParameters()
+	 * @see #getFMUComponent()
+	 * @generated
+	 */
+	EReference getFMUComponent_Parameters();
+
+	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUPort <em>FMU Port</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2057,6 +2077,14 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FMU_COMPONENT__PATH = eINSTANCE.getFMUComponent_Path();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FMU_COMPONENT__PARAMETERS = eINSTANCE.getFMUComponent_Parameters();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUPortImpl <em>FMU Port</em>}' class.

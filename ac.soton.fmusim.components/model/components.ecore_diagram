@@ -636,4 +636,17 @@
     <element xsi:nil="true"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_jl0Scv81EeKkX7yaJSGTww" points="[-59, 7, 151, 19]$[-190, 7, 20, 19]"/>
   </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_0xUuIJfxEeOaHrHnD8U7DQ" type="4003" source="_0UqMkH-4EeK7u7SmhPWfmA" target="_dB_L0LJDEeK3hPoP6-TbvA">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0xV8QJfxEeOaHrHnD8U7DQ" type="6002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0xV8QZfxEeOaHrHnD8U7DQ" x="-29" y="22"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0xV8QpfxEeOaHrHnD8U7DQ" type="6004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0xV8Q5fxEeOaHrHnD8U7DQ" x="-4" y="7"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_0xUuIZfxEeOaHrHnD8U7DQ" fontName="Lucida Grande"/>
+    <element xmi:type="ecore:EReference" href="components.ecore#//FMUComponent/parameters"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0xUuIpfxEeOaHrHnD8U7DQ" points="[7, 19, -28, -77]$[28, 90, -7, -6]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0xZmoJfxEeOaHrHnD8U7DQ" id="(0.4519230769230769,0.9634146341463414)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0xZmoZfxEeOaHrHnD8U7DQ" id="(0.019867549668874173,0.2616822429906542)"/>
+  </edges>
 </notation:Diagram>

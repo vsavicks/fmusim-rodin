@@ -10,6 +10,7 @@ package ac.soton.fmusim.components;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 
 import de.prob.cosimulation.FMU;
 
@@ -24,6 +25,7 @@ import de.prob.cosimulation.FMU;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.FMUComponent#getFmu <em>Fmu</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.FMUComponent#getPath <em>Path</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.FMUComponent#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,6 +85,22 @@ public interface FMUComponent extends Component {
 	 * @generated
 	 */
 	void setPath(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
+	 * The list contents are of type {@link ac.soton.fmusim.components.AbstractVariable}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parameters</em>' containment reference list.
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getFMUComponent_Parameters()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	EList<AbstractVariable> getParameters();
 
 	/**
 	 * <!-- begin-user-doc -->

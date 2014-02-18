@@ -76,9 +76,9 @@ public class ComponentsDiagramUpdater {
 		case DisplayComponentEditPart.VISUAL_ID:
 			return getDisplayComponent_2006SemanticChildren(view);
 		case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
-			return getFMUComponentFMUVariablesCompartment_7001SemanticChildren(view);
+			return getFMUComponentVariables_7001SemanticChildren(view);
 		case EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID:
-			return getEventBComponentEventBVariablesCompartment_7002SemanticChildren(view);
+			return getEventBComponentVariables_7002SemanticChildren(view);
 		}
 		return Collections.emptyList();
 	}
@@ -213,7 +213,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsNodeDescriptor> getFMUComponentFMUVariablesCompartment_7001SemanticChildren(
+	public static List<ComponentsNodeDescriptor> getFMUComponentVariables_7001SemanticChildren(
 			View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();
@@ -240,7 +240,7 @@ public class ComponentsDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<ComponentsNodeDescriptor> getEventBComponentEventBVariablesCompartment_7002SemanticChildren(
+	public static List<ComponentsNodeDescriptor> getEventBComponentVariables_7002SemanticChildren(
 			View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();

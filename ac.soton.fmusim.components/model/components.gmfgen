@@ -214,11 +214,11 @@
       </modelFacet>
       <creationConstraints targetEnd="//@expressionProviders/@providers.0/@expressions.10"/>
     </links>
-    <compartments visualID="7001" editPartClassName="FMUComponentVariablesCompartmentEditPart" itemSemanticEditPolicyClassName="FMUComponentVariablesCompartmentItemSemanticEditPolicy" notationViewFactoryClassName="FMUComponentVariablesCompartmentViewFactory" canonicalEditPolicyClassName="FMUComponentVariablesCompartmentCanonicalEditPolicy" childNodes="//@diagram/@childNodes.2" title="FMUVariablesCompartment" needsTitle="false" node="//@diagram/@topLevelNodes.0">
+    <compartments visualID="7001" editPartClassName="FMUComponentVariablesCompartmentEditPart" itemSemanticEditPolicyClassName="FMUComponentVariablesCompartmentItemSemanticEditPolicy" notationViewFactoryClassName="FMUComponentVariablesCompartmentViewFactory" canonicalEditPolicyClassName="FMUComponentVariablesCompartmentCanonicalEditPolicy" childNodes="//@diagram/@childNodes.2" title="Variables" needsTitle="false" node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getFigureFMUVariablesCompartmentFigure" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
     </compartments>
-    <compartments visualID="7002" editPartClassName="EventBComponentEventBVariablesCompartmentEditPart" itemSemanticEditPolicyClassName="EventBComponentEventBVariablesCompartmentItemSemanticEditPolicy" notationViewFactoryClassName="EventBComponentEventBVariablesCompartmentViewFactory" canonicalEditPolicyClassName="EventBComponentEventBVariablesCompartmentCanonicalEditPolicy" childNodes="//@diagram/@childNodes.5" title="EventBVariablesCompartment" canCollapse="false" needsTitle="false" node="//@diagram/@topLevelNodes.1">
+    <compartments visualID="7002" editPartClassName="EventBComponentEventBVariablesCompartmentEditPart" itemSemanticEditPolicyClassName="EventBComponentEventBVariablesCompartmentItemSemanticEditPolicy" notationViewFactoryClassName="EventBComponentEventBVariablesCompartmentViewFactory" canonicalEditPolicyClassName="EventBComponentEventBVariablesCompartmentCanonicalEditPolicy" childNodes="//@diagram/@childNodes.5" title="Variables" canCollapse="false" needsTitle="false" node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getFigureEventBVariablesCompartmentFigure" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
     </compartments>

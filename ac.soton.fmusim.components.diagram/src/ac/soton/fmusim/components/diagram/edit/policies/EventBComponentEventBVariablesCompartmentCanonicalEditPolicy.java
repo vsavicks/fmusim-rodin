@@ -67,7 +67,7 @@ public class EventBComponentEventBVariablesCompartmentCanonicalEditPolicy
 		View viewObject = (View) getHost().getModel();
 		LinkedList<EObject> result = new LinkedList<EObject>();
 		List<ComponentsNodeDescriptor> childDescriptors = ComponentsDiagramUpdater
-				.getEventBComponentEventBVariablesCompartment_7002SemanticChildren(viewObject);
+				.getEventBComponentVariables_7002SemanticChildren(viewObject);
 		for (ComponentsNodeDescriptor d : childDescriptors) {
 			result.add(d.getModelElement());
 		}
@@ -100,7 +100,7 @@ public class EventBComponentEventBVariablesCompartmentCanonicalEditPolicy
 		}
 		LinkedList<IAdaptable> createdViews = new LinkedList<IAdaptable>();
 		List<ComponentsNodeDescriptor> childDescriptors = ComponentsDiagramUpdater
-				.getEventBComponentEventBVariablesCompartment_7002SemanticChildren((View) getHost()
+				.getEventBComponentVariables_7002SemanticChildren((View) getHost()
 						.getModel());
 		LinkedList<View> orphaned = new LinkedList<View>();
 		// we care to check only views we recognize as ours

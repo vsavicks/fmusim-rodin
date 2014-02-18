@@ -47,6 +47,7 @@ import de.prob.cosimulation.FMU;
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getStepPeriod <em>Step Period</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getFmu <em>Fmu</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getPath <em>Path</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.FMUComponentImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -142,6 +143,16 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @ordered
 	 */
 	protected String path = PATH_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractVariable> parameters;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -259,6 +270,18 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		path = newPath;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_COMPONENT__PATH, oldPath, path));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AbstractVariable> getParameters() {
+		if (parameters == null) {
+			parameters = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.FMU_COMPONENT__PARAMETERS);
+		}
+		return parameters;
 	}
 
 	/**
@@ -471,6 +494,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
 			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
 				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
+			case ComponentsPackage.FMU_COMPONENT__PARAMETERS:
+				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -495,6 +520,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				return getFmu();
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				return getPath();
+			case ComponentsPackage.FMU_COMPONENT__PARAMETERS:
+				return getParameters();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -529,6 +556,10 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				setPath((String)newValue);
 				return;
+			case ComponentsPackage.FMU_COMPONENT__PARAMETERS:
+				getParameters().clear();
+				getParameters().addAll((Collection<? extends AbstractVariable>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -559,6 +590,9 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				setPath(PATH_EDEFAULT);
 				return;
+			case ComponentsPackage.FMU_COMPONENT__PARAMETERS:
+				getParameters().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -583,6 +617,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				return FMU_EDEFAULT == null ? fmu != null : !FMU_EDEFAULT.equals(fmu);
 			case ComponentsPackage.FMU_COMPONENT__PATH:
 				return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
+			case ComponentsPackage.FMU_COMPONENT__PARAMETERS:
+				return parameters != null && !parameters.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

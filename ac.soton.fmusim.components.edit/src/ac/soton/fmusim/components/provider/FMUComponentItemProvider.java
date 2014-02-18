@@ -151,6 +151,7 @@ public class FMUComponentItemProvider
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__INPUTS);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__OUTPUTS);
 			childrenFeatures.add(ComponentsPackage.Literals.COMPONENT__VARIABLES);
+			childrenFeatures.add(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS);
 		}
 		return childrenFeatures;
 	}
@@ -213,6 +214,7 @@ public class FMUComponentItemProvider
 			case ComponentsPackage.FMU_COMPONENT__INPUTS:
 			case ComponentsPackage.FMU_COMPONENT__OUTPUTS:
 			case ComponentsPackage.FMU_COMPONENT__VARIABLES:
+			case ComponentsPackage.FMU_COMPONENT__PARAMETERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -284,6 +286,31 @@ public class FMUComponentItemProvider
 			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
 				 ComponentsFactory.eINSTANCE.createDisplayPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
+				 ComponentsFactory.eINSTANCE.createFMUPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
+				 ComponentsFactory.eINSTANCE.createEventBPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
+				 ComponentsFactory.eINSTANCE.createFMUVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
+				 ComponentsFactory.eINSTANCE.createEventBVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
+				 ComponentsFactory.eINSTANCE.createDisplayPort()));
 	}
 
 	/**
@@ -300,7 +327,8 @@ public class FMUComponentItemProvider
 		boolean qualify =
 			childFeature == ComponentsPackage.Literals.COMPONENT__INPUTS ||
 			childFeature == ComponentsPackage.Literals.COMPONENT__OUTPUTS ||
-			childFeature == ComponentsPackage.Literals.COMPONENT__VARIABLES;
+			childFeature == ComponentsPackage.Literals.COMPONENT__VARIABLES ||
+			childFeature == ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS;
 
 		if (qualify) {
 			return getString
