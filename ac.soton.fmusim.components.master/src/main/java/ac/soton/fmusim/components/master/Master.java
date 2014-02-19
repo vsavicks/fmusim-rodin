@@ -343,7 +343,7 @@ public class Master {
 
 	private void apiOutput(ComponentDiagram diagram, Real time, BufferedWriter writer) {
 		try {
-			writer.write(time.toText().toString());
+			writer.write(time.toString());
 			for (Component c : diagram.getComponents()) {
 				//XXX: current hack to ignore display component for outputs
 				if (c instanceof DisplayComponent)

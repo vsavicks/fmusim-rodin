@@ -521,7 +521,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		// execute first two events: 'setup_constants' and 'initialise'
 		//NOTE: setup_constants can be absent if there are no constants
 		trace = trace.anyEvent(null);
-		String currentOpName = trace.getCurrent().getOp().name;
+		String currentOpName = trace.getCurrent().getOp().getName();
 		if (currentOpName.startsWith("$initialise_machine") == false)
 			trace = trace.anyEvent(null);
 		
@@ -596,7 +596,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 
 		// execute 'read inputs' event with calculated parameter predicate
 		try {
-			trace = trace.add(op.name, predicate.toString());
+			trace = trace.add(op.getName(), predicate.toString());
 		} catch (BException e) {
 			throw new SimulationException("Executing 'read inputs' event by ProB failed: " + e.getMessage());
 		}
@@ -651,7 +651,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		// find enabled events that match by name
 		List<OpInfo> enabledOps = new ArrayList<OpInfo>(events.size());
 		for (OpInfo op : trace.getNextTransitions()) {
-			if (eventNames.contains(op.name)) {
+			if (eventNames.contains(op.getName())) {
 				enabledOps.add(op);
 			}
 		}
@@ -743,7 +743,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			if (op != null) {
 				// execute only if wait event is not also a readInput event (if inputs exist)
 				if (findEvent(op, readEvents) == null) {
-					trace = trace.add(op.id);
+					trace = trace.add(op.getId());
 				}
 				update = true;
 				break;
@@ -774,7 +774,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 */
 	private Event findEvent(OpInfo operation, EList<Event> events) {
 		for (Event event : events)
-			if (operation.name.equals(event.getName()))
+			if (operation.getName().equals(event.getName()))
 				return event;
 		return null;
 	}
