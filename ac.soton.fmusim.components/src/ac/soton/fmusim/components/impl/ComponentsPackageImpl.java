@@ -39,6 +39,7 @@ import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUParameter;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
@@ -155,6 +156,13 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * @generated
 	 */
 	private EClass displayPortEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fmuParameterEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -333,6 +341,33 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 */
 	public EAttribute getComponentDiagram_Time() {
 		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponentDiagram_StartTime() {
+		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponentDiagram_StopTime() {
+		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponentDiagram_StepSize() {
+		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -709,6 +744,33 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFMUParameter() {
+		return fmuParameterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFMUParameter_DefaultValue() {
+		return (EAttribute)fmuParameterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFMUParameter_StartValue() {
+		return (EAttribute)fmuParameterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getVariableType() {
 		return variableTypeEEnum;
 	}
@@ -826,6 +888,9 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		createEReference(componentDiagramEClass, COMPONENT_DIAGRAM__COMPONENTS);
 		createEReference(componentDiagramEClass, COMPONENT_DIAGRAM__CONNECTORS);
 		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__TIME);
+		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__START_TIME);
+		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__STOP_TIME);
+		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__STEP_SIZE);
 
 		componentEClass = createEClass(COMPONENT);
 		createEReference(componentEClass, COMPONENT__INPUTS);
@@ -880,6 +945,10 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		displayPortEClass = createEClass(DISPLAY_PORT);
 		createEAttribute(displayPortEClass, DISPLAY_PORT__TRACE);
 		createEAttribute(displayPortEClass, DISPLAY_PORT__COLOUR);
+
+		fmuParameterEClass = createEClass(FMU_PARAMETER);
+		createEAttribute(fmuParameterEClass, FMU_PARAMETER__DEFAULT_VALUE);
+		createEAttribute(fmuParameterEClass, FMU_PARAMETER__START_VALUE);
 
 		// Create enums
 		variableTypeEEnum = createEEnum(VARIABLE_TYPE);
@@ -943,12 +1012,16 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		eventBVariableEClass.getESuperTypes().add(this.getAbstractVariable());
 		displayComponentEClass.getESuperTypes().add(this.getComponent());
 		displayPortEClass.getESuperTypes().add(this.getPort());
+		fmuParameterEClass.getESuperTypes().add(this.getFMUVariable());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(componentDiagramEClass, ComponentDiagram.class, "ComponentDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponentDiagram_Components(), this.getComponent(), null, "components", null, 0, -1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponentDiagram_Connectors(), this.getConnector(), null, "connectors", null, 0, -1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponentDiagram_Time(), ecorePackage.getEDouble(), "time", null, 0, 1, ComponentDiagram.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentDiagram_StartTime(), ecorePackage.getEDouble(), "startTime", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentDiagram_StopTime(), ecorePackage.getEDouble(), "stopTime", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentDiagram_StepSize(), ecorePackage.getEDouble(), "stepSize", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(componentEClass, Component.class, "Component", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponent_Inputs(), this.getPort(), null, "inputs", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1009,7 +1082,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEClass(fmuComponentEClass, FMUComponent.class, "FMUComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFMUComponent_Fmu(), this.getFmuClass(), "fmu", null, 0, 1, FMUComponent.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFMUComponent_Path(), ecorePackage.getEString(), "path", null, 1, 1, FMUComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFMUComponent_Parameters(), this.getAbstractVariable(), null, "parameters", null, 0, -1, FMUComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFMUComponent_Parameters(), this.getFMUParameter(), null, "parameters", null, 0, -1, FMUComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(fmuComponentEClass, ecorePackage.getEBoolean(), "hasValidFmuPath", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1044,6 +1117,10 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEClass(displayPortEClass, DisplayPort.class, "DisplayPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDisplayPort_Trace(), this.getTrace2DClass(), "trace", null, 0, 1, DisplayPort.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDisplayPort_Colour(), this.getColour(), "colour", null, 1, 1, DisplayPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(fmuParameterEClass, FMUParameter.class, "FMUParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFMUParameter_DefaultValue(), ecorePackage.getEJavaObject(), "defaultValue", null, 0, 1, FMUParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFMUParameter_StartValue(), theEcorePackage.getEJavaObject(), "startValue", null, 0, 1, FMUParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(variableTypeEEnum, VariableType.class, "VariableType");

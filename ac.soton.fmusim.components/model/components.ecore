@@ -9,6 +9,9 @@
         eType="#//Connector" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true" interface="true"
       eSuperTypes="#//NamedElement">
@@ -100,7 +103,7 @@
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//AbstractVariable" containment="true"/>
+        eType="#//FMUParameter" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUPort" eSuperTypes="#//Port"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventBPort" eSuperTypes="#//Port">
@@ -149,4 +152,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="ModelExceptionClass" instanceClassName="ac.soton.fmusim.components.exceptions.ModelException"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RealClass" instanceClassName="org.jscience.mathematics.number.Real"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FMUParameter" eSuperTypes="#//FMUVariable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startValue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EJavaObject"/>
+  </eClassifiers>
 </ecore:EPackage>

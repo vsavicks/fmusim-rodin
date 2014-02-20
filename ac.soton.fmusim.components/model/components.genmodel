@@ -41,6 +41,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/components"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//ComponentDiagram/connectors"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//ComponentDiagram/time"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//ComponentDiagram/startTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//ComponentDiagram/stopTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//ComponentDiagram/stepSize"/>
     </genClasses>
     <genClasses image="false" ecoreClass="components.ecore#//Component">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference components.ecore#//Component/inputs"/>
@@ -113,6 +116,10 @@
     <genClasses ecoreClass="components.ecore#//DisplayPort">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//DisplayPort/trace"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//DisplayPort/colour"/>
+    </genClasses>
+    <genClasses ecoreClass="components.ecore#//FMUParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUParameter/defaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//FMUParameter/startValue"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

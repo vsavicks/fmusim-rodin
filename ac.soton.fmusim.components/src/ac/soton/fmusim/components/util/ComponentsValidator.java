@@ -38,6 +38,7 @@ import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUParameter;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
@@ -165,6 +166,8 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateDisplayComponent((DisplayComponent)value, diagnostics, context);
 			case ComponentsPackage.DISPLAY_PORT:
 				return validateDisplayPort((DisplayPort)value, diagnostics, context);
+			case ComponentsPackage.FMU_PARAMETER:
+				return validateFMUParameter((FMUParameter)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_TYPE:
 				return validateVariableType((VariableType)value, diagnostics, context);
 			case ComponentsPackage.VARIABLE_CAUSALITY:
@@ -493,6 +496,15 @@ public class ComponentsValidator extends EObjectValidator {
 	 */
 	public boolean validateDisplayPort(DisplayPort displayPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(displayPort, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateFMUParameter(FMUParameter fmuParameter, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(fmuParameter, diagnostics, context);
 	}
 
 	/**

@@ -145,13 +145,40 @@ public interface ComponentsPackage extends EPackage {
 	int COMPONENT_DIAGRAM__TIME = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Start Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_DIAGRAM__START_TIME = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Stop Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_DIAGRAM__STOP_TIME = NAMED_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_DIAGRAM__STEP_SIZE = NAMED_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Component Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_DIAGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int COMPONENT_DIAGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.Component <em>Component</em>}' class.
@@ -1147,6 +1174,88 @@ public interface ComponentsPackage extends EPackage {
 	int DISPLAY_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUParameterImpl <em>FMU Parameter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.fmusim.components.impl.FMUParameterImpl
+	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUParameter()
+	 * @generated
+	 */
+	int FMU_PARAMETER = 14;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER__NAME = FMU_VARIABLE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER__TYPE = FMU_VARIABLE__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Causality</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER__CAUSALITY = FMU_VARIABLE__CAUSALITY;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER__VALUE = FMU_VARIABLE__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER__DESCRIPTION = FMU_VARIABLE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER__DEFAULT_VALUE = FMU_VARIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER__START_VALUE = FMU_VARIABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>FMU Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PARAMETER_FEATURE_COUNT = FMU_VARIABLE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1154,7 +1263,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableType()
 	 * @generated
 	 */
-	int VARIABLE_TYPE = 14;
+	int VARIABLE_TYPE = 15;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.VariableCausality <em>Variable Causality</em>}' enum.
@@ -1164,7 +1273,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getVariableCausality()
 	 * @generated
 	 */
-	int VARIABLE_CAUSALITY = 15;
+	int VARIABLE_CAUSALITY = 16;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.Colour <em>Colour</em>}' enum.
@@ -1174,7 +1283,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getColour()
 	 * @generated
 	 */
-	int COLOUR = 16;
+	int COLOUR = 17;
 
 	/**
 	 * The meta object id for the '<em>Fmu Class</em>' data type.
@@ -1184,7 +1293,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFmuClass()
 	 * @generated
 	 */
-	int FMU_CLASS = 17;
+	int FMU_CLASS = 18;
 
 	/**
 	 * The meta object id for the '<em>Trace Class</em>' data type.
@@ -1194,7 +1303,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getTraceClass()
 	 * @generated
 	 */
-	int TRACE_CLASS = 18;
+	int TRACE_CLASS = 19;
 
 	/**
 	 * The meta object id for the '<em>Trace2 DClass</em>' data type.
@@ -1204,7 +1313,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getTrace2DClass()
 	 * @generated
 	 */
-	int TRACE2_DCLASS = 19;
+	int TRACE2_DCLASS = 20;
 
 	/**
 	 * The meta object id for the '<em>Chart2 DClass</em>' data type.
@@ -1214,7 +1323,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getChart2DClass()
 	 * @generated
 	 */
-	int CHART2_DCLASS = 20;
+	int CHART2_DCLASS = 21;
 
 	/**
 	 * The meta object id for the '<em>Sim Exception Class</em>' data type.
@@ -1224,7 +1333,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getSimExceptionClass()
 	 * @generated
 	 */
-	int SIM_EXCEPTION_CLASS = 21;
+	int SIM_EXCEPTION_CLASS = 22;
 
 	/**
 	 * The meta object id for the '<em>Model Exception Class</em>' data type.
@@ -1234,7 +1343,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getModelExceptionClass()
 	 * @generated
 	 */
-	int MODEL_EXCEPTION_CLASS = 22;
+	int MODEL_EXCEPTION_CLASS = 23;
 
 	/**
 	 * The meta object id for the '<em>Real Class</em>' data type.
@@ -1244,7 +1353,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getRealClass()
 	 * @generated
 	 */
-	int REAL_CLASS = 23;
+	int REAL_CLASS = 24;
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
@@ -1288,6 +1397,39 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getComponentDiagram_Time();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.ComponentDiagram#getStartTime <em>Start Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Start Time</em>'.
+	 * @see ac.soton.fmusim.components.ComponentDiagram#getStartTime()
+	 * @see #getComponentDiagram()
+	 * @generated
+	 */
+	EAttribute getComponentDiagram_StartTime();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.ComponentDiagram#getStopTime <em>Stop Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Stop Time</em>'.
+	 * @see ac.soton.fmusim.components.ComponentDiagram#getStopTime()
+	 * @see #getComponentDiagram()
+	 * @generated
+	 */
+	EAttribute getComponentDiagram_StopTime();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.ComponentDiagram#getStepSize <em>Step Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Step Size</em>'.
+	 * @see ac.soton.fmusim.components.ComponentDiagram#getStepSize()
+	 * @see #getComponentDiagram()
+	 * @generated
+	 */
+	EAttribute getComponentDiagram_StepSize();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.Component <em>Component</em>}'.
@@ -1728,6 +1870,38 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getDisplayPort_Colour();
 
 	/**
+	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUParameter <em>FMU Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>FMU Parameter</em>'.
+	 * @see ac.soton.fmusim.components.FMUParameter
+	 * @generated
+	 */
+	EClass getFMUParameter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.FMUParameter#getDefaultValue <em>Default Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Value</em>'.
+	 * @see ac.soton.fmusim.components.FMUParameter#getDefaultValue()
+	 * @see #getFMUParameter()
+	 * @generated
+	 */
+	EAttribute getFMUParameter_DefaultValue();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.FMUParameter#getStartValue <em>Start Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Start Value</em>'.
+	 * @see ac.soton.fmusim.components.FMUParameter#getStartValue()
+	 * @see #getFMUParameter()
+	 * @generated
+	 */
+	EAttribute getFMUParameter_StartValue();
+
+	/**
 	 * Returns the meta object for enum '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1889,6 +2063,30 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMPONENT_DIAGRAM__TIME = eINSTANCE.getComponentDiagram_Time();
+
+		/**
+		 * The meta object literal for the '<em><b>Start Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT_DIAGRAM__START_TIME = eINSTANCE.getComponentDiagram_StartTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Stop Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT_DIAGRAM__STOP_TIME = eINSTANCE.getComponentDiagram_StopTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Step Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT_DIAGRAM__STEP_SIZE = eINSTANCE.getComponentDiagram_StepSize();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.Component <em>Component</em>}' class.
@@ -2243,6 +2441,32 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DISPLAY_PORT__COLOUR = eINSTANCE.getDisplayPort_Colour();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUParameterImpl <em>FMU Parameter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.fmusim.components.impl.FMUParameterImpl
+		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getFMUParameter()
+		 * @generated
+		 */
+		EClass FMU_PARAMETER = eINSTANCE.getFMUParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FMU_PARAMETER__DEFAULT_VALUE = eINSTANCE.getFMUParameter_DefaultValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Start Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FMU_PARAMETER__START_VALUE = eINSTANCE.getFMUParameter_StartValue();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.VariableType <em>Variable Type</em>}' enum.

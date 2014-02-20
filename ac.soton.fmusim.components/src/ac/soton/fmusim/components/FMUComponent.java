@@ -88,7 +88,7 @@ public interface FMUComponent extends Component {
 
 	/**
 	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-	 * The list contents are of type {@link ac.soton.fmusim.components.AbstractVariable}.
+	 * The list contents are of type {@link ac.soton.fmusim.components.FMUParameter}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
@@ -100,7 +100,7 @@ public interface FMUComponent extends Component {
 	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
-	EList<AbstractVariable> getParameters();
+	EList<FMUParameter> getParameters();
 
 	/**
 	 * <!-- begin-user-doc -->

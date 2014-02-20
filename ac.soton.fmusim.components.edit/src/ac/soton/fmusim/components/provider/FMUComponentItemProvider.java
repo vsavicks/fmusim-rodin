@@ -289,28 +289,13 @@ public class FMUComponentItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
-				 ComponentsFactory.eINSTANCE.createFMUPort()));
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createFMUParameter()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
-				 ComponentsFactory.eINSTANCE.createEventBPort()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
-				 ComponentsFactory.eINSTANCE.createFMUVariable()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
-				 ComponentsFactory.eINSTANCE.createEventBVariable()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ComponentsPackage.Literals.FMU_COMPONENT__PARAMETERS,
-				 ComponentsFactory.eINSTANCE.createDisplayPort()));
+				 ComponentsFactory.eINSTANCE.createFMUParameter()));
 	}
 
 	/**

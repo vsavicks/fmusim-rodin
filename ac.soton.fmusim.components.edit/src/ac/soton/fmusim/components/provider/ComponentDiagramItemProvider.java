@@ -64,6 +64,9 @@ public class ComponentDiagramItemProvider
 			super.getPropertyDescriptors(object);
 
 			addTimePropertyDescriptor(object);
+			addStartTimePropertyDescriptor(object);
+			addStopTimePropertyDescriptor(object);
+			addStepSizePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -82,6 +85,72 @@ public class ComponentDiagramItemProvider
 				 getString("_UI_ComponentDiagram_time_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ComponentDiagram_time_feature", "_UI_ComponentDiagram_type"),
 				 ComponentsPackage.Literals.COMPONENT_DIAGRAM__TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Start Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStartTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComponentDiagram_startTime_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComponentDiagram_startTime_feature", "_UI_ComponentDiagram_type"),
+				 ComponentsPackage.Literals.COMPONENT_DIAGRAM__START_TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Stop Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStopTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComponentDiagram_stopTime_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComponentDiagram_stopTime_feature", "_UI_ComponentDiagram_type"),
+				 ComponentsPackage.Literals.COMPONENT_DIAGRAM__STOP_TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Step Size feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStepSizePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComponentDiagram_stepSize_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComponentDiagram_stepSize_feature", "_UI_ComponentDiagram_type"),
+				 ComponentsPackage.Literals.COMPONENT_DIAGRAM__STEP_SIZE,
 				 true,
 				 false,
 				 false,
@@ -159,6 +228,9 @@ public class ComponentDiagramItemProvider
 
 		switch (notification.getFeatureID(ComponentDiagram.class)) {
 			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
+			case ComponentsPackage.COMPONENT_DIAGRAM__START_TIME:
+			case ComponentsPackage.COMPONENT_DIAGRAM__STOP_TIME:
+			case ComponentsPackage.COMPONENT_DIAGRAM__STEP_SIZE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ComponentsPackage.COMPONENT_DIAGRAM__COMPONENTS:

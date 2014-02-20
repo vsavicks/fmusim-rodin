@@ -117,6 +117,15 @@ public interface ComponentsFactory extends EFactory {
 	DisplayPort createDisplayPort();
 
 	/**
+	 * Returns a new object of class '<em>FMU Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FMU Parameter</em>'.
+	 * @generated
+	 */
+	FMUParameter createFMUParameter();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -26,6 +26,7 @@ import ac.soton.fmusim.components.EventBComponent;
 import ac.soton.fmusim.components.EventBPort;
 import ac.soton.fmusim.components.EventBVariable;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUParameter;
 import ac.soton.fmusim.components.FMUPort;
 import ac.soton.fmusim.components.FMUVariable;
 import ac.soton.fmusim.components.NamedElement;
@@ -142,6 +143,10 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseDisplayPort(DisplayPort object) {
 				return createDisplayPortAdapter();
+			}
+			@Override
+			public Adapter caseFMUParameter(FMUParameter object) {
+				return createFMUParameterAdapter();
 			}
 			@Override
 			public Adapter caseEventBObject(EventBObject object) {
@@ -368,6 +373,20 @@ public class ComponentsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDisplayPortAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.fmusim.components.FMUParameter <em>FMU Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.fmusim.components.FMUParameter
+	 * @generated
+	 */
+	public Adapter createFMUParameterAdapter() {
 		return null;
 	}
 

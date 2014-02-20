@@ -29,6 +29,7 @@ import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.FMUComponent;
+import ac.soton.fmusim.components.FMUParameter;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
@@ -152,7 +153,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractVariable> parameters;
+	protected EList<FMUParameter> parameters;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -277,9 +278,9 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractVariable> getParameters() {
+	public EList<FMUParameter> getParameters() {
 		if (parameters == null) {
-			parameters = new EObjectContainmentEList.Resolving<AbstractVariable>(AbstractVariable.class, this, ComponentsPackage.FMU_COMPONENT__PARAMETERS);
+			parameters = new EObjectContainmentEList.Resolving<FMUParameter>(FMUParameter.class, this, ComponentsPackage.FMU_COMPONENT__PARAMETERS);
 		}
 		return parameters;
 	}
@@ -317,6 +318,12 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	public void initialise(double tStart, double tStop) {
 		FMU fmu = getFmu();
 		assert fmu != null;
+		
+		// initialise parameters that have non-default values
+		for (FMUParameter par : getParameters()) {
+			if (!par.getStartValue().equals(par.getDefaultValue()))
+				setValueFMU(fmu, par, par.getStartValue());
+		}
 		
 		// initialise FMU
 		fmu.initialize(tStart, tStop);
@@ -558,7 +565,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				return;
 			case ComponentsPackage.FMU_COMPONENT__PARAMETERS:
 				getParameters().clear();
-				getParameters().addAll((Collection<? extends AbstractVariable>)newValue);
+				getParameters().addAll((Collection<? extends FMUParameter>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

@@ -7,6 +7,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry exported="true" kind="lib" path="lib/jscience.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/de.prob.core.kernel"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

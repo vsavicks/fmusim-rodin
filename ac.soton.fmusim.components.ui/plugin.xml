@@ -27,6 +27,10 @@
             id="ac.soton.fmusim.components.ui.commands.Stop"
             name="Stop">
       </command>
+      <command
+            id="ac.soton.fmusim.components.ui.command.SetParameters"
+            name="Parameters">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -296,6 +300,30 @@
                editparts="ComponentDiagramEditPart">
          </context>
       </editpolicyProvider>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="ac.soton.fmusim.components.ui.command.SetParameters"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+P">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="ac.soton.fmusim.components.ui.objectContribution.FMUComponentEditPart"
+            objectClass="ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart">
+         <action
+               class="ac.soton.fmusim.components.ui.actions.SetParametersAction"
+               definitionId="ac.soton.fmusim.components.ui.command.SetParameters"
+               enablesFor="1"
+               icon="icons/Parameters.png"
+               id="ac.soton.fmusim.components.ui.actions.setParameters"
+               label="&amp;Parameters">
+         </action>
+      </objectContribution>
    </extension>
 
 </plugin>

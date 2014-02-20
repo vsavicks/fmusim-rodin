@@ -328,6 +328,29 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link ac.soton.fmusim.components.FMUParameter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FMUParameterItemProvider fmuParameterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link ac.soton.fmusim.components.FMUParameter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFMUParameterAdapter() {
+		if (fmuParameterItemProvider == null) {
+			fmuParameterItemProvider = new FMUParameterItemProvider(this);
+		}
+
+		return fmuParameterItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -463,6 +486,7 @@ public class ComponentsItemProviderAdapterFactory extends ComponentsAdapterFacto
 		if (eventBVariableItemProvider != null) eventBVariableItemProvider.dispose();
 		if (displayComponentItemProvider != null) displayComponentItemProvider.dispose();
 		if (displayPortItemProvider != null) displayPortItemProvider.dispose();
+		if (fmuParameterItemProvider != null) fmuParameterItemProvider.dispose();
 	}
 
 	/**

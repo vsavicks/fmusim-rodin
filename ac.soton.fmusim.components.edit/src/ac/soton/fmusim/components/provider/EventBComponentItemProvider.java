@@ -406,6 +406,11 @@ public class EventBComponentItemProvider
 			(createChildParameter
 				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
 				 ComponentsFactory.eINSTANCE.createDisplayPort()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ComponentsPackage.Literals.COMPONENT__VARIABLES,
+				 ComponentsFactory.eINSTANCE.createFMUParameter()));
 	}
 
 	/**
