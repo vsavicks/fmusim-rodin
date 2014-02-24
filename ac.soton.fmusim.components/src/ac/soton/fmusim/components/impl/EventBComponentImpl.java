@@ -83,6 +83,7 @@ import de.prob.webconsole.ServletContextListener;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getWaitEvents <em>Wait Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTracePath <em>Trace Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -238,6 +239,26 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected Trace trace = TRACE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTracePath() <em>Trace Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTracePath()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TRACE_PATH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTracePath() <em>Trace Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTracePath()
+	 * @generated
+	 * @ordered
+	 */
+	protected String tracePath = TRACE_PATH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -458,6 +479,27 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		trace = newTrace;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__TRACE, oldTrace, trace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getTracePath() {
+		return tracePath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTracePath(String newTracePath) {
+		String oldTracePath = tracePath;
+		tracePath = newTracePath;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH, oldTracePath, tracePath));
 	}
 
 	/**
@@ -893,6 +935,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return getWaitEvents();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return getTrace();
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
+				return getTracePath();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -944,6 +988,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace((Trace)newValue);
 				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
+				setTracePath((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -989,6 +1036,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace(TRACE_EDEFAULT);
 				return;
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
+				setTracePath(TRACE_PATH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1023,6 +1073,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return waitEvents != null && !waitEvents.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
+			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
+				return TRACE_PATH_EDEFAULT == null ? tracePath != null : !TRACE_PATH_EDEFAULT.equals(tracePath);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1095,6 +1147,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		result.append(composed);
 		result.append(", trace: ");
 		result.append(trace);
+		result.append(", tracePath: ");
+		result.append(tracePath);
 		result.append(')');
 		return result.toString();
 	}

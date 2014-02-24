@@ -194,6 +194,10 @@
         <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/trace"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="__3uM0fnaEeKLHMibo6pnCQ"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_loDg8J0rEeOlnLG-1n1YTw" type="3001">
+        <element xmi:type="ecore:EAttribute" href="components.ecore#//EventBComponent/tracePath"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_loDg8Z0rEeOlnLG-1n1YTw"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_pxjaMX-4EeK7u7SmhPWfmA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_pxjaMn-4EeK7u7SmhPWfmA"/>
     </children>

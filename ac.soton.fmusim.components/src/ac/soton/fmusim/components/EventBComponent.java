@@ -32,6 +32,7 @@ import de.prob.statespace.Trace;
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTimeVariable <em>Time Variable</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getWaitEvents <em>Wait Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTrace <em>Trace</em>}</li>
+ *   <li>{@link ac.soton.fmusim.components.EventBComponent#getTracePath <em>Trace Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,6 +176,32 @@ public interface EventBComponent extends AbstractExtension, Component {
 	 * @generated
 	 */
 	void setTrace(Trace value);
+
+	/**
+	 * Returns the value of the '<em><b>Trace Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Trace Path</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Trace Path</em>' attribute.
+	 * @see #setTracePath(String)
+	 * @see ac.soton.fmusim.components.ComponentsPackage#getEventBComponent_TracePath()
+	 * @model
+	 * @generated
+	 */
+	String getTracePath();
+
+	/**
+	 * Sets the value of the '{@link ac.soton.fmusim.components.EventBComponent#getTracePath <em>Trace Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Trace Path</em>' attribute.
+	 * @see #getTracePath()
+	 * @generated
+	 */
+	void setTracePath(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

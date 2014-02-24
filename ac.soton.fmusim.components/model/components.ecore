@@ -88,6 +88,7 @@
         upperBound="-1" eType="ecore:EClass ../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Event"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="#//TraceClass"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tracePath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FMUComponent" eSuperTypes="#//Component">
     <eOperations name="hasValidFmuPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

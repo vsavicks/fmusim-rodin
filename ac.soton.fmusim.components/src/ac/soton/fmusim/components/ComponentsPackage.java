@@ -600,13 +600,22 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__TRACE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
 
 	/**
+	 * The feature id for the '<em><b>Trace Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BCOMPONENT__TRACE_PATH = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
+
+	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -1636,6 +1645,17 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getEventBComponent_Trace();
 
 	/**
+	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getTracePath <em>Trace Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Trace Path</em>'.
+	 * @see ac.soton.fmusim.components.EventBComponent#getTracePath()
+	 * @see #getEventBComponent()
+	 * @generated
+	 */
+	EAttribute getEventBComponent_TracePath();
+
+	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUComponent <em>FMU Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2249,6 +2269,14 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT_BCOMPONENT__TRACE = eINSTANCE.getEventBComponent_Trace();
+
+		/**
+		 * The meta object literal for the '<em><b>Trace Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_BCOMPONENT__TRACE_PATH = eINSTANCE.getEventBComponent_TracePath();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
