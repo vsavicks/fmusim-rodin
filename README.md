@@ -15,7 +15,8 @@ Currently can only be run from the source, i.e. an Eclipse workspace. To set up 
 
 Usage
 -----
-*To create a co-simulation (component) diagram right-click on a project and select New > Components Diagram.
++To create a co-simulation (component) diagram right-click on a project and select New > Components Diagram.
+
 *To import a component click on the Import icon from the toolbar (when the diagram editor is active) and follow the Import wizard.
 ..*Event-B components require at least one 'Wait' event and, if inputs exist, a 'Read input' event to be defined, as well as a step period. Input/Output ports can be added from the wizard.
 *Components can be connected via input/output ports using Connectors and Links.
@@ -24,4 +25,4 @@ Usage
 
 Bug Reports/Improvements
 ------------------------
-If you notice a bug or have a good idea on improvement, please add it to the open [issues](https://github.com/snursmumrik/fmusim-rodin/issues).
+If you notice a bug or have a good idea on improvement, please add it to the [open issues](https://github.com/snursmumrik/fmusim-rodin/issues?state=open).
