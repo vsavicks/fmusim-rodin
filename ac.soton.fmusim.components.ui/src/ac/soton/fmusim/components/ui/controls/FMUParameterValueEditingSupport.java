@@ -47,7 +47,24 @@ public class FMUParameterValueEditingSupport extends EditingSupport {
 
 	@Override
 	protected void setValue(Object element, Object value) {
-		((FMUParameter) element).setStartValue(String.valueOf(value));
+		FMUParameter param = (FMUParameter) element;
+		String valueStr = String.valueOf(value);
+		Object startValue = null;
+		switch (param.getType()) {
+		case BOOLEAN:
+			startValue = Boolean.parseBoolean(valueStr);
+			break;
+		case INTEGER:
+			startValue = Integer.parseInt(valueStr);
+			break;
+		case REAL:
+			startValue = Double.parseDouble(valueStr);
+			break;
+		case STRING:
+			startValue = valueStr;
+		}
+		assert startValue != null;
+		param.setStartValue(startValue);
 		getViewer().update(element, null);
 	}
 }
