@@ -8,6 +8,7 @@ Enables graphical composition and co-simulation of Event-B machines and imported
 Installation
 ------------
 Currently can only be run from the source, i.e. an Eclipse workspace. To set up the development environment follow these steps:
+
 1. Set up the development environment for the [ProB 2.0](https://github.com/bendisposto/prob2) according to the instructions on the prob2 repository and ensure that ProB 2 is up and running (an easy way to do this is to open a Groovy console and load any Event-B machine via a command `api.eventb_load("/home/pathToFile/example.bum")`).
 2. Clone this repository and import it into the same workspace.
 3. Open the target file */ac.soton.fmusim.components/prob_gmf.target*, wait until Eclipse finishes resolving target definitions and set it as a target by clicking "Set as Target Platform" in the upper right corner.
