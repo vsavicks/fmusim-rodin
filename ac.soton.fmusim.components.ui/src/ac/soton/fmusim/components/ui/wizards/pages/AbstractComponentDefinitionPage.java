@@ -57,7 +57,6 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 	 */
 	protected Group createLabeledGroup(Composite parent, String label, String tooltip) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-		group.setLayout(new GridLayout());
 		group.setText(label);
 		group.setToolTipText(tooltip);
 		return group;
@@ -95,8 +94,6 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		Text text = new Text(plate, SWT.SINGLE | SWT.BORDER);
 		text.setToolTipText(tooltip);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-		//TODO: needs to be moved out - this layout responsibility of parent
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 		return text;
 	}
 
@@ -114,8 +111,6 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		EventBNamedComboContainer comboWrap = new EventBNamedComboContainer(new Combo(plate, SWT.DROP_DOWN | SWT.READ_ONLY));
 		comboWrap.getCombo().setToolTipText(tooltip);
 		comboWrap.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-		//TODO: needs to be moved out - this layout responsibility of parent
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 		return comboWrap;
 	}
 	
@@ -149,8 +144,6 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 			tableWrap.getViewer().addFilter(filter);
 		tableWrap.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		//TODO: needs to be moved out - this layout responsibility of parent
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		return tableWrap;
 	}
 	
@@ -184,8 +177,6 @@ public abstract class AbstractComponentDefinitionPage extends WizardPage {
 		if (filter != null)
 			tableWrap.getViewer().addFilter(filter);
 
-		//TODO: needs to be moved out - this is layout responsibility of parent
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		return tableWrap;
 	}
 

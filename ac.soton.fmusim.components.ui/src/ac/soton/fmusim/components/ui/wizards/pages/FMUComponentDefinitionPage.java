@@ -12,8 +12,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -66,8 +65,10 @@ public class FMUComponentDefinitionPage extends AbstractComponentDefinitionPage 
 	private Control createFMUComponentDefinitionGroup(Composite parent) {
 		// layout
 		Composite plate = new Composite(parent, SWT.NULL);
-		plate.setLayout(new GridLayout());
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		FillLayout layout = new FillLayout(SWT.VERTICAL);
+		layout.marginHeight = 5;
+		layout.marginWidth = 5;
+		plate.setLayout(layout);
 		
 		// variable tables
 		inputsViewer = createLabeledCheckboxTable(plate, "Input:", "Select input ports", createColumnProviders(), null);

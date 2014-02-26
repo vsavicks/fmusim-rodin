@@ -12,8 +12,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -69,8 +68,10 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 	 */
 	private Control createEventBComponentVariableDefinitionGroup(Composite parent) {
 		Composite plate = new Composite(parent, SWT.NULL);
-		plate.setLayout(new GridLayout());
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		FillLayout layout = new FillLayout(SWT.VERTICAL);
+		layout.marginHeight = 5;
+		layout.marginWidth = 5;
+		plate.setLayout(layout);
 		
 		createPortGroup(plate);
 		createVariableGroup(plate);
@@ -84,13 +85,15 @@ public class EventBComponentVariableDefinitionPage extends AbstractComponentDefi
 	 */
 	private void createPortGroup(Composite parent) {
 		Group group = createLabeledGroup(parent, "Ports", "Add/Remove input and output ports");
+		FillLayout layout = new FillLayout(SWT.VERTICAL);
+		layout.marginHeight = 5;
+		layout.marginWidth = 5;
+		group.setLayout(layout);
 		
 		// input and output port tables
 		inputsViewer = createLabeledEditableTable(group, "Input:", "Add/Remove input ports", createPortColumnProviders(), null);
 		outputsViewer = createLabeledEditableTable(group, "Output:", "Add/Remove output ports", createPortColumnProviders(), null);
 		createDialogProviders();
-		
-		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 	}
 
 	private void createDialogProviders() {

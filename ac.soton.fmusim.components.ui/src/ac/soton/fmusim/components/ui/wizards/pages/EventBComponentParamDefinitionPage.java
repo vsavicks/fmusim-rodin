@@ -17,6 +17,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -80,10 +81,9 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	private Control createEventBComponentParameterDefinitionGroup(Composite parent) {
 		Composite plate = new Composite(parent, SWT.NULL);
 		plate.setLayout(new GridLayout());
-		plate.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		createParamGroup(plate);
-		createEventGroup(plate);
+		createParamGroup(plate).setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		createEventGroup(plate).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		addValidators();
 		addListeners();
 		return plate;
@@ -93,28 +93,38 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	 * Creates a group of UI controls for defining component parameters.
 	 * 
 	 * @param parent
+	 * @return 
 	 */
-	private void createParamGroup(Composite parent) {
+	private Group createParamGroup(Composite parent) {
 		Group group = createLabeledGroup(parent, "Parameters", "Enter simulation step period, Real signal conversion precision and select time variable");
+		FillLayout layout = new FillLayout(SWT.VERTICAL);
+		layout.marginWidth = 5;
+		layout.marginHeight = 5;
+		group.setLayout(layout);
 		
 		stepPeriodText = createLabeledText(group, "Step Period:", "Enter time period of one simulation step");
 		timeVariableCombo = createLabeledEventBNamedCombo(group, "Time Variable:", "Select variable that holds the simulation time (optional)");
 		
-		group.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		return group;
 	}
 
 	/**
 	 * Creates a group of UI controls for defining simulation events.
 	 * 
 	 * @param parent
+	 * @return 
 	 */
-	private void createEventGroup(Composite parent) {
+	private Group createEventGroup(Composite parent) {
 		Group group = createLabeledGroup(parent, "Events", "Select Event-B machine events for reading inputs and simulation step wait");
+		FillLayout layout = new FillLayout(SWT.VERTICAL);
+		layout.marginWidth = 5;
+		layout.marginHeight = 5;
+		group.setLayout(layout);
 		
 		readEventsViewer = createLabeledEditableTable(group, "Read Input:", "Add/Remove events for reading input signals", createEventColumnProviders(), null);
 		waitEventsViewer = createLabeledEditableTable(group, "Wait:", "Add/Remove events for simulation step wait", createEventColumnProviders(), null);
 		
-		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		return group;
 	}
 
 	/**
