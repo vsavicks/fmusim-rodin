@@ -282,7 +282,6 @@ public class Master {
 			// do step & update the update list
 			for (Component c : evaluationList)
 				try {
-					System.out.println("----------\nReal: "+tCurrent);
 					c.doStep(tCurrent.doubleValue(), step.doubleValue());
 					Real stepPeriod = Real.valueOf(c.getStepPeriod());
 					updateList.put(c, updateList.get(c).plus(stepPeriod));
