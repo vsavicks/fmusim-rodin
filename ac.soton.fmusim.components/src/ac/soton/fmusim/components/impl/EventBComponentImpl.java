@@ -622,7 +622,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		for (Event e : readEvents) {
 			try {
 				op = trace.findOneOp(e.getName(), predicate.toString());
-				
+				//FIXME: should it stop here if an event is found? what if multiple events are possible?
 				//TODO: set randomly chosen values of disconnected ports
 			} catch (BException e1) {
 				throw new SimulationException("Finding 'read inputs' event '" + e.getName() + "' by ProB failed: " + e1.getMessage());
@@ -637,12 +637,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		}
 
 		// execute 'read inputs' event with calculated parameter predicate
-		try {
-			trace = trace.add(op.getName(), predicate.toString());
-		} catch (BException e) {
-			throw new SimulationException("Executing 'read inputs' event by ProB failed: " + e.getMessage());
-		}
-
+		trace = trace.add(op.getId());
+			
 		// update trace
 		setTrace(trace);
 	}
@@ -692,7 +688,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		// find enabled events that match by name
 		List<OpInfo> enabledOps = new ArrayList<OpInfo>(events.size());
-		for (OpInfo op : trace.getNextTransitions()) {
+		Set<OpInfo> opInfos = trace.getStateSpace().evaluateOps(trace.getNextTransitions());
+		for (OpInfo op : opInfos) {
 			if (eventNames.contains(op.getName())) {
 				enabledOps.add(op);
 			}
@@ -780,7 +777,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		boolean update = false;
 		while (!update) {
-			// find and execute an update event
+			// find and execute an enabled Wait event
 			OpInfo op = findAnyEnabled(trace, waitEvents);
 			if (op != null) {
 				// execute only if wait event is not also a readInput event (if inputs exist)

@@ -250,12 +250,11 @@ public class Master {
 			
 			// read update list for evaluation-ready components
 			for (Component c : diagram.getComponents()) {
-				if (tCurrent.compareTo(updateList.get(c)) >= 0)
+				if (!tCurrent.isLessThan(updateList.get(c)))
 					evaluationList.add(c);
 			}
 			
 			// only simulate components in evaluation list
-			
 			// read port values
 			for (Component c : evaluationList)
 				try {
@@ -283,6 +282,7 @@ public class Master {
 			// do step & update the update list
 			for (Component c : evaluationList)
 				try {
+					System.out.println("----------\nReal: "+tCurrent);
 					c.doStep(tCurrent.doubleValue(), step.doubleValue());
 					Real stepPeriod = Real.valueOf(c.getStepPeriod());
 					updateList.put(c, updateList.get(c).plus(stepPeriod));

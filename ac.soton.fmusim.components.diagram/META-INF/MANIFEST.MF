@@ -27,7 +27,6 @@ Require-Bundle: org.eclipse.core.expressions,
  ac.soton.fmusim.components.edit;visibility:=reexport,
  org.eventb.emf.core;visibility:=reexport,
  org.eclipse.ocl.ecore;visibility:=reexport,
- de.prob.core.kernel;bundle-version="[1.0.0,1.1.0)",
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jface,
@@ -50,6 +49,7 @@ Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.edit;visibility:=reexport,
  org.eclipse.emf.validation;visibility:=reexport,
- org.eclipse.gef;visibility:=reexport
+ org.eclipse.gef;visibility:=reexport,
+ de.prob.core.rodin;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

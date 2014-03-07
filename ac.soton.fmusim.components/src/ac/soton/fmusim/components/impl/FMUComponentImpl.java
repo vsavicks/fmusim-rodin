@@ -9,6 +9,7 @@ package ac.soton.fmusim.components.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Map;
@@ -55,6 +56,8 @@ import de.prob.cosimulation.FMU;
  * @generated
  */
 public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
+	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.##########");
+
 	/**
 	 * The cached value of the '{@link #getInputs() <em>Inputs</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -420,6 +423,12 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	public void doStep(double time, double step) {
 		FMU fmu = getFmu();
 		assert fmu != null;
+		
+		//XXX: time fix
+		double rem = Math.IEEEremainder(time, 0.00000001);
+		if (rem > 0) {
+			time = Double.parseDouble(DECIMAL_FORMAT.format(time));
+		}
 		
 		// simulation step
 		fmu.doStep(time, step);

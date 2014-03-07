@@ -27,9 +27,8 @@
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eventb.emf.core" version="2.2.4"/>
       <import plugin="org.eventb.core" version="2.5.1" match="greaterOrEqual"/>
-      <import plugin="de.prob.core.kernel" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="de.prob.core.rodin" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.workspace" version="1.5.1" match="greaterOrEqual"/>
+      <import plugin="de.prob.core.rodin" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.ui.navigator"/>
@@ -37,7 +36,6 @@
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
       <import plugin="org.eclipse.ocl.ecore"/>
-      <import plugin="de.prob.core.kernel" version="1.0.0" match="equivalent"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.ui.views"/>
