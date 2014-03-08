@@ -68,9 +68,11 @@ public class DeleteDiagramAction extends Action {
 							0);
 
 					if (dialog.open() == 0) {
+						Resource domResource = view.getElement().eResource();
 						try {
 							closeOpenedEditor(file);
 							file.delete(false, false, new NullProgressMonitor());
+							WorkspaceSynchronizer.getFile(domResource).delete(false, false, new NullProgressMonitor());
 						} catch (PartInitException e) {
 							e.printStackTrace();
 						} catch (CoreException e) {
