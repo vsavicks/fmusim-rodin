@@ -181,6 +181,9 @@
             <actionExtension
                   pattern="ac.soton.fmusim.components.ui.navigator.actionProvider">
             </actionExtension>
+            <actionExtension
+                  pattern="ac.soton.fmusim.components.ui.navigator.EventBComponentActionProvider">
+            </actionExtension>
          </includes>
       </viewerActionBinding>
    </extension>
@@ -274,6 +277,18 @@
             </and>
          </enablement>
       </actionProvider>
+      <actionProvider
+            class="ac.soton.fmusim.components.ui.navigator.EventBComponentActionProvider"
+            id="ac.soton.fmusim.components.ui.navigator.EventBComponentActionProvider">
+         <enablement>
+            <adapt
+                  type="org.eclipse.emf.ecore.EObject">
+               <instanceof
+                     value="ac.soton.fmusim.components.EventBComponent">
+               </instanceof>
+            </adapt>
+         </enablement>
+      </actionProvider>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
@@ -322,6 +337,17 @@
                icon="icons/Parameters.png"
                id="ac.soton.fmusim.components.ui.actions.setParameters"
                label="&amp;Parameters">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="ac.soton.fmusim.components.ui.objectContribution.EventBComponentEditPart"
+            objectClass="ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart">
+         <action
+               class="ac.soton.fmusim.components.ui.actions.OpenMachineAction"
+               enablesFor="1"
+               id="ac.soton.fmusim.components.ui.actions.openMachine"
+               label="Open Machine">
          </action>
       </objectContribution>
    </extension>
