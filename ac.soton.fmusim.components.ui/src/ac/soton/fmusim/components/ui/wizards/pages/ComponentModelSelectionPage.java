@@ -15,8 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eventb.emf.core.machine.Machine;
-
-import de.prob.cosimulation.FMU;
+import org.ptolemy.fmi.FMIModelDescription;
 
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentsPackage;
@@ -59,9 +58,9 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 				}
 			}
 			if (resource instanceof FMUResource) {
-				FMU fmu = ((FMUResource) resource).getFMU();
+				FMIModelDescription modelDescription = ((FMUResource) resource).getModelDescription();
 				String path = ((FMUResource) resource).getFmuPath();
-				FMUComponent component = (FMUComponent) Platform.getAdapterManager().getAdapter(fmu, Component.class);
+				FMUComponent component = (FMUComponent) Platform.getAdapterManager().getAdapter(modelDescription, Component.class);
 				component.setPath(path);
 				model = component;
 			}

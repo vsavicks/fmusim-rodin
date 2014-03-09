@@ -27,7 +27,6 @@ import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.util.FmiUtil;
-import de.prob.cosimulation.FMU;
 
 /**
  * Adapter factory for adapting an Event-B machine or FMU to a
@@ -49,27 +48,24 @@ public class ComponentAdapterFactory implements IAdapterFactory {
 		if (adaptableObject instanceof Machine) {
 			return createEventBComponent((Machine) adaptableObject);
 		}
-		if (adaptableObject instanceof FMU) {
-			return createFMUComponent((FMU) adaptableObject);
+		if (adaptableObject instanceof FMIModelDescription) {
+			return createFMUComponent((FMIModelDescription) adaptableObject);
 		}
 		return null;
 	}
 
 	/**
-	 * Creates an FMU Component from the FMU.
+	 * Creates an FMU Component from the FMIModelDescription.
 	 * 
-	 * @param fmu
+	 * @param modelDescription
 	 * @return component
 	 */
-	private Component createFMUComponent(FMU fmu) {
-		FMIModelDescription modelDescription = fmu.getModelDescription();
-		
+	private Component createFMUComponent(FMIModelDescription modelDescription) {
 		FMUComponent component = ComponentsFactory.eINSTANCE.createFMUComponent();
 		component.setName(modelDescription.modelName);
 		//TODO: set path (probably requires adapting an FMU resource instead of FMU)
 		// as path is not available from the FMU itself
 //		fmuComponent.setPath(filePath);
-		component.setFmu(fmu);
 		
 		for (FMIScalarVariable scalarVariable : modelDescription.modelVariables) {
 			AbstractVariable variable = null;

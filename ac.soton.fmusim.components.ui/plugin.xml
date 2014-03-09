@@ -149,7 +149,7 @@
          </adapter>
       </factory>
       <factory
-            adaptableType="de.prob.cosimulation.FMU"
+            adaptableType="org.ptolemy.fmi.FMIModelDescription"
             class="ac.soton.fmusim.components.ui.resource.ComponentAdapterFactory">
          <adapter
                type="ac.soton.fmusim.components.Component">

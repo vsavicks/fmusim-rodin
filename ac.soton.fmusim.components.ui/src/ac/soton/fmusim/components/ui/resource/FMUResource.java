@@ -15,8 +15,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-
-import de.prob.cosimulation.FMU;
+import org.ptolemy.fmi.FMIModelDescription;
+import org.ptolemy.fmi.FMUFile;
 
 /**
  * FMU resource to enable loading an .fmu file as an EMF resource.
@@ -27,7 +27,7 @@ import de.prob.cosimulation.FMU;
 //TODO: add unloading
 public class FMUResource extends ResourceImpl {
 	
-	private FMU fmu;
+	private FMIModelDescription modelDescription;
 	private String fmuPath;
 
 	/**
@@ -39,7 +39,7 @@ public class FMUResource extends ResourceImpl {
 	 */
 	public FMUResource(URI uri) {
 		super(uri);
-		fmu = null;
+		modelDescription = null;
 	}
 
 	/* (non-Javadoc)
@@ -63,17 +63,21 @@ public class FMUResource extends ResourceImpl {
 			throw new IOException("Loading FMU resource failed: invalid resource file path " + "\"" + filePath + "\"");
 		}
 		
-		fmu = new FMU(filePath);
-		fmuPath = filePath;
+		try {
+			modelDescription = FMUFile.parseFMUFile(filePath);
+			fmuPath = filePath;
+		} catch (IOException e) {
+			throw new IOException("Loading FMU resource failed: could not load FMU file " + "\"" + filePath + "\"");
+		}
 	}
 	
 	/**
-	 * Returns resource fmu.
+	 * Returns resource model description.
 	 * 
-	 * @return fmu, or null of not loaded
+	 * @return modelDescription, or null of not loaded
 	 */
-	public FMU getFMU() {
-		return fmu;
+	public FMIModelDescription getModelDescription() {
+		return modelDescription;
 	}
 
 	/**
