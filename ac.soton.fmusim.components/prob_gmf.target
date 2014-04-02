@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="prob_gmf" sequenceNumber="23">
+<?pde version="3.8"?><target name="prob_gmf" sequenceNumber="27">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="ac.soton.eventb.emf.core.extension.feature.feature.group" version="2.1.0.r15619"/>
@@ -16,6 +16,10 @@
 <repository location="http://rodin-b-sharp.sourceforge.net/core-updates"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.gmf.sdk.feature.group" version="3.1.0.201403031044"/>
+<repository location="http://download.eclipse.org/modeling/gmp/gmf-tooling/updates/releases/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="ac.soton.eventb.roseEditor.feature.feature.group" version="1.3.0"/>
 <unit id="ac.soton.eventb.emf.diagrams.feature.feature.group" version="3.2.1.r15759"/>
 <unit id="ac.soton.eventb.statemachines.feature.feature.group" version="1.5.0.r15631"/>
@@ -28,11 +32,7 @@
 <repository location="http://download.eclipse.org/releases/indigo/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.gmf.sdk.feature.group" version="3.1.0.201306121424"/>
-<repository location="http://download.eclipse.org/modeling/gmp/gmf-tooling/updates/releases/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="de.prob2.feature.feature.group" version="1.0.0.201403070312"/>
+<unit id="de.prob2.feature.feature.group" version="1.0.0.201404021035"/>
 <repository location="http://nightly.cobra.cs.uni-duesseldorf.de/experimental/updatesite/"/>
 </location>
 </locations>
