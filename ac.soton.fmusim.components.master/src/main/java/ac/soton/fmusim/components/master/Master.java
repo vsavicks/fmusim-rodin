@@ -326,8 +326,8 @@ public class Master {
 					continue;
 				
 				String name = c.getName();
-				for (Port p : c.getInputs())
-					writer.write(SEPARATOR + name + "." + p.getName());
+//				for (Port p : c.getInputs())
+//					writer.write(SEPARATOR + name + "." + p.getName());
 				for (AbstractVariable v : c.getVariables())
 					writer.write(SEPARATOR + name + "." + v.getName());
 				for (Port p : c.getOutputs())

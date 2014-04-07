@@ -766,9 +766,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @throws SimulationException 
 	 * @generated NOT
 	 */
-	public void doStep(double time, double step) {
+	public void doStep(double time, double step) throws SimulationException {
 		Trace trace = getTrace();
 		assert trace != null;
 		EList<Event> waitEvents = getWaitEvents();
@@ -789,8 +790,12 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			}
 			
 			// if not found, execute any event
-			if (!update)
+			if (!update) {
+				if (trace.getNextTransitions().isEmpty())
+					throw new SimulationException("Deadlock state reached in "+getName());
+				
 				trace = trace.anyEvent(null);
+			}
 		}
 		
 		// update variables
@@ -824,7 +829,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void terminate() {
-		//XXX: nothing to do here
+		setTrace(null);
+		System.gc();
 	}
 
 	/**
