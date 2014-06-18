@@ -15,11 +15,13 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -32,6 +34,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.rodinp.core.RodinCore;
+import org.rodinp.core.RodinDBException;
 
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.diagram.part.ValidateAction;
@@ -96,9 +100,7 @@ public class SimulateCommand extends AbstractHandler {
 							master.simulateAll();
 							return null;
 						}
-					}.execute(monitor, null);
-					if (monitor.isCanceled())
-						return Status.CANCEL_STATUS;
+					}.execute(new NullProgressMonitor(), null);
 				} catch (ExecutionException e) {
 					return new Status(Status.ERROR, ComponentsUIPlugin.getPluginID(), e.getMessage());
 				}
@@ -107,6 +109,7 @@ public class SimulateCommand extends AbstractHandler {
 
 		};
 		job.setUser(true);
+		job.setPriority(Job.LONG);
 		job.schedule();
 		
 		return null;
