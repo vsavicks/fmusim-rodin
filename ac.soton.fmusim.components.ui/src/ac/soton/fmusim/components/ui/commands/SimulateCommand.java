@@ -89,21 +89,11 @@ public class SimulateCommand extends AbstractHandler {
 		Job job = new Job("Simulation") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
-				try {
-					new AbstractEMFOperation(editingDomain, "Simulate command") {
-						
-						@Override
-						protected IStatus doExecute(IProgressMonitor monitor,
-								IAdaptable info) throws ExecutionException {
-							diagram.setStopTime(time);
-							diagram.setStepSize(step);
-							master.simulateAll();
-							return null;
-						}
-					}.execute(new NullProgressMonitor(), null);
-				} catch (ExecutionException e) {
-					return new Status(Status.ERROR, ComponentsUIPlugin.getPluginID(), e.getMessage());
-				}
+				diagram.eSetDeliver(false);
+				diagram.setStopTime(time);
+				diagram.setStepSize(step);
+				master.simulateAll();
+				diagram.eSetDeliver(true);
 				return Status.OK_STATUS;
 			}
 

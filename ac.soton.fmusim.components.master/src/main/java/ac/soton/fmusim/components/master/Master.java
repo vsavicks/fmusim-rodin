@@ -21,6 +21,7 @@ import org.jscience.mathematics.number.Real;
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
 import ac.soton.fmusim.components.ComponentDiagram;
+import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.exceptions.ModelException;
@@ -214,6 +215,8 @@ public class Master {
 		updateList.clear();
 		evaluationList.clear();
 		
+		setNotification(false);
+		
 		// instantiate components
 		try {
 			for (Component c : diagram.getComponents())
@@ -308,6 +311,8 @@ public class Master {
 		for (Component c : diagram.getComponents())
 			c.terminate();
 		
+		setNotification(true);
+		
 		// close file
 		try {
 			resultWriter.close();
@@ -316,7 +321,24 @@ public class Master {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * 
+	 */
+	private void setNotification(boolean flag) {
+		for (Component c : diagram.getComponents()) {
+			c.eSetDeliver(flag);
+			for (AbstractVariable v : c.getVariables())
+				v.eSetDeliver(flag);
+			for (Port p : c.getInputs())
+				p.eSetDeliver(flag);
+			for (Port p : c.getOutputs())
+				p.eSetDeliver(flag);
+		}
+		for (Connector c : diagram.getConnectors())
+			c.eSetDeliver(flag);
+	}
+
 	private void apiOutputColumns(ComponentDiagram diagram, BufferedWriter writer) {
 		try {
 			writer.write("time");
