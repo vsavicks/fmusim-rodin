@@ -488,11 +488,15 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @generated NOT
 	 */
 	public void instantiate() throws SimulationException {
-		try {
-			FMU fmu = new FMU(getPath());
-			setFmu(fmu);
-		} catch (IOException e) {
-			throw new SimulationException("Failed to load FMU: "+ getPath() + '\n' + e.getMessage());
+		// reuse FMU if possible
+		if (fmu != null) {
+			fmu.reset();
+		} else {
+			try {
+				setFmu(new FMU(getPath()));
+			} catch (IOException e) {
+				throw new SimulationException("Failed to load FMU: "+ getPath() + '\n' + e.getMessage());
+			}
 		}
 	}
 

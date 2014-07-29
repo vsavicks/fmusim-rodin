@@ -829,6 +829,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void terminate() {
+		trace.getStateSpace().endTransaction();
 		setTrace(null);
 		System.gc();
 	}
@@ -861,6 +862,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				new HashMap<String, String>(), true);
 
 		StateSpace s = model.getStatespace();
+		s.startTransaction();
 
 		Trace t = new Trace(s);
 		setTrace(t);
