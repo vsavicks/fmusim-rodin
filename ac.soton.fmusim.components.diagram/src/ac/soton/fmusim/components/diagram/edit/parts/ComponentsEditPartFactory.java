@@ -44,12 +44,6 @@ public class ComponentsEditPartFactory implements EditPartFactory {
 			case EventBComponentNameEditPart.VISUAL_ID:
 				return new EventBComponentNameEditPart(view);
 
-			case ConnectorEditPart.VISUAL_ID:
-				return new ConnectorEditPart(view);
-
-			case ConnectorValueEditPart.VISUAL_ID:
-				return new ConnectorValueEditPart(view);
-
 			case DisplayComponentEditPart.VISUAL_ID:
 				return new DisplayComponentEditPart(view);
 
@@ -74,6 +68,9 @@ public class ComponentsEditPartFactory implements EditPartFactory {
 			case DisplayPortEditPart.VISUAL_ID:
 				return new DisplayPortEditPart(view);
 
+			case DisplayPortNameEditPart.VISUAL_ID:
+				return new DisplayPortNameEditPart(view);
+
 			case FMUComponentVariablesCompartmentEditPart.VISUAL_ID:
 				return new FMUComponentVariablesCompartmentEditPart(view);
 
@@ -81,8 +78,8 @@ public class ComponentsEditPartFactory implements EditPartFactory {
 				return new EventBComponentEventBVariablesCompartmentEditPart(
 						view);
 
-			case PortConnectorEditPart.VISUAL_ID:
-				return new PortConnectorEditPart(view);
+			case ConnectorEditPart.VISUAL_ID:
+				return new ConnectorEditPart(view);
 
 			}
 		}

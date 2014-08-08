@@ -239,33 +239,17 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateConnector_CompatiblePorts(Connector connector, DiagnosticChain diagnostics, Map<Object, Object> context) {
-
-		// skip if none or a single port is connected
-		EList<Port> ports = connector.getPorts();
-		if (ports.size() < 2)
-			return true;
+		Port src = connector.getSource();
+		Port trg = connector.getTarget();
 		
-		// find two non-matching ports
-		boolean failed = false;
-		Port port1 = ports.get(0);
-		Port port2 = null;
-		VariableType type = port1.getType();
-		for (Port p : ports) {
-			if (p.getType() != type) {
-				failed = true;
-				port2 = p;
-				break;
-			}
-		}
-		
-		if (failed) {
+		if (src.getType() != trg.getType()) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(new BasicDiagnostic
 							(Diagnostic.ERROR,
 							 ComponentsValidator.DIAGNOSTIC_SOURCE,
 							 0,
-							 MessageFormat.format("Connected ports ''{0}'' and ''{1}'' have incompatible types", new Object[] { port1.getName(), port2.getName() }),	
+							 MessageFormat.format("Connected ports ''{0}'' and ''{1}'' have incompatible types", new Object[] { src.getName(), trg.getName() }),	
 							 new Object [] { connector }));
 			}
 			return false;
@@ -284,16 +268,16 @@ public class ComponentsValidator extends EObjectValidator {
 	 */
 	public boolean validateConnector_CompleteConnection(Connector connector, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		EList<Port> ports = connector.getPorts();
-		boolean input = false;
-		for (Port p : ports) {
-			if (p.getCausality() == VariableCausality.OUTPUT) {
-				input = true;
-				break;
-			}
-		}
+//		EList<Port> ports = connector.getPorts();
+//		boolean input = false;
+//		for (Port p : ports) {
+//			if (p.getCausality() == VariableCausality.OUTPUT) {
+//				input = true;
+//				break;
+//			}
+//		}
 		
-		if (!input && ports.size() > 0) {
+		if (false) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(new BasicDiagnostic

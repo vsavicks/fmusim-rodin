@@ -42,6 +42,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.edit.helpers.GeneratedEditHelperBase;
 
+import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.Port;
@@ -336,32 +337,42 @@ public class ComponentsBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public boolean canCreatePortConnector_4001(Port source, Connector target) {
-			if (source != null) {
-				if (source.getConnector() != null) {
-					return false;
-				}
-			}
-			if (target != null && (target.getPorts().contains(target))) {
-				return false;
-			}
-
-			return canExistPortConnector_4001(source, target);
+		public boolean canCreateConnector_4002(ComponentDiagram container,
+				Port source, Port target) {
+			return canExistConnector_4002(container, null, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public boolean canExistPortConnector_4001(Port source, Connector target) {
+		public boolean canExistConnector_4002(ComponentDiagram container,
+				Connector linkInstance, Port source, Port target) {
 			try {
+				if (source == null) {
+					return true;
+				} else {
+					Map<String, EClassifier> env = Collections
+							.<String, EClassifier> singletonMap(
+									"oppositeEnd", ComponentsPackage.eINSTANCE.getPort()); //$NON-NLS-1$
+					Object sourceVal = ComponentsOCLFactory.getExpression(10,
+							ComponentsPackage.eINSTANCE.getPort(), env)
+							.evaluate(
+									source,
+									Collections.singletonMap(
+											"oppositeEnd", target)); //$NON-NLS-1$
+					if (false == sourceVal instanceof Boolean
+							|| !((Boolean) sourceVal).booleanValue()) {
+						return false;
+					} // else fall-through
+				}
 				if (target == null) {
 					return true;
 				} else {
 					Map<String, EClassifier> env = Collections
 							.<String, EClassifier> singletonMap(
 									"oppositeEnd", ComponentsPackage.eINSTANCE.getPort()); //$NON-NLS-1$
-					Object targetVal = ComponentsOCLFactory.getExpression(10,
-							ComponentsPackage.eINSTANCE.getConnector(), env)
+					Object targetVal = ComponentsOCLFactory.getExpression(11,
+							ComponentsPackage.eINSTANCE.getPort(), env)
 							.evaluate(
 									target,
 									Collections.singletonMap(

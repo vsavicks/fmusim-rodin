@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,9 +13,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 
+import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.diagram.edit.policies.ComponentsBaseItemSemanticEditPolicy;
@@ -23,17 +23,12 @@ import ac.soton.fmusim.components.diagram.edit.policies.ComponentsBaseItemSemant
 /**
  * @generated
  */
-public class PortConnectorReorientCommand extends EditElementCommand {
+public class ConnectorReorientCommand extends EditElementCommand {
 
 	/**
 	 * @generated
 	 */
 	private final int reorientDirection;
-
-	/**
-	 * @generated
-	 */
-	private final EObject referenceOwner;
 
 	/**
 	 * @generated
@@ -48,11 +43,9 @@ public class PortConnectorReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	public PortConnectorReorientCommand(
-			ReorientReferenceRelationshipRequest request) {
-		super(request.getLabel(), null, request);
+	public ConnectorReorientCommand(ReorientRelationshipRequest request) {
+		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
-		referenceOwner = request.getReferenceOwner();
 		oldEnd = request.getOldRelationshipEnd();
 		newEnd = request.getNewRelationshipEnd();
 	}
@@ -61,7 +54,7 @@ public class PortConnectorReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	public boolean canExecute() {
-		if (false == referenceOwner instanceof Port) {
+		if (false == getElementToEdit() instanceof Connector) {
 			return false;
 		}
 		if (reorientDirection == ReorientRelationshipRequest.REORIENT_SOURCE) {
@@ -77,22 +70,34 @@ public class PortConnectorReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected boolean canReorientSource() {
-		if (!(oldEnd instanceof Connector && newEnd instanceof Port)) {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
 			return false;
 		}
+		Port target = getLink().getTarget();
+		if (!(getLink().eContainer() instanceof ComponentDiagram)) {
+			return false;
+		}
+		ComponentDiagram container = (ComponentDiagram) getLink().eContainer();
 		return ComponentsBaseItemSemanticEditPolicy.getLinkConstraints()
-				.canExistPortConnector_4001(getNewSource(), getOldTarget());
+				.canExistConnector_4002(container, getLink(), getNewSource(),
+						target);
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean canReorientTarget() {
-		if (!(oldEnd instanceof Connector && newEnd instanceof Connector)) {
+		if (!(oldEnd instanceof Port && newEnd instanceof Port)) {
 			return false;
 		}
+		Port source = getLink().getSource();
+		if (!(getLink().eContainer() instanceof ComponentDiagram)) {
+			return false;
+		}
+		ComponentDiagram container = (ComponentDiagram) getLink().eContainer();
 		return ComponentsBaseItemSemanticEditPolicy.getLinkConstraints()
-				.canExistPortConnector_4001(getOldSource(), getNewTarget());
+				.canExistConnector_4002(container, getLink(), source,
+						getNewTarget());
 	}
 
 	/**
@@ -117,24 +122,30 @@ public class PortConnectorReorientCommand extends EditElementCommand {
 	 * @generated
 	 */
 	protected CommandResult reorientSource() throws ExecutionException {
-		getOldSource().setConnector(null);
-		getNewSource().setConnector(getOldTarget());
-		return CommandResult.newOKCommandResult(referenceOwner);
+		getLink().setSource(getNewSource());
+		return CommandResult.newOKCommandResult(getLink());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
-		getOldSource().setConnector(getNewTarget());
-		return CommandResult.newOKCommandResult(referenceOwner);
+		getLink().setTarget(getNewTarget());
+		return CommandResult.newOKCommandResult(getLink());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Connector getLink() {
+		return (Connector) getElementToEdit();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Port getOldSource() {
-		return (Port) referenceOwner;
+		return (Port) oldEnd;
 	}
 
 	/**
@@ -147,14 +158,14 @@ public class PortConnectorReorientCommand extends EditElementCommand {
 	/**
 	 * @generated
 	 */
-	protected Connector getOldTarget() {
-		return (Connector) oldEnd;
+	protected Port getOldTarget() {
+		return (Port) oldEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Connector getNewTarget() {
-		return (Connector) newEnd;
+	protected Port getNewTarget() {
+		return (Port) newEnd;
 	}
 }

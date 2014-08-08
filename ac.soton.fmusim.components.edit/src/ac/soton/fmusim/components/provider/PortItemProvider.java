@@ -59,25 +59,48 @@ public class PortItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addConnectorPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
+			addInPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Connector feature.
+	 * This adds a property descriptor for the Out feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addConnectorPropertyDescriptor(Object object) {
+	protected void addOutPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Port_connector_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Port_connector_feature", "_UI_Port_type"),
-				 ComponentsPackage.Literals.PORT__CONNECTOR,
+				 getString("_UI_Port_out_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Port_out_feature", "_UI_Port_type"),
+				 ComponentsPackage.Literals.PORT__OUT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Port_in_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Port_in_feature", "_UI_Port_type"),
+				 ComponentsPackage.Literals.PORT__IN,
 				 true,
 				 false,
 				 true,

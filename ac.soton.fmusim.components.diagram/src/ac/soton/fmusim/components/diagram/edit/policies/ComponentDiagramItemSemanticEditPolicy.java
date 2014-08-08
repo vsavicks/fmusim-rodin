@@ -14,7 +14,6 @@ import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsComma
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 
-import ac.soton.fmusim.components.diagram.edit.commands.ConnectorCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.commands.DisplayComponentCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.commands.EventBComponentCreateCommand;
 import ac.soton.fmusim.components.diagram.edit.commands.FMUComponentCreateCommand;
@@ -42,9 +41,6 @@ public class ComponentDiagramItemSemanticEditPolicy extends
 		}
 		if (ComponentsElementTypes.EventBComponent_2002 == req.getElementType()) {
 			return getGEFWrapper(new EventBComponentCreateCommand(req));
-		}
-		if (ComponentsElementTypes.Connector_2003 == req.getElementType()) {
-			return getGEFWrapper(new ConnectorCreateCommand(req));
 		}
 		if (ComponentsElementTypes.DisplayComponent_2006 == req
 				.getElementType()) {

@@ -67,7 +67,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 		View viewObject = (View) getHost().getModel();
 		LinkedList<EObject> result = new LinkedList<EObject>();
 		List<ComponentsNodeDescriptor> childDescriptors = ComponentsDiagramUpdater
-				.getFMUComponentVariables_7001SemanticChildren(viewObject);
+				.getFMUComponentFMUVariablesCompartment_7001SemanticChildren(viewObject);
 		for (ComponentsNodeDescriptor d : childDescriptors) {
 			result.add(d.getModelElement());
 		}
@@ -100,7 +100,7 @@ public class FMUComponentVariablesCompartmentCanonicalEditPolicy extends
 		}
 		LinkedList<IAdaptable> createdViews = new LinkedList<IAdaptable>();
 		List<ComponentsNodeDescriptor> childDescriptors = ComponentsDiagramUpdater
-				.getFMUComponentVariables_7001SemanticChildren((View) getHost()
+				.getFMUComponentFMUVariablesCompartment_7001SemanticChildren((View) getHost()
 						.getModel());
 		LinkedList<View> orphaned = new LinkedList<View>();
 		// we care to check only views we recognize as ours

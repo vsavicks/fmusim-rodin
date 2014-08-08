@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013 University of Southampton.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -62,13 +62,13 @@ import ac.soton.fmusim.components.diagram.providers.ComponentsParserProvider;
 /**
  * @generated
  */
-public class ConnectorValueEditPart extends LabelEditPart implements
+public class DisplayPortNameEditPart extends LabelEditPart implements
 		ITextAwareEditPart, IBorderItemEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5003;
+	public static final int VISUAL_ID = 5010;
 
 	/**
 	 * @generated
@@ -101,14 +101,14 @@ public class ConnectorValueEditPart extends LabelEditPart implements
 	static {
 		registerSnapBackPosition(
 				ComponentsVisualIDRegistry
-						.getType(ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart.VISUAL_ID),
+						.getType(ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart.VISUAL_ID),
 				new Point(0, 0));
 	}
 
 	/**
 	 * @generated
 	 */
-	public ConnectorValueEditPart(View view) {
+	public DisplayPortNameEditPart(View view) {
 		super(view);
 	}
 
@@ -287,7 +287,7 @@ public class ConnectorValueEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		return getParser() != null;
+		return false;
 	}
 
 	/**
@@ -351,10 +351,10 @@ public class ConnectorValueEditPart extends LabelEditPart implements
 		if (parser == null) {
 			parser = ComponentsParserProvider
 					.getParser(
-							ComponentsElementTypes.Connector_2003,
+							ComponentsElementTypes.DisplayPort_3013,
 							getParserElement(),
 							ComponentsVisualIDRegistry
-									.getType(ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart.VISUAL_ID));
+									.getType(ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart.VISUAL_ID));
 		}
 		return parser;
 	}
@@ -659,7 +659,21 @@ public class ConnectorValueEditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new WrappingLabel();
+		return new PortLabelFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class PortLabelFigure extends WrappingLabel {
+
+		/**
+		 * @generated
+		 */
+		public PortLabelFigure() {
+			this.setText("");
+		}
+
 	}
 
 }

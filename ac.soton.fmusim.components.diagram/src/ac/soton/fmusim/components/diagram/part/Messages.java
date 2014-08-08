@@ -320,16 +320,6 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String Link8CreationTool_title;
-
-	/**
-	 * @generated
-	 */
-	public static String Link8CreationTool_desc;
-
-	/**
-	 * @generated
-	 */
 	public static String FMUComponentVariablesCompartmentEditPart_title;
 
 	/**
@@ -345,17 +335,12 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_PortConnector_4001_target;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_PortConnector_4001_source;
-
-	/**
-	 * @generated
-	 */
 	public static String NavigatorGroupName_EventBPort_3003_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_EventBPort_3004_incominglinks;
 
 	/**
 	 * @generated
@@ -365,7 +350,17 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String NavigatorGroupName_EventBPort_3003_incominglinks;
+
+	/**
+	 * @generated
+	 */
 	public static String NavigatorGroupName_EventBPort_3004_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_DisplayPort_3013_incominglinks;
 
 	/**
 	 * @generated
@@ -375,7 +370,22 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String NavigatorGroupName_Connector_4002_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Connector_4002_source;
+
+	/**
+	 * @generated
+	 */
 	public static String NavigatorGroupName_FMUPort_3001_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_FMUPort_3002_incominglinks;
 
 	/**
 	 * @generated
@@ -385,27 +395,12 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_Connector_2003_incominglinks;
+	public static String NavigatorGroupName_FMUPort_3001_incominglinks;
 
 	/**
 	 * @generated
 	 */
 	public static String NavigatorActionProvider_OpenDiagramActionName;
-
-	/**
-	 * @generated
-	 */
-	public static String AbstractParser_UnexpectedValueType;
-
-	/**
-	 * @generated
-	 */
-	public static String AbstractParser_WrongStringConversion;
-
-	/**
-	 * @generated
-	 */
-	public static String AbstractParser_UnknownLiteral;
 
 	/**
 	 * @generated

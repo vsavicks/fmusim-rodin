@@ -7,10 +7,6 @@
  */
 package ac.soton.fmusim.components.diagram.edit.parts;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -20,9 +16,10 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
@@ -30,18 +27,16 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderItemEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 
-import ac.soton.fmusim.components.ComponentsPackage;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.diagram.edit.policies.FMUInputPortItemSemanticEditPolicy;
-import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 
 /**
  * @generated
@@ -62,6 +57,8 @@ public class FMUInputPortEditPart extends AbstractBorderItemEditPart {
 	 * @generated
 	 */
 	protected IFigure primaryShape;
+
+	private Label feedbackFigure;
 
 	/**
 	 * @generated
@@ -224,38 +221,6 @@ public class FMUInputPortEditPart extends AbstractBorderItemEditPart {
 	/**
 	 * @generated
 	 */
-	public List<IElementType> getMARelTypesOnSource() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(ComponentsElementTypes.PortConnector_4001);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMARelTypesOnSourceAndTarget(
-			IGraphicalEditPart targetEditPart) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (targetEditPart instanceof ConnectorEditPart) {
-			types.add(ComponentsElementTypes.PortConnector_4001);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMATypesForTarget(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == ComponentsElementTypes.PortConnector_4001) {
-			types.add(ComponentsElementTypes.Connector_2003);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
 	public class InputPortFigure extends RectangleFigure {
 
 		/**
@@ -274,35 +239,32 @@ public class FMUInputPortEditPart extends AbstractBorderItemEditPart {
 	static final Color THIS_BACK = new Color(null, 230, 230, 230);
 
 	@Override
-	protected void refreshChildren() {
-		super.refreshChildren();
-		refreshToolTip();
-	}
-	
-	@Override
-	protected void handleNotificationEvent(Notification notification) {
-		super.handleNotificationEvent(notification);
-		if (notification.getFeature().equals(
-				ComponentsPackage.eINSTANCE.getNamedElement_Name()))
-			refreshToolTip();
-	}
-
-	private void refreshToolTip() {
-		IFigure tooltip = getFigure().getToolTip();
-		if (tooltip == null) {
-			tooltip = new Label();
-			getFigure().setToolTip(tooltip);
-		}
-
-		Port port = (Port) getNotationView().getElement();
-		String name = port.getName();
-		tooltip.setVisible(true);
-		((Label) tooltip).setText(name);
-	}
-
-	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		return new ChopboxAnchor(getNodeFigure());
 	}
+	
+	@Override
+	public void showTargetFeedback(Request request) {
+		super.showTargetFeedback(request);
+		// the feedback layer figures do not receive mouse e
+		if (feedbackFigure == null ) {
+			feedbackFigure = new Label(((Port) getNotationView().getElement()).getName());
+			feedbackFigure.setFont(new Font(null, "Arial", 12, SWT.NORMAL));
+			Rectangle bounds = feedbackFigure.getTextBounds().getCopy();
+			bounds.setLocation(getFigure().getBounds().getLocation().translate(13, -bounds.height));
+			IFigure layer = getLayer(LayerConstants.FEEDBACK_LAYER);
+			layer.add(feedbackFigure);
+		}
+	}
 
+	@Override
+	public void eraseTargetFeedback(Request request) {
+		super.eraseTargetFeedback(request);
+		IFigure layer = getLayer(LayerConstants.FEEDBACK_LAYER);
+		if (layer != null && feedbackFigure != null
+				&& feedbackFigure.getParent() != null) {
+			layer.remove(feedbackFigure);
+		}
+		feedbackFigure = null;
+	}
 }

@@ -11,11 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
@@ -62,11 +60,6 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Set<EStructuralFeature> myFeaturesToSynchronize;
-
-	/**
-	 * @generated
-	 */
 	protected void refreshOnActivate() {
 		// Need to activate editpart children before invoking the canonical refresh for EditParts to add event listeners
 		List<?> c = getHost().getChildren();
@@ -79,15 +72,8 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected Set getFeaturesToSynchronize() {
-		if (myFeaturesToSynchronize == null) {
-			myFeaturesToSynchronize = new HashSet<EStructuralFeature>();
-			myFeaturesToSynchronize.add(ComponentsPackage.eINSTANCE
-					.getComponentDiagram_Components());
-			myFeaturesToSynchronize.add(ComponentsPackage.eINSTANCE
-					.getComponentDiagram_Connectors());
-		}
-		return myFeaturesToSynchronize;
+	protected EStructuralFeature getFeatureToSynchronize() {
+		return ComponentsPackage.eINSTANCE.getComponentDiagram_Components();
 	}
 
 	/**
@@ -122,14 +108,9 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	private boolean isMyDiagramElement(View view) {
 		int visualID = ComponentsVisualIDRegistry.getVisualID(view);
-		switch (visualID) {
-		case FMUComponentEditPart.VISUAL_ID:
-		case EventBComponentEditPart.VISUAL_ID:
-		case ConnectorEditPart.VISUAL_ID:
-		case DisplayComponentEditPart.VISUAL_ID:
-			return true;
-		}
-		return false;
+		return visualID == FMUComponentEditPart.VISUAL_ID
+				|| visualID == EventBComponentEditPart.VISUAL_ID
+				|| visualID == DisplayComponentEditPart.VISUAL_ID;
 	}
 
 	/**
@@ -317,14 +298,6 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
-		case ConnectorEditPart.VISUAL_ID: {
-			if (!domain2NotationMap.containsKey(view.getElement())) {
-				result.addAll(ComponentsDiagramUpdater
-						.getConnector_2003ContainedLinks(view));
-			}
-			domain2NotationMap.putView(view.getElement(), view);
-			break;
-		}
 		case DisplayComponentEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(ComponentsDiagramUpdater
@@ -369,6 +342,14 @@ public class ComponentDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(ComponentsDiagramUpdater
 						.getDisplayPort_3013ContainedLinks(view));
+			}
+			domain2NotationMap.putView(view.getElement(), view);
+			break;
+		}
+		case ConnectorEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(ComponentsDiagramUpdater
+						.getConnector_4002ContainedLinks(view));
 			}
 			domain2NotationMap.putView(view.getElement(), view);
 			break;

@@ -44,7 +44,7 @@ public class ComponentsOCLFactory {
 	 * @generated
 	 */
 	protected ComponentsOCLFactory() {
-		this.expressions = new ComponentsAbstractExpression[11];
+		this.expressions = new ComponentsAbstractExpression[12];
 		this.expressionBodies = new String[] {
 				"self.causality = VariableCausality::Input", //$NON-NLS-1$
 				"VariableCausality::Input", //$NON-NLS-1$
@@ -56,7 +56,8 @@ public class ComponentsOCLFactory {
 				"VariableCausality::Output", //$NON-NLS-1$
 				"self.causality = VariableCausality::Input", //$NON-NLS-1$
 				"VariableCausality::Input", //$NON-NLS-1$
-				"not (oppositeEnd.oclAsType(AbstractVariable).causality = VariableCausality::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(AbstractVariable).causality = VariableCausality::Output))", //$NON-NLS-1$
+				"self.oclAsType(AbstractVariable).causality = VariableCausality::Output", //$NON-NLS-1$
+				"self.oclAsType(AbstractVariable).causality = VariableCausality::Input and\nself.oclAsType(Port).\"in\" = null and \nself.eContainer() <> oppositeEnd.eContainer()", //$NON-NLS-1$
 		};
 	}
 

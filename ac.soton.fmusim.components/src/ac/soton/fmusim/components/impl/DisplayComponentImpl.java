@@ -37,7 +37,6 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.Port;
-import ac.soton.fmusim.components.VariableCausality;
 import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 
@@ -261,11 +260,10 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			// or from a connected output
 			String signalName = port.getName();
 			if (signalName == null) {
-				if (port.getConnector() != null) {
-					for (Port pt : port.getConnector().getPorts()) {
-						if (pt.getCausality() == VariableCausality.OUTPUT)
-							signalName = pt.getName();
-					}
+				if (port.getIn() != null ) {
+					Port src = port.getIn().getSource();
+					if (src != null)
+						signalName = src.getName();
 				}
 			}
 			if (signalName == null)
@@ -287,7 +285,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 */
 	public void readInputs() throws SimulationException {
 		for (Port port : getInputs()) {
-			Connector connector = port.getConnector();
+			Connector connector = port.getIn();
 			
 			// skip port if not connected
 			if (connector == null) {
@@ -321,7 +319,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 			DisplayPort port = (DisplayPort) p;
 			
 			// if port connected, plot the value
-			if (port.getConnector() != null) {
+			if (port.getIn() != null) {
 				Object value = port.getValue();
 				double traceValue = 0;
 				if (port.getType() == VariableType.REAL) {

@@ -21,12 +21,11 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.View;
 
 import ac.soton.fmusim.components.ComponentsPackage;
-import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
-import ac.soton.fmusim.components.diagram.parsers.ConnectorLabelExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.EventBVariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.FMUVariableExpressionLabelParser;
 import ac.soton.fmusim.components.diagram.parsers.MessageFormatParser;
@@ -77,21 +76,6 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private ConnectorLabelExpressionLabelParser connectorLabel_5003Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getConnectorLabel_5003Parser() {
-		if (connectorLabel_5003Parser == null) {
-			connectorLabel_5003Parser = new ConnectorLabelExpressionLabelParser();
-		}
-		return connectorLabel_5003Parser;
-	}
-
-	/**
-	 * @generated
-	 */
 	private FMUVariableExpressionLabelParser fMUVariable_3009Parser;
 
 	/**
@@ -122,18 +106,36 @@ public class ComponentsParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
+	private IParser displayPortName_5010Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getDisplayPortName_5010Parser() {
+		if (displayPortName_5010Parser == null) {
+			EAttribute[] features = new EAttribute[] { ComponentsPackage.eINSTANCE
+					.getNamedElement_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			displayPortName_5010Parser = parser;
+		}
+		return displayPortName_5010Parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
 		case FMUComponentNameEditPart.VISUAL_ID:
 			return getFMUComponentName_5001Parser();
 		case EventBComponentNameEditPart.VISUAL_ID:
 			return getEventBComponentName_5002Parser();
-		case ConnectorValueEditPart.VISUAL_ID:
-			return getConnectorLabel_5003Parser();
 		case FMUVariableEditPart.VISUAL_ID:
 			return getFMUVariable_3009Parser();
 		case EventBVariableEditPart.VISUAL_ID:
 			return getEventBVariable_3010Parser();
+		case DisplayPortNameEditPart.VISUAL_ID:
+			return getDisplayPortName_5010Parser();
 		}
 		return null;
 	}

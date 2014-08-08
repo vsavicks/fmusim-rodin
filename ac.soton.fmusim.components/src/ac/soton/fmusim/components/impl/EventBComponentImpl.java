@@ -601,7 +601,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			assert port.getParameter() != null;
 			String parameterName = port.getParameter().getName();
 			
-			Connector connector = port.getConnector();
+			Connector connector = port.getIn();
 			
 			// if port not connected, let ProB to pick the value non-deterministically
 			//XXX: should it keep the previous (previous step) input value?
@@ -723,9 +723,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			Object value = valueEventBToFmi(bValue, port.getType(), port.getRealPrecision());
 			
 			// send value to connector if connected
-			Connector connector = port.getConnector();
-			if (connector != null) {
-				connector.setValue(value);
+			for (Connector c : port.getOut()) {
+				c.setValue(value);
 			}
 			
 			// set port value

@@ -273,13 +273,22 @@ public interface ComponentsPackage extends EPackage {
 	int CONNECTOR__VALUE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Ports</b></em>' reference list.
+	 * The feature id for the '<em><b>Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__PORTS = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int CONNECTOR__SOURCE = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTOR__TARGET = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Connector</em>' class.
@@ -288,7 +297,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int CONNECTOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.AbstractVariableImpl <em>Abstract Variable</em>}' class.
@@ -410,13 +419,22 @@ public interface ComponentsPackage extends EPackage {
 	int PORT__DESCRIPTION = ABSTRACT_VARIABLE__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Connector</b></em>' reference.
+	 * The feature id for the '<em><b>Out</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__CONNECTOR = ABSTRACT_VARIABLE_FEATURE_COUNT + 0;
+	int PORT__OUT = ABSTRACT_VARIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__IN = ABSTRACT_VARIABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Port</em>' class.
@@ -425,7 +443,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 1;
+	int PORT_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.EventBComponentImpl <em>Event BComponent</em>}' class.
@@ -764,13 +782,22 @@ public interface ComponentsPackage extends EPackage {
 	int FMU_PORT__DESCRIPTION = PORT__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Connector</b></em>' reference.
+	 * The feature id for the '<em><b>Out</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FMU_PORT__CONNECTOR = PORT__CONNECTOR;
+	int FMU_PORT__OUT = PORT__OUT;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FMU_PORT__IN = PORT__IN;
 
 	/**
 	 * The number of structural features of the '<em>FMU Port</em>' class.
@@ -837,13 +864,22 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BPORT__DESCRIPTION = PORT__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Connector</b></em>' reference.
+	 * The feature id for the '<em><b>Out</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BPORT__CONNECTOR = PORT__CONNECTOR;
+	int EVENT_BPORT__OUT = PORT__OUT;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_BPORT__IN = PORT__IN;
 
 	/**
 	 * The feature id for the '<em><b>Parameter</b></em>' reference.
@@ -1147,13 +1183,22 @@ public interface ComponentsPackage extends EPackage {
 	int DISPLAY_PORT__DESCRIPTION = PORT__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Connector</b></em>' reference.
+	 * The feature id for the '<em><b>Out</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DISPLAY_PORT__CONNECTOR = PORT__CONNECTOR;
+	int DISPLAY_PORT__OUT = PORT__OUT;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PORT__IN = PORT__IN;
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' attribute.
@@ -1516,15 +1561,26 @@ public interface ComponentsPackage extends EPackage {
 	EAttribute getConnector_Value();
 
 	/**
-	 * Returns the meta object for the reference list '{@link ac.soton.fmusim.components.Connector#getPorts <em>Ports</em>}'.
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.Connector#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Ports</em>'.
-	 * @see ac.soton.fmusim.components.Connector#getPorts()
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see ac.soton.fmusim.components.Connector#getSource()
 	 * @see #getConnector()
 	 * @generated
 	 */
-	EReference getConnector_Ports();
+	EReference getConnector_Source();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.Connector#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see ac.soton.fmusim.components.Connector#getTarget()
+	 * @see #getConnector()
+	 * @generated
+	 */
+	EReference getConnector_Target();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.Port <em>Port</em>}'.
@@ -1537,15 +1593,26 @@ public interface ComponentsPackage extends EPackage {
 	EClass getPort();
 
 	/**
-	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.Port#getConnector <em>Connector</em>}'.
+	 * Returns the meta object for the reference list '{@link ac.soton.fmusim.components.Port#getOut <em>Out</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Connector</em>'.
-	 * @see ac.soton.fmusim.components.Port#getConnector()
+	 * @return the meta object for the reference list '<em>Out</em>'.
+	 * @see ac.soton.fmusim.components.Port#getOut()
 	 * @see #getPort()
 	 * @generated
 	 */
-	EReference getPort_Connector();
+	EReference getPort_Out();
+
+	/**
+	 * Returns the meta object for the reference '{@link ac.soton.fmusim.components.Port#getIn <em>In</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>In</em>'.
+	 * @see ac.soton.fmusim.components.Port#getIn()
+	 * @see #getPort()
+	 * @generated
+	 */
+	EReference getPort_In();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.NamedElement <em>Named Element</em>}'.
@@ -2169,12 +2236,20 @@ public interface ComponentsPackage extends EPackage {
 		EAttribute CONNECTOR__VALUE = eINSTANCE.getConnector_Value();
 
 		/**
-		 * The meta object literal for the '<em><b>Ports</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTOR__PORTS = eINSTANCE.getConnector_Ports();
+		EReference CONNECTOR__SOURCE = eINSTANCE.getConnector_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTOR__TARGET = eINSTANCE.getConnector_Target();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.PortImpl <em>Port</em>}' class.
@@ -2187,12 +2262,20 @@ public interface ComponentsPackage extends EPackage {
 		EClass PORT = eINSTANCE.getPort();
 
 		/**
-		 * The meta object literal for the '<em><b>Connector</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Out</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PORT__CONNECTOR = eINSTANCE.getPort_Connector();
+		EReference PORT__OUT = eINSTANCE.getPort_Out();
+
+		/**
+		 * The meta object literal for the '<em><b>In</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT__IN = eINSTANCE.getPort_In();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.NamedElementImpl <em>Named Element</em>}' class.

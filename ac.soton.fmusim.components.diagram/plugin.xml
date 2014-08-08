@@ -221,8 +221,8 @@
          </object>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Components"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2006,3001,3002,3009,3003,3004,3010,3013"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2006,3001,3002,3009,3003,3004,3010,3013"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4002"/>
       </viewProvider>
    </extension>
 
@@ -234,13 +234,13 @@
             <method name="getType()" value="Components"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
-            <method name="getType()" value="2001,2002,2003,2006,3001,3002,3009,3003,3004,3010,3013"/>
+            <method name="getType()" value="2001,2002,2006,3001,3002,3009,3003,3004,3010,3013"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
-            <method name="getType()" value="4001"/>
+            <method name="getType()" value="4002"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
-            <method name="getType()" value="5001,5002,5003"/>
+            <method name="getType()" value="5001,5002,5010"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
             <method name="getType()" value="7001,7002"/>
@@ -251,22 +251,62 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsModelingAssistantProvider">
+      <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfComponentDiagramEditPart">
          <Priority name="Lowest"/>
          <object class="ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart" id="ComponentDiagram_1000"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart" id="FMUComponent_2001"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart" id="EventBComponent_2002"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart" id="Connector_2003"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart" id="DisplayComponent_2006"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart" id="FMUPort_3001"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart" id="FMUPort_3002"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart" id="FMUVariable_3009"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart" id="EventBPort_3003"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart" id="EventBPort_3004"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart" id="EventBVariable_3010"/>
-         <object class="ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart" id="DisplayPort_3013"/>
-         <context elements="ComponentDiagram_1000,FMUComponent_2001,EventBComponent_2002,Connector_2003,DisplayComponent_2006,FMUPort_3001,FMUPort_3002,FMUVariable_3009,EventBPort_3003,EventBPort_3004,EventBVariable_3010,DisplayPort_3013"/>
+         <context elements="ComponentDiagram_1000"/>
       </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfFMUComponentEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUComponentEditPart" id="FMUComponent_2001"/>
+         <context elements="FMUComponent_2001"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfEventBComponentEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart" id="EventBComponent_2002"/>
+         <context elements="EventBComponent_2002"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfDisplayComponentEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart" id="DisplayComponent_2006"/>
+         <context elements="DisplayComponent_2006"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfFMUInputPortEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart" id="FMUPort_3001"/>
+         <context elements="FMUPort_3001"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfFMUOutputPortEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart" id="FMUPort_3002"/>
+         <context elements="FMUPort_3002"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfFMUVariableEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart" id="FMUVariable_3009"/>
+         <context elements="FMUVariable_3009"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfEventBInputPortEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBInputPortEditPart" id="EventBPort_3003"/>
+         <context elements="EventBPort_3003"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfEventBOutputPortEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBOutputPortEditPart" id="EventBPort_3004"/>
+         <context elements="EventBPort_3004"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfEventBVariableEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.EventBVariableEditPart" id="EventBVariable_3010"/>
+         <context elements="EventBVariable_3010"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.fmusim.components.diagram.providers.assistants.ComponentsModelingAssistantProviderOfDisplayPortEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart" id="DisplayPort_3013"/>
+         <context elements="DisplayPort_3013"/>
+      </modelingAssistantProvider>
+      
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
@@ -313,16 +353,6 @@
                eclass="EventBComponent"
                edithelper="ac.soton.fmusim.components.diagram.edit.helpers.EventBComponentEditHelper">
             <param name="semanticHint" value="2002"/>
-         </metamodelType>
-      </metamodel>
-      <metamodel nsURI="http://soton.ac.uk/models/fmusim/components/1.0">
-         <metamodelType
-               id="ac.soton.fmusim.components.diagram.Connector_2003"
-               name="%metatype.name.Connector_2003"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="Connector"
-               edithelper="ac.soton.fmusim.components.diagram.edit.helpers.ConnectorEditHelper">
-            <param name="semanticHint" value="2003"/>
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://soton.ac.uk/models/fmusim/components/1.0">
@@ -404,13 +434,14 @@
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://soton.ac.uk/models/fmusim/components/1.0">
-         <specializationType
-               id="ac.soton.fmusim.components.diagram.PortConnector_4001"
-               name="%metatype.name.PortConnector_4001"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
-            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="4001"/>
-         </specializationType>
+         <metamodelType
+               id="ac.soton.fmusim.components.diagram.Connector_4002"
+               name="%metatype.name.Connector_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Connector"
+               edithelper="ac.soton.fmusim.components.diagram.edit.helpers.ConnectorEditHelper">
+            <param name="semanticHint" value="4002"/>
+         </metamodelType>
       </metamodel>
    </extension>
 
@@ -427,7 +458,6 @@
          <elementType ref="ac.soton.fmusim.components.diagram.ComponentDiagram_1000"/>
          <elementType ref="ac.soton.fmusim.components.diagram.FMUComponent_2001"/>
          <elementType ref="ac.soton.fmusim.components.diagram.EventBComponent_2002"/>
-         <elementType ref="ac.soton.fmusim.components.diagram.Connector_2003"/>
          <elementType ref="ac.soton.fmusim.components.diagram.DisplayComponent_2006"/>
          <elementType ref="ac.soton.fmusim.components.diagram.FMUPort_3001"/>
          <elementType ref="ac.soton.fmusim.components.diagram.FMUPort_3002"/>
@@ -436,7 +466,7 @@
          <elementType ref="ac.soton.fmusim.components.diagram.EventBPort_3004"/>
          <elementType ref="ac.soton.fmusim.components.diagram.EventBVariable_3010"/>
          <elementType ref="ac.soton.fmusim.components.diagram.DisplayPort_3013"/>
-         <elementType ref="ac.soton.fmusim.components.diagram.PortConnector_4001"/>
+         <elementType ref="ac.soton.fmusim.components.diagram.Connector_4002"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
@@ -639,7 +669,7 @@
       <decoratorProvider class="ac.soton.fmusim.components.diagram.providers.ComponentsShortcutsDecoratorProvider">
          <Priority name="Lowest"/>
          <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
-            <method name="getType()" value="2001,2002,2003,2006"/>
+            <method name="getType()" value="2001,2002,2006"/>
          </object>
          <context decoratorTargets="generated-top-nodes"/>
       </decoratorProvider>

@@ -65,10 +65,12 @@
     </genClasses>
     <genClasses ecoreClass="components.ecore#//Connector">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//Connector/value"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Connector/ports"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Connector/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Connector/target"/>
     </genClasses>
     <genClasses image="false" ecoreClass="components.ecore#//Port">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Port/connector"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Port/out"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference components.ecore#//Port/in"/>
     </genClasses>
     <genClasses image="false" ecoreClass="components.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute components.ecore#//NamedElement/name"/>

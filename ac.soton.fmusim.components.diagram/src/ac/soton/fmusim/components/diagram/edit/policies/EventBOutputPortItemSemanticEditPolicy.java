@@ -14,17 +14,15 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
-import ac.soton.fmusim.components.diagram.edit.commands.PortConnectorCreateCommand;
-import ac.soton.fmusim.components.diagram.edit.commands.PortConnectorReorientCommand;
-import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
+import ac.soton.fmusim.components.diagram.edit.commands.ConnectorCreateCommand;
+import ac.soton.fmusim.components.diagram.edit.commands.ConnectorReorientCommand;
+import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 import ac.soton.fmusim.components.diagram.providers.ComponentsElementTypes;
 
@@ -49,13 +47,22 @@ public class EventBOutputPortItemSemanticEditPolicy extends
 		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(
 				getEditingDomain(), null);
 		cmd.setTransactionNestingEnabled(false);
+		for (Iterator<?> it = view.getTargetEdges().iterator(); it.hasNext();) {
+			Edge incomingLink = (Edge) it.next();
+			if (ComponentsVisualIDRegistry.getVisualID(incomingLink) == ConnectorEditPart.VISUAL_ID) {
+				DestroyElementRequest r = new DestroyElementRequest(
+						incomingLink.getElement(), false);
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				continue;
+			}
+		}
 		for (Iterator<?> it = view.getSourceEdges().iterator(); it.hasNext();) {
 			Edge outgoingLink = (Edge) it.next();
-			if (ComponentsVisualIDRegistry.getVisualID(outgoingLink) == PortConnectorEditPart.VISUAL_ID) {
-				DestroyReferenceRequest r = new DestroyReferenceRequest(
-						outgoingLink.getSource().getElement(), null,
-						outgoingLink.getTarget().getElement(), false);
-				cmd.add(new DestroyReferenceCommand(r));
+			if (ComponentsVisualIDRegistry.getVisualID(outgoingLink) == ConnectorEditPart.VISUAL_ID) {
+				DestroyElementRequest r = new DestroyElementRequest(
+						outgoingLink.getElement(), false);
+				cmd.add(new DestroyElementCommand(r));
 				cmd.add(new DeleteCommand(getEditingDomain(), outgoingLink));
 				continue;
 			}
@@ -87,8 +94,8 @@ public class EventBOutputPortItemSemanticEditPolicy extends
 	 */
 	protected Command getStartCreateRelationshipCommand(
 			CreateRelationshipRequest req) {
-		if (ComponentsElementTypes.PortConnector_4001 == req.getElementType()) {
-			return getGEFWrapper(new PortConnectorCreateCommand(req,
+		if (ComponentsElementTypes.Connector_4002 == req.getElementType()) {
+			return getGEFWrapper(new ConnectorCreateCommand(req,
 					req.getSource(), req.getTarget()));
 		}
 		return null;
@@ -99,25 +106,26 @@ public class EventBOutputPortItemSemanticEditPolicy extends
 	 */
 	protected Command getCompleteCreateRelationshipCommand(
 			CreateRelationshipRequest req) {
-		if (ComponentsElementTypes.PortConnector_4001 == req.getElementType()) {
-			return null;
+		if (ComponentsElementTypes.Connector_4002 == req.getElementType()) {
+			return getGEFWrapper(new ConnectorCreateCommand(req,
+					req.getSource(), req.getTarget()));
 		}
 		return null;
 	}
 
 	/**
-	 * Returns command to reorient EReference based link. New link target or source
+	 * Returns command to reorient EClass based link. New link target or source
 	 * should be the domain model element associated with this node.
 	 * 
 	 * @generated
 	 */
-	protected Command getReorientReferenceRelationshipCommand(
-			ReorientReferenceRelationshipRequest req) {
+	protected Command getReorientRelationshipCommand(
+			ReorientRelationshipRequest req) {
 		switch (getVisualID(req)) {
-		case PortConnectorEditPart.VISUAL_ID:
-			return getGEFWrapper(new PortConnectorReorientCommand(req));
+		case ConnectorEditPart.VISUAL_ID:
+			return getGEFWrapper(new ConnectorReorientCommand(req));
 		}
-		return super.getReorientReferenceRelationshipCommand(req);
+		return super.getReorientRelationshipCommand(req);
 	}
 
 }

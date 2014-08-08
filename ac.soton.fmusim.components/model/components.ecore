@@ -41,12 +41,16 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ports" upperBound="-1"
-        eType="#//Port" eOpposite="#//Port/connector"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//Port" eOpposite="#//Port/out"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//Port" eOpposite="#//Port/in"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" eSuperTypes="#//AbstractVariable">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connector" eType="#//Connector"
-        eOpposite="#//Connector/ports"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="out" upperBound="-1" eType="#//Connector"
+        eOpposite="#//Connector/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//Connector"
+        eOpposite="#//Connector/target"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="VariableType">
     <eLiterals name="Real"/>

@@ -51,9 +51,9 @@ import org.eclipse.swt.graphics.FontData;
 
 import ac.soton.fmusim.components.diagram.edit.parts.ComponentDiagramEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.ConnectorEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.ConnectorValueEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortEditPart;
+import ac.soton.fmusim.components.diagram.edit.parts.DisplayPortNameEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentEventBVariablesCompartmentEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.EventBComponentNameEditPart;
@@ -66,7 +66,6 @@ import ac.soton.fmusim.components.diagram.edit.parts.FMUComponentVariablesCompar
 import ac.soton.fmusim.components.diagram.edit.parts.FMUInputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUOutputPortEditPart;
 import ac.soton.fmusim.components.diagram.edit.parts.FMUVariableEditPart;
-import ac.soton.fmusim.components.diagram.edit.parts.PortConnectorEditPart;
 import ac.soton.fmusim.components.diagram.part.ComponentsVisualIDRegistry;
 
 /**
@@ -164,7 +163,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				switch (visualID) {
 				case FMUComponentEditPart.VISUAL_ID:
 				case EventBComponentEditPart.VISUAL_ID:
-				case ConnectorEditPart.VISUAL_ID:
 				case DisplayComponentEditPart.VISUAL_ID:
 				case FMUInputPortEditPart.VISUAL_ID:
 				case FMUVariableEditPart.VISUAL_ID:
@@ -187,7 +185,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		}
 		return FMUComponentEditPart.VISUAL_ID == visualID
 				|| EventBComponentEditPart.VISUAL_ID == visualID
-				|| ConnectorEditPart.VISUAL_ID == visualID
 				|| DisplayComponentEditPart.VISUAL_ID == visualID
 				|| FMUInputPortEditPart.VISUAL_ID == visualID
 				|| FMUOutputPortEditPart.VISUAL_ID == visualID
@@ -258,9 +255,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		case EventBComponentEditPart.VISUAL_ID:
 			return createEventBComponent_2002(domainElement, containerView,
 					index, persisted, preferencesHint);
-		case ConnectorEditPart.VISUAL_ID:
-			return createConnector_2003(domainElement, containerView, index,
-					persisted, preferencesHint);
 		case DisplayComponentEditPart.VISUAL_ID:
 			return createDisplayComponent_2006(domainElement, containerView,
 					index, persisted, preferencesHint);
@@ -299,9 +293,9 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		IElementType elementType = getSemanticElementType(semanticAdapter);
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 		switch (ComponentsVisualIDRegistry.getVisualID(elementTypeHint)) {
-		case PortConnectorEditPart.VISUAL_ID:
-			return createPortConnector_4001(containerView, index, persisted,
-					preferencesHint);
+		case ConnectorEditPart.VISUAL_ID:
+			return createConnector_4002(getSemanticElement(semanticAdapter),
+					containerView, index, persisted, preferencesHint);
 		}
 		// can never happen, provided #provides(CreateEdgeViewOperation) is correct
 		return null;
@@ -392,56 +386,6 @@ public class ComponentsViewProvider extends AbstractProvider implements
 				ComponentsVisualIDRegistry
 						.getType(EventBComponentEventBVariablesCompartmentEditPart.VISUAL_ID),
 				false, false, true, true);
-		return node;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Node createConnector_2003(EObject domainElement, View containerView,
-			int index, boolean persisted, PreferencesHint preferencesHint) {
-		Node node = NotationFactory.eINSTANCE.createNode();
-		node.getStyles()
-				.add(NotationFactory.eINSTANCE.createDescriptionStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createLineStyle());
-		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
-		node.setType(ComponentsVisualIDRegistry
-				.getType(ConnectorEditPart.VISUAL_ID));
-		ViewUtil.insertChildView(containerView, node, index, persisted);
-		node.setElement(domainElement);
-		stampShortcut(containerView, node);
-		// initializeFromPreferences 
-		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
-				.getPreferenceStore();
-
-		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
-				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
-		ViewUtil.setStructuralFeatureValue(node,
-				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
-				FigureUtilities.RGBToInteger(lineRGB));
-		FontStyle nodeFontStyle = (FontStyle) node
-				.getStyle(NotationPackage.Literals.FONT_STYLE);
-		if (nodeFontStyle != null) {
-			FontData fontData = PreferenceConverter.getFontData(prefStore,
-					IPreferenceConstants.PREF_DEFAULT_FONT);
-			nodeFontStyle.setFontName(fontData.getName());
-			nodeFontStyle.setFontHeight(fontData.getHeight());
-			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
-			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
-			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
-					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
-			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
-					.intValue());
-		}
-		Node label5003 = createLabel(node,
-				ComponentsVisualIDRegistry
-						.getType(ConnectorValueEditPart.VISUAL_ID));
-		label5003.setLayoutConstraint(NotationFactory.eINSTANCE
-				.createLocation());
-		Location location5003 = (Location) label5003.getLayoutConstraint();
-		location5003.setX(0);
-		location5003.setY(5);
 		return node;
 	}
 
@@ -681,14 +625,22 @@ public class ComponentsViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 					.intValue());
 		}
+		Node label5010 = createLabel(node,
+				ComponentsVisualIDRegistry
+						.getType(DisplayPortNameEditPart.VISUAL_ID));
+		label5010.setLayoutConstraint(NotationFactory.eINSTANCE
+				.createLocation());
+		Location location5010 = (Location) label5010.getLayoutConstraint();
+		location5010.setX(0);
+		location5010.setY(5);
 		return node;
 	}
 
 	/**
 	 * @generated
 	 */
-	public Edge createPortConnector_4001(View containerView, int index,
-			boolean persisted, PreferencesHint preferencesHint) {
+	public Edge createConnector_4002(EObject domainElement, View containerView,
+			int index, boolean persisted, PreferencesHint preferencesHint) {
 		Connector edge = NotationFactory.eINSTANCE.createConnector();
 		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE
@@ -701,8 +653,8 @@ public class ComponentsViewProvider extends AbstractProvider implements
 		edge.setBendpoints(bendpoints);
 		ViewUtil.insertChildView(containerView, edge, index, persisted);
 		edge.setType(ComponentsVisualIDRegistry
-				.getType(PortConnectorEditPart.VISUAL_ID));
-		edge.setElement(null);
+				.getType(ConnectorEditPart.VISUAL_ID));
+		edge.setElement(domainElement);
 		// initializePreferences
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
 				.getPreferenceStore();

@@ -49,7 +49,6 @@ public class ComponentsPaletteFactory {
 		paletteContainer.add(createInputPort5CreationTool());
 		paletteContainer.add(createOutputPort6CreationTool());
 		paletteContainer.add(createConnector7CreationTool());
-		paletteContainer.add(createLink8CreationTool());
 		return paletteContainer;
 	}
 
@@ -157,30 +156,14 @@ public class ComponentsPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createConnector7CreationTool() {
-		NodeToolEntry entry = new NodeToolEntry(
+		LinkToolEntry entry = new LinkToolEntry(
 				Messages.Connector7CreationTool_title,
 				Messages.Connector7CreationTool_desc,
 				Collections
-						.singletonList(ComponentsElementTypes.Connector_2003));
+						.singletonList(ComponentsElementTypes.Connector_4002));
 		entry.setId("createConnector7CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(ComponentsDiagramEditorPlugin
 				.findImageDescriptor("/ac.soton.fmusim.components/icons/Connector.gif")); //$NON-NLS-1$
-		entry.setLargeIcon(entry.getSmallIcon());
-		return entry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry createLink8CreationTool() {
-		LinkToolEntry entry = new LinkToolEntry(
-				Messages.Link8CreationTool_title,
-				Messages.Link8CreationTool_desc,
-				Collections
-						.singletonList(ComponentsElementTypes.PortConnector_4001));
-		entry.setId("createLink8CreationTool"); //$NON-NLS-1$
-		entry.setSmallIcon(ComponentsDiagramEditorPlugin
-				.findImageDescriptor("/ac.soton.fmusim.components/icons/Link.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

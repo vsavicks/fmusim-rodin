@@ -208,27 +208,6 @@
   </nodes>
   <nodes>
     <containmentFeature
-        href="components.ecore#//ComponentDiagram/connectors"/>
-    <ownedChild>
-      <domainMetaElement
-          href="components.ecore#//Connector"/>
-      <labelMappings
-          xsi:type="gmfmap:ExpressionLabelMapping">
-        <diagramLabel
-            href="components.gmfgraph#ConnectorLabel"/>
-        <viewExpression
-            body="return &quot;&lt;connector>&quot;;"
-            language="java"/>
-      </labelMappings>
-      <tool
-          xsi:type="gmftool:CreationTool"
-          href="components.gmftool#//@palette/@tools.0/@tools.6"/>
-      <diagramNode
-          href="components.gmfgraph#Connector"/>
-    </ownedChild>
-  </nodes>
-  <nodes>
-    <containmentFeature
         href="components.ecore#//ComponentDiagram/components"/>
     <ownedChild>
       <domainMetaElement
@@ -276,17 +255,26 @@
     </ownedChild>
   </nodes>
   <links>
+    <domainMetaElement
+        href="components.ecore#//Connector"/>
+    <containmentFeature
+        href="components.ecore#//ComponentDiagram/connectors"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="components.gmftool#//@palette/@tools.0/@tools.7"/>
+        href="components.gmftool#//@palette/@tools.0/@tools.6"/>
     <diagramLink
-        href="components.gmfgraph#Link"/>
+        href="components.gmfgraph#Connector"/>
+    <sourceMetaFeature
+        xsi:type="ecore:EReference"
+        href="components.ecore#//Connector/source"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
-        href="components.ecore#//Port/connector"/>
+        href="components.ecore#//Connector/target"/>
     <creationConstraints>
+      <sourceEnd
+          body="self.oclAsType(AbstractVariable).causality = VariableCausality::Output"/>
       <targetEnd
-          body="not (oppositeEnd.oclAsType(AbstractVariable).causality = VariableCausality::Output and self.oclAsType(Connector).ports->exists(p | p.oclAsType(AbstractVariable).causality = VariableCausality::Output))"/>
+          body="self.oclAsType(AbstractVariable).causality = VariableCausality::Input and&#xA;self.oclAsType(Port).&quot;in&quot; = null and &#xA;self.eContainer() &lt;> oppositeEnd.eContainer()"/>
     </creationConstraints>
   </links>
   <diagram>

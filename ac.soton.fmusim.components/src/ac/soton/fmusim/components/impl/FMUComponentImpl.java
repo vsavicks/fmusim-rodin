@@ -350,7 +350,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		assert fmu != null;
 		
 		for (Port port : getInputs()) {
-			Connector connector = port.getConnector();
+			Connector connector = port.getIn();
 			
 			// skip port if not connected
 			if (connector == null) {
@@ -405,9 +405,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 			Object value = getValueFMU(fmu, port);
 			
 			// send value to connector if connected
-			Connector connector = port.getConnector();
-			if (connector != null) {
-				connector.setValue(value);
+			for (Connector c : port.getOut()) {
+				c.setValue(value);
 			}
 			
 			// update port value

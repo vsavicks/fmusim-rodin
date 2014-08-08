@@ -71,15 +71,6 @@
             path="/icons/Connector.gif"
             bundle="ac.soton.fmusim.components"/>
       </tools>
-      <tools
-          xsi:type="gmftool:CreationTool"
-          title="Link"
-          description="Create new Link">
-        <smallIcon
-            xsi:type="gmftool:BundleImage"
-            path="/icons/Link.gif"
-            bundle="ac.soton.fmusim.components"/>
-      </tools>
     </tools>
   </palette>
 </gmftool:ToolRegistry>
