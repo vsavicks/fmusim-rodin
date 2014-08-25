@@ -7,6 +7,7 @@
  */
 package ac.soton.fmusim.components.util;
 
+import ac.soton.fmusim.components.*;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;

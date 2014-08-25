@@ -32,7 +32,6 @@ import ac.soton.fmusim.components.Connector;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getComponents <em>Components</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getConnectors <em>Connectors</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getTime <em>Time</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getStartTime <em>Start Time</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getStopTime <em>Stop Time</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.ComponentDiagramImpl#getStepSize <em>Step Size</em>}</li>
@@ -63,26 +62,6 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	protected EList<Connector> connectors;
 
 	/**
-	 * The default value of the '{@link #getTime() <em>Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double TIME_EDEFAULT = 0.0;
-
-	/**
-	 * The cached value of the '{@link #getTime() <em>Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected double time = TIME_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getStartTime() <em>Start Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,7 +69,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double START_TIME_EDEFAULT = 0.0;
+	protected static final long START_TIME_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getStartTime() <em>Start Time</em>}' attribute.
@@ -100,7 +79,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * @generated
 	 * @ordered
 	 */
-	protected double startTime = START_TIME_EDEFAULT;
+	protected long startTime = START_TIME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getStopTime() <em>Stop Time</em>}' attribute.
@@ -110,7 +89,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double STOP_TIME_EDEFAULT = 0.0;
+	protected static final long STOP_TIME_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getStopTime() <em>Stop Time</em>}' attribute.
@@ -120,7 +99,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * @generated
 	 * @ordered
 	 */
-	protected double stopTime = STOP_TIME_EDEFAULT;
+	protected long stopTime = STOP_TIME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
@@ -130,7 +109,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double STEP_SIZE_EDEFAULT = 0.0;
+	protected static final long STEP_SIZE_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
@@ -140,7 +119,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * @generated
 	 * @ordered
 	 */
-	protected double stepSize = STEP_SIZE_EDEFAULT;
+	protected long stepSize = STEP_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -190,28 +169,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getTime() {
-		return time;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTime(double newTime) {
-		double oldTime = time;
-		time = newTime;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.COMPONENT_DIAGRAM__TIME, oldTime, time));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getStartTime() {
+	public long getStartTime() {
 		return startTime;
 	}
 
@@ -220,8 +178,8 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStartTime(double newStartTime) {
-		double oldStartTime = startTime;
+	public void setStartTime(long newStartTime) {
+		long oldStartTime = startTime;
 		startTime = newStartTime;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.COMPONENT_DIAGRAM__START_TIME, oldStartTime, startTime));
@@ -232,7 +190,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getStopTime() {
+	public long getStopTime() {
 		return stopTime;
 	}
 
@@ -241,8 +199,8 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStopTime(double newStopTime) {
-		double oldStopTime = stopTime;
+	public void setStopTime(long newStopTime) {
+		long oldStopTime = stopTime;
 		stopTime = newStopTime;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.COMPONENT_DIAGRAM__STOP_TIME, oldStopTime, stopTime));
@@ -253,7 +211,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getStepSize() {
+	public long getStepSize() {
 		return stepSize;
 	}
 
@@ -262,8 +220,8 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStepSize(double newStepSize) {
-		double oldStepSize = stepSize;
+	public void setStepSize(long newStepSize) {
+		long oldStepSize = stepSize;
 		stepSize = newStepSize;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.COMPONENT_DIAGRAM__STEP_SIZE, oldStepSize, stepSize));
@@ -297,8 +255,6 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 				return getComponents();
 			case ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS:
 				return getConnectors();
-			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
-				return getTime();
 			case ComponentsPackage.COMPONENT_DIAGRAM__START_TIME:
 				return getStartTime();
 			case ComponentsPackage.COMPONENT_DIAGRAM__STOP_TIME:
@@ -326,17 +282,14 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 				getConnectors().clear();
 				getConnectors().addAll((Collection<? extends Connector>)newValue);
 				return;
-			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
-				setTime((Double)newValue);
-				return;
 			case ComponentsPackage.COMPONENT_DIAGRAM__START_TIME:
-				setStartTime((Double)newValue);
+				setStartTime((Long)newValue);
 				return;
 			case ComponentsPackage.COMPONENT_DIAGRAM__STOP_TIME:
-				setStopTime((Double)newValue);
+				setStopTime((Long)newValue);
 				return;
 			case ComponentsPackage.COMPONENT_DIAGRAM__STEP_SIZE:
-				setStepSize((Double)newValue);
+				setStepSize((Long)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -355,9 +308,6 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 				return;
 			case ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS:
 				getConnectors().clear();
-				return;
-			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
-				setTime(TIME_EDEFAULT);
 				return;
 			case ComponentsPackage.COMPONENT_DIAGRAM__START_TIME:
 				setStartTime(START_TIME_EDEFAULT);
@@ -384,8 +334,6 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 				return components != null && !components.isEmpty();
 			case ComponentsPackage.COMPONENT_DIAGRAM__CONNECTORS:
 				return connectors != null && !connectors.isEmpty();
-			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
-				return time != TIME_EDEFAULT;
 			case ComponentsPackage.COMPONENT_DIAGRAM__START_TIME:
 				return startTime != START_TIME_EDEFAULT;
 			case ComponentsPackage.COMPONENT_DIAGRAM__STOP_TIME:
@@ -406,9 +354,7 @@ public class ComponentDiagramImpl extends NamedElementImpl implements ComponentD
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (time: ");
-		result.append(time);
-		result.append(", startTime: ");
+		result.append(" (startTime: ");
 		result.append(startTime);
 		result.append(", stopTime: ");
 		result.append(stopTime);

@@ -63,34 +63,11 @@ public class ComponentDiagramItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTimePropertyDescriptor(object);
 			addStartTimePropertyDescriptor(object);
 			addStopTimePropertyDescriptor(object);
 			addStepSizePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Time feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTimePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ComponentDiagram_time_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ComponentDiagram_time_feature", "_UI_ComponentDiagram_type"),
-				 ComponentsPackage.Literals.COMPONENT_DIAGRAM__TIME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -110,7 +87,7 @@ public class ComponentDiagramItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -132,7 +109,7 @@ public class ComponentDiagramItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -154,7 +131,7 @@ public class ComponentDiagramItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -227,7 +204,6 @@ public class ComponentDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ComponentDiagram.class)) {
-			case ComponentsPackage.COMPONENT_DIAGRAM__TIME:
 			case ComponentsPackage.COMPONENT_DIAGRAM__START_TIME:
 			case ComponentsPackage.COMPONENT_DIAGRAM__STOP_TIME:
 			case ComponentsPackage.COMPONENT_DIAGRAM__STEP_SIZE:

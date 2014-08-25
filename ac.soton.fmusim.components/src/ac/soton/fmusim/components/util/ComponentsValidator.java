@@ -7,6 +7,7 @@
  */
 package ac.soton.fmusim.components.util;
 
+import ac.soton.fmusim.components.*;
 import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.ITrace2D;
 
@@ -186,8 +187,6 @@ public class ComponentsValidator extends EObjectValidator {
 				return validateSimExceptionClass((SimulationException)value, diagnostics, context);
 			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
 				return validateModelExceptionClass((ModelException)value, diagnostics, context);
-			case ComponentsPackage.REAL_CLASS:
-				return validateRealClass((Real)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -199,7 +198,45 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateComponentDiagram(ComponentDiagram componentDiagram, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(componentDiagram, diagnostics, context);
+		boolean result = validate_NoCircularContainment(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMultiplicityConforms(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(componentDiagram, diagnostics, context);
+		if (result || diagnostics != null) result &= validateComponentDiagram_NoFMUComposition(componentDiagram, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the NoFMUComposition constraint of '<em>Component Diagram</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateComponentDiagram_NoFMUComposition(ComponentDiagram componentDiagram, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		// TODO implement the constraint
+		// -> specify the condition that violates the constraint
+		// -> verify the diagnostic details, including severity, code, and message
+		// Ensure that you remove @generated or mark it @generated NOT
+		if (false) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "_UI_GenericConstraint_diagnostic",
+						 new Object[] { "NoFMUComposition", getObjectLabel(componentDiagram, context) },
+						 new Object[] { componentDiagram },
+						 context));
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -227,7 +264,6 @@ public class ComponentsValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(connector, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(connector, diagnostics, context);
 		if (result || diagnostics != null) result &= validateConnector_CompatiblePorts(connector, diagnostics, context);
-		if (result || diagnostics != null) result &= validateConnector_CompleteConnection(connector, diagnostics, context);
 		return result;
 	}
 
@@ -569,15 +605,6 @@ public class ComponentsValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModelExceptionClass(ModelException modelExceptionClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateRealClass(Real realClass, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

@@ -28,9 +28,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eventb.core.IEventBRoot;
@@ -83,7 +85,6 @@ import de.prob.webconsole.ServletContextListener;
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTimeVariable <em>Time Variable</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getWaitEvents <em>Wait Events</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTrace <em>Trace</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.impl.EventBComponentImpl#getTracePath <em>Trace Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -148,7 +149,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+	protected static final long STEP_PERIOD_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
@@ -158,7 +159,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated
 	 * @ordered
 	 */
-	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
+	protected long stepPeriod = STEP_PERIOD_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isComposed() <em>Composed</em>}' attribute.
@@ -239,26 +240,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected Trace trace = TRACE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getTracePath() <em>Trace Path</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTracePath()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String TRACE_PATH_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTracePath() <em>Trace Path</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTracePath()
-	 * @generated
-	 * @ordered
-	 */
-	protected String tracePath = TRACE_PATH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -486,28 +467,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTracePath() {
-		return tracePath;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTracePath(String newTracePath) {
-		String oldTracePath = tracePath;
-		tracePath = newTracePath;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH, oldTracePath, tracePath));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getStepPeriod() {
+	public long getStepPeriod() {
 		return stepPeriod;
 	}
 
@@ -516,8 +476,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStepPeriod(double newStepPeriod) {
-		double oldStepPeriod = stepPeriod;
+	public void setStepPeriod(long newStepPeriod) {
+		long oldStepPeriod = stepPeriod;
 		stepPeriod = newStepPeriod;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD, oldStepPeriod, stepPeriod));
@@ -556,8 +516,64 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void initialise(double tStart, double tStop) {
-		Trace trace = getTrace();
+	public void instantiate() throws SimulationException {
+		final IEventBRoot machineRoot = getMachineRoot(getMachine());
+		if (machineRoot == null)
+			throw new SimulationException("Cannot load machine component '" + getName()
+					+ "'. Machine root cannot be determined.");
+		
+		String fileName = machineRoot.getResource().getRawLocation()
+				.makeAbsolute().toOSString();
+		if (fileName.endsWith(".buc")) {
+			fileName = fileName.replace(".buc", ".bcc");
+		} else {
+			fileName = fileName.replace(".bum", ".bcm");
+		}
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("IGNORE_HASH_COLLISIONS","TRUE");
+		params.put("MEMO", "TRUE");
+		params.put("TIME_OUT", "4000");
+		
+		Injector injector = ServletContextListener.INJECTOR;
+		final EventBFactory instance = injector.getInstance(EventBFactory.class);
+		EventBModel model = instance.load(fileName, params, false);
+
+		StateSpace s = model.getStatespace();
+		s.startTransaction();
+
+		Trace t = new Trace(s);
+		setTrace(t);
+		System.gc();
+	}
+
+	/**
+	 * Returns Event-B Root element of a machine.
+	 * @param machine
+	 * @return
+	 */
+	private IEventBRoot getMachineRoot(Machine machine) {
+		Resource resource = machine.eResource();
+		if (resource != null) {
+			URI uri = resource.getURI();
+			if (uri.isPlatformResource()) {
+				IFile file = WorkspaceSynchronizer.getFile(resource);
+				IRodinFile rodinFile = RodinCore.valueOf(file);
+				if (rodinFile != null) {
+					return (IEventBRoot) rodinFile.getRoot();
+				}
+			}
+			//TODO: root for a non-workspace resource?
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void initialise(long tStart, long tStop) {
 		assert trace != null;
 		
 		// execute first two events: 'setup_constants' and 'initialise'
@@ -573,9 +589,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			v.setValue(trace.getCurrentState().value(v.getName()));
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
-		
-		// update trace
-		setTrace(trace);
 	}
 
 	/**
@@ -585,7 +598,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void readInputs() throws SimulationException, ModelException {
-		Trace trace = getTrace();
 		assert trace != null;
 		EList<Event> readEvents = getReadInputEvents();
 		
@@ -638,9 +650,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 
 		// execute 'read inputs' event with calculated parameter predicate
 		trace = trace.add(op.getId());
-			
-		// update trace
-		setTrace(trace);
 	}
 	
 	/**
@@ -710,7 +719,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void writeOutputs() {
-		Trace trace = getTrace();
 		assert trace != null;
 		StateId state = trace.getCurrentState();
 		
@@ -730,9 +738,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			// set port value
 			port.setValue(value);
 		}
-
-		// update trace
-		setTrace(trace);
 	}
 
 	/**
@@ -768,8 +773,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @throws SimulationException 
 	 * @generated NOT
 	 */
-	public void doStep(double time, double step) throws SimulationException {
-		Trace trace = getTrace();
+	public void doStep(long time, long step) throws SimulationException {
 		assert trace != null;
 		EList<Event> waitEvents = getWaitEvents();
 		assert waitEvents.size() > 0;
@@ -803,9 +807,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		// update ports: only outputs need to be updated - inputs shouldn't have changed
 		for (Port p : getOutputs())
 			p.setValue(trace.getCurrentState().value(p.getName()));
-		
-		// update trace
-		setTrace(trace);
 	}
 
 	/**
@@ -829,64 +830,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 */
 	public void terminate() {
 		trace.getStateSpace().endTransaction();
-		setTrace(null);
+		trace = null;
 		System.gc();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void instantiate() throws SimulationException {
-		final IEventBRoot machineRoot = getMachineRoot(getMachine());
-		if (machineRoot == null)
-			throw new SimulationException("Cannot load machine component '" + getName()
-					+ "'. Machine root cannot be determined.");
-		
-		String fileName = machineRoot.getResource().getRawLocation()
-				.makeAbsolute().toOSString();
-		if (fileName.endsWith(".buc")) {
-			fileName = fileName.replace(".buc", ".bcc");
-		} else {
-			fileName = fileName.replace(".bum", ".bcm");
-		}
-
-		Injector injector = ServletContextListener.INJECTOR;
-
-		final EventBFactory instance = injector
-				.getInstance(EventBFactory.class);
-
-		EventBModel model = instance.load(fileName,
-				new HashMap<String, String>(), true);
-
-		StateSpace s = model.getStatespace();
-		s.startTransaction();
-
-		Trace t = new Trace(s);
-		setTrace(t);
-		System.gc();
-	}
-
-	/**
-	 * Returns Event-B Root element of a machine.
-	 * @param machine
-	 * @return
-	 */
-	private IEventBRoot getMachineRoot(Machine machine) {
-		Resource resource = machine.eResource();
-		if (resource != null) {
-			URI uri = resource.getURI();
-			if (uri.isPlatformResource()) {
-				IFile file = WorkspaceSynchronizer.getFile(resource);
-				IRodinFile rodinFile = RodinCore.valueOf(file);
-				if (rodinFile != null) {
-					return (IEventBRoot) rodinFile.getRoot();
-				}
-			}
-			//TODO: root for a non-workspace resource?
-		}
-		return null;
 	}
 
 	/**
@@ -939,8 +884,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return getWaitEvents();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return getTrace();
-			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
-				return getTracePath();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -970,7 +913,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
-				setStepPeriod((Double)newValue);
+				setStepPeriod((Long)newValue);
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
 				setComposed((Boolean)newValue);
@@ -991,9 +934,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace((Trace)newValue);
-				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
-				setTracePath((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1040,9 +980,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				setTrace(TRACE_EDEFAULT);
 				return;
-			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
-				setTracePath(TRACE_PATH_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1077,8 +1014,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 				return waitEvents != null && !waitEvents.isEmpty();
 			case ComponentsPackage.EVENT_BCOMPONENT__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
-			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
-				return TRACE_PATH_EDEFAULT == null ? tracePath != null : !TRACE_PATH_EDEFAULT.equals(tracePath);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1151,8 +1086,6 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		result.append(composed);
 		result.append(", trace: ");
 		result.append(trace);
-		result.append(", tracePath: ");
-		result.append(tracePath);
 		result.append(')');
 		return result.toString();
 	}

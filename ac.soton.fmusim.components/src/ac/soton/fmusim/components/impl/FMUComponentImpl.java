@@ -96,7 +96,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+	protected static final long STEP_PERIOD_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
@@ -106,7 +106,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @generated
 	 * @ordered
 	 */
-	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
+	protected long stepPeriod = STEP_PERIOD_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getFmu() <em>Fmu</em>}' attribute.
@@ -218,7 +218,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getStepPeriod() {
+	public long getStepPeriod() {
 		return stepPeriod;
 	}
 
@@ -227,8 +227,8 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStepPeriod(double newStepPeriod) {
-		double oldStepPeriod = stepPeriod;
+	public void setStepPeriod(long newStepPeriod) {
+		long oldStepPeriod = stepPeriod;
 		stepPeriod = newStepPeriod;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.FMU_COMPONENT__STEP_PERIOD, oldStepPeriod, stepPeriod));
@@ -295,9 +295,9 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * @generated NOT
 	 */
 	public boolean hasValidFmuPath(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		
+		//XXX skip if path is null (treated by non-null validation constraint)
 		String p = getPath();
-		if (p == null || new File(p).exists() == false) {
+		if (p != null && new File(p).exists() == false) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(new BasicDiagnostic
@@ -318,7 +318,25 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void initialise(double tStart, double tStop) {
+	public void instantiate() throws SimulationException {
+		// reuse FMU if possible
+		if (fmu != null) {
+			fmu.reset();
+		} else {
+			try {
+				setFmu(new FMU(getPath()));
+			} catch (IOException e) {
+				throw new SimulationException("Failed to load FMU: "+ getPath() + '\n' + e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void initialise(long tStart, long tStop) {
 		FMU fmu = getFmu();
 		assert fmu != null;
 		
@@ -329,7 +347,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		}
 		
 		// initialise FMU
-		fmu.initialize(tStart, tStop);
+		fmu.initialize(tStart/1000f, tStop/1000f);
 		
 		// update variables
 		for (AbstractVariable v : getVariables())
@@ -419,18 +437,18 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void doStep(double time, double step) {
+	public void doStep(long time, long step) {
 		FMU fmu = getFmu();
 		assert fmu != null;
 		
-		//XXX: time fix
-		double rem = Math.IEEEremainder(time, 0.00000001);
-		if (rem > 0) {
-			time = Double.parseDouble(DECIMAL_FORMAT.format(time));
-		}
+//		//XXX: time fix
+//		double rem = Math.IEEEremainder(time, 0.00000001);
+//		if (rem > 0) {
+//			time = Double.parseDouble(DECIMAL_FORMAT.format(time));
+//		}
 		
 		// simulation step
-		fmu.doStep(time, step);
+		fmu.doStep(time/1000f, step);
 		
 		// update variables
 		for (AbstractVariable v : getVariables())
@@ -479,24 +497,6 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 //		
 //		fmu.terminate();
 //		setFmu(null);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void instantiate() throws SimulationException {
-		// reuse FMU if possible
-		if (fmu != null) {
-			fmu.reset();
-		} else {
-			try {
-				setFmu(new FMU(getPath()));
-			} catch (IOException e) {
-				throw new SimulationException("Failed to load FMU: "+ getPath() + '\n' + e.getMessage());
-			}
-		}
 	}
 
 	/**
@@ -567,7 +567,7 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
 				return;
 			case ComponentsPackage.FMU_COMPONENT__STEP_PERIOD:
-				setStepPeriod((Double)newValue);
+				setStepPeriod((Long)newValue);
 				return;
 			case ComponentsPackage.FMU_COMPONENT__FMU:
 				setFmu((FMU)newValue);

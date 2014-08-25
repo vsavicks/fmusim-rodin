@@ -228,13 +228,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	private EDataType modelExceptionClassEDataType = null;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EDataType realClassEDataType = null;
-
-	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -339,7 +332,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentDiagram_Time() {
+	public EAttribute getComponentDiagram_StartTime() {
 		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -348,7 +341,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentDiagram_StartTime() {
+	public EAttribute getComponentDiagram_StopTime() {
 		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -357,17 +350,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentDiagram_StopTime() {
-		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getComponentDiagram_StepSize() {
-		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)componentDiagramEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -557,15 +541,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 */
 	public EAttribute getEventBComponent_Trace() {
 		return (EAttribute)eventBComponentEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEventBComponent_TracePath() {
-		return (EAttribute)eventBComponentEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -879,15 +854,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EDataType getRealClass() {
-		return realClassEDataType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ComponentsFactory getComponentsFactory() {
 		return (ComponentsFactory)getEFactoryInstance();
 	}
@@ -914,7 +880,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		componentDiagramEClass = createEClass(COMPONENT_DIAGRAM);
 		createEReference(componentDiagramEClass, COMPONENT_DIAGRAM__COMPONENTS);
 		createEReference(componentDiagramEClass, COMPONENT_DIAGRAM__CONNECTORS);
-		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__TIME);
 		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__START_TIME);
 		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__STOP_TIME);
 		createEAttribute(componentDiagramEClass, COMPONENT_DIAGRAM__STEP_SIZE);
@@ -944,7 +909,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		createEReference(eventBComponentEClass, EVENT_BCOMPONENT__TIME_VARIABLE);
 		createEReference(eventBComponentEClass, EVENT_BCOMPONENT__WAIT_EVENTS);
 		createEAttribute(eventBComponentEClass, EVENT_BCOMPONENT__TRACE);
-		createEAttribute(eventBComponentEClass, EVENT_BCOMPONENT__TRACE_PATH);
 
 		fmuComponentEClass = createEClass(FMU_COMPONENT);
 		createEAttribute(fmuComponentEClass, FMU_COMPONENT__FMU);
@@ -992,7 +956,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		chart2DClassEDataType = createEDataType(CHART2_DCLASS);
 		simExceptionClassEDataType = createEDataType(SIM_EXCEPTION_CLASS);
 		modelExceptionClassEDataType = createEDataType(MODEL_EXCEPTION_CLASS);
-		realClassEDataType = createEDataType(REAL_CLASS);
 	}
 
 	/**
@@ -1048,20 +1011,19 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEClass(componentDiagramEClass, ComponentDiagram.class, "ComponentDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponentDiagram_Components(), this.getComponent(), null, "components", null, 0, -1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponentDiagram_Connectors(), this.getConnector(), null, "connectors", null, 0, -1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponentDiagram_Time(), ecorePackage.getEDouble(), "time", null, 0, 1, ComponentDiagram.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponentDiagram_StartTime(), ecorePackage.getEDouble(), "startTime", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponentDiagram_StopTime(), ecorePackage.getEDouble(), "stopTime", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponentDiagram_StepSize(), ecorePackage.getEDouble(), "stepSize", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentDiagram_StartTime(), theEcorePackage.getELong(), "startTime", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentDiagram_StopTime(), theEcorePackage.getELong(), "stopTime", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentDiagram_StepSize(), theEcorePackage.getELong(), "stepSize", null, 0, 1, ComponentDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(componentEClass, Component.class, "Component", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponent_Inputs(), this.getPort(), null, "inputs", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Outputs(), this.getPort(), null, "outputs", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Variables(), this.getAbstractVariable(), null, "variables", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponent_StepPeriod(), ecorePackage.getEDouble(), "stepPeriod", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponent_StepPeriod(), theEcorePackage.getELong(), "stepPeriod", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(componentEClass, null, "initialise", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDouble(), "tStart", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDouble(), "tStop", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getELong(), "tStart", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getELong(), "tStop", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(componentEClass, null, "readInputs", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getSimExceptionClass());
@@ -1072,8 +1034,8 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		addEException(op, this.getModelExceptionClass());
 
 		op = addEOperation(componentEClass, null, "doStep", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEDouble(), "time", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEDouble(), "step", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getELong(), "time", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getELong(), "step", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getSimExceptionClass());
 		addEException(op, this.getModelExceptionClass());
 
@@ -1101,7 +1063,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEReference(getEventBComponent_TimeVariable(), theMachinePackage.getVariable(), null, "timeVariable", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEventBComponent_WaitEvents(), theMachinePackage.getEvent(), null, "waitEvents", null, 1, -1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEventBComponent_Trace(), this.getTraceClass(), "trace", null, 0, 1, EventBComponent.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEventBComponent_TracePath(), ecorePackage.getEString(), "tracePath", null, 0, 1, EventBComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(eventBComponentEClass, ecorePackage.getEBoolean(), "hasValidMachineReference", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1183,7 +1144,6 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 		initEDataType(chart2DClassEDataType, Chart2D.class, "Chart2DClass", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(simExceptionClassEDataType, SimulationException.class, "SimExceptionClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(modelExceptionClassEDataType, ModelException.class, "ModelExceptionClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(realClassEDataType, Real.class, "RealClass", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1204,10 +1164,16 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	protected void createEcoreAnnotations() {
 		String source = "http://www.eclipse.org/emf/2002/Ecore";		
 		addAnnotation
+		  (componentDiagramEClass, 
+		   source, 
+		   new String[] {
+			 "constraints", "NoFMUComposition"
+		   });		
+		addAnnotation
 		  (connectorEClass, 
 		   source, 
 		   new String[] {
-			 "constraints", "CompatiblePorts CompleteConnection"
+			 "constraints", "CompatiblePorts"
 		   });			
 		addAnnotation
 		  (eventBComponentEClass, 
@@ -1224,7 +1190,7 @@ public class ComponentsPackageImpl extends EPackageImpl implements ComponentsPac
 	 * @generated
 	 */
 	protected void createOrgAnnotations() {
-		String source = "org.eventb.emf.core.extendedMetaClasses";			
+		String source = "org.eventb.emf.core.extendedMetaClasses";				
 		addAnnotation
 		  (eventBComponentEClass, 
 		   source, 

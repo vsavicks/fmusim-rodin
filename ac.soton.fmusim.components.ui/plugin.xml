@@ -20,14 +20,6 @@
             name="Validate">
       </command>
       <command
-            id="ac.soton.fmusim.components.ui.commands.SimulateStep"
-            name="Step">
-      </command>
-      <command
-            id="ac.soton.fmusim.components.ui.commands.Stop"
-            name="Stop">
-      </command>
-      <command
             id="ac.soton.fmusim.components.ui.command.SetParameters"
             name="Parameters">
       </command>
@@ -70,30 +62,6 @@
             </with>
          </enabledWhen>
       </handler>
-      <handler
-            class="ac.soton.fmusim.components.ui.commands.SimulateStepCommand"
-            commandId="ac.soton.fmusim.components.ui.commands.SimulateStep">
-         <enabledWhen>
-            <with
-                  variable="activePartId">
-               <equals
-                     value="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID">
-               </equals>
-            </with>
-         </enabledWhen>
-      </handler>
-      <handler
-            class="ac.soton.fmusim.components.ui.commands.StopCommand"
-            commandId="ac.soton.fmusim.components.ui.commands.Stop">
-         <enabledWhen>
-            <with
-                  variable="activePartId">
-               <equals
-                     value="ac.soton.fmusim.components.diagram.part.ComponentsDiagramEditorID">
-               </equals>
-            </with>
-         </enabledWhen>
-      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -121,13 +89,6 @@
                   label="Simulate"
                   style="push"
                   tooltip="Run the simulation">
-            </command>
-            <command
-                  commandId="ac.soton.fmusim.components.ui.commands.SimulateStep"
-                  icon="icons/SimulateStep.gif"
-                  label="Step"
-                  style="push"
-                  tooltip="Start/perform the next simulation step">
             </command>
 <!--            <command
                   commandId="ac.soton.fmusim.components.ui.commands.Stop"

@@ -37,7 +37,7 @@ import ac.soton.fmusim.components.util.FmiUtil;
  */
 public class ComponentAdapterFactory implements IAdapterFactory {
 
-	private static final double DEFAULT_EVENTB_STEP = 0.1;
+	private static final long DEFAULT_STEP = 1000;
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
@@ -110,7 +110,7 @@ public class ComponentAdapterFactory implements IAdapterFactory {
 		EventBComponent component = ComponentsFactory.eINSTANCE.createEventBComponent();
 		component.setName(machine.getName());
 		component.setMachine(machine);
-		component.setStepPeriod(DEFAULT_EVENTB_STEP);
+		component.setStepPeriod(DEFAULT_STEP);
 		
 		for (Variable v : machine.getVariables()) {
 			EventBVariable variable = ComponentsFactory.eINSTANCE.createEventBVariable();

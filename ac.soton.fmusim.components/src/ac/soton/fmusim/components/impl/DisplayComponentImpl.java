@@ -96,7 +96,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double STEP_PERIOD_EDEFAULT = 0.0;
+	protected static final long STEP_PERIOD_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getStepPeriod() <em>Step Period</em>}' attribute.
@@ -106,7 +106,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 * @generated
 	 * @ordered
 	 */
-	protected double stepPeriod = STEP_PERIOD_EDEFAULT;
+	protected long stepPeriod = STEP_PERIOD_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getChart() <em>Chart</em>}' attribute.
@@ -188,7 +188,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getStepPeriod() {
+	public long getStepPeriod() {
 		return stepPeriod;
 	}
 
@@ -197,8 +197,8 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStepPeriod(double newStepPeriod) {
-		double oldStepPeriod = stepPeriod;
+	public void setStepPeriod(long newStepPeriod) {
+		long oldStepPeriod = stepPeriod;
 		stepPeriod = newStepPeriod;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD, oldStepPeriod, stepPeriod));
@@ -224,13 +224,60 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentsPackage.DISPLAY_COMPONENT__CHART, oldChart, chart));
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void instantiate() throws SimulationException {
+		if (getChart() == null) {
+			@SuppressWarnings("serial")
+			Chart2D chart = new ZoomableChart() {
+				long lastClickTime;
+				@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				if (e.getWhen() - lastClickTime < 500)
+					this.zoomAll();
+				lastClickTime = e.getWhen();
+			}};
+			
+			// remove original axes
+		    chart.removeAxisXBottom(chart.getAxisX());
+		    chart.removeAxisYLeft(chart.getAxisY());
+		    
+		    // empty label formatter
+		    @SuppressWarnings("serial")
+			LabelFormatterNumber lf = new LabelFormatterNumber(NumberFormat.getIntegerInstance()) {
+		    	@Override
+		    	public String format(double value) {
+		    		return "0";
+		    	}
+		    };
+		    
+		    // set new axes
+		    chart.setAxisXBottom(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())), 0);
+		    chart.setAxisYLeft(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())), 0);
+		    chart.setAxisYRight(new AxisLinear<IAxisScalePolicy>(lf), 0);
+		    chart.setAxisXTop(new AxisLinear<IAxisScalePolicy>(lf), 0);
+		    
+		    chart.getAxisX().setPaintGrid(true);
+		    chart.getAxisY().setPaintGrid(true);
+		    chart.getAxisX().getAxisTitle().setTitle("");
+		    chart.getAxisY().getAxisTitle().setTitle("");
+		    chart.setGridColor(new Color(224,224,224));
+		    chart.setVisible(false);
+			setChart(chart);
+		}
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void initialise(double tStart, double tStop) {
+	public void initialise(long tStart, long tStop) {
 		Chart2D chart = getChart();
 		assert chart != null;
 		int counter = 1;
@@ -313,7 +360,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void doStep(double time, double step) {
+	public void doStep(long time, long step) {
 		for (Port p : getInputs()) {
 			assert p instanceof DisplayPort;
 			DisplayPort port = (DisplayPort) p;
@@ -331,7 +378,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 				}
 				
 				assert port.getTrace() != null;
-				port.getTrace().addPoint(time, traceValue);
+				port.getTrace().addPoint(time/1000f, traceValue);
 			}
 		}
 	}
@@ -343,53 +390,6 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 	 */
 	public void terminate() {
 		//XXX: do nothing
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void instantiate() throws SimulationException {
-		if (getChart() == null) {
-			@SuppressWarnings("serial")
-			Chart2D chart = new ZoomableChart() {
-				long lastClickTime;
-				@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				if (e.getWhen() - lastClickTime < 500)
-					this.zoomAll();
-				lastClickTime = e.getWhen();
-			}};
-			
-			// remove original axes
-		    chart.removeAxisXBottom(chart.getAxisX());
-		    chart.removeAxisYLeft(chart.getAxisY());
-		    
-		    // empty label formatter
-		    @SuppressWarnings("serial")
-			LabelFormatterNumber lf = new LabelFormatterNumber(NumberFormat.getIntegerInstance()) {
-		    	@Override
-		    	public String format(double value) {
-		    		return "0";
-		    	}
-		    };
-		    
-		    // set new axes
-		    chart.setAxisXBottom(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())), 0);
-		    chart.setAxisYLeft(new AxisLinear<IAxisScalePolicy>(new LabelFormatterNumber(NumberFormat.getIntegerInstance())), 0);
-		    chart.setAxisYRight(new AxisLinear<IAxisScalePolicy>(lf), 0);
-		    chart.setAxisXTop(new AxisLinear<IAxisScalePolicy>(lf), 0);
-		    
-		    chart.getAxisX().setPaintGrid(true);
-		    chart.getAxisY().setPaintGrid(true);
-		    chart.getAxisX().getAxisTitle().setTitle("");
-		    chart.getAxisY().getAxisTitle().setTitle("");
-		    chart.setGridColor(new Color(224,224,224));
-		    chart.setVisible(false);
-			setChart(chart);
-		}
 	}
 
 	/**
@@ -454,7 +454,7 @@ public class DisplayComponentImpl extends NamedElementImpl implements DisplayCom
 				getVariables().addAll((Collection<? extends AbstractVariable>)newValue);
 				return;
 			case ComponentsPackage.DISPLAY_COMPONENT__STEP_PERIOD:
-				setStepPeriod((Double)newValue);
+				setStepPeriod((Long)newValue);
 				return;
 			case ComponentsPackage.DISPLAY_COMPONENT__CHART:
 				setChart((Chart2D)newValue);

@@ -34,8 +34,8 @@ public class SimulationInputDialog extends Dialog {
 	private Text stepText;
 	private DecoratedInputValidator timeValidator;
 	private DecoratedInputValidator stepValidator;
-	private double time;
-	private double step;
+	private long time;
+	private long step;
 	private boolean timeValid;
 	private boolean stepValid;
 	private ControlDecoration stepToTimeErrorDecorator;
@@ -47,7 +47,7 @@ public class SimulationInputDialog extends Dialog {
 	 * @param time default simulation time
 	 * @param step default step size
 	 */
-	public SimulationInputDialog(Shell parentShell, double time, double step) {
+	public SimulationInputDialog(Shell parentShell, long time, long step) {
 		super(parentShell);
 		
 		assert 0 < step && step < time;
@@ -75,10 +75,10 @@ public class SimulationInputDialog extends Dialog {
 		
 		// time
 		Label timeLabel = new Label(composite, SWT.NONE);
-		timeLabel.setText("Simulation time:");
+		timeLabel.setText("Simulation time (ms):");
 		timeText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		timeText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-		timeText.setText(Double.toString(time));
+		timeText.setText(Long.toString(time));
 		timeText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
@@ -88,10 +88,10 @@ public class SimulationInputDialog extends Dialog {
 		
 		// step
 		Label stepLabel = new Label(composite, SWT.NONE);
-		stepLabel.setText("Step size:");
+		stepLabel.setText("Step size (ms):");
 		stepText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		stepText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-		stepText.setText(Double.toString(step));
+		stepText.setText(Long.toString(step));
 		stepText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
@@ -111,13 +111,13 @@ public class SimulationInputDialog extends Dialog {
 	private void addValidators() {
 		timeValidator = new DecoratedInputValidator(
 				DecoratedInputValidator.createDecorator(timeText,
-						"Please enter simulation end time",
+						"Please enter simulation end time (ms)",
 						FieldDecorationRegistry.DEC_ERROR, false)) {
 			@Override
 			public String isValidInput(String timeString) {
 				try {
-					double input = Double.parseDouble(timeString);
-					if (input <= 0.0)
+					long input = Long.parseLong(timeString);
+					if (input <= 0)
 						return "Simulation time must be greater that zero";
 				} catch (NumberFormatException e) {
 					return "Invalid number format";
@@ -128,13 +128,13 @@ public class SimulationInputDialog extends Dialog {
 		
 		stepValidator = new DecoratedInputValidator(
 				DecoratedInputValidator.createDecorator(stepText,
-						"Please enter simulation step size",
+						"Please enter simulation step size (ms)",
 						FieldDecorationRegistry.DEC_ERROR, false)) {
 			@Override
 			public String isValidInput(String stepString) {
 				try {
-					double input = Double.parseDouble(stepString);
-					if (input <= 0.0)
+					long input = Long.parseLong(stepString);
+					if (input <= 0)
 						return "Step size must be greater that zero";
 				} catch (NumberFormatException e) {
 					return "Invalid number format";
@@ -159,8 +159,8 @@ public class SimulationInputDialog extends Dialog {
 	@Override
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == OK) {
-			time = Double.parseDouble(timeText.getText());
-			step = Double.parseDouble(stepText.getText());
+			time = Long.parseLong(timeText.getText());
+			step = Long.parseLong(stepText.getText());
 		}
 		super.buttonPressed(buttonId);
 	}
@@ -193,8 +193,8 @@ public class SimulationInputDialog extends Dialog {
 	 */
 	private void validateStepToTime() {
 		if (timeValid && stepValid && stepToTimeErrorDecorator != null) {
-			double time = Double.parseDouble(timeText.getText());
-			double step = Double.parseDouble(stepText.getText());
+			long time = Long.parseLong(timeText.getText());
+			long step = Long.parseLong(stepText.getText());
 			
 			stepValid = step <= time;
 			if (!stepValid) {
@@ -218,14 +218,14 @@ public class SimulationInputDialog extends Dialog {
 	/**
 	 * @return time
 	 */
-	public double getTime() {
+	public long getTime() {
 		return time;
 	}
 
 	/**
 	 * @return step
 	 */
-	public double getStep() {
+	public long getStep() {
 		return step;
 	}
 

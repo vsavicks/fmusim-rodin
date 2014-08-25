@@ -24,7 +24,7 @@ package ac.soton.fmusim.components;
  * </p>
  *
  * @see ac.soton.fmusim.components.ComponentsPackage#getConnector()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='CompatiblePorts CompleteConnection'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='CompatiblePorts'"
  * @generated
  */
 public interface Connector extends NamedElement {

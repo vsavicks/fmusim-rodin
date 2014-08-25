@@ -73,7 +73,6 @@ public class EventBComponentItemProvider
 			addTimeVariablePropertyDescriptor(object);
 			addWaitEventsPropertyDescriptor(object);
 			addTracePropertyDescriptor(object);
-			addTracePathPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -233,28 +232,6 @@ public class EventBComponentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Trace Path feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTracePathPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EventBComponent_tracePath_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBComponent_tracePath_feature", "_UI_EventBComponent_type"),
-				 ComponentsPackage.Literals.EVENT_BCOMPONENT__TRACE_PATH,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Step Period feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -271,7 +248,7 @@ public class EventBComponentItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -348,7 +325,6 @@ public class EventBComponentItemProvider
 			case ComponentsPackage.EVENT_BCOMPONENT__NAME:
 			case ComponentsPackage.EVENT_BCOMPONENT__STEP_PERIOD:
 			case ComponentsPackage.EVENT_BCOMPONENT__COMPOSED:
-			case ComponentsPackage.EVENT_BCOMPONENT__TRACE_PATH:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ComponentsPackage.EVENT_BCOMPONENT__INPUTS:

@@ -133,13 +133,13 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 	private void addValidators() {
 		stepPeriodValidator = new DecoratedInputValidator(
 				DecoratedInputValidator.createDecorator(stepPeriodText,
-						"Please enter simulation step period",
+						"Please enter simulation step period (ms)",
 						FieldDecorationRegistry.DEC_ERROR, false)) {
 			@Override
 			public String isValidInput(String timeString) {
 				try {
-					double input = Double.parseDouble(timeString);
-					if (input <= 0.0)
+					long input = Long.parseLong(timeString);
+					if (input <= 0)
 						return "Simulation step period must be greater that zero";
 				} catch (NumberFormatException e) {
 					return "Invalid double number format";
@@ -162,7 +162,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 			@Override
 			public void modifyText(ModifyEvent e) {
 				if (validateStepPeriod())
-					currentModel.setStepPeriod(Double.parseDouble(stepPeriodText.getText()));
+					currentModel.setStepPeriod(Long.parseLong(stepPeriodText.getText()));
 			}
 		});
 		timeVariableCombo.addSelectionListener(new SelectionAdapter() {

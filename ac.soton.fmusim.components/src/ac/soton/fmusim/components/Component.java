@@ -89,12 +89,12 @@ public interface Component extends NamedElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Step Period</em>' attribute.
-	 * @see #setStepPeriod(double)
+	 * @see #setStepPeriod(long)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponent_StepPeriod()
 	 * @model
 	 * @generated
 	 */
-	double getStepPeriod();
+	long getStepPeriod();
 
 	/**
 	 * Sets the value of the '{@link ac.soton.fmusim.components.Component#getStepPeriod <em>Step Period</em>}' attribute.
@@ -104,7 +104,7 @@ public interface Component extends NamedElement {
 	 * @see #getStepPeriod()
 	 * @generated
 	 */
-	void setStepPeriod(double value);
+	void setStepPeriod(long value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,7 +112,7 @@ public interface Component extends NamedElement {
 	 * @model
 	 * @generated
 	 */
-	void initialise(double tStart, double tStop);
+	void initialise(long tStart, long tStop);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,7 +136,7 @@ public interface Component extends NamedElement {
 	 * @model exceptions="ac.soton.fmusim.components.SimExceptionClass ac.soton.fmusim.components.ModelExceptionClass"
 	 * @generated
 	 */
-	void doStep(double time, double step) throws SimulationException, ModelException;
+	void doStep(long time, long step) throws SimulationException, ModelException;
 
 	/**
 	 * <!-- begin-user-doc -->

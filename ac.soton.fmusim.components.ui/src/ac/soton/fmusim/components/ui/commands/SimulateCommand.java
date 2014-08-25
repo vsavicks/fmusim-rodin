@@ -49,8 +49,8 @@ import ac.soton.fmusim.components.ui.dialogs.SimulationInputDialog;
  */
 public class SimulateCommand extends AbstractHandler {
 	
-	private static final double STOP_DEFAULT = 10.0;	// default simulation stop time
-	private static final double STEP_DEFAULT = 0.1;		// default simulation step size
+	private static final long STOP_DEFAULT = 10000;		// default simulation stop time
+	private static final long STEP_DEFAULT = 100;		// default simulation step size
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
@@ -67,16 +67,16 @@ public class SimulateCommand extends AbstractHandler {
 				.getEditingDomain();
 		final ComponentDiagram diagram = (ComponentDiagram) ((DiagramEditor) diagramEditor)
 				.getDiagram().getElement();
-		double defaultTime = diagram.getStopTime() > 0 ? diagram.getStopTime() : STOP_DEFAULT;
-		double defaultStep = diagram.getStepSize() > 0 ? diagram.getStepSize() : STEP_DEFAULT;
+		long defaultTime = diagram.getStopTime() > 0 ? diagram.getStopTime() : STOP_DEFAULT;
+		long defaultStep = diagram.getStepSize() > 0 ? diagram.getStepSize() : STEP_DEFAULT;
 		
 		// input dialog for entering the time and step size
 		SimulationInputDialog simulationInputDialog = new SimulationInputDialog(shell, defaultTime, defaultStep);
 		if (simulationInputDialog.open() != InputDialog.OK)
 			return null;
 
-		final double time = simulationInputDialog.getTime();
-		final double step = simulationInputDialog.getStep();
+		final long time = simulationInputDialog.getTime();
+		final long step = simulationInputDialog.getStep();
 		
 		// get output path
 		IEditorInput input = diagramEditor.getEditorInput();
@@ -92,7 +92,7 @@ public class SimulateCommand extends AbstractHandler {
 				diagram.eSetDeliver(false);
 				diagram.setStopTime(time);
 				diagram.setStepSize(step);
-				master.simulateAll();
+				master.simulate();
 				diagram.eSetDeliver(true);
 				return Status.OK_STATUS;
 			}

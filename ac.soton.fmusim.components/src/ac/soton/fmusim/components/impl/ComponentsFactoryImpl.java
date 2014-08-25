@@ -7,6 +7,7 @@
  */
 package ac.soton.fmusim.components.impl;
 
+import ac.soton.fmusim.components.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -115,8 +116,6 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return createSimExceptionClassFromString(eDataType, initialValue);
 			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
 				return createModelExceptionClassFromString(eDataType, initialValue);
-			case ComponentsPackage.REAL_CLASS:
-				return createRealClassFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -142,8 +141,6 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 				return convertSimExceptionClassToString(eDataType, instanceValue);
 			case ComponentsPackage.MODEL_EXCEPTION_CLASS:
 				return convertModelExceptionClassToString(eDataType, instanceValue);
-			case ComponentsPackage.REAL_CLASS:
-				return convertRealClassToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -370,24 +367,6 @@ public class ComponentsFactoryImpl extends EFactoryImpl implements ComponentsFac
 	 * @generated
 	 */
 	public String convertModelExceptionClassToString(EDataType eDataType, Object instanceValue) {
-		return super.convertToString(eDataType, instanceValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Real createRealClassFromString(EDataType eDataType, String initialValue) {
-		return (Real)super.createFromString(eDataType, initialValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertRealClassToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

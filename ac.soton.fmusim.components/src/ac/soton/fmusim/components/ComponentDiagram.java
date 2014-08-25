@@ -19,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getComponents <em>Components</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getConnectors <em>Connectors</em>}</li>
- *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getTime <em>Time</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getStartTime <em>Start Time</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getStopTime <em>Stop Time</em>}</li>
  *   <li>{@link ac.soton.fmusim.components.ComponentDiagram#getStepSize <em>Step Size</em>}</li>
@@ -27,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='NoFMUComposition'"
  * @generated
  */
 public interface ComponentDiagram extends NamedElement {
@@ -64,32 +63,6 @@ public interface ComponentDiagram extends NamedElement {
 	EList<Connector> getConnectors();
 
 	/**
-	 * Returns the value of the '<em><b>Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Time</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Time</em>' attribute.
-	 * @see #setTime(double)
-	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_Time()
-	 * @model transient="true"
-	 * @generated
-	 */
-	double getTime();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.fmusim.components.ComponentDiagram#getTime <em>Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Time</em>' attribute.
-	 * @see #getTime()
-	 * @generated
-	 */
-	void setTime(double value);
-
-	/**
 	 * Returns the value of the '<em><b>Start Time</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -98,12 +71,12 @@ public interface ComponentDiagram extends NamedElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Start Time</em>' attribute.
-	 * @see #setStartTime(double)
+	 * @see #setStartTime(long)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_StartTime()
 	 * @model
 	 * @generated
 	 */
-	double getStartTime();
+	long getStartTime();
 
 	/**
 	 * Sets the value of the '{@link ac.soton.fmusim.components.ComponentDiagram#getStartTime <em>Start Time</em>}' attribute.
@@ -113,7 +86,7 @@ public interface ComponentDiagram extends NamedElement {
 	 * @see #getStartTime()
 	 * @generated
 	 */
-	void setStartTime(double value);
+	void setStartTime(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Stop Time</b></em>' attribute.
@@ -124,12 +97,12 @@ public interface ComponentDiagram extends NamedElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Stop Time</em>' attribute.
-	 * @see #setStopTime(double)
+	 * @see #setStopTime(long)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_StopTime()
 	 * @model
 	 * @generated
 	 */
-	double getStopTime();
+	long getStopTime();
 
 	/**
 	 * Sets the value of the '{@link ac.soton.fmusim.components.ComponentDiagram#getStopTime <em>Stop Time</em>}' attribute.
@@ -139,7 +112,7 @@ public interface ComponentDiagram extends NamedElement {
 	 * @see #getStopTime()
 	 * @generated
 	 */
-	void setStopTime(double value);
+	void setStopTime(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Step Size</b></em>' attribute.
@@ -150,12 +123,12 @@ public interface ComponentDiagram extends NamedElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Step Size</em>' attribute.
-	 * @see #setStepSize(double)
+	 * @see #setStepSize(long)
 	 * @see ac.soton.fmusim.components.ComponentsPackage#getComponentDiagram_StepSize()
 	 * @model
 	 * @generated
 	 */
-	double getStepSize();
+	long getStepSize();
 
 	/**
 	 * Sets the value of the '{@link ac.soton.fmusim.components.ComponentDiagram#getStepSize <em>Step Size</em>}' attribute.
@@ -165,6 +138,6 @@ public interface ComponentDiagram extends NamedElement {
 	 * @see #getStepSize()
 	 * @generated
 	 */
-	void setStepSize(double value);
+	void setStepSize(long value);
 
 } // ComponentDiagram

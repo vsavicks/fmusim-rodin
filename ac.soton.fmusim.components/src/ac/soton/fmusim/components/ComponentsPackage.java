@@ -136,22 +136,13 @@ public interface ComponentsPackage extends EPackage {
 	int COMPONENT_DIAGRAM__CONNECTORS = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_DIAGRAM__TIME = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Start Time</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_DIAGRAM__START_TIME = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int COMPONENT_DIAGRAM__START_TIME = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Stop Time</b></em>' attribute.
@@ -160,7 +151,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_DIAGRAM__STOP_TIME = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int COMPONENT_DIAGRAM__STOP_TIME = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
@@ -169,7 +160,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_DIAGRAM__STEP_SIZE = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int COMPONENT_DIAGRAM__STEP_SIZE = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Component Diagram</em>' class.
@@ -178,7 +169,7 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_DIAGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int COMPONENT_DIAGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.Component <em>Component</em>}' class.
@@ -510,6 +501,15 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__LOCAL_GENERATED = CorePackage.ABSTRACT_EXTENSION__LOCAL_GENERATED;
 
 	/**
+	 * The feature id for the '<em><b>Internal Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+//	int EVENT_BCOMPONENT__INTERNAL_ID = CorePackage.ABSTRACT_EXTENSION__INTERNAL_ID;
+
+	/**
 	 * The feature id for the '<em><b>Extension Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -618,22 +618,13 @@ public interface ComponentsPackage extends EPackage {
 	int EVENT_BCOMPONENT__TRACE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 10;
 
 	/**
-	 * The feature id for the '<em><b>Trace Path</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_BCOMPONENT__TRACE_PATH = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
-
-	/**
 	 * The number of structural features of the '<em>Event BComponent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 12;
+	int EVENT_BCOMPONENT_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 11;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -1400,16 +1391,6 @@ public interface ComponentsPackage extends EPackage {
 	int MODEL_EXCEPTION_CLASS = 23;
 
 	/**
-	 * The meta object id for the '<em>Real Class</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.jscience.mathematics.number.Real
-	 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getRealClass()
-	 * @generated
-	 */
-	int REAL_CLASS = 24;
-
-	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.ComponentDiagram <em>Component Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1440,17 +1421,6 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getComponentDiagram_Connectors();
-
-	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.ComponentDiagram#getTime <em>Time</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Time</em>'.
-	 * @see ac.soton.fmusim.components.ComponentDiagram#getTime()
-	 * @see #getComponentDiagram()
-	 * @generated
-	 */
-	EAttribute getComponentDiagram_Time();
 
 	/**
 	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.ComponentDiagram#getStartTime <em>Start Time</em>}'.
@@ -1710,17 +1680,6 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getEventBComponent_Trace();
-
-	/**
-	 * Returns the meta object for the attribute '{@link ac.soton.fmusim.components.EventBComponent#getTracePath <em>Trace Path</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Trace Path</em>'.
-	 * @see ac.soton.fmusim.components.EventBComponent#getTracePath()
-	 * @see #getEventBComponent()
-	 * @generated
-	 */
-	EAttribute getEventBComponent_TracePath();
 
 	/**
 	 * Returns the meta object for class '{@link ac.soton.fmusim.components.FMUComponent <em>FMU Component</em>}'.
@@ -2085,17 +2044,6 @@ public interface ComponentsPackage extends EPackage {
 	EDataType getModelExceptionClass();
 
 	/**
-	 * Returns the meta object for data type '{@link org.jscience.mathematics.number.Real <em>Real Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Real Class</em>'.
-	 * @see org.jscience.mathematics.number.Real
-	 * @model instanceClass="org.jscience.mathematics.number.Real"
-	 * @generated
-	 */
-	EDataType getRealClass();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2142,14 +2090,6 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPONENT_DIAGRAM__CONNECTORS = eINSTANCE.getComponentDiagram_Connectors();
-
-		/**
-		 * The meta object literal for the '<em><b>Time</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute COMPONENT_DIAGRAM__TIME = eINSTANCE.getComponentDiagram_Time();
 
 		/**
 		 * The meta object literal for the '<em><b>Start Time</b></em>' attribute feature.
@@ -2352,14 +2292,6 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT_BCOMPONENT__TRACE = eINSTANCE.getEventBComponent_Trace();
-
-		/**
-		 * The meta object literal for the '<em><b>Trace Path</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVENT_BCOMPONENT__TRACE_PATH = eINSTANCE.getEventBComponent_TracePath();
 
 		/**
 		 * The meta object literal for the '{@link ac.soton.fmusim.components.impl.FMUComponentImpl <em>FMU Component</em>}' class.
@@ -2668,16 +2600,6 @@ public interface ComponentsPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType MODEL_EXCEPTION_CLASS = eINSTANCE.getModelExceptionClass();
-
-		/**
-		 * The meta object literal for the '<em>Real Class</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.jscience.mathematics.number.Real
-		 * @see ac.soton.fmusim.components.impl.ComponentsPackageImpl#getRealClass()
-		 * @generated
-		 */
-		EDataType REAL_CLASS = eINSTANCE.getRealClass();
 
 	}
 

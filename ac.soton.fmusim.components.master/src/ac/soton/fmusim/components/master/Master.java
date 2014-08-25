@@ -52,15 +52,14 @@ public class Master {
 	}
 
 	private ComponentDiagram diagram;
-	private Real tCurrent;
-	private Real tStart;
-	private Real tStop;
-	private Real step;
+	private long tCurrent;
+	private long tStart;
+	private long tStop;
+	private long step;
+	private Map<Component, Long> updateList;
+	private List<Component> evaluationList;
 	private File resultFile;
 	private BufferedWriter resultWriter;
-	private boolean simulating;
-	private Map<Component, Real> updateList;
-	private List<Component> evaluationList;
 
 	/**
 	 * Constructs master simulation instance
@@ -72,146 +71,20 @@ public class Master {
 	 * @param step simulation step size
 	 * @param resultFile simulation results output file
 	 */
-	public Master(ComponentDiagram diagram, double tStart, double tStop, double step, File resultFile) {
+	public Master(ComponentDiagram diagram, long tStart, long tStop, long step, File resultFile) {
 		this.diagram = diagram;
-		this.tStart = Real.valueOf(tStart);
-		this.tStop = Real.valueOf(tStop);
-		this.step = Real.valueOf(step);
+		this.tStart = tStart;
+		this.tStop = tStop;
+		this.step = step;
 		this.resultFile = resultFile;
-		updateList = new HashMap<Component, Real>(diagram.getComponents().size());
+		updateList = new HashMap<Component, Long>(diagram.getComponents().size());
 		evaluationList = new ArrayList<Component>(diagram.getComponents().size());
-	}
-	
-	public boolean isSimulating() {
-		return simulating;
-	}
-	
-	/**
-	 * Runs one step of simulation and pauses.
-	 */
-	public void simulateStep() {
-		if (!simulating) {
-			updateList.clear();
-			evaluationList.clear();
-			
-			// instantiate components
-			try {
-				for (Component c : diagram.getComponents())
-					c.instantiate();
-			} catch (SimulationException e) {
-				e.printStackTrace();
-				// TODO: terminate instantiated fmus
-				return;
-			}
-	
-			// create output file
-			resultWriter = apiCreateOutput((File) resultFile);
-			if (resultWriter == null) {
-				//TODO: add proper output error handling
-				return;
-			}
-	
-			// initialisation step
-			for (Component c : diagram.getComponents()) {
-				c.initialise(tStart.doubleValue(), tStop.doubleValue());
-				// time-zero initialisation
-				updateList.put(c, Real.ZERO);
-			}
-			
-			// initial output
-			apiOutputColumns(diagram, resultWriter);
-			apiOutput(diagram, tStart, resultWriter);
-	
-			// set simulation time
-			tCurrent = tStart;
-			
-			// marks simulation start
-			simulating = true;
-		}
-		
-		// simulation step
-		if (simulating) {
-			if (tCurrent.isLessThan(tStop)) {
-				
-				// read update list for evaluation-ready components
-				for (Component c : diagram.getComponents()) {
-					if (tCurrent.compareTo(updateList.get(c)) >= 0)
-						evaluationList.add(c);
-				}
-				
-				// read port values
-				for (Component c : evaluationList)
-					try {
-						c.writeOutputs();
-					} catch (SimulationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (ModelException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
-				// write port values
-				for (Component c : evaluationList)
-					try {
-						c.readInputs();
-					} catch (SimulationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ModelException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-				// do step
-				for (Component c : evaluationList)
-					try {
-						c.doStep(tCurrent.doubleValue(), step.doubleValue());
-						Real stepPeriod = Real.valueOf(c.getStepPeriod());
-						updateList.put(c, updateList.get(c).plus(stepPeriod));
-					} catch (SimulationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ModelException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-				// clear evaluation list
-				evaluationList.clear();
-				
-				// progress the time
-				tCurrent = tCurrent.plus(step);
-				diagram.setTime(tCurrent.doubleValue());
-				
-				// write output
-				apiOutput(diagram, tCurrent, resultWriter);
-			}
-			
-			// termination step, if finished
-			if (tCurrent.compareTo(tStop) >= 0) {
-				simulating = false;
-				
-				for (Component c : diagram.getComponents())
-					c.terminate();
-				
-				// close file
-				try {
-					resultWriter.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 
 	/**
 	 * Runs the simulation to completion.
 	 */
-	public void simulateAll() {
-		//XXX: hack to reset simulation for step simulation if during that an error occurs
-		simulating = false;
+	public void simulate() {
 		updateList.clear();
 		evaluationList.clear();
 		
@@ -236,26 +109,26 @@ public class Master {
 		
 		// initialisation step
 		for (Component c : diagram.getComponents()) {
-			c.initialise(tStart.doubleValue(), tStop.doubleValue());
+			c.initialise(tStart, tStop);
 			// time-zero initialisation
-			updateList.put(c, Real.ZERO);
+			updateList.put(c, 0L);
 		}
 		
 		// initial output
 		apiOutputColumns(diagram, resultWriter);
 		apiOutput(diagram, tStart, resultWriter);
-		
-		// set simulation time
-		tCurrent = tStart;
 
 		// simulation loop
-		while (tCurrent.isLessThan(tStop)) {
+		for (tCurrent = tStart; tCurrent <= tStop; ++tCurrent) {
 			
 			// read update list for evaluation-ready components
 			for (Component c : diagram.getComponents()) {
-				if (!tCurrent.isLessThan(updateList.get(c)))
+				if (tCurrent == updateList.get(c))
 					evaluationList.add(c);
 			}
+			
+			if (evaluationList.isEmpty())
+				continue;
 			
 			// only simulate components in evaluation list
 			// read port values
@@ -285,9 +158,8 @@ public class Master {
 			// do step & update the update list
 			for (Component c : evaluationList)
 				try {
-					c.doStep(tCurrent.doubleValue(), step.doubleValue());
-					Real stepPeriod = Real.valueOf(c.getStepPeriod());
-					updateList.put(c, updateList.get(c).plus(stepPeriod));
+					c.doStep(tCurrent, step);
+					updateList.put(c, updateList.get(c) + c.getStepPeriod());
 				} catch (SimulationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -298,10 +170,6 @@ public class Master {
 			
 			// clear evaluation list
 			evaluationList.clear();
-			
-			// progress the time
-			tCurrent = tCurrent.plus(step);
-			diagram.setTime(tCurrent.doubleValue());
 			
 			// write output
 			apiOutput(diagram, tCurrent, resultWriter);
@@ -348,8 +216,6 @@ public class Master {
 					continue;
 				
 				String name = c.getName();
-//				for (Port p : c.getInputs())
-//					writer.write(SEPARATOR + name + "." + p.getName());
 				for (AbstractVariable v : c.getVariables())
 					writer.write(SEPARATOR + name + "." + v.getName());
 				for (Port p : c.getOutputs())
@@ -362,17 +228,14 @@ public class Master {
 		}
 	}
 
-	private void apiOutput(ComponentDiagram diagram, Real time, BufferedWriter writer) {
+	private void apiOutput(ComponentDiagram diagram, long time, BufferedWriter writer) {
 		try {
-			writer.write(time.toString());
+			writer.write(Long.toString(time));
 			for (Component c : diagram.getComponents()) {
 				//XXX: current hack to ignore display component for outputs
 				if (c instanceof DisplayComponent)
 					continue;
 				
-//				for (Port p : c.getInputs()) {
-//					writer.write(SEPARATOR + toPlotValue(p.getValue().toString()));
-//				}
 				for (AbstractVariable v : c.getVariables()) {
 					writer.write(SEPARATOR + toPlotValue(v.getValue().toString()));
 				}
