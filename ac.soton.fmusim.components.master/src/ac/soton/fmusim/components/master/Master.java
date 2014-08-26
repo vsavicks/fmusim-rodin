@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.jscience.mathematics.number.Real;
 
 import ac.soton.fmusim.components.AbstractVariable;
@@ -28,63 +29,46 @@ import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 
 /**
- * Master algorithm for FMU-EventB co-simulation
- * from component diagrams.
+ * Master algorithm for FMU-EventB co-simulation.
  * 
  * @author vitaly
  *
  */
 public class Master {
 
-	private static final String SEPARATOR = ",";
+	// simulation parameter names
+	public static final String OUTPUT_SEPARATOR = ",";
+	public static final String PARAMETER_START_TIME = "parameter.startTime";
+	public static final String PARAMETER_STOP_TIME = "parameter.stopTime";
+	public static final String PARAMETER_STEP_SIZE = "parameter.stepSize";
+	public static final String PARAMETER_OUTPUT_FILE = "parameter.outputFile";
+
+	// parameters
+	private static ComponentDiagram diagram;
+	private static long tCurrent;
+	private static long tStart;
+	private static long tStop;
+	private static long step;
+	
+	// two-list
+	private static Map<Component, Long> updateList = new HashMap<Component, Long>();
+	private static List<Component> evaluationList = new ArrayList<Component>();
+	
+	private static File resultFile;
+	private static BufferedWriter resultWriter;
 
 	/**
-	 * Master exception, thrown if simulation goes wrong.
-	 * 
-	 * @author vitaly
-	 *
+	 * Simulate a diagram.
+	 * @param cd
+	 * @param monitor 
+	 * @param params 
 	 */
-	@SuppressWarnings("serial")
-	public class MasterException extends Exception {
-		public MasterException(String string) {
-			super(string);
-		}
-	}
-
-	private ComponentDiagram diagram;
-	private long tCurrent;
-	private long tStart;
-	private long tStop;
-	private long step;
-	private Map<Component, Long> updateList;
-	private List<Component> evaluationList;
-	private File resultFile;
-	private BufferedWriter resultWriter;
-
-	/**
-	 * Constructs master simulation instance
-	 * that is used to drive the simulation.
-	 * 
-	 * @param diagram component diagram that defines component composition graph
-	 * @param tStart simulation start time
-	 * @param tStop simulation stop time
-	 * @param step simulation step size
-	 * @param resultFile simulation results output file
-	 */
-	public Master(ComponentDiagram diagram, long tStart, long tStop, long step, File resultFile) {
-		this.diagram = diagram;
-		this.tStart = tStart;
-		this.tStop = tStop;
-		this.step = step;
-		this.resultFile = resultFile;
-		updateList = new HashMap<Component, Long>(diagram.getComponents().size());
-		evaluationList = new ArrayList<Component>(diagram.getComponents().size());
-	}
-
-	/**
-	 * Runs the simulation to completion.
-	 */
-	public void simulate() {
+	public static void simulate(ComponentDiagram cd, IProgressMonitor monitor, Map<String, String> params) {
+		diagram = cd;
+		tStart = Long.parseLong(params.get(PARAMETER_START_TIME));
+		tStop = Long.parseLong(params.get(PARAMETER_STOP_TIME));
+		step = Long.parseLong(params.get(PARAMETER_STEP_SIZE));
+		resultFile = new File(params.get(PARAMETER_OUTPUT_FILE));
 		updateList.clear();
 		evaluationList.clear();
 		
@@ -193,7 +177,7 @@ public class Master {
 	/**
 	 * 
 	 */
-	private void setNotification(boolean flag) {
+	private static void setNotification(boolean flag) {
 		for (Component c : diagram.getComponents()) {
 			c.eSetDeliver(flag);
 			for (AbstractVariable v : c.getVariables())
@@ -207,7 +191,7 @@ public class Master {
 			c.eSetDeliver(flag);
 	}
 
-	private void apiOutputColumns(ComponentDiagram diagram, BufferedWriter writer) {
+	private static void apiOutputColumns(ComponentDiagram diagram, BufferedWriter writer) {
 		try {
 			writer.write("time");
 			for (Component c : diagram.getComponents()) {
@@ -217,9 +201,9 @@ public class Master {
 				
 				String name = c.getName();
 				for (AbstractVariable v : c.getVariables())
-					writer.write(SEPARATOR + name + "." + v.getName());
+					writer.write(OUTPUT_SEPARATOR + name + "." + v.getName());
 				for (Port p : c.getOutputs())
-					writer.write(SEPARATOR + name + "." + p.getName());
+					writer.write(OUTPUT_SEPARATOR + name + "." + p.getName());
 			}
 			writer.write('\n');
 		} catch (IOException e) {
@@ -228,7 +212,7 @@ public class Master {
 		}
 	}
 
-	private void apiOutput(ComponentDiagram diagram, long time, BufferedWriter writer) {
+	private static void apiOutput(ComponentDiagram diagram, long time, BufferedWriter writer) {
 		try {
 			writer.write(Long.toString(time));
 			for (Component c : diagram.getComponents()) {
@@ -237,10 +221,10 @@ public class Master {
 					continue;
 				
 				for (AbstractVariable v : c.getVariables()) {
-					writer.write(SEPARATOR + toPlotValue(v.getValue().toString()));
+					writer.write(OUTPUT_SEPARATOR + toPlotValue(v.getValue().toString()));
 				}
 				for (Port p : c.getOutputs()) {
-					writer.write(SEPARATOR + toPlotValue(p.getValue().toString()));
+					writer.write(OUTPUT_SEPARATOR + toPlotValue(p.getValue().toString()));
 				}
 			}
 			writer.write('\n');
@@ -250,7 +234,7 @@ public class Master {
 		}
 	}
 
-	private String toPlotValue(String value) {
+	private static String toPlotValue(String value) {
 		assert value != null;
 		if ("false".equals(value.toLowerCase()))
 			return "0";
@@ -259,7 +243,7 @@ public class Master {
 		return value;
 	}
 
-	private BufferedWriter apiCreateOutput(File file) {
+	private static BufferedWriter apiCreateOutput(File file) {
 		try {
 			if (!file.exists())
 				file.createNewFile();

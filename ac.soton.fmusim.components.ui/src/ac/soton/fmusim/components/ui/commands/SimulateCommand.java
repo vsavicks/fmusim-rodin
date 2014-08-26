@@ -9,6 +9,8 @@ package ac.soton.fmusim.components.ui.commands;
 
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -23,17 +25,22 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.progress.IProgressConstants;
+import org.eclipse.ui.services.ISourceProviderService;
 import org.rodinp.core.RodinCore;
 import org.rodinp.core.RodinDBException;
 
@@ -48,7 +55,8 @@ import ac.soton.fmusim.components.ui.dialogs.SimulationInputDialog;
  *
  */
 public class SimulateCommand extends AbstractHandler {
-	
+
+	private static final long START_DEFAULT = 0;		// default simulation start time
 	private static final long STOP_DEFAULT = 10000;		// default simulation stop time
 	private static final long STEP_DEFAULT = 100;		// default simulation step size
 
@@ -60,46 +68,61 @@ public class SimulateCommand extends AbstractHandler {
 		IEditorPart diagramEditor = HandlerUtil.getActiveEditorChecked(event);
 		Shell shell = diagramEditor.getEditorSite().getShell();
 		assert diagramEditor instanceof DiagramEditor;
+		
 		if (validate(diagramEditor) == false)
 			return null;
 		
-		final TransactionalEditingDomain editingDomain = ((DiagramEditor) diagramEditor)
-				.getEditingDomain();
-		final ComponentDiagram diagram = (ComponentDiagram) ((DiagramEditor) diagramEditor)
-				.getDiagram().getElement();
-		long defaultTime = diagram.getStopTime() > 0 ? diagram.getStopTime() : STOP_DEFAULT;
+//		final TransactionalEditingDomain editingDomain = ((DiagramEditor) diagramEditor).getEditingDomain();
+		final ComponentDiagram diagram = (ComponentDiagram) ((DiagramEditor) diagramEditor).getDiagram().getElement();
+		long defaultStart = diagram.getStartTime() > 0 ? diagram.getStartTime() : START_DEFAULT;
+		long defaultStop = diagram.getStopTime() > 0 ? diagram.getStopTime() : STOP_DEFAULT;
 		long defaultStep = diagram.getStepSize() > 0 ? diagram.getStepSize() : STEP_DEFAULT;
 		
 		// input dialog for entering the time and step size
-		SimulationInputDialog simulationInputDialog = new SimulationInputDialog(shell, defaultTime, defaultStep);
+		SimulationInputDialog simulationInputDialog = new SimulationInputDialog(shell, defaultStart, defaultStop, defaultStep);
 		if (simulationInputDialog.open() != InputDialog.OK)
 			return null;
 
-		final long time = simulationInputDialog.getTime();
-		final long step = simulationInputDialog.getStep();
-		
 		// get output path
 		IEditorInput input = diagramEditor.getEditorInput();
 		IResource res = (IResource) input.getAdapter(IResource.class);
-		IPath loc = res.getLocation().removeLastSegments(1).append("results.csv");
+		String resultFilePath = res.getLocation().removeLastSegments(1).append("results.csv").toOSString();
 		
-		final Master master = new Master(diagram, 0, time, step, new File(loc.toOSString()));
+		// simulation parameters
+		final Map<String, String> params = new HashMap<String, String>();
+		params.put(Master.PARAMETER_START_TIME, Long.toString(simulationInputDialog.getStartTime()));
+		params.put(Master.PARAMETER_STOP_TIME, Long.toString(simulationInputDialog.getStopTime()));
+		params.put(Master.PARAMETER_STEP_SIZE, Long.toString(simulationInputDialog.getStepSize()));
+		params.put(Master.PARAMETER_OUTPUT_FILE, resultFilePath);
 		
 		// execute simulation in a job
-		Job job = new Job("Simulation") {
+		final Job job = new Job("Multi-simulation") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
-				diagram.eSetDeliver(false);
-				diagram.setStopTime(time);
-				diagram.setStepSize(step);
-				master.simulate();
-				diagram.eSetDeliver(true);
+				Master.simulate(diagram, monitor, params);
 				return Status.OK_STATUS;
 			}
-
+			@Override
+			public boolean belongsTo(Object family) {
+				return "Multi-simulation".equals(getName());
+			}
 		};
 		job.setUser(true);
 		job.setPriority(Job.LONG);
+		job.setProperty(IProgressConstants.KEEPONE_PROPERTY, true);
+//		job.setProperty(IProgressConstants.ICON_PROPERTY, RmsUIActivator.getDefault().getImageRegistry().getDescriptor(RmsUIActivator.IMAGE_RMS));	// job icon
+		job.setProperty(IProgressConstants.ACTION_PROPERTY, new Action() {
+			Job jb = job;
+			@Override
+			public void run() {
+				Display.getDefault().asyncExec(new Runnable() {
+					@Override
+					public void run() {
+						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Simulation Results", jb.getResult().getMessage());
+					}
+				});
+			}
+		});
 		job.schedule();
 		
 		return null;
