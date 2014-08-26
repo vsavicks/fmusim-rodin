@@ -7,7 +7,9 @@
  */
 package ac.soton.fmusim.components.impl;
 
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -55,6 +57,7 @@ import ac.soton.fmusim.components.VariableType;
 import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
+import ac.soton.fmusim.components.util.SimulationUtil;
 
 import com.google.inject.Injector;
 
@@ -65,6 +68,7 @@ import de.prob.statespace.OpInfo;
 import de.prob.statespace.StateId;
 import de.prob.statespace.StateSpace;
 import de.prob.statespace.Trace;
+import de.prob.statespace.TraceConverter;
 import de.prob.webconsole.ServletContextListener;
 
 /**
@@ -240,6 +244,14 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @ordered
 	 */
 	protected Trace trace = TRACE_EDEFAULT;
+	
+	/**
+	 * @custom
+	 */
+	private Random random = new Random(System.currentTimeMillis());
+	private Set<String> readSet = new HashSet<String>();
+	private Set<String> waitSet = new HashSet<String>();
+	private DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -494,8 +506,9 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		// get method to retrieve a machine with a proxy resolution
 		Machine m = getMachine();
 		
-		// error if still null or proxy unresolved
-		if (m == null || m.eIsProxy()) {
+		// error if proxy unresolved
+		//XXX null treated by a validation constraint
+		if (m != null && m.eIsProxy()) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(new BasicDiagnostic
@@ -517,7 +530,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void instantiate() throws SimulationException {
-		final IEventBRoot machineRoot = getMachineRoot(getMachine());
+		final IEventBRoot machineRoot = SimulationUtil.getMachineRoot(getMachine());
 		if (machineRoot == null)
 			throw new SimulationException("Cannot load machine component '" + getName()
 					+ "'. Machine root cannot be determined.");
@@ -544,28 +557,18 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 
 		Trace t = new Trace(s);
 		setTrace(t);
-		System.gc();
-	}
 
-	/**
-	 * Returns Event-B Root element of a machine.
-	 * @param machine
-	 * @return
-	 */
-	private IEventBRoot getMachineRoot(Machine machine) {
-		Resource resource = machine.eResource();
-		if (resource != null) {
-			URI uri = resource.getURI();
-			if (uri.isPlatformResource()) {
-				IFile file = WorkspaceSynchronizer.getFile(resource);
-				IRodinFile rodinFile = RodinCore.valueOf(file);
-				if (rodinFile != null) {
-					return (IEventBRoot) rodinFile.getRoot();
-				}
-			}
-			//TODO: root for a non-workspace resource?
-		}
-		return null;
+		// recall events for doStep matching
+		if (!readSet.isEmpty())
+			readSet.clear();
+		if (!waitSet.isEmpty())
+			waitSet.clear();
+		for (Event re : getReadInputEvents())
+			readSet.add(re.getName());
+		for (Event we : getWaitEvents())
+			waitSet.add(we.getName());
+		
+		System.gc();
 	}
 
 	/**
@@ -620,97 +623,29 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			if (connector == null)
 				continue;
 			
-			Object value = connector.getValue();	// value from connector
-			String bValue = valueFmiToEventB(value, port.getType(), port.getRealPrecision());	// value to be passed to event, thus in Event-B format
-			
 			// add parameter to event predicate string
-			predicate.append("&" + parameterName + "=" + bValue);
-			
-			// set port value
-			port.setValue(value);
+			predicate.append("&" + parameterName + "=" + SimulationUtil.getEventBValue(connector.getValue(), port.getType(), port.getRealPrecision()));
 		}
 
-		OpInfo op = null;
+		List<OpInfo> readOps = new ArrayList<OpInfo>();
+		String predicateStr = predicate.toString();
 		for (Event e : readEvents) {
 			try {
-				op = trace.findOneOp(e.getName(), predicate.toString());
-				//FIXME: should it stop here if an event is found? what if multiple events are possible?
-				//TODO: set randomly chosen values of disconnected ports
+				readOps.add(trace.findOneOp(e.getName(), predicateStr));
 			} catch (BException e1) {
-				throw new SimulationException("Finding 'read inputs' event '" + e.getName() + "' by ProB failed: " + e1.getMessage());
+				throw new SimulationException("ProB failed to find enabled read event '" + e.getName() + "'.\nError: " + e1.getMessage());
 			} catch (IllegalArgumentException e1) {
 				// if operation was not found, carry on looking
 			}
 		}
 		
-		// if not found at all, likely indicates that model is not correct
-		if (op == null) {
-			throw new ModelException("No enabled 'read inputs' events could be found for component '" + this.getName() + "' with the predicate: " + predicate.toString());
+		// if not found, likely indicates that model is not correct
+		if (readOps.isEmpty()) {
+			throw new ModelException("No enabled read input events could be found for component '" + this.getName() + "' with the predicate: " + predicate.toString());
 		}
 
 		// execute 'read inputs' event with calculated parameter predicate
-		trace = trace.add(op.getId());
-	}
-	
-	/**
-	 * Converts FMI value to Event-B.
-	 * Precision is required for the Real type.
-	 * 
-	 * @param value
-	 * @param type
-	 * @param precision
-	 * @return
-	 */
-	private String valueFmiToEventB(Object value, VariableType type, int precision) {
-		switch (type) {
-		case BOOLEAN:
-			assert value instanceof Boolean;
-			return value.toString().toUpperCase();
-		case INTEGER:
-			assert value instanceof Integer;
-			return value.toString();
-		case REAL:
-			assert value instanceof Double;
-			double toB = ((Double) value).doubleValue() * Math.pow(10, precision);
-			return Integer.toString((int) toB);
-		case STRING:
-			assert value instanceof String;
-			return (String) value;
-		default:
-			return null;
-		}
-	}
-
-	/**
-	 * Returns any enabled operation from the list of events, i.e.
-	 * if multiple operations are enabled, a random one is selected.
-	 * 
-	 * @param trace trace of operations
-	 * @param events list of events
-	 * @return
-	 */
-	private OpInfo findAnyEnabled(Trace trace, EList<Event> events) {
-		// get names of all events
-		Set<String> eventNames = new HashSet<String>(events.size());
-		for (Event event : events)
-			eventNames.add(event.getName());
-		
-		// find enabled events that match by name
-		List<OpInfo> enabledOps = new ArrayList<OpInfo>(events.size());
-		Set<OpInfo> opInfos = trace.getStateSpace().evaluateOps(trace.getNextTransitions());
-		for (OpInfo op : opInfos) {
-			if (eventNames.contains(op.getName())) {
-				enabledOps.add(op);
-			}
-		}
-		
-		// return a random enabled op
-		if (enabledOps.size() > 0) {
-			int idx = new Random().nextInt(enabledOps.size());
-			return enabledOps.get(idx);
-		}
-		
-		return null;
+		trace = trace.add(readOps.get(random.nextInt(readOps.size())).getId());
 	}
 
 	/**
@@ -728,7 +663,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			assert port.getVariable() != null;
 			String name = port.getVariable().getName();
 			String bValue = (String) state.value(name);
-			Object value = valueEventBToFmi(bValue, port.getType(), port.getRealPrecision());
+			Object value = SimulationUtil.getFMIValue(bValue, port.getType(), port.getRealPrecision());
 			
 			// send value to connector if connected
 			for (Connector c : port.getOut()) {
@@ -739,34 +674,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			port.setValue(value);
 		}
 	}
-
-	/**
-	 * Convert Event-B value to FMI.
-	 * NOTE: As doubles are not yet supported by Event-B,
-	 * they are modelled as integers, converted from a double
-	 * with a specified precision: double = int / (10 ^ precision)
-	 * 
-	 * @param value
-	 * @param type
-	 * @param precision
-	 * @return
-	 */
-	private Object valueEventBToFmi(String value, VariableType type, int precision) {
-		switch (type) {
-		case BOOLEAN:
-			return Boolean.valueOf(value);
-		case INTEGER:
-			return Integer.valueOf(value);
-		case REAL:
-			Integer integer = Integer.valueOf(value);
-			return integer.doubleValue() / Math.pow(10d, precision);
-		case STRING:
-			return value;
-		default:
-			return null;
-		}
-	}
-
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -775,52 +683,35 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 */
 	public void doStep(long time, long step) throws SimulationException {
 		assert trace != null;
-		EList<Event> waitEvents = getWaitEvents();
-		assert waitEvents.size() > 0;
-		EList<Event> readEvents = getReadInputEvents();
+		Set<OpInfo> ops = null;
+		OpInfo nextOp = null;
+		boolean notWait = true;
 		
-		boolean update = false;
-		while (!update) {
-			// find and execute an enabled Wait event
-			OpInfo op = findAnyEnabled(trace, waitEvents);
-			if (op != null) {
-				// execute only if wait event is not also a readInput event (if inputs exist)
-				if (findEvent(op, readEvents) == null) {
-					trace = trace.add(op.getId());
-				}
-				update = true;
-				break;
+		while (notWait) {
+			ops = trace.getStateSpace().evaluateOps(trace.getNextTransitions());
+			
+			// check deadlock
+			if (ops == null || ops.isEmpty())
+				throw new SimulationException("Deadlock state reached in "+getName());
+				
+			// find next op
+			nextOp = (OpInfo) ops.toArray()[random.nextInt(ops.size())];
+			
+			// check if wait and read
+			assert nextOp.getName() != null;
+			if (waitSet.contains(nextOp.getName())) {
+				notWait = false;
+				if (readSet.contains(nextOp.getName()))
+					break;
 			}
 			
-			// if not found, execute any event
-			if (!update) {
-				if (trace.getNextTransitions().isEmpty())
-					throw new SimulationException("Deadlock state reached in "+getName());
-				
-				trace = trace.anyEvent(null);
-			}
+			// execute
+			trace = trace.add(nextOp.getId());
 		}
 		
 		// update variables
 		for (AbstractVariable v : getVariables())
 			v.setValue(trace.getCurrentState().value(v.getName()));
-		// update ports: only outputs need to be updated - inputs shouldn't have changed
-		for (Port p : getOutputs())
-			p.setValue(trace.getCurrentState().value(p.getName()));
-	}
-
-	/**
-	 * Returns first matching event corresponding to an operation, or null of not found.
-	 * 
-	 * @param operation
-	 * @param events list of events
-	 * @return
-	 */
-	private Event findEvent(OpInfo operation, EList<Event> events) {
-		for (Event event : events)
-			if (operation.getName().equals(event.getName()))
-				return event;
-		return null;
 	}
 
 	/**
@@ -829,7 +720,15 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void terminate() {
+		assert trace != null;
 		trace.getStateSpace().endTransaction();
+
+		// save trace
+		String traceFilePath = WorkspaceSynchronizer.getFile(machine.eResource()).getLocation().removeFileExtension().toOSString()
+				+ "_" + dateFormat.format(new java.util.Date()) + ".xml";
+		trace.toString();	//XXX has to be called to fix the serialisation bug
+		TraceConverter.save(trace, traceFilePath);
+		
 		trace = null;
 		System.gc();
 	}
