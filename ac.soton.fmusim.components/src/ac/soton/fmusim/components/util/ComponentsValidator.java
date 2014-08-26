@@ -7,7 +7,6 @@
  */
 package ac.soton.fmusim.components.util;
 
-import ac.soton.fmusim.components.*;
 import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.ITrace2D;
 
@@ -25,7 +24,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Parameter;
-import org.jscience.mathematics.number.Real;
 
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Colour;
@@ -214,25 +212,33 @@ public class ComponentsValidator extends EObjectValidator {
 	/**
 	 * Validates the NoFMUComposition constraint of '<em>Component Diagram</em>'.
 	 * <!-- begin-user-doc -->
+	 * No two FMUs are allowed to be composed.
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean validateComponentDiagram_NoFMUComposition(ComponentDiagram componentDiagram, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		// TODO implement the constraint
-		// -> specify the condition that violates the constraint
-		// -> verify the diagnostic details, including severity, code, and message
-		// Ensure that you remove @generated or mark it @generated NOT
-		if (false) {
+		Connector conn = null;
+		
+		for (Component c : componentDiagram.getComponents()) {
+			if (c instanceof FMUComponent) {
+				for (Port i : c.getInputs()) {
+					if (i.getIn() != null && i.getIn().getSource() instanceof FMUPort) {
+						conn = i.getIn();
+						break;
+					}
+				}
+			}
+		}
+		
+		if (conn != null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.ERROR,
-						 DIAGNOSTIC_SOURCE,
-						 0,
-						 "_UI_GenericConstraint_diagnostic",
-						 new Object[] { "NoFMUComposition", getObjectLabel(componentDiagram, context) },
-						 new Object[] { componentDiagram },
-						 context));
+					(new BasicDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 "Direct composition of FMUs is not supported.",	
+							 new Object [] { conn }));
 			}
 			return false;
 		}
@@ -286,41 +292,6 @@ public class ComponentsValidator extends EObjectValidator {
 							 ComponentsValidator.DIAGNOSTIC_SOURCE,
 							 0,
 							 MessageFormat.format("Connected ports ''{0}'' and ''{1}'' have incompatible types", new Object[] { src.getName(), trg.getName() }),	
-							 new Object [] { connector }));
-			}
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Validates the CompleteConnection constraint of '<em>Connector</em>'.
-	 * <!-- begin-user-doc -->
-	 * The connector must have a complete connection:
-	 * for any connector output there must be an input
-	 * i.e. if input ports are linked to a connector, an output port must also be linked.
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateConnector_CompleteConnection(Connector connector, DiagnosticChain diagnostics, Map<Object, Object> context) {
-
-//		EList<Port> ports = connector.getPorts();
-//		boolean input = false;
-//		for (Port p : ports) {
-//			if (p.getCausality() == VariableCausality.OUTPUT) {
-//				input = true;
-//				break;
-//			}
-//		}
-		
-		if (false) {
-			if (diagnostics != null) {
-				diagnostics.add
-					(new BasicDiagnostic
-							(Diagnostic.ERROR,
-							 ComponentsValidator.DIAGNOSTIC_SOURCE,
-							 0,
-							 MessageFormat.format("Connector ''{0}'' has no output port attached", new Object[] { connector.getName() }),	
 							 new Object [] { connector }));
 			}
 			return false;
