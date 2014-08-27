@@ -23,7 +23,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import ac.soton.fmusim.components.AbstractVariable;
@@ -32,6 +34,7 @@ import ac.soton.fmusim.components.Connector;
 import ac.soton.fmusim.components.FMUComponent;
 import ac.soton.fmusim.components.FMUParameter;
 import ac.soton.fmusim.components.Port;
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 import ac.soton.fmusim.components.util.ComponentsValidator;
 import de.prob.cosimulation.FMU;
@@ -453,9 +456,6 @@ public class FMUComponentImpl extends NamedElementImpl implements FMUComponent {
 		// update variables
 		for (AbstractVariable v : getVariables())
 			v.setValue(getValueFMU(fmu, v));
-		// update only output ports - inputs should not have changed
-		for (Port p : getOutputs())
-			p.setValue(getValueFMU(fmu, p));
 	}
 
 	/**

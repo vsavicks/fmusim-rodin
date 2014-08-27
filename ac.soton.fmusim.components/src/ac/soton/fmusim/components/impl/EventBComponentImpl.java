@@ -28,8 +28,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eventb.core.IEventBRoot;
@@ -54,6 +56,9 @@ import ac.soton.fmusim.components.util.SimulationUtil;
 import com.google.inject.Injector;
 
 import de.be4.classicalb.core.parser.exceptions.BException;
+import de.be4.ltl.core.parser.LtlParseException;
+import de.prob.animator.command.ExecuteUntilCommand;
+import de.prob.animator.domainobjects.LTL;
 import de.prob.model.eventb.EventBModel;
 import de.prob.scripting.EventBFactory;
 import de.prob.statespace.OpInfo;
@@ -225,7 +230,17 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated
 	 * @ordered
 	 */
+	
 	protected static final Trace TRACE_EDEFAULT = null;
+
+	private static final String INIT = "$initialise_machine";
+	private static final String TT = "TRUE=TRUE";
+	private static final String EQ = "=";
+	private static final String AND = "&";
+	private static final String LTL_END = ")";
+	private static final String LTL_OR = "or[";
+	private static final String LTL_RBRACKET = "]";
+	private static final String LTL_START = "F Y ([";
 
 	/**
 	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' attribute.
@@ -244,6 +259,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	private Set<String> readSet = new HashSet<String>();
 	private Set<String> waitSet = new HashSet<String>();
 	private DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
+	private StringBuilder ltl = new StringBuilder();
+	private StringBuilder readInputPredicate = new StringBuilder();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -537,8 +554,10 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("IGNORE_HASH_COLLISIONS","TRUE");
-		params.put("MEMO", "TRUE");
+		params.put("MEMO", "TRUE");		// store statespace - better performance, but increases memory footprint
 		params.put("TIME_OUT", "4000");
+		params.put("CLPFD", "FALSE");	// gives noticable boost
+		params.put("MAX_OPERATIONS", "1"); // gives boost too
 		
 		Injector injector = ServletContextListener.INJECTOR;
 		final EventBFactory instance = injector.getInstance(EventBFactory.class);
@@ -560,6 +579,14 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		for (Event we : getWaitEvents())
 			waitSet.add(we.getName());
 		
+		// 'wait' event enabledness LTL formula
+		ltl.setLength(0);
+		EList<Event> waits = getWaitEvents();
+		ltl.append(LTL_START).append(waits.get(0).getName()).append(LTL_RBRACKET);
+		for (int i=1; i<waits.size(); i++)
+			ltl.append(LTL_OR).append(waits.get(i).getName()).append(LTL_RBRACKET);
+		ltl.append(LTL_END);
+		
 		System.gc();
 	}
 
@@ -575,7 +602,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		//NOTE: setup_constants can be absent if there are no constants
 		trace = trace.anyEvent(null);
 		String currentOpName = trace.getCurrent().getOp().getName();
-		if (currentOpName.startsWith("$initialise_machine") == false)
+		if (currentOpName.equals(INIT) == false)
 			trace = trace.anyEvent(null);
 		
 		// update variables and output ports
@@ -601,7 +628,8 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			return;
 		
 		// build parameter predicate for event execution
-		StringBuilder predicate = new StringBuilder("TRUE=TRUE");
+		readInputPredicate.setLength(0);
+		readInputPredicate.append(TT);
 		for (Port p : getInputs()) {
 			assert p instanceof EventBPort;
 			EventBPort port = (EventBPort) p;
@@ -609,18 +637,22 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 			String parameterName = port.getParameter().getName();
 			
 			Connector connector = port.getIn();
-			
 			// if port not connected, let ProB to pick the value non-deterministically
 			//XXX: should it keep the previous (previous step) input value?
 			if (connector == null)
 				continue;
 			
+			
 			// add parameter to event predicate string
-			predicate.append("&" + parameterName + "=" + SimulationUtil.getEventBValue(connector.getValue(), port.getType(), port.getRealPrecision()));
+
+			readInputPredicate.append(AND)
+				.append(port.getParameter().getName())
+				.append(EQ)
+				.append(SimulationUtil.getEventBValue(port.getIn().getValue(), port.getType(), port.getRealPrecision()));
 		}
 
 		List<OpInfo> readOps = new ArrayList<OpInfo>();
-		String predicateStr = predicate.toString();
+		String predicateStr = readInputPredicate.toString();
 		for (Event e : readEvents) {
 			try {
 				readOps.add(trace.findOneOp(e.getName(), predicateStr));
@@ -633,7 +665,7 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 		
 		// if not found, likely indicates that model is not correct
 		if (readOps.isEmpty()) {
-			throw new ModelException("No enabled read input events could be found for component '" + this.getName() + "' with the predicate: " + predicate.toString());
+			throw new ModelException("No enabled read input events could be found for component '" + this.getName() + "' with the predicate: " + readInputPredicate.toString());
 		}
 
 		// execute 'read inputs' event with calculated parameter predicate
@@ -674,32 +706,22 @@ public class EventBComponentImpl extends AbstractExtensionImpl implements EventB
 	 * @generated NOT
 	 */
 	public void doStep(long time, long step) throws SimulationException {
-		assert trace != null;
-		Set<OpInfo> ops = null;
-		OpInfo nextOp = null;
-		boolean notWait = true;
+		// skip if current event is already a 'wait' event
+		if (waitSet.contains(trace.getCurrent().getOp().getName()))
+			return;
 		
-		while (notWait) {
-			ops = trace.getStateSpace().evaluateOps(trace.getNextTransitions());
-			
-			// check deadlock
-			if (ops == null || ops.isEmpty())
-				throw new SimulationException("Deadlock state reached in "+getName());
-				
-			// find next op
-			nextOp = (OpInfo) ops.toArray()[random.nextInt(ops.size())];
-			
-			// check if wait and read
-			assert nextOp.getName() != null;
-			if (waitSet.contains(nextOp.getName())) {
-				notWait = false;
-				if (readSet.contains(nextOp.getName()))
-					break;
-			}
-			
-			// execute
-			trace = trace.add(nextOp.getId());
+		try {
+			StateSpace stateSpace = trace.getStateSpace();
+			LTL condition = new LTL(ltl.toString());
+			ExecuteUntilCommand command = new ExecuteUntilCommand(trace.getStateSpace(), trace.getCurrentState(), condition);
+			stateSpace.execute(command);
+			trace = trace.addOps(command.getNewTransitions());
+		} catch (LtlParseException e) {
+			throw new SimulationException("LTL parse failure '" + ltl.toString() + "'", e);
 		}
+		
+		if (trace.getNextTransitions().isEmpty())
+			throw new SimulationException("Deadlock state reached in "+getName());
 		
 		// update variables
 		for (AbstractVariable v : getVariables())

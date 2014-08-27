@@ -52,7 +52,7 @@ public class ComponentModelSelectionPage extends ExtensibleModelSelectionPage im
 					// copy component and set a new AbstractExtension reference attribute
 					// to avoid conflicts with other instances of the same machine component
 					EventBComponent componentCopy = EcoreUtil.copy(component);
-					componentCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID + "." + EcoreUtil.generateUUID());
+//					componentCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID + "." + EcoreUtil.generateUUID());
 					
 					model = componentCopy;
 				}

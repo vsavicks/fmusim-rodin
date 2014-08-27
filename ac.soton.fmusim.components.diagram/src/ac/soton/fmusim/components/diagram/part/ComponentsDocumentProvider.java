@@ -818,8 +818,8 @@ public class ComponentsDocumentProvider extends AbstractDocumentProvider
 										it.remove();
 									}
 								}
-								compCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
-										+ "." + EcoreUtil.generateUUID());
+								//								compCopy.setReference(ComponentsPackage.EVENTB_COMPONENT_EXTENSION_ID
+								//										+ "." + EcoreUtil.generateUUID());
 								machine.getExtensions().add(compCopy);
 								resource.save(Collections.EMPTY_MAP);
 							}

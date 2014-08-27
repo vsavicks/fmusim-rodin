@@ -114,24 +114,4 @@ public class ComponentDiagramEditPart extends DiagramEditPart {
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#getTargetEditPart(org.eclipse.gef.Request)
-	 */
-	@Override
-	public EditPart getTargetEditPart(Request request) {
-		if (request instanceof SelectionRequest) {
-			Point location = ((SelectionRequest) request).getLocation();
-			getFigure().translateToAbsolute(location);
-			List<IGraphicalEditPart> children = getChildren();
-			for (IGraphicalEditPart child : children) {
-				Rectangle bounds = child.getFigure().getBounds().getCopy();
-				getFigure().translateToAbsolute(bounds);
-				if (bounds.expand(20, 20).contains(location)) {
-					return child;
-				}
-			}
-		}
-		return super.getTargetEditPart(request);
-	}
-
 }

@@ -404,6 +404,9 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 
 			fFigureFMUVariablesCompartmentFigure = new RectangleFigure();
 
+			fFigureFMUVariablesCompartmentFigure
+					.setBackgroundColor(FFIGUREFMUVARIABLESCOMPARTMENTFIGURE_BACK);
+
 			this.add(fFigureFMUVariablesCompartmentFigure, BorderLayout.CENTER);
 
 		}
@@ -427,6 +430,12 @@ public class FMUComponentEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color THIS_BACK = new Color(null, 196, 255, 204);
+	static final Color THIS_BACK = new Color(null, 160, 198, 99);
+
+	/**
+	 * @generated
+	 */
+	static final Color FFIGUREFMUVARIABLESCOMPARTMENTFIGURE_BACK = new Color(
+			null, 185, 220, 130);
 
 }

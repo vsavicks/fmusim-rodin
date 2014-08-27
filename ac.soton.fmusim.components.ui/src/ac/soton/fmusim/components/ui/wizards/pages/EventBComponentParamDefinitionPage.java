@@ -227,7 +227,7 @@ public class EventBComponentParamDefinitionPage extends AbstractComponentDefinit
 			
 			// set input
 			currentModel = (EventBComponent) source.getModel();
-			stepPeriodText.setText(Double.toString(currentModel.getStepPeriod()));
+			stepPeriodText.setText(Long.toString(currentModel.getStepPeriod()));
 			timeVariableCombo.setInput(currentModel.getMachine().getVariables(), currentModel.getTimeVariable());
 			readEventsViewer.setInput(currentModel.getMachine().getEvents(), currentModel.getReadInputEvents());
 			waitEventsViewer.setInput(currentModel.getMachine().getEvents(), currentModel.getWaitEvents());

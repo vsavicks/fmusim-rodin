@@ -267,6 +267,8 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 
 			RectangleFigure rect0 = new RectangleFigure();
 
+			rect0.setBackgroundColor(RECT0_BACK);
+
 			this.add(rect0, BorderLayout.CENTER);
 
 			ScalablePolygonShape polyline1 = new ScalablePolygonShape();
@@ -286,6 +288,11 @@ public class DisplayComponentEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color THIS_BACK = new Color(null, 196, 224, 255);
+	static final Color THIS_BACK = new Color(null, 97, 167, 219);
+
+	/**
+	 * @generated
+	 */
+	static final Color RECT0_BACK = new Color(null, 171, 206, 238);
 
 }

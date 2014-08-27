@@ -8,7 +8,6 @@
 package ac.soton.fmusim.components.ui.commands;
 
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,17 +16,12 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
@@ -40,14 +34,10 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.progress.IProgressConstants;
-import org.eclipse.ui.services.ISourceProviderService;
-import org.rodinp.core.RodinCore;
-import org.rodinp.core.RodinDBException;
 
 import ac.soton.fmusim.components.ComponentDiagram;
 import ac.soton.fmusim.components.diagram.part.ValidateAction;
 import ac.soton.fmusim.components.master.Master;
-import ac.soton.fmusim.components.ui.ComponentsUIPlugin;
 import ac.soton.fmusim.components.ui.dialogs.SimulationInputDialog;
 
 /**
@@ -58,7 +48,7 @@ public class SimulateCommand extends AbstractHandler {
 
 	private static final long START_DEFAULT = 0;		// default simulation start time
 	private static final long STOP_DEFAULT = 10000;		// default simulation stop time
-	private static final long STEP_DEFAULT = 100;		// default simulation step size
+	private static final long STEP_DEFAULT = 1000;		// default simulation step size
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
@@ -82,6 +72,8 @@ public class SimulateCommand extends AbstractHandler {
 		SimulationInputDialog simulationInputDialog = new SimulationInputDialog(shell, defaultStart, defaultStop, defaultStep);
 		if (simulationInputDialog.open() != InputDialog.OK)
 			return null;
+		
+		setDefaults(diagram, simulationInputDialog.getStartTime(), simulationInputDialog.getStopTime(), simulationInputDialog.getStepSize(), ((DiagramEditor) diagramEditor).getEditingDomain());
 
 		// get output path
 		IEditorInput input = diagramEditor.getEditorInput();
@@ -99,8 +91,7 @@ public class SimulateCommand extends AbstractHandler {
 		final Job job = new Job("Multi-simulation") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
-				Master.simulate(diagram, monitor, params);
-				return Status.OK_STATUS;
+				return Master.simulate(diagram, monitor, params);
 			}
 			@Override
 			public boolean belongsTo(Object family) {
@@ -129,8 +120,38 @@ public class SimulateCommand extends AbstractHandler {
 	}
 
 	/**
+	 * Sets diagram default parameters.
+	 * 
+	 * @param diagram
+	 * @param startTime
+	 * @param stopTime
+	 * @param stepSize
+	 * @param transactionalEditingDomain 
+	 */
+	private void setDefaults(final ComponentDiagram diagram, final long startTime,
+			final long stopTime, final long stepSize, TransactionalEditingDomain editingDomain) {
+		try {
+			new AbstractEMFOperation(editingDomain, "Set defaults") {
+				@Override
+				protected IStatus doExecute(IProgressMonitor arg0,
+						IAdaptable arg1) throws ExecutionException {
+					diagram.setStartTime(startTime);
+					diagram.setStopTime(stopTime);
+					diagram.setStepSize(stepSize);
+					return null;
+				}
+			}.execute(new NullProgressMonitor(), null);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
 	 * Validate the editor content.
 	 * Returns true if validation has found no problems, otherwise false.
+	 * 
 	 * @param diagramEditor
 	 */
 	public static boolean validate(IEditorPart diagramEditor) {

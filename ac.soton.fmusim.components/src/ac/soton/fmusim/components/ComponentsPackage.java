@@ -507,6 +507,15 @@ public interface ComponentsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
+	int EVENT_BCOMPONENT__INTERNAL_ID = CorePackage.ABSTRACT_EXTENSION__INTERNAL_ID;
+
+	/**
+	 * The feature id for the '<em><b>Internal Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
 //	int EVENT_BCOMPONENT__INTERNAL_ID = CorePackage.ABSTRACT_EXTENSION__INTERNAL_ID;
 
 	/**

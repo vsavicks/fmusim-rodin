@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.jscience.mathematics.number.Real;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 import ac.soton.fmusim.components.AbstractVariable;
 import ac.soton.fmusim.components.Component;
@@ -36,6 +37,10 @@ import ac.soton.fmusim.components.exceptions.SimulationException;
  */
 public class Master {
 
+	/**
+	 * 
+	 */
+	private static final String PLUGIN_ID = "ac.soton.fmusim.components.master";
 	// simulation parameter names
 	public static final String OUTPUT_SEPARATOR = ",";
 	public static final String PARAMETER_START_TIME = "parameter.startTime";
@@ -62,8 +67,9 @@ public class Master {
 	 * @param cd
 	 * @param monitor 
 	 * @param params 
+	 * @return 
 	 */
-	public static void simulate(ComponentDiagram cd, IProgressMonitor monitor, Map<String, String> params) {
+	public static IStatus simulate(ComponentDiagram cd, IProgressMonitor monitor, Map<String, String> params) {
 		diagram = cd;
 		tStart = Long.parseLong(params.get(PARAMETER_START_TIME));
 		tStop = Long.parseLong(params.get(PARAMETER_STOP_TIME));
@@ -71,6 +77,9 @@ public class Master {
 		resultFile = new File(params.get(PARAMETER_OUTPUT_FILE));
 		updateList.clear();
 		evaluationList.clear();
+		long cStep;
+		IStatus status = Status.OK_STATUS;
+		long simulationTime = System.currentTimeMillis();
 		
 		setNotification(false);
 		
@@ -79,31 +88,31 @@ public class Master {
 			for (Component c : diagram.getComponents())
 				c.instantiate();
 		} catch (SimulationException e) {
-			e.printStackTrace();
-			//TODO: terminate instantiated fmus
-			return;
+			return new Status(IStatus.ERROR, PLUGIN_ID, "Failed to instantiate", e);
 		}
 		
 		// create output file
 		resultWriter = apiCreateOutput((File) resultFile);
 		if (resultWriter == null) {
-			//TODO: add output error handling
-			return;
+			return new Status(IStatus.ERROR, PLUGIN_ID, "Failed to create an output file.");
 		}
 		
 		// initialisation step
 		for (Component c : diagram.getComponents()) {
 			c.initialise(tStart, tStop);
 			// time-zero initialisation
-			updateList.put(c, 0L);
+			updateList.put(c, tStart);
 		}
 		
-		// initial output
+		// header output
 		apiOutputColumns(diagram, resultWriter);
-		apiOutput(diagram, tStart, resultWriter);
 
 		// simulation loop
 		for (tCurrent = tStart; tCurrent <= tStop; ++tCurrent) {
+			if (monitor.isCanceled()) {
+				status = Status.CANCEL_STATUS;
+				break;
+			}
 			
 			// read update list for evaluation-ready components
 			for (Component c : diagram.getComponents()) {
@@ -142,8 +151,11 @@ public class Master {
 			// do step & update the update list
 			for (Component c : evaluationList)
 				try {
-					c.doStep(tCurrent, step);
-					updateList.put(c, updateList.get(c) + c.getStepPeriod());
+					cStep = c.getStepPeriod() == 0 ? step : c.getStepPeriod();
+					if (tCurrent + cStep <= tStop) {
+						c.doStep(tCurrent, cStep);
+						updateList.put(c, updateList.get(c) + cStep);
+					}
 				} catch (SimulationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -172,6 +184,11 @@ public class Master {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if (status.getSeverity() == Status.OK)
+			status = new Status(IStatus.OK, PLUGIN_ID, "Completed in " + (System.currentTimeMillis() - simulationTime) + "ms");
+		
+		return status;
 	}
 
 	/**

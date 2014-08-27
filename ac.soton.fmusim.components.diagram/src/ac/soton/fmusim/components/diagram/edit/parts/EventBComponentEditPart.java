@@ -405,6 +405,9 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 
 			fFigureEventBVariablesCompartmentFigure = new RectangleFigure();
 
+			fFigureEventBVariablesCompartmentFigure
+					.setBackgroundColor(FFIGUREEVENTBVARIABLESCOMPARTMENTFIGURE_BACK);
+
 			this.add(fFigureEventBVariablesCompartmentFigure,
 					BorderLayout.CENTER);
 
@@ -429,6 +432,12 @@ public class EventBComponentEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color THIS_BACK = new Color(null, 255, 224, 196);
+	static final Color THIS_BACK = new Color(null, 254, 149, 57);
+
+	/**
+	 * @generated
+	 */
+	static final Color FFIGUREEVENTBVARIABLESCOMPARTMENTFIGURE_BACK = new Color(
+			null, 255, 169, 86);
 
 }

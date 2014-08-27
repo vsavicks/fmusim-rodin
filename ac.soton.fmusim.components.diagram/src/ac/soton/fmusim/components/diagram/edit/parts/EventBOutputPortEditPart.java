@@ -236,16 +236,19 @@ public class EventBOutputPortEditPart extends AbstractBorderItemEditPart {
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		return new ChopboxAnchor(getNodeFigure());
-	}	
+	}
+
 	@Override
 	public void showTargetFeedback(Request request) {
 		super.showTargetFeedback(request);
 		// the feedback layer figures do not receive mouse e
-		if (feedbackFigure == null ) {
-			feedbackFigure = new Label(((Port) getNotationView().getElement()).getName());
+		if (feedbackFigure == null) {
+			feedbackFigure = new Label(
+					((Port) getNotationView().getElement()).getName());
 			feedbackFigure.setFont(new Font(null, "Arial", 12, SWT.NORMAL));
 			Rectangle bounds = feedbackFigure.getTextBounds().getCopy();
-			bounds.setLocation(getFigure().getBounds().getLocation().translate(13, -bounds.height));
+			bounds.setLocation(getFigure().getBounds().getLocation()
+					.translate(13, -bounds.height));
 			IFigure layer = getLayer(LayerConstants.FEEDBACK_LAYER);
 			layer.add(feedbackFigure);
 		}

@@ -7,6 +7,7 @@
  */
 package ac.soton.fmusim.components.util;
 
+import ac.soton.fmusim.components.*;
 import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.ITrace2D;
 

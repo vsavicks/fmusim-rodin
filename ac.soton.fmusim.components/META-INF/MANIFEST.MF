@@ -20,8 +20,8 @@ Export-Package: ac.soton.fmusim.components,
  org.jscience.mathematics.number
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eventb.emf.core;bundle-version="[2.2.4,2.5.0)",
+ org.eventb.emf.core;bundle-version="3.0.0",
  org.eventb.core;bundle-version="2.5.1",
  org.eclipse.emf.workspace;bundle-version="1.5.1",
- de.prob.ui;visibility:=reexport;bundle-version="1.0.0"
+ de.prob2.kernel.bundle;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy

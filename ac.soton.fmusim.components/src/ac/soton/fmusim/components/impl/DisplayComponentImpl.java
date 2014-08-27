@@ -38,6 +38,7 @@ import ac.soton.fmusim.components.DisplayComponent;
 import ac.soton.fmusim.components.DisplayPort;
 import ac.soton.fmusim.components.Port;
 import ac.soton.fmusim.components.VariableType;
+import ac.soton.fmusim.components.exceptions.ModelException;
 import ac.soton.fmusim.components.exceptions.SimulationException;
 
 /**
